@@ -5,7 +5,7 @@ export default function Home() {
     const {post} = useForm({})
     const handleLogout = (e) => {
         e.preventDefault()
-        post('/logout')
+        post('/sign-out')
     }
     return (
 

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
-    public function signup(Request $req) {
+    public function signUp(Request $req) {
 
         $fields = $req->validate([
             'full_name' => ['required', 'max:255'],
@@ -22,13 +25,28 @@ class AuthController extends Controller
 
         Auth::login($user);
         
+        event(new Registered($user));
 
         return redirect()->route('home');
         
     }
 
+    public function showVerifyNotice() {
+        return Inertia::render('Auth/VerifyNotice');
+    }
 
-    public function login(Request $req) {
+    public function verifyEmail(EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/');
+    }
+
+    public function resendVerification (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'Verification email sent!');
+    }
+
+
+    public function signIn(Request $req) {
 
         $fields = $req->validate([
             'email' => ['required', 'max:255', 'email'],
@@ -37,7 +55,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($fields, $req->remember_me)) {
             // return redirect()->intended();
-            return redirect('/home');
+            return redirect('/');
         } else {
             return back()->withErrors([
                 'failed' => 'Credentials do not match our records'
@@ -48,11 +66,11 @@ class AuthController extends Controller
     }
 
 
-    public function logout(Request $req) {
+    public function signOut(Request $req) {
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/sign-in');
     }
 }

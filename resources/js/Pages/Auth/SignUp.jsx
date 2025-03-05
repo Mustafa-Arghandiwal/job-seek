@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react"
-import { useForm } from "@inertiajs/react"
+import { useForm, Link } from "@inertiajs/react"
+
 export default function SignUp() {
     const {data, setData, post, errors, processing} = useForm({
         full_name: '',
@@ -29,7 +30,7 @@ export default function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post("/signup")
+        post("/sign-up")
     }
 
     return (
@@ -47,8 +48,8 @@ export default function SignUp() {
                         <div className="flex flex-col gap-2">
                             <h1 className="text-gray-900 text-[32px]">Create account.</h1>
                             <div className="flex gap-1">
-                                <p className="text-gray-600 text-[16px]">Already have an account?</p>
-                                <a className="text-[#0A65CC] text-[16px]" href="/">Log In</a>
+                                <p className="text-gray-600">Already have an account?</p>
+                                <Link className="text-[#0A65CC]" href="/sign-in">Sign In</Link>
                             </div>
 
                         </div>
@@ -72,17 +73,17 @@ export default function SignUp() {
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         <div className="h-16">
-                            <input type="text" placeholder="Full Name"  value={data.full_name} onChange={(e) => setData('full_name', e.target.value)} className="h-12 w-full rounded-md border border-gray-100 text-base px-3 outline-none" />
+                            <input type="text" placeholder="Full Name"  value={data.full_name} onChange={(e) => setData('full_name', e.target.value)} className="h-12 w-full rounded-md border border-gray-100  px-3 outline-none" />
                             {errors.full_name && <p className="text-sm text-danger-600">{errors.full_name}</p>}    
                         </div>
                         <div className="h-16">
-                            <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-gray-100 text-base px-3 outline-none" />
+                            <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-gray-100  px-3 outline-none" />
                             {errors.email && <p className="text-sm text-danger-600">{errors.email}</p>}
                         </div>
 
                         <div className="h-16">
                             <div className="relative">
-                                <input type={passVis ? 'text' : 'password'} placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} className="h-12 w-full rounded-md border border-gray-100 text-base px-3 outline-none" />
+                                <input type={passVis ? 'text' : 'password'} placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} className="h-12 w-full rounded-md border border-gray-100  px-3 outline-none" />
                                 <button tabIndex="-1" type="button" onClick={() => setPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
                                     <img src="fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-0" : "opacity-100"}`} />
                                     <img src="fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-100" : "opacity-0"}`} />
@@ -94,7 +95,7 @@ export default function SignUp() {
                                 
                         <div className="h-16">
                             <div className="relative">
-                                <input type={confirmPassVis ? 'text' : 'password'} placeholder="Confirm Password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} className="h-12 w-full rounded-md border border-gray-100 text-base px-3 outline-none" />
+                                <input type={confirmPassVis ? 'text' : 'password'} placeholder="Confirm Password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} className="h-12 w-full rounded-md border border-gray-100  px-3 outline-none" />
                                 <button tabIndex="-1" type="button" onClick={() => setConfirmPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer">
                                     <img src="fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confirmPassVis ? "opacity-0" : "opacity-100"}`} />
                                     <img src="fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confirmPassVis ? "opacity-100" : "opacity-0"}`} />
@@ -113,7 +114,7 @@ export default function SignUp() {
                             </div>
                         
 
-                        <button disabled={processing} className="border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-[#CEE0F5] text-white font-semibold text-base cursor-pointer">
+                        <button disabled={processing} className="border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold  cursor-pointer">
                             Create Account <img src="arrow-right.svg" />
                         </button>
                     </form>
