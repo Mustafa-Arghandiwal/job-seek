@@ -27,11 +27,9 @@ export default function Layout({ children }) {
 
    useEffect(() => {
 
-    const handleNavigate = () => {
+    return router.on('finish', () => {
         setDropdownVisible(false)
-    }
-    router.on('navigate', handleNavigate)
-    return () => router.off('navigate', handleNavigate)
+    })
     
    }, [])
 
@@ -45,7 +43,7 @@ export default function Layout({ children }) {
                         <li><Link href="/find-job" className={`${url==='/find-job' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/find-employers" className={`${url==='/find-employers' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
                         <li><Link href="/dashboard" className={`${url==='/dashboard' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
-                        <li><Link href="/support" className={`${url==='/support' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
+                        <li><Link href="/support" className={`${url==='/suppor' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
 
                     <div className=" flex gap-1">
