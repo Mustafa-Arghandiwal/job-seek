@@ -22,7 +22,6 @@ export default function ResetPassword() {
     }
 
 
-    console.log(props)
 
     return (
         <div className="h-[100svh] border relative grid place-items-center px-5 ">
