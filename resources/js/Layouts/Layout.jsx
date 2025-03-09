@@ -41,11 +41,11 @@ export default function Layout({ children }) {
             <header className="">
                 <nav className="h-12 bg-customGray-50 flex justify-between items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden md:flex ">
-                        <li><Link href="/" className={url==='/' ? 'border-b-2 border-b-primary-500 text-primary-500 pb-3.5': ''}>Home</Link></li>
-                        <li><Link href="/find-job" className={url==='/find-job' ? 'border-b-2 border-b-primary-500 text-primary-500 pb-3.5': ''}>Find Job</Link></li>
-                        <li><Link href="#" className={url==='/find-employers' ? 'border-b-2 border-b-primary-500 text-primary-500 pb-3.5': ''}>Find Employers</Link></li>
-                        <li><Link href="#" className={url==='/dashboard' ? 'border-b-2 border-b-primary-500 text-primary-500 pb-3.5': ''}>Dashboard</Link></li>
-                        <li><Link href="#" className={url==='/support' ? 'border-b-2 border-b-primary-500 text-primary-500 pb-3.5': ''}>Support</Link></li>
+                        <li><Link href="/" className={`${url==='/' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
+                        <li><Link href="/find-job" className={`${url==='/find-job' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
+                        <li><Link href="/find-employers" className={`${url==='/find-employers' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
+                        <li><Link href="/dashboard" className={`${url==='/dashboard' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
+                        <li><Link href="/support" className={`${url==='/support' ? 'after:w-full text-primary-500': 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
 
                     <div className=" flex gap-1">
