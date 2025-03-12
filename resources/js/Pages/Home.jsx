@@ -1,6 +1,7 @@
-import { usePage, useForm } from "@inertiajs/react"
+import { usePage, useForm, Link } from "@inertiajs/react"
 import Layout from "../Layouts/Layout"
 import Category from "../Components/Category"
+import Job from "../Components/Job"
 
 function Home() {
     const { auth } = usePage().props
@@ -37,7 +38,7 @@ function Home() {
 
 
                 <div className="flex flex-wrap justify-center xl:justify-normal gap-4 mt-15 ">
-                    
+
                     <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md">
                         <img src="briefcase_home.png" className="w-[72px] h-[72px]" />
                         <div className="flex flex-col gap-1.5">
@@ -76,18 +77,38 @@ function Home() {
             </section>
 
 
-            <section className="px-4 md:px-14 lg:px-20 py-10 md:py-16 lg:py-24 ">
-                <h2 className="font-medium text-[25px] ">Popular Categories</h2>
-                
-                    <div className="py-3 px-2 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-4 scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Category icon="categories/pen.png" name={"Graphics & Design"} openCount={12}/>
-                    <Category icon="categories/code.png" name={"Programming"} openCount={7}/>
-                    <Category icon="categories/speaker.png" name={"Digital Marketing"} openCount={26}/>
-                    <Category icon="categories/video.png" name={"Video and Animation"} openCount={2}/>
-                    <Category icon="categories/graph.png" name={"Finance & Accounting"} openCount={45}/>
-                    <Category icon="categories/db.png" name={"Data & Informaion"} openCount={8}/>
+            <section className="  xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
+                <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
+
+                <div className=" px-4 md:px-8 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-4 scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
+                    <Category icon="categories/pen.png" name={"Graphics & Design"} openCount={12} />
+                    <Category icon="categories/code.png" name={"Programming"} openCount={7} />
+                    <Category icon="categories/speaker.png" name={"Digital Marketing"} openCount={26} />
+                    <Category icon="categories/video.png" name={"Video and Animation"} openCount={2} />
+                    <Category icon="categories/graph.png" name={"Finance & Accounting"} openCount={45} />
+                    <Category icon="categories/db.png" name={"Data & Informaion"} openCount={8} />
                 </div>
 
+            </section>
+
+
+            <section className="mb-10 p-4 ">
+                <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
+                    <div className="w-full flex justify-between">
+                        <h2 className="font-medium text-xl md:text-[25px] px-4 ">Featured Jobs</h2>
+                        <Link href="#" className="flex flex-wrap gap-3 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View all <img className="w-6" src="arrow.svg" /></Link>
+                    </div>
+
+                    <div className="flex flex-col gap-4 mt-12 ">
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                    </div>
+
+                </div>
             </section>
 
 
