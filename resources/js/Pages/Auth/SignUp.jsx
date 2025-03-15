@@ -34,10 +34,10 @@ export default function SignUp() {
     }
 
     return (
-        <div className="font-inter grid grid-cols-1 md:grid-cols-2 md:grid-rows-1 h-[100svh]">
+        <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-1">
 
-            <div className="flex flex-col relative">
-                <div className="flex items-center px-4 py-2 mb-4">
+            <div className="flex flex-col justify-center items-center w-full px-4 py-2">
+                <div className="flex items-center gap-1 px-4 py-2 mb-4">
                     <img src="briefcase.svg" />
                     <span className="font-semibold text-2xl">JobSeek</span>
                 </div>
@@ -95,12 +95,16 @@ export default function SignUp() {
                          </div>
                             {errors.password && <p className="text-sm text-danger-600">{errors.password}</p>}
                     </div>
-                    <div className="flex gap-0.5">
+                    <div className="flex gap-5 mt-5">
+
+                        <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
                         <label className="text-sm text-gray-600 flex gap-2 cursor-pointer">
-                            <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
-                                    I've read and agree with your
+                            <p>
+                                I've read and agree with your
+                                <a href="#" className="text-[#0A65CC] text-sm"> Terms of Service</a>
+                            </p>
                         </label>
-                        <a href="#" className="text-[#0A65CC] text-sm"> Terms of Service</a>
+                        
                     </div>
                         
 
@@ -112,7 +116,7 @@ export default function SignUp() {
 
             </div>
 
-            <div className="relative bg-[url('bg2.jpg')] bg-cover bg-center invisible md:w-[50vw] md:visible">
+            <div className="relative bg-[url('bg2.jpg')] bg-cover bg-center hidden md:w-[50vw] lg:block">
                 <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
                         Over 300 companies waiting for good employees

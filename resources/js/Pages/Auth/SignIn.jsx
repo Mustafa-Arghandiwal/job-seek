@@ -16,10 +16,10 @@ export default function SignIn() {
     }
 
     return (
-        <div className="font-inter grid grid-cols-1 md:grid-rows-1 md:grid-cols-2 h-[100svh] relative">
-            <div className="flex flex-col relative">
+        <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-rows-1 lg:grid-cols-2">
+            <div className="flex flex-col justify-center items-center w-full px-4 py-2">
 
-                <div className="flex gap-1 px-4 py-2 mb-4">
+                <div className="flex items-center gap-1 px-4 py-2 mb-4">
                     <img src="briefcase.svg" />
                     <span className="font-semibold text-2xl">JobSeek</span>
                 </div>
@@ -73,7 +73,7 @@ export default function SignIn() {
                 </div>
             </div>
 
-            <div className="relative bg-[url('bg2.jpg')]  bg-cover bg-center invisible md:visible md:w-[50vw]">
+            <div className="relative bg-[url('bg2.jpg')]  bg-cover bg-center hidden lg:block md:w-[50vw]">
                 <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
                         Over 300 companies waiting for good employees
