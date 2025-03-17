@@ -4,7 +4,7 @@ export default function Job(props) {
 
 
     return (
-        <div className=" relative border border-primary-50 flex w-full justify-between gap-3 flex-wrap items-center p-8  rounded-xl hover:border-primary-300 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-xl peer duration-150">
+        <div className=" relative border border-primary-50 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-8  rounded-xl hover:border-primary-300 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-xl peer duration-150 snap-center">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center"

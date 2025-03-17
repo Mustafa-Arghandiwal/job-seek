@@ -91,21 +91,59 @@ function Home() {
 
             </section>
 
+            <section className="bg-customGray-50 gap-6 rounded-xl">
+                <div className=" xl:px-4 py-10 md:py-16 lg:py-24 max-w-[700px] lg:max-w-[1320px]   mx-auto">
+                    <h2 className="text-center text-4xl lg:text-[40px] font-medium text-gray-900">JobSeek is Simple</h2>
 
-            <section className="mb-10 p-4 ">
+                    <div className="grid  grid-cols-2 lg:grid-cols-4 gap-4 mt-[50px] px-4  relative ">
+                        
+                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%]"/>
+                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%]"/>
+                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%]"/>
+
+                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl shadow-md">
+                            <img src="extra/create-account.png" className="max-h-[72px]"/>
+                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Create an Account</span>
+                            {/* <span className="text-gray-500 text-sm text-center">Create a candidate account</span> */}
+                        </div>
+
+                        <div className="flex flex-col max-w-[312px] justify-center items-center bg-white gap-3  p-6 pb-10 rounded-xl shadow-md">
+                            <img src="extra/upload.png" className="max-h-[72px]"/>
+                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3  text-center">Upload CV/Resume</span>
+                            {/* <span className="text-gray-500 text-sm text-center">Upload your resume (PDF/Word document) to your profile</span> */}
+                        </div>
+
+                        <div className="flex flex-col max-w-[312px] justify-center items-center gap-3  shadow-md p-6 pb-10 rounded-xl">
+                            <img src="extra/find.png" className="max-h-[72px]"/>
+                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Find Your Job</span>
+                            {/* <span className="text-gray-500 text-sm text-center">Find a job that suits you</span> */}
+                        </div>
+
+                        <div className="flex flex-col max-w-[312px] justify-center items-center gap-3 shadow-md p-6 pb-10 rounded-xl">
+                            <img src="extra/apply.png" className="max-h-[72px]"/>
+                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Apply</span>
+                            {/* <span className="text-gray-500 text-sm text-center">Apply in seconds!</span> */}
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section className="mb-10 py-4">
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
-                    <div className="w-full flex justify-between">
+                    <div className="w-full flex justify-between px-4">
                         <h2 className="font-medium text-xl md:text-[25px] px-4 ">Featured Jobs</h2>
                         <Link href="#" className="flex flex-wrap gap-3 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View all <img className="w-6" src="arrow.svg" /></Link>
                     </div>
 
-                    <div className="flex flex-col gap-4 mt-12 ">
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"}/>
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"}/>
+                    <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
                     </div>
 
                 </div>
