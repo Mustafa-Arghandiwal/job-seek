@@ -9,7 +9,7 @@ use App\Http\Controllers\PasswordResetController;
 //     return view('welcome');
 // });
 
-Route::inertia('/', 'Home')->middleware('verified')->name('home');
+Route::inertia('/', 'Home')->name('home');
 
 Route::inertia('/sign-up', 'Auth/SignUp');
 
@@ -32,3 +32,7 @@ Route::post('forgot-password', [PasswordResetController::class, 'sendPassResetLi
 Route::get('/reset-password', function() {return redirect('/forgot-password');});
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetPassword'])->middleware('guest')->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->middleware('guest')->name('password.update');
+
+
+
+Route::inertia('/find-job', 'FindJob')->name('find-job');
