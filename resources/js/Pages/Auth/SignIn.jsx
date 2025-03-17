@@ -17,20 +17,22 @@ export default function SignIn() {
 
     return (
         <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-rows-1 lg:grid-cols-2">
-            <div className="flex flex-col justify-center items-center w-full px-4 py-2">
+            <div className="flex flex-col justify-center items-center w-full px-4 py-2 ">
 
-                <div className="flex items-center gap-1 px-4 py-2 mb-4">
+                <div className="absolute top-2 left-8 flex items-center gap-1">
                     <img src="briefcase.svg" />
                     <span className="font-semibold text-2xl">JobSeek</span>
                 </div>
 
-                <div className="flex flex-col items-center gap-7 px-4 py-2">
+                <div className="flex flex-col  gap-7 px-4 py-2 max-w-[536px] w-full">
 
-                        <div className="">
+                        <div className=" ">
                             <h1 className="text-gray-900 text-[32px]">Sign in</h1>
-                            <p className="text-gray-600">Don't have an account?
+                            <div className="flex flex-wrap gap-1 mt-2 sm:mt-0">
+                                <p className="text-gray-600">Don't have an account?</p>
                                 <a className="text-[#0A65CC]" href="/sign-up"> Create Account</a>
-                            </p>
+
+                            </div>
                         </div>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1 w-full max-w-[520px]">
@@ -51,7 +53,7 @@ export default function SignIn() {
                             {errors.password && <p className="text-sm text-danger-600">{errors.password}</p>}
                         </div>
 
-                        <div className="flex justify-between gap-0.5 ">
+                        <div className="flex justify-between gap-2 flex-wrap ">
                             <label className="text-sm text-gray-600 flex gap-2 cursor-pointer">
                                 <input type="checkbox" checked={data.remember_me} onChange={(e) => setData('remember_me', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
                                     Remember Me

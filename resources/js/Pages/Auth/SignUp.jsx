@@ -34,30 +34,32 @@ export default function SignUp() {
     }
 
     return (
-        <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-1">
+        <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-1 pt-10 sm:pt-0">
 
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
-                <div className="flex items-center gap-1 px-4 py-2 mb-4">
+                <div className="absolute top-2 left-8 flex items-center gap-1">
                     <img src="briefcase.svg" />
                     <span className="font-semibold text-2xl">JobSeek</span>
                 </div>
 
-                <div className="flex flex-col items-center">
-                <div className="flex flex-col sm:flex-row sm:justify-between px-4 py-2 w-full max-w-[520px]">
+                <div className="flex flex-col items-center  max-w-[536px] w-full">
+                <div className="flex flex-row justify-between items-center flex-wrap gap-2 px-4 py-2 w-full max-w-[520px] ">
                     <div className="flex flex-col">
-                        <h1 className="text-gray-900 text-[24px]">Create account.</h1>
-                        <p className="text-gray-600">Already have an account?
+                        <h1 className="text-gray-900 text-[32px]">Create account.</h1>
+                        <div className="flex flex-wrap gap-0.5 mt-2 sm:mt-0">
+                            <p className="text-gray-600">Already have an account?</p>
                             <a className="text-[#0A65CC]" href="/sign-in"> Sign In</a>
-                        </p>
+
+                        </div>
                     </div>
 
-                    <div className="relative self-end">
+                    <div className="relative ml-auto">
                         <button ref={dropDownBtn} className="text-[14px] text-gray-600 h-12 flex justify-between px-7 items-center border border-gray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                             onClick={() => setDropdownVisible(prev => !prev)}>
                                 {data.role} 
                             <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="CaretDown.svg" />
                         </button>
-                        <div className={`absolute shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-gray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
+                        <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-gray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
                             <span onClick={() => setData("role", "Candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Candidate</span>
                             <span onClick={() => setData("role", "Employer")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Employer</span>
                         </div>
@@ -99,10 +101,11 @@ export default function SignUp() {
 
                         <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
                         <label className="text-sm text-gray-600 flex gap-2 cursor-pointer">
-                            <p>
-                                I've read and agree with your
+                            <div className="flex flex-wrap gap-0.5">
+                                <p>I've read and agree with your</p>
                                 <a href="#" className="text-[#0A65CC] text-sm"> Terms of Service</a>
-                            </p>
+
+                            </div>
                         </label>
                         
                     </div>
