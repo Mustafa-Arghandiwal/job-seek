@@ -28,25 +28,25 @@ export default function ForgotPassword() {
     }
 
     return (
-        <div className="font-inter flex h-[100svh]  justify-between relative">
+        <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-rows-1 lg:grid-cols-2">
             
-            <div className="grid place-items-center w-[50vw] relative">
+            <div className="flex flex-col justify-center items-center w-full px-4 py-2">
 
                 <div className="absolute top-2 left-8 flex items-center gap-1">
                     <img src="briefcase.svg" />
                     <span className="font-semibold text-2xl">JobSeek</span>
                 </div>
 
-                <div className="p-2 min-w-[536px] flex flex-col gap-7">
+                <div className="flex flex-col  gap-7 px-4 py-2 max-w-[536px] w-full">
 
                     <div className="flex justify-between items-center">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-gray-900 text-[32px]">Forgot Your Password?</h1>
-                            <div className="flex gap-1">
+                            <h1 className="text-gray-900 text-[26px] sm:text-[32px]">Forgot Your Password?</h1>
+                            <div className="flex flex-wrap gap-1">
                                 <p className="text-gray-600">Go back to</p>
                                 <Link className="text-[#0A65CC]" href="/sign-in">Sign In</Link>
                             </div>
-                            <div className="flex gap-1">
+                            <div className="flex flex-wrap gap-1 mt-2 sm:mt-0">
                                 <p className="text-gray-600">Don't have an account?</p>
                                 <Link className="text-[#0A65CC]" href="/sign-up">Create Account</Link>
                             </div>
@@ -76,7 +76,7 @@ export default function ForgotPassword() {
 
             </div>
 
-            <div className="relative bg-[url('bg2.jpg')]  w-[50vw] bg-cover bg-center">
+            <div className="relative bg-[url('bg2.jpg')]  w-[50vw] bg-cover bg-center hidden lg:block md:w-[50vw]">
                 <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
                         Over 300 companies waiting for good employees
