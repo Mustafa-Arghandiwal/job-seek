@@ -48,7 +48,7 @@ export default function SignUp() {
                         <h1 className="text-gray-900 text-[32px]">Create account.</h1>
                         <div className="flex flex-wrap gap-0.5 mt-2 sm:mt-0">
                             <p className="text-gray-600">Already have an account?</p>
-                            <a className="text-[#0A65CC]" href="/sign-in"> Sign In</a>
+                            <Link className="text-[#0A65CC]" href="/sign-in"> Sign In</Link>
 
                         </div>
                     </div>
@@ -103,7 +103,7 @@ export default function SignUp() {
                         <label className="text-sm text-gray-600 flex gap-2 cursor-pointer">
                             <div className="flex flex-wrap gap-0.5">
                                 <p>I've read and agree with your</p>
-                                <a href="#" className="text-[#0A65CC] text-sm"> Terms of Service</a>
+                                <Link href="#" className="text-[#0A65CC] text-sm"> Terms of Service</Link>
 
                             </div>
                         </label>

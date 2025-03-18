@@ -30,7 +30,7 @@ export default function SignIn() {
                             <h1 className="text-gray-900 text-[32px]">Sign in</h1>
                             <div className="flex flex-wrap gap-1 mt-2 sm:mt-0">
                                 <p className="text-gray-600">Don't have an account?</p>
-                                <a className="text-[#0A65CC]" href="/sign-up"> Create Account</a>
+                                <Link className="text-[#0A65CC]" href="/sign-up"> Create Account</Link>
 
                             </div>
                         </div>
