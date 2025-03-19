@@ -2,6 +2,7 @@ import { usePage, useForm, Link } from "@inertiajs/react"
 import Layout from "../Layouts/Layout"
 import Category from "../Components/Category"
 import Job from "../Components/Job"
+import Company from "../Components/Company"
 
 function Home() {
     const { auth } = usePage().props
@@ -96,31 +97,31 @@ function Home() {
                     <h2 className="text-center text-4xl lg:text-[40px] font-medium text-gray-900">JobSeek is Simple</h2>
 
                     <div className="grid  grid-cols-2 lg:grid-cols-4 gap-4 mt-[50px] px-4  relative ">
-                        
-                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%]"/>
-                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%]"/>
-                        <img src="extra/arrow.png"  className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%]"/>
+
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%]" />
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%]" />
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%]" />
 
                         <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl shadow-md">
-                            <img src="extra/create-account.png" className="max-h-[72px]"/>
+                            <img src="extra/create-account.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Create an Account</span>
                             {/* <span className="text-gray-500 text-sm text-center">Create a candidate account</span> */}
                         </div>
 
                         <div className="flex flex-col max-w-[312px] justify-center items-center bg-white gap-3  p-6 pb-10 rounded-xl shadow-md">
-                            <img src="extra/upload.png" className="max-h-[72px]"/>
+                            <img src="extra/upload.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3  text-center">Upload CV/Resume</span>
                             {/* <span className="text-gray-500 text-sm text-center">Upload your resume (PDF/Word document) to your profile</span> */}
                         </div>
 
                         <div className="flex flex-col max-w-[312px] justify-center items-center gap-3  shadow-md p-6 pb-10 rounded-xl">
-                            <img src="extra/find.png" className="max-h-[72px]"/>
+                            <img src="extra/find.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Find Your Job</span>
                             {/* <span className="text-gray-500 text-sm text-center">Find a job that suits you</span> */}
                         </div>
 
                         <div className="flex flex-col max-w-[312px] justify-center items-center gap-3 shadow-md p-6 pb-10 rounded-xl">
-                            <img src="extra/apply.png" className="max-h-[72px]"/>
+                            <img src="extra/apply.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Apply</span>
                             {/* <span className="text-gray-500 text-sm text-center">Apply in seconds!</span> */}
                         </div>
@@ -149,6 +150,59 @@ function Home() {
                 </div>
             </section>
 
+
+            <section className="sm:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto ">
+                <h2 className="font-medium text-[25px] px-4 ">Top Companies</h2>
+                {/* px-4 md:px-8    */}
+                <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
+                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                </div>
+
+            </section>
+
+
+            <section className="bg-customGray-50 gap-6 rounded-xl">
+                <div className=" xl:px-4 py-10 md:py-16 lg:py-24 max-w-[700px] lg:max-w-[1320px] border   mx-auto">
+
+                </div>
+
+            </section>
+
+
+            <section className="flex gap-6 flex-wrap sm:flex-nowrap justify-center items-center sm:px-4 py-10 mb-10 md:py-16 lg:py-24 px-4 md:px-8 max-w-[1320px]   mx-auto ">
+                <div className="bg-customGray-100 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl ">
+                    <h4 className="text-[32px] font-medium">Become a Candidate</h4>
+                    <p className="text-sm max-w-[312px] text-gray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
+                    <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
+                        <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+
+                </div>
+
+
+                <div className="bg-primary-600 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl duration-150">
+                    <h4 className="text-[32px] text-white font-medium">Become an Employer</h4>
+                    <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
+                    <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
+                        <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+
+                </div>
+
+            </section>
 
         </>
     )

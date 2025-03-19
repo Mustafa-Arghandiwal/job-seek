@@ -13,17 +13,21 @@ export default function Layout({ children }) {
 
     const handleScroll = () => {
         const currentScrollY = window.scrollY
-        //138 is the heading's height in pixels
-        if(currentScrollY <= 138) {
-            setIsVisible(true)
+        //138 is the header's height in pixels
+        if(dropdownVisible) {
+           setIsVisible(true)
         } else {
-
-            if (window.scrollY > lastScrollY) {
-              setIsVisible(false); 
+            if(currentScrollY <= 138) {
+                setIsVisible(true)
             } else {
-              setIsVisible(true); 
+    
+                if (window.scrollY > lastScrollY) {
+                  setIsVisible(false); 
+                } else {
+                  setIsVisible(true); 
+                }
+    
             }
-
         }
         
         
