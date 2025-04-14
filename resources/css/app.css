@@ -49,5 +49,21 @@
     --color-danger-700: #863131;
     --color-danger-800: #5A2020;
     --color-danger-900: #2D1010;
+
+
+    --color-customGray-50: #F1F2F4;
+    --color-customGray-100: #E4E5E8;
+    --color-customGray-200: #C8CCD1;
+    --color-customGray-300: #ADB2BA;
+    --color-customGray-400: #9199A3;
+    --color-customGray-500: #767F8C;
+    --color-customGray-600: #5E6670;
+    --color-customGray-700: #474C54;
+    --color-customGray-800: #2F3338;
+    --color-customGray-900: #464D61;
+
+
     
 }
+
+
