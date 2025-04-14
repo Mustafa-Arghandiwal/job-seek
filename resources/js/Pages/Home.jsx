@@ -108,7 +108,7 @@ function Home() {
                             {/* <span className="text-gray-500 text-sm text-center">Create a candidate account</span> */}
                         </div>
 
-                        <div className="flex flex-col max-w-[312px] justify-center items-center bg-white gap-3  p-6 pb-10 rounded-xl shadow-md">
+                        <div className="flex flex-col max-w-[312px] justify-center items-center  gap-3  p-6 pb-10 rounded-xl shadow-md">
                             <img src="extra/upload.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3  text-center">Upload CV/Resume</span>
                             {/* <span className="text-gray-500 text-sm text-center">Upload your resume (PDF/Word document) to your profile</span> */}

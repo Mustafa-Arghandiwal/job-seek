@@ -16,16 +16,31 @@ class AuthController extends Controller
         $fields = $req->validate([
             'full_name' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'email', 'unique:users'],
+            'user_type' => ['required', 'in:candidate,employer'],
             'password' => ['required', 'min:6', 'confirmed'],
             'agree_terms' => ['accepted']
         ]);
+        // $fields['user_type'] = $req->input('user_type');
+        // dd($fields);
+        // $user = User::create($fields);
+        $user = new User();
+        $user->full_name = $fields['full_name'];
+        $user->email = $fields['email'];
+        $user->password = bcrypt($fields['password']); // bcrypt needed here??
+        $user->user_type = $fields['user_type'];
+        $user->save();
 
-        $user = User::create($fields);
+        if($user->user_type === 'candidate') {
+            $user->candidate()->create(['user_id' => $user->id]);
+        }
 
 
         Auth::login($user);
-        
         event(new Registered($user));
+        
+        if($user->user_type === 'candidate') {
+            return redirect()->route('candidate.dashboard');
+        }
 
         return redirect()->route('home');
         

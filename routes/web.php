@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Middleware\EnsureCandidate;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -35,4 +36,10 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 
 
-Route::inertia('/find-job', 'FindJob')->name('find-job');
+Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->middleware(['auth', 'verified', EnsureCandidate::class])->name('candidate.dashboard');
+
+
+
+
+
+Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
