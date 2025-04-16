@@ -11,8 +11,14 @@ export default function Layout({ children }) {
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
     const user = usePage().props.auth.user
-    const {post} = useForm()
+    const { post } = useForm()
 
+    const dashboardUrls = [
+        '/candidate/dashboard/overview',
+        '/candidate/dashboard/applied-jobs',
+        '/candidate/dashboard/favorite-jobs',
+        '/candidate/dashboard/settings',
+    ]
     const handleSubmit = (e) => {
         e.preventDefault()
         post('/sign-out')
@@ -76,14 +82,14 @@ export default function Layout({ children }) {
 
 
     return (
-        <>
-            <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible ? 'transform-none' : '-translate-y-full'}`}>
+        <div className="h-screen">
+            <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex justify-between items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden md:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
                         <li><Link href="/candidate/find-job" className={`${url === '/candidate/find-job' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/find-employers" className={`${url === '/find-employers' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
-                        <li><Link href="/candidate/dashboard" className={`${url === '/candidate/dashboard' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
+                        <li><Link href="/candidate/dashboard/overview" className={`${dashboardUrls.includes(url) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
                         <li><Link href="/support" className={`${url === '/suppor' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
 
@@ -125,7 +131,7 @@ export default function Layout({ children }) {
                         user ?
                             <div className="flex gap-2 items-center">
                                 <Link href="/candidate/dashboard" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
-                                    <img src="../profile.jpg" className="h-full w-full  hover:scale-105 duration-100"/>
+                                    <img src="../profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
                                 </Link>
 
                                 <form onSubmit={handleSubmit}>
@@ -168,104 +174,116 @@ export default function Layout({ children }) {
                 {children}
             </main>
 
-            <footer>
-                <div className="flex flex-col gap-8 bg-gray-900">
-                    <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:gap-x-4 lg:px-12 max-w-[1320px] mx-auto">
-                        <div className="flex flex-col gap-4 col-span-2">
-                            <div className="flex items-center gap-1">
-                                <img src="../briefcase.svg" />
-                                <span className="font-semibold text-2xl text-white">JobSeek</span>
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <p className="text-gray-400">
-                                    Call now: <span className="text-white">+93-777-777-777</span>
-                                </p>
-                                <p className="text-gray-400">
-                                    6391 Elgin St. Celina, Delaware 10299, New York, United States of America
-                                </p>
-                            </div>
+            {
+                //If we are inside dashboard
+                dashboardUrls.includes(url)
+                    ?
+                    <footer className="mt-auto flex justify-center fixed bottom-0 left-0 right-0 border-t border-t-customGray-100 py-4">
+                        <p className="text-sm text-customGray-500 ">&copy; 2024 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
+                    </footer>
 
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <h3 className="text-white font-semibold text-xl">Quick Links</h3>
-                            <ul className="flex flex-col gap-3">
-                                <li className="text-gray-400">
-                                    <Link href="" className="">About</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Contact</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Pricing</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Blog</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <h3 className="text-white font-semibold text-xl">Candidate</h3>
-                            <ul className="flex flex-col gap-3">
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Browse Jobs</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Browse Employers</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Candidate Dashboard</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Saved Jobs</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <h3 className="text-white font-semibold text-xl">Employers</h3>
-                            <ul className="flex flex-col gap-3">
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Post a Job</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Browse Candidates</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Employers Dashboard</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Applications</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <h3 className="text-white font-semibold text-xl">Support</h3>
-                            <ul className="flex flex-col gap-3">
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Faqs</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Privacy Policy</Link>
-                                </li>
-                                <li className="text-gray-400">
-                                    <Link href="" className="">Terms & Conditions</Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="border-t border-gray-600 ">
-                        <div className="flex justify-center items-center lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
-                            <p className="text-gray-400">@ 2024 MyJob - Job Portal. All rights reserved.</p>
-                            <div className=" hidden lg:flex lg:gap-1">
-                                <img src="../briefcase.svg" className="" />
-                                <img src="../briefcase.svg" className="" />
-                                <img src="../briefcase.svg" className="" />
-                                <img src="../briefcase.svg" className="" />
+                    :
+                    <footer>
+                        <div className="flex flex-col gap-8 bg-gray-900">
+                            <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:gap-x-4 lg:px-12 max-w-[1320px] mx-auto">
+                                <div className="flex flex-col gap-4 col-span-2">
+                                    <div className="flex items-center gap-1">
+                                        <img src="../briefcase.svg" />
+                                        <span className="font-semibold text-2xl text-white">JobSeek</span>
+                                    </div>
+                                    <div className="flex flex-col gap-3">
+                                        <p className="text-gray-400">
+                                            Call now: <span className="text-white">+93-777-777-777</span>
+                                        </p>
+                                        <p className="text-gray-400">
+                                            6391 Elgin St. Celina, Delaware 10299, New York, United States of America
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-white font-semibold text-xl">Quick Links</h3>
+                                    <ul className="flex flex-col gap-3">
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">About</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Contact</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Pricing</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Blog</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-white font-semibold text-xl">Candidate</h3>
+                                    <ul className="flex flex-col gap-3">
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Browse Jobs</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Browse Employers</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Candidate Dashboard</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Saved Jobs</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-white font-semibold text-xl">Employers</h3>
+                                    <ul className="flex flex-col gap-3">
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Post a Job</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Browse Candidates</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Employers Dashboard</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Applications</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-white font-semibold text-xl">Support</h3>
+                                    <ul className="flex flex-col gap-3">
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Faqs</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Privacy Policy</Link>
+                                        </li>
+                                        <li className="text-gray-400">
+                                            <Link href="" className="">Terms & Conditions</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="border-t border-gray-600 ">
+                                <div className="flex justify-center items-center lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
+                                    <p className="text-gray-400">@ 2024 MyJob - Job Portal. All rights reserved.</p>
+                                    <div className=" hidden lg:flex lg:gap-1">
+                                        <img src="../briefcase.svg" className="" />
+                                        <img src="../briefcase.svg" className="" />
+                                        <img src="../briefcase.svg" className="" />
+                                        <img src="../briefcase.svg" className="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </footer>
-        </>
+                    </footer>
+
+            }
+
+        </div>
     )
 }
 

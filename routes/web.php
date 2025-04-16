@@ -38,8 +38,9 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->middleware(['auth', 'verified', EnsureCandidate::class])->name('candidate.dashboard');
 
-
-
-
-
 Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
+
+Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
+Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
+Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
+Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
