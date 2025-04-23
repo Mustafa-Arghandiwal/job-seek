@@ -3,8 +3,10 @@
 // use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Middleware\EnsureCandidate;
+use Database\Seeders\CandidateSeeder;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -44,3 +46,8 @@ Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
 Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
 Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
 Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
+
+
+Route::post('/candidate/settings/personal/basic', [CandidateSettingsController::class, 'updatePersonalBasic']);
+
+

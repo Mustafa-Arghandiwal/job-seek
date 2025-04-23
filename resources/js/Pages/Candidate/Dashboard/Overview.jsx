@@ -1,3 +1,4 @@
+import Job from "../../../Components/Job"
 import CandidateDashboardLayout from "../../../Layouts/CandidateDashboardLayout"
 import Layout from "../../../Layouts/Layout"
 
@@ -5,9 +6,17 @@ import Layout from "../../../Layouts/Layout"
 
 function Overview() {
     return (
-        <div className="h-screen">
+        <div className="">
             <h1 className="text-3xl">Overview page</h1>
-
+            <div>
+                <Job />
+                <Job />
+                <Job />
+                <Job />
+                <Job />
+                <Job />
+                <Job />
+            </div>
         </div>
     )
 }

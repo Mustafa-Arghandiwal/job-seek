@@ -14,7 +14,7 @@ export default function Company(props) {
                         <h4 className="text-[#191F33] font-medium text-base sm:text-lg">{props.companyName}</h4>
                         {props.companyFeatured && <span className="px-2 grid items-center text-xs sm:text-sm bg-danger-50 text-danger-500 rounded-[52px] cursor-default">Featured</span>}
                     </div>
-                    <div className="flex items-center gap-1 text-[#5E6670] text-sm "><img src="../map-pin.png" className="h-4" />{props.companyLocation}</div>
+                    <div className="flex items-center gap-1 text-[#5E6670] text-sm "><img src="map-pin.png" className="h-4" />{props.companyLocation}</div>
                 </div>
             </div>
 

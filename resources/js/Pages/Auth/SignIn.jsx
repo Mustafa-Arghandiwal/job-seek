@@ -75,7 +75,7 @@ export default function SignIn() {
                 </div>
             </div>
 
-            <div className="relative bg-[url('bg2.jpg')]  bg-cover bg-center hidden lg:block md:w-[50vw]">
+            <div className="relative bg-[url('/bg2.jpg')]  bg-cover bg-center hidden lg:block md:w-[50vw]">
                 <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
                         Over 300 companies waiting for good employees

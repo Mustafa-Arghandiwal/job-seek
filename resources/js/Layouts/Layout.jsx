@@ -90,19 +90,19 @@ export default function Layout({ children }) {
                         <li><Link href="/candidate/find-job" className={`${url === '/candidate/find-job' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/find-employers" className={`${url === '/find-employers' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
                         <li><Link href="/candidate/dashboard/overview" className={`${dashboardUrls.includes(url) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
-                        <li><Link href="/support" className={`${url === '/suppor' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
+                        <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
 
                     <div className=" flex gap-1">
-                        <img className="h-6 w-6" src="../phoneCall.png"></img> <span className="text-customGray-900 text-sm font-medium">+93-777-777-777</span>
+                        <img className="h-6 w-6" src="/phoneCall.png"></img> <span className="text-customGray-900 text-sm font-medium">+93-777-777-777</span>
                     </div>
 
 
 
 
                     <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer md:hidden w-6 h-6 relative">
-                        <img src="../fi_menu.png" className={`absolute top-1/2 -translate-y-1/2  ${dropdownVisible ? 'opacity-0' : 'opacity-100'} transition-opacity duration-150`} alt="open menu icon" />
-                        <img src="../X.png" className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} alt="close menu icon" />
+                        <img src="/fi_menu.png" className={`absolute top-1/2 -translate-y-1/2  ${dropdownVisible ? 'opacity-0' : 'opacity-100'} transition-opacity duration-150`} alt="open menu icon" />
+                        <img src="/X.png" className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} alt="close menu icon" />
                     </button>
 
 
@@ -114,12 +114,12 @@ export default function Layout({ children }) {
 
                     <div className="flex gap-9 sm:gap-11  ">
                         <div className="flex items-center gap-1">
-                            <img src="../briefcase.svg" className="w-8 sm:w-10" />
+                            <img src="/briefcase.svg" className="w-8 sm:w-10" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </div>
                         <form className=" ">
                             <div className="flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
-                                <img src="../fi_search.png" className="h-6" />
+                                <img src="/fi_search.png" className="h-6" />
                                 <input type="text" placeholder="Search Jobs..."
                                     className="px-3.5 h-12 w-full outline-0  text-customGray-900" />
                             </div>
@@ -129,9 +129,9 @@ export default function Layout({ children }) {
 
                     {
                         user ?
-                            <div className="flex gap-2 items-center">
-                                <Link href="/candidate/dashboard" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
-                                    <img src="../profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
+                            <div className="hidden md:flex gap-2 items-center">
+                                <Link href="/candidate/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                                    <img src="/profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
                                 </Link>
 
                                 <form onSubmit={handleSubmit}>
@@ -161,12 +161,27 @@ export default function Layout({ children }) {
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="#">Dashboard</Link></li>
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="#">Support</Link></li>
                 </ul>
-                <div className="flex gap-2 mt-6 ">
-                    <Link className="text-primary-500 hover:text-primary-600 border-primary-100 hover:border-primary-600 hover:bg-primary-50 font-semibold border  rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-in">Sign In</Link>
-                    <Link className="text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-up">Create Account</Link>
-                </div>
-            </div>
+                {user ?
 
+                    <div className="flex gap-2 mt-6 items-center">
+                        <Link href="/candidate/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                            <img src="/profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
+                        </Link>
+
+                        <form onSubmit={handleSubmit}>
+                            <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button>
+                        </form>
+                    </div>
+
+                    :
+
+                    <div className="flex gap-2 mt-6 ">
+                        <Link className="text-primary-500 hover:text-primary-600 border-primary-100 hover:border-primary-600 hover:bg-primary-50 font-semibold border  rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-in">Sign In</Link>
+                        <Link className="text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-up">Create Account</Link>
+                    </div>
+                }
+
+            </div>
 
 
             <main className="relative">
@@ -175,11 +190,11 @@ export default function Layout({ children }) {
             </main>
 
             {
-                //If we are inside dashboard
-                dashboardUrls.includes(url)
+                //If we are inside dashboard, render a simpler footer
+                    dashboardUrls.some(dashUrl => url.startsWith(dashUrl))
                     ?
-                    <footer className="mt-auto flex justify-center fixed bottom-0 left-0 right-0 border-t border-t-customGray-100 py-4">
-                        <p className="text-sm text-customGray-500 ">&copy; 2024 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
+                    <footer className=" col-span-2 px-8  h-10 flex justify-center items-center border-t border-customGray-100  ">
+                        <p className="text-xs text-center  text-customGray-500 ">&copy; 2025 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
                     </footer>
 
                     :
@@ -188,7 +203,7 @@ export default function Layout({ children }) {
                             <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:gap-x-4 lg:px-12 max-w-[1320px] mx-auto">
                                 <div className="flex flex-col gap-4 col-span-2">
                                     <div className="flex items-center gap-1">
-                                        <img src="../briefcase.svg" />
+                                        <img src="/briefcase.svg" />
                                         <span className="font-semibold text-2xl text-white">JobSeek</span>
                                     </div>
                                     <div className="flex flex-col gap-3">
@@ -271,10 +286,10 @@ export default function Layout({ children }) {
                                 <div className="flex justify-center items-center lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
                                     <p className="text-gray-400">@ 2024 MyJob - Job Portal. All rights reserved.</p>
                                     <div className=" hidden lg:flex lg:gap-1">
-                                        <img src="../briefcase.svg" className="" />
-                                        <img src="../briefcase.svg" className="" />
-                                        <img src="../briefcase.svg" className="" />
-                                        <img src="../briefcase.svg" className="" />
+                                        <img src="/briefcase.svg" className="" />
+                                        <img src="/briefcase.svg" className="" />
+                                        <img src="/briefcase.svg" className="" />
+                                        <img src="/briefcase.svg" className="" />
                                     </div>
                                 </div>
                             </div>

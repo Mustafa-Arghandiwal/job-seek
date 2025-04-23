@@ -67,3 +67,21 @@
 }
 
 
+/* Custom styled scrollbar */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: #3b84d6;
+  border-radius: 0.25rem;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: #0a65cc;
+}
