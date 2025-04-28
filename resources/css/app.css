@@ -63,7 +63,7 @@
     --color-customGray-900: #464D61;
 
 
-    
+
 }
 
 
@@ -84,4 +84,14 @@
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: #0a65cc;
+}
+
+
+@keyframes fast-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-fast {
+  animation: fast-spin 0.3s linear infinite;
 }
