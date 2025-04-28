@@ -4,14 +4,19 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Layout({ children }) {
 
-    const { url } = usePage()
+    const { url, props } = usePage()
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const menuBtnRef = useRef(null)
     const menuRef = useRef(null)
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
-    const user = usePage().props.auth.user
+
+    //Will be null if guest
+    const user = props.auth.user
     const { post } = useForm()
+    const profilePictureStorageLink = props.auth.user?.profile_picture
+    //if no profile pic, use placeholder
+    const headerProfilePic = profilePictureStorageLink ? `/storage/${profilePictureStorageLink}`  : '/User.png'
 
     const dashboardUrls = [
         '/candidate/dashboard/overview',
@@ -94,7 +99,7 @@ export default function Layout({ children }) {
                     </ul>
 
                     <div className=" flex gap-1">
-                        <img className="h-6 w-6" src="/phoneCall.png"></img> <span className="text-customGray-900 text-sm font-medium">+93-777-777-777</span>
+                        <img className="h-6 w-6" src="/PhoneCall.png"></img> <span className="text-customGray-900 text-sm font-medium">+93-777-777-777</span>
                     </div>
 
 
@@ -131,7 +136,7 @@ export default function Layout({ children }) {
                         user ?
                             <div className="hidden md:flex gap-2 items-center">
                                 <Link href="/candidate/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
-                                    <img src="/profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
+                                    <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-105 duration-100" />
                                 </Link>
 
                                 <form onSubmit={handleSubmit}>
@@ -165,7 +170,7 @@ export default function Layout({ children }) {
 
                     <div className="flex gap-2 mt-6 items-center">
                         <Link href="/candidate/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
-                            <img src="/profile.jpg" className="h-full w-full  hover:scale-105 duration-100" />
+                            <img src={headerProfilePic} className="h-full w-full  hover:scale-105 duration-100" />
                         </Link>
 
                         <form onSubmit={handleSubmit}>

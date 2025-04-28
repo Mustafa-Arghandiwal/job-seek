@@ -37,12 +37,28 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth.user' => fn() => $request->user()
-                ? $request->user()->only('id', 'full_name', 'email', 'user_type')
+                ? [
+                    'id' => $request->user()->id,
+                    'full_name' => $request->user()->full_name,
+                    'user_type' => $request->user()->user_type,
+                    'email' => $request->user()->email,
+                    'profile_picture' => $request->user()->candidate->profile_picture
+                        // adding timestamp to the image path so that when post is successfull in candidate dashboard personal page, the avatar
+                        // in the header gets updated immediately. No need to refresh!
+                        ? $request->user()->candidate->profile_picture . '?v=' . now()->timestamp : null,
+
+                    'title' => $request->user()->candidate->title,
+                    'website' => $request->user()->candidate->website,
+
+                    'experience' => $request->user()->candidate->profile?->experience,
+                    'education_level' => $request->user()->candidate->profile?->education_level,
+                ]
                 : null,
 
             'flash' => [
                 'message' => session('message'),
-                'status' => session('status')
+                'status' => session('status'),
+                'success' => session('success')
             ],
         ]);
     }

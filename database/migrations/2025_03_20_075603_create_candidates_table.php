@@ -22,30 +22,31 @@ return new class extends Migration
         Schema::create('candidate_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
-            $table->date('dob');
-            $table->enum('gender', ['male', 'female', 'prefer_not_say']);
-            $table->enum('marital_status', ['single', 'married']);
-            $table->enum('education_level', ['school_grad', 'bachelor', 'master']);
-            $table->enum('experience', ['no_experience', '0-2', '2-4', '4+']);
+            $table->date('dob')->nullable();
+            $table->enum('gender', ['Male', 'Female', 'Prefer not to say'])->nullable();
+            $table->enum('marital_status', ['Single', 'Married'])->nullable();
+            $table->enum('education_level', ['School Graduate', 'Bachelor', 'Master'])->nullable();
+            $table->enum('experience', ['No Experience', '0-2', '2-4', '4+'])->nullable();
             $table->text('biography')->nullable();
+            $table->timestamps();
         });
         Schema::create('candidate_social_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
-            $table->enum('social_type', ['linkedin', 'x', 'github', 'instagram']);
+            $table->enum('social_type', ['LinkedIn', 'X', 'GitHub', 'Instagram']);
             $table->string('url', 255);
             $table->timestamps();
-            
+
             $table->unique(['candidate_id', 'social_type']);
 
         });
-        
+
         Schema::create('candidate_contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
             $table->string('city');
             $table->string('email')->unique();
-            $table->string('phone', 20)->nullable();    
+            $table->string('phone', 20)->nullable();
         });
 
     }

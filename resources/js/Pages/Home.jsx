@@ -33,7 +33,7 @@ function Home() {
 
                     </div>
 
-                    <img src="illustration.png" className="max-w-[492px] w-full" />
+                    <img src="/Illustration.png" className="max-w-[492px] w-full" />
                 </div>
 
 

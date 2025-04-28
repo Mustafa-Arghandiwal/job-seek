@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(1)->create();
+        User::factory(1)->create();
 
         // User::factory()->create([
         //     'full_name' => 'Test User',
@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         //     'user_type' => 'candidate'
         // ]);
 
-        Candidate::factory()->create([
-            
-        ]);
+        // Candidate::factory()->create([
+
+        // ]);
     }
 
 }

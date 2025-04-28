@@ -9,7 +9,7 @@ class Candidate extends Model
 {
     /** @use HasFactory<\Database\Factories\CandidateFactory> */
     use HasFactory;
-    
+
     protected $fillable = ['title', 'website', 'profile_picture'];
 
 
@@ -18,7 +18,7 @@ class Candidate extends Model
     }
 
     public function profile() {
-        return $this->hasOne('candidate_profiles', 'candidate_id');
+        return $this->hasOne(CandidateProfile::class, 'candidate_id');
     }
 
     public function socialLinks() {
