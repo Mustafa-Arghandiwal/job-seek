@@ -3,7 +3,7 @@
 
 
 
-@theme{
+@theme {
     --font-inter: "Inter", "sans-serif";
 
     --color-primary-50: #E7F0FA;
@@ -63,7 +63,94 @@
     --color-customGray-900: #464D61;
 
 
-    
+
 }
 
 
+/* Custom styled scrollbar */
+.scrollbar-custom::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #3b84d6;
+    border-radius: 0.25rem;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #0a65cc;
+}
+
+
+@keyframes fast-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-fast {
+    animation: fast-spin 0.3s linear infinite;
+}
+
+
+
+.ProseMirror {
+    padding: 12px 18px;
+    outline: none;
+    min-height: 150px;
+}
+
+.editor-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.editor-content ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+}
+
+.editor-content h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.editor-content h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.editor-content h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.editor-content hr {
+    border: none;
+    height: 1px;
+    background-color: #767F8C;
+    margin: 6px 0px;
+}
+
+.editor-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9199A3;
+  pointer-events: none;
+  height: 0;
+}

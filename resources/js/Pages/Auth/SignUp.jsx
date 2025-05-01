@@ -8,7 +8,7 @@ export default function SignUp() {
         password: '',
         password_confirmation: '',
         agree_terms: false,
-        role: 'Candidate'
+        user_type: 'candidate'
     })
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropDownBtn = useRef(null)
@@ -56,12 +56,12 @@ export default function SignUp() {
                     <div className="relative ml-auto">
                         <button ref={dropDownBtn} className="text-[14px] text-gray-600 h-12 flex justify-between px-7 items-center border border-gray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                             onClick={() => setDropdownVisible(prev => !prev)}>
-                                {data.role} 
+                                {data.user_type} 
                             <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="CaretDown.svg" />
                         </button>
                         <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-gray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
-                            <span onClick={() => setData("role", "Candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Candidate</span>
-                            <span onClick={() => setData("role", "Employer")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Employer</span>
+                            <span onClick={() => setData("user_type", "candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Candidate</span>
+                            <span onClick={() => setData("user_type", "employer")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Employer</span>
                         </div>
                     </div>
                 </div>
@@ -99,8 +99,8 @@ export default function SignUp() {
                     </div>
                     <div className="flex gap-5 mt-5">
 
-                        <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
                         <label className="text-sm text-gray-600 flex gap-2 cursor-pointer">
+                            <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`}/>
                             <div className="flex flex-wrap gap-0.5">
                                 <p>I've read and agree with your</p>
                                 <Link href="#" className="text-[#0A65CC] text-sm"> Terms of Service</Link>

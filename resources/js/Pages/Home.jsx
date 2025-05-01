@@ -33,7 +33,7 @@ function Home() {
 
                     </div>
 
-                    <img src="illustration.png" className="max-w-[492px] w-full" />
+                    <img src="/Illustration.png" className="max-w-[492px] w-full" />
                 </div>
 
 
@@ -82,12 +82,12 @@ function Home() {
                 <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
 
                 <div className=" px-4 md:px-8 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-4 scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Category icon="categories/pen.png" name={"Graphics & Design"} openCount={12} />
-                    <Category icon="categories/code.png" name={"Programming"} openCount={7} />
-                    <Category icon="categories/speaker.png" name={"Digital Marketing"} openCount={26} />
-                    <Category icon="categories/video.png" name={"Video and Animation"} openCount={2} />
-                    <Category icon="categories/graph.png" name={"Finance & Accounting"} openCount={45} />
-                    <Category icon="categories/db.png" name={"Data & Informaion"} openCount={8} />
+                    <Category icon="/categories/pen.png" name={"Graphics & Design"} openCount={12} />
+                    <Category icon="/categories/code.png" name={"Programming"} openCount={7} />
+                    <Category icon="/categories/speaker.png" name={"Digital Marketing"} openCount={26} />
+                    <Category icon="/categories/video.png" name={"Video and Animation"} openCount={2} />
+                    <Category icon="/categories/graph.png" name={"Finance & Accounting"} openCount={45} />
+                    <Category icon="/categories/db.png" name={"Data & Informaion"} openCount={8} />
                 </div>
 
             </section>
@@ -108,7 +108,7 @@ function Home() {
                             {/* <span className="text-gray-500 text-sm text-center">Create a candidate account</span> */}
                         </div>
 
-                        <div className="flex flex-col max-w-[312px] justify-center items-center bg-white gap-3  p-6 pb-10 rounded-xl shadow-md">
+                        <div className="flex flex-col max-w-[312px] justify-center items-center  gap-3  p-6 pb-10 rounded-xl shadow-md">
                             <img src="extra/upload.png" className="max-h-[72px]" />
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3  text-center">Upload CV/Resume</span>
                             {/* <span className="text-gray-500 text-sm text-center">Upload your resume (PDF/Word document) to your profile</span> */}
@@ -139,12 +139,12 @@ function Home() {
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
                     </div>
 
                 </div>
@@ -155,14 +155,14 @@ function Home() {
                 <h2 className="font-medium text-[25px] px-4 ">Top Companies</h2>
                 {/* px-4 md:px-8    */}
                 <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
                 </div>
 
             </section>

@@ -4,7 +4,7 @@ export default function Job(props) {
 
 
     return (
-        <div className=" relative border border-primary-50 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-8  rounded-xl hover:border-primary-300 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-xl peer duration-150 snap-center">
+        <div className=" relative border border-primary-50 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-8  rounded-xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-xl peer duration-150 snap-center">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center"
@@ -17,8 +17,8 @@ export default function Job(props) {
                         <span className="px-2 grid items-center text-sm bg-primary-50 text-primary-500 rounded-[52px] cursor-default">{props.jobType}</span>
                     </div>
                     <div className="flex gap-1 sm:gap-4 flex-wrap">
-                        <div className="flex items-center gap-1.5 text-[#5E6670] text-sm "><img src="../map-pin.png" className="h-5" />{props.jobLocation}</div>
-                        <div className="flex items-center gap-1 text-[#5E6670] text-sm"><img src="../calendar.png" className="h-5" />{props.jobDeadline}</div>
+                        <div className="flex items-center gap-1.5 text-[#5E6670] text-sm "><img src="/map-pin.png" className="h-5" />{props.jobLocation}</div>
+                        <div className="flex items-center gap-1 text-[#5E6670] text-sm"><img src="/calendar.png" className="h-5" />{props.jobDeadline}</div>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,10 @@
 // use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Middleware\EnsureCandidate;
+use Database\Seeders\CandidateSeeder;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -35,4 +38,17 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 
 
-Route::inertia('/find-job', 'FindJob')->name('find-job');
+Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->middleware(['auth', 'verified', EnsureCandidate::class])->name('candidate.dashboard');
+
+Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
+
+Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
+Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
+Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
+Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
+
+
+Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
+Route::post('/candidate/settings/personal/basic', [CandidateSettingsController::class, 'updatePersonalBasic']);
+
+
