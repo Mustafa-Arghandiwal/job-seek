@@ -11,6 +11,7 @@ export default function Layout({ children }) {
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
 
+    console.log(props.auth.user)
     //Will be null if guest
     const user = props.auth.user
     const { post } = useForm()

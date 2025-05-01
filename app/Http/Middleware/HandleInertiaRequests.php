@@ -52,6 +52,10 @@ class HandleInertiaRequests extends Middleware
 
                     'experience' => $request->user()->candidate->profile?->experience,
                     'education_level' => $request->user()->candidate->profile?->education_level,
+                    'gender' => $request->user()->candidate->profile?->gender,
+                    'marital_status' => $request->user()->candidate->profile?->marital_status,
+                    'dob' => $request->user()->candidate->profile?->dob,
+                    'biography' => $request->user()->candidate->profile?->biography,
                 ]
                 : null,
 

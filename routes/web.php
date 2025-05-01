@@ -48,6 +48,7 @@ Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/Favori
 Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
 
 
+Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
 Route::post('/candidate/settings/personal/basic', [CandidateSettingsController::class, 'updatePersonalBasic']);
 
 

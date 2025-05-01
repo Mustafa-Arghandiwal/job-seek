@@ -23,20 +23,25 @@ export default function ProfileTabContent() {
 
 
     useEffect(() => {
+        if (successMsg) {
+
+            const timer = setTimeout(() => setSuccessMsg(''), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [successMsg])
+
+    useEffect(() => {
         if (props.flash.success) {
             setSuccessMsg(props.flash.success)
         }
-
-        // const timer = setTimeout(() => setSuccessMsg(''), 5000)
-        // return () => clearTimeout(timer)
     }, [props.flash.success])
-
+    //
     const handleBasicSubmit = (e) => {
         e.preventDefault()
         setSuccessMsg('')
-        post('/candidate/settings/personal/basic', {
+        post('/candidate/settings/profile/basic', {
             onSuccess: () => {
-                router.reload({ only: ['auth.user'] })
+                router.reload({ only: ['auth.user', 'flash'] })
                 setFileName('')
                 setSuccessMsg(props.flash.success)
             }
@@ -84,7 +89,7 @@ export default function ProfileTabContent() {
                     {/*         </div> */}
                     {/*     </div> */}
                     {/* )} */}
-                    <img src="/dashboard/upload-cloud.png" className="w-12 h-12" alt="file upload" />
+                    <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="file upload" />
                     <p className="text-sm text-gray-700 mt-3">Browse photo or drop here</p>
                     <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
                     <p className={`text-xs  mt-4 max-w-40  text-wrap ${fileName ? 'text-primary-600' : 'text-gray-500'}`}>
@@ -167,7 +172,7 @@ export default function ProfileTabContent() {
                     <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                         Save Changes
                     </button>
-                    <span className={`text-success-500 h-6 w-44 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                    <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                         {successMsg}
                     </span>
                 </div>

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
             $table->date('dob')->nullable();
-            $table->enum('gender', ['Male', 'Female', 'Prefer not to say'])->nullable();
-            $table->enum('marital_status', ['Single', 'Married'])->nullable();
+            $table->enum('gender', ['Male', 'Female', 'Other' ,'Prefer not to say'])->nullable();
+            $table->enum('marital_status', ['Single', 'Married', 'Separated', 'Prefer not to say'])->nullable();
             $table->enum('education_level', ['School Graduate', 'Bachelor', 'Master'])->nullable();
             $table->enum('experience', ['No Experience', '0-2', '2-4', '4+'])->nullable();
             $table->text('biography')->nullable();
