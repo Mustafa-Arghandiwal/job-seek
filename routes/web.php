@@ -32,23 +32,24 @@ Route::post('/email/verification-notification', [AuthController::class, 'resendV
 Route::inertia('/forgot-password', 'Auth/ForgotPassword')->middleware('guest')->name('password.request');
 Route::post('forgot-password', [PasswordResetController::class, 'sendPassResetLink']);
 
-Route::get('/reset-password', function() {return redirect('/forgot-password');});
+Route::get('/reset-password', function () {
+    return redirect('/forgot-password');
+});
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetPassword'])->middleware('guest')->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->middleware('guest')->name('password.update');
 
 
+Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function () {
 
-Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->middleware(['auth', 'verified', EnsureCandidate::class])->name('candidate.dashboard');
+    Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->name('candidate.dashboard');
+    Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
+    Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
+    Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
+    Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
+
+});
 
 Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
 
-Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
-Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
-Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
-Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
 
-
-Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
 Route::post('/candidate/settings/personal/basic', [CandidateSettingsController::class, 'updatePersonalBasic']);
-
-
