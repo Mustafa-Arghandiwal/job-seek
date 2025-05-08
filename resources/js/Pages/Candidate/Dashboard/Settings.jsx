@@ -5,6 +5,7 @@ import Tabs from "../../../Components/Tabs"
 import tab_svgs from "./tab_svgs.jsx"
 import ProfileTabContent from "./SettingTabContents/ProfileTabContent.jsx"
 import PersonalTabContent from "./SettingTabContents/PersonalTabContent.jsx"
+import SocialLinksTabContent from "./SettingTabContents/SocialLinksTabContent.jsx"
 
 
 function Settings() {
@@ -23,7 +24,10 @@ function Settings() {
                     <PersonalTabContent />
                 </Tab>
 
-                <Tab title="Social Links" icon={tab_svgs.socialLinks}><div>Social Links Tab Contents</div></Tab>
+                <Tab title="Social Links" icon={tab_svgs.socialLinks}>
+                    <SocialLinksTabContent />
+                </Tab>
+
                 <Tab title="Account" icon={tab_svgs.account}><div>Account Tab Contents</div></Tab>
             </Tabs>
 

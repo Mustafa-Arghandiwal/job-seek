@@ -36,7 +36,6 @@ return new class extends Migration
             $table->enum('social_type', ['LinkedIn', 'X', 'GitHub', 'Instagram']);
             $table->string('url', 255);
             $table->timestamps();
-
             $table->unique(['candidate_id', 'social_type']);
 
         });
