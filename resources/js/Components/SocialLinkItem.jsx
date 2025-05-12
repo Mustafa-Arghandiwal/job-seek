@@ -21,7 +21,6 @@ export default function SocialLinksItem(props) {
 
     const selectedLink = props.linkObjects.find(linkObj => linkObj.selectedBy === props.linkNumber)
     const placeholder = selectedLink ? selectedLink.type : 'Select...'
-
     return (
         <div>
 
