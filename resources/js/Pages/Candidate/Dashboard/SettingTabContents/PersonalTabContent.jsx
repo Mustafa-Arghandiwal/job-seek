@@ -57,7 +57,7 @@ export default function PersonalTabContent() {
     const handleSubmit = (e) => {
         e.preventDefault()
         setSuccessMsg('')
-        post('/candidate/settings/personal/basic', {
+        post('/candidate/settings/personal', {
             onSuccess: () => {
                 router.reload({ only: ['auth.user', 'flash'] })
                 setSuccessMsg(props.flash.success)

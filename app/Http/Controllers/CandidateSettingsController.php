@@ -80,6 +80,11 @@ class CandidateSettingsController extends Controller
         return back()->with('success', 'Your changes have been saved.');
 
     }
+
+
+    public function updateSocialLinks(Request $request) {
+        dd($request);
+    }
 }
 
 

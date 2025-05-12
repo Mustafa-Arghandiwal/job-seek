@@ -52,4 +52,10 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
 Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
 
 
-Route::post('/candidate/settings/personal/basic', [CandidateSettingsController::class, 'updatePersonalBasic']);
+Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
+Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
+Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
+
+
+
+
