@@ -33,8 +33,8 @@ return new class extends Migration
         Schema::create('candidate_social_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
-            $table->enum('social_type', ['LinkedIn', 'X', 'GitHub', 'Instagram']);
-            $table->string('url', 255);
+            $table->enum('social_type', ['LinkedIn', 'X', 'GitHub', 'Instagram'])->nullable();
+            $table->string('url', 255)->nullable();
             $table->timestamps();
             $table->unique(['candidate_id', 'social_type']);
 

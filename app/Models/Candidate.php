@@ -22,7 +22,7 @@ class Candidate extends Model
     }
 
     public function socialLinks() {
-        return $this->hasMany('candidate_social_links', 'candidate_id');
+        return $this->hasMany(CandidateSocialLink::class, 'candidate_id');
     }
 
     public function contact() {

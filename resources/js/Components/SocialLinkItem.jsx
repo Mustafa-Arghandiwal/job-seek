@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react"
 
 export default function SocialLinksItem(props) {
 
+    console.log(props.error)
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropdownBtn = useRef(null)
     const caret = useRef(null)
@@ -19,10 +20,17 @@ export default function SocialLinksItem(props) {
         return () => document.removeEventListener('click', handleClickOutside)
     }, [])
 
+    const inputRef = useRef(null)
+
     const selectedLink = props.linkObjects.find(linkObj => linkObj.selectedBy === props.linkNumber)
     const placeholder = selectedLink ? selectedLink.type : 'Select...'
+
+
+    const errorMsg = (props.error[`links.${props.linkNumber}.url`])?.replace(`links.${props.linkNumber}.url`, 'URL');
+
+
     return (
-        <div>
+        <div className="relative">
 
             <label className="text-customGray-900 text-sm">Social Link {props.linkNumber + 1}</label>
             <div className="flex flex-col relative xs:flex-row gap-1 xs:gap-3 mt-2   ">
@@ -38,12 +46,12 @@ export default function SocialLinksItem(props) {
                             {props.linkObjects.map((linkObj, index) => {
                                 if (linkObj.selectedBy === null) {
                                     return <span key={index}
-                                        onClick={() => { props.onValueChange(linkObj.type, props.linkNumber) }}
+                                        onClick={() => { props.onValueChange(linkObj.type, props.linkNumber), setTimeout(() => { inputRef.current?.focus() }, 0) }}
                                         className="w-full rounded-sm flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">{linkObj.type}
                                     </span>
                                 } else {
                                     return <span key={index}
-                                    className="w-full rounded-sm flex px-2 py-1 text-customGray-200 pointer-events-none ">{linkObj.type}
+                                        className="w-full rounded-sm flex px-2 py-1 text-customGray-200 pointer-events-none ">{linkObj.type}
 
                                     </span>
                                 }
@@ -52,11 +60,20 @@ export default function SocialLinksItem(props) {
                     </div>
 
 
-                    <input type="text" className="w-full  h-12 shrink-0 xs:shrink rounded-md border  border-customGray-100 xs:border-none xs:rounded-none  px-5 py-1 outline-none" placeholder="profile link/url..." />
+                    <input type="text"
+                        ref={inputRef}
+                        disabled={!selectedLink}
+                        value={selectedLink ? selectedLink.url : ''}
+                        onChange={(e) => {
+                            if (selectedLink) {
+                                props.handleSetUrl(selectedLink.type, e.target.value)
+                            }
+                        }}
+                        className="w-full  h-12 shrink-0 xs:shrink text-customGray-900 rounded-md border  border-customGray-100 xs:border-none xs:rounded-none  px-5 py-1 outline-none" placeholder="https://www.example.com/username" />
 
                 </div>
 
-                <button type="button" onClick={() => props.handleRemoveLink(props.linkNumber) }
+                <button type="button" onClick={() => props.handleRemoveLink(props.linkNumber)}
                     className=" rounded-md bg-customGray-50 absolute right-0 top-0 xs:static   w-12 h-12 grid place-items-center cursor-pointer group hover:text-danger-500 duration-100 ">
                     {/* <img src="/Xcircle.png" /> */}
                     <svg className=" group-hover:scale-125 group-active:scale-95 duration-100" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -65,8 +82,17 @@ export default function SocialLinksItem(props) {
                         <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </button>
+
             </div>
 
+
+
+            {errorMsg &&
+
+            <span className="absolute -bottom-5 left-0 text-sm text-danger-500">
+                {errorMsg}
+            </span>
+            }
         </div>
     )
 }

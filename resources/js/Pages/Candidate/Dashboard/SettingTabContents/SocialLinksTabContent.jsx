@@ -6,70 +6,85 @@ import { useForm, usePage } from "@inertiajs/react"
 
 export default function SocialLinksTabContent() {
 
-    const { data, setData, errors, processing, post } = useForm({
-        links:  [
-            { type: 'LinkedIn', url: '', selectedBy: null },
-            { type: 'X', url: '', selectedBy: null },
-            { type: 'GitHub', url: '', selectedBy: null },
-            { type: 'Instagram', url: '', selectedBy: null }
-        ]
-})
 
     const { props } = usePage()
-    // const [links, setLinks] = useState([
-    //     { type: 'LinkedIn', url: '', selectedBy: null },
-    //     { type: 'X', url: '', selectedBy: null },
-    //     { type: 'GitHub', url: '', selectedBy: null },
-    //     { type: 'Instagram', url: '', selectedBy: null }
-    // ])
+    const linksFromDB = props.auth.user.social_links || []
+    const socialLinkTypes = ["LinkedIn", "X", "GitHub", "Instagram"]
+
+    const initialLinks = socialLinkTypes.map(type => {
+        const fromDb = linksFromDB.find(link => link.type === type)
+        return {
+            type,
+            url: fromDb?.url || '',
+            selectedBy: fromDb ? linksFromDB.indexOf(fromDb) : null
+        }
+    })
+    const { data, setData, transform, errors, clearErrors, processing, post } = useForm({
+        links: initialLinks
+    })
+    const selectedCount = data.links.filter(link => link.selectedBy !== null).length
+    const isAddBtnDisabled = selectedCount >= socialLinkTypes.length
+
+    const addLink = () => {
+        const nextIndex = selectedCount
+        const unusedLink = data.links.find((l) => l.selectedBy === null)
+        if (!unusedLink) return
+
+        setData((prev) => ({
+            ...prev,
+            links: prev.links.map((l) =>
+                l.type === unusedLink.type ? { ...l, url: '', selectedBy: nextIndex} : l
+            ),
+        }))
+    }
+
+
+
+    const handleRemoveLink = (linkNumber) => {
+        clearErrors()
+        setData((prev) => ({
+            ...prev,
+            links: prev.links.map((l) => {
+                if (l.selectedBy === linkNumber) {
+                    return { ...l, url: "", selectedBy: null }
+                } else if (l.selectedBy > linkNumber) {
+                    return { ...l, selectedBy: l.selectedBy - 1 }
+                }
+                return l
+            }),
+        }))
+    }
+
 
     const handleSelect = (linkType, linkNumber) => {
-        setLinks(prevLinks => {
-            return prevLinks.map(linkObj => {
+        setData(prev => ({
+            ...prev,
+            links: prev.links.map(linkObj => {
                 if (linkObj.type === linkType) {
                     return { ...linkObj, selectedBy: linkNumber }
                 } else if (linkObj.selectedBy === linkNumber) {
                     return { ...linkObj, selectedBy: null }
                 } else {
-                    return { ...linkObj }
+                    return linkObj
                 }
             })
-        })
-    }
-    const [socialLinkIndices, setSocialLinkIndices] = useState([])
-
-    const addLink = () => {
-        // don't let add more select boxes than there are link types
-        if (socialLinkIndices.length < data.links.length) {
-
-            setSocialLinkIndices(prev => (
-                [...prev, prev.length]
-            ))
-        }
+        }))
     }
 
-    const handleRemoveLink = (linkNumber) => {
 
-        setSocialLinkIndices(prev => {
-            const updated = prev.filter(i => i !== linkNumber)
-            return updated.map((_, i) => i)
-        })
-
-        setLinks(prevLinks => (
-            prevLinks.map(linkObj => {
-                if (linkObj.selectedBy === linkNumber) {
-                    return { ...linkObj, selectedBy: null }
-                } else if (linkObj.selectedBy > linkNumber) {
-                    return { ...linkObj, selectedBy: linkObj.selectedBy - 1 }
+    const handleSetUrl = (linkType, linkUrl) => {
+        setData(prev => ({
+            ...prev,
+            links: prev.links.map(linkObj => {
+                if (linkType === linkObj.type) {
+                    return { ...linkObj, url: linkUrl }
                 } else {
                     return linkObj
                 }
             })
-        ))
-
+        }))
     }
 
-    const isAddBtnDisabled = socialLinkIndices.length >= data.links.length
 
 
     const [successMsg, setSuccessMsg] = useState('')
@@ -83,32 +98,44 @@ export default function SocialLinksTabContent() {
     }, [successMsg])
 
     useEffect(() => {
-        if (props.flash.success) {
-            setSuccessMsg(props.flash.success)
+        if (props.flash.socialLinksSuccess) {
+            setSuccessMsg(props.flash.socialLinksSuccess)
         }
-    }, [props.flash.success])
+    }, [props.flash.socialLinksSuccess])
+
+
+
+    transform(data => ({
+        ...data,
+        links : data.links.filter(link => link.selectedBy !== null)
+    }))
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setSuccessMsg('')
         post('/candidate/settings/social-links', {
             onSuccess: () => {
-                setSuccessMsg(props.flash.success)
+                setSuccessMsg(props.flash.socialLinksSuccess)
             }
         })
 
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 ">
-            {
-                socialLinkIndices.map(linkNumber => (
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+            {data.links
+                .filter((l) => l.selectedBy !== null)
+                .sort((a, b) => a.selectedBy - b.selectedBy)
+                .map((linkObj) => (
                     <SocialLinksItem
-                        key={linkNumber}
-                        linkNumber={linkNumber}
+                        key={linkObj.type}
+                        linkNumber={linkObj.selectedBy}
                         linkObjects={data.links}
                         onValueChange={handleSelect}
                         handleRemoveLink={handleRemoveLink}
+                        handleSetUrl={handleSetUrl}
+                        error={errors}
                     />
                 ))
             }
