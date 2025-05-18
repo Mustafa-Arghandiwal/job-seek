@@ -56,13 +56,23 @@ class HandleInertiaRequests extends Middleware
                     'marital_status' => $request->user()->candidate->profile?->marital_status,
                     'dob' => $request->user()->candidate->profile?->dob,
                     'biography' => $request->user()->candidate->profile?->biography,
+
+                    'social_links' => $request->user()->candidate->socialLinks->map(function ($link) {
+                        return [
+                            'type' => $link->social_type,
+                            'url' => $link->url,
+                        ];
+                    }),
                 ]
                 : null,
 
             'flash' => [
                 'message' => session('message'),
                 'status' => session('status'),
-                'success' => session('success')
+                'success' => session('success'),
+                'profileSuccess' => session('profileSuccess'),
+                'personalSuccess' => session('personalSuccess'),
+                'socialLinksSuccess' => session('socialLinksSuccess'),
             ],
         ]);
     }

@@ -31,10 +31,10 @@ export default function ProfileTabContent() {
     }, [successMsg])
 
     useEffect(() => {
-        if (props.flash.success) {
-            setSuccessMsg(props.flash.success)
+        if (props.flash.profileSuccess) {
+            setSuccessMsg(props.flash.profileSuccess)
         }
-    }, [props.flash.success])
+    }, [props.flash.profileSuccess])
     //
     const handleBasicSubmit = (e) => {
         e.preventDefault()
@@ -43,7 +43,7 @@ export default function ProfileTabContent() {
             onSuccess: () => {
                 router.reload({ only: ['auth.user', 'flash'] })
                 setFileName('')
-                setSuccessMsg(props.flash.success)
+                setSuccessMsg(props.flash.profileSuccess)
             }
         })
     }

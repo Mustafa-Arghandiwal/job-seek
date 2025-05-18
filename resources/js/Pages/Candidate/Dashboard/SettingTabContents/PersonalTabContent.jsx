@@ -16,6 +16,7 @@ export default function PersonalTabContent() {
     })
 
 
+    console.log(props)
     const handleGenderChagne = (option) => {
         setData(prevData => ({
             ...prevData,
@@ -48,19 +49,19 @@ export default function PersonalTabContent() {
     }, [successMsg])
 
     useEffect(() => {
-        if (props.flash.success) {
-            setSuccessMsg(props.flash.success)
+        if (props.flash.personalSuccess) {
+            setSuccessMsg(props.flash.personalSuccess)
         }
-    }, [props.flash.success])
+    }, [props.flash.personalSuccess])
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setSuccessMsg('')
-        post('/candidate/settings/personal/basic', {
+        post('/candidate/settings/personal', {
             onSuccess: () => {
                 router.reload({ only: ['auth.user', 'flash'] })
-                setSuccessMsg(props.flash.success)
+                setSuccessMsg(props.flash.personalSuccess)
             }
         })
 
@@ -105,14 +106,17 @@ export default function PersonalTabContent() {
             </div>
 
 
-            <div className="">
+            <div className="relative">
                 <label className="text-sm text-customGray-900">Biography</label>
-                <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)}/>
+                <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)} />
+                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    {props.errors.biography || ''}
+                </span>
             </div>
 
 
 
-            <div className="flex flex-wrap  items-center gap-2">
+            <div className="flex flex-wrap  items-center gap-2 mt-3">
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
