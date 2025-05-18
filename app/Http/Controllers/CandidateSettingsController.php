@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
+use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -13,7 +14,6 @@ class CandidateSettingsController extends Controller
 
     public function updateProfileBasic(Request $request)
     {
-        // dd($request);
         $validated = $request->validate([
             'fullName' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
@@ -26,7 +26,7 @@ class CandidateSettingsController extends Controller
         $user = $request->user();
         $candidate = $request->user()->candidate;
         $candidateProfile = $request->user()->candidate->profile;
-        if(!$candidateProfile) {
+        if (!$candidateProfile) {
             $candidateProfile = new CandidateProfile();
             $candidateProfile->candidate_id = $candidate->id;
         }
@@ -48,28 +48,32 @@ class CandidateSettingsController extends Controller
             // $fileName = $request->user()->id . '_' . str_replace(' ', '', $request->user()->full_name) . '.' . $imageExtension;
             $path = $request->file('profilePicture')->storeAs('profile_pictures', $request->user()->id . '.' . $imageExtension, 'public');
             $candidate->profile_picture = $path;
-
         }
-            $user->save();
-            $candidate->save();
-            $candidateProfile->save();
+        $user->save();
+        $candidate->save();
+        $candidateProfile->save();
 
-            return back()->with('success', 'Your changes have been saved.');
-
+        return back()->with('profileSuccess', 'Your changes have been saved.');
     }
 
 
 
-    public function updatePersonalBasic(Request $request) {
+    public function updatePersonalBasic(Request $request)
+    {
 
         $validated = $request->validate([
-            'gender' => ['required', 'in:Male,Female,Other,Prefer not to say'],
+            'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
             'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
-            'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01' ],
-            'biography' => ['required', 'min:10', 'max:65535', 'string' ]
+            'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
+            'biography' => ['required', 'min:10', 'max:65535', 'string']
         ]);
 
+        $candidate = $request->user()->candidate;
         $candidateProfile = $request->user()->candidate->profile;
+        if (!$candidateProfile) {
+            $candidateProfile = new CandidateProfile();
+            $candidateProfile->candidate_id = $candidate->id;
+        }
         $candidateProfile->gender = $validated['gender'];
         $candidateProfile->marital_status = $validated['maritalStatus'];
         $candidateProfile->dob = $validated['birthDate'];
@@ -77,17 +81,39 @@ class CandidateSettingsController extends Controller
 
         $candidateProfile->save();
 
-        return back()->with('success', 'Your changes have been saved.');
-
+        return back()->with('personalSuccess', 'Your changes have been saved.');
     }
 
 
-    public function updateSocialLinks(Request $request) {
-        dd($request);
+    public function updateSocialLinks(Request $request)
+    {
+        $validated = $request->validate([
+            'links' => ['array'],
+            'links.*.type' => ['string', 'in:LinkedIn,X,GitHub,Instagram'],
+            'links.*.url' => ['required', 'url', 'filled']
+        ]);
+
+        $candidate = $request->user()->candidate;
+
+        CandidateSocialLink::where('candidate_id', $candidate->id)->delete();
+
+        foreach ($validated['links'] as $link) {
+
+            // //since each candidate can have only one social type, this checks if there is already one or not, and then we continue with the if statment
+            // $existingLink = CandidateSocialLink::where('candidate_id', $candidate->id)->where('social_type', $link['type'])->first();
+
+            // if ($existingLink) {
+            //     $existingLink->url = $link['url'];
+            //     $existingLink->save();
+            // } else {
+                $candidateSocialLink = new CandidateSocialLink();
+                $candidateSocialLink->candidate_id = $candidate->id;
+                $candidateSocialLink->social_type = $link['type'];
+                $candidateSocialLink->url = $link['url'];
+                $candidateSocialLink->save();
+            // }
+        }
+
+        return back()->with('socialLinksSuccess', 'Your changes have been saved.');
     }
 }
-
-
-
-
-
