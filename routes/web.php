@@ -55,7 +55,7 @@ Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.find
 Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
-
+Route::post('/candidate/settings/contact', [CandidateSettingsController::class, 'updateContact']);
 
 
 

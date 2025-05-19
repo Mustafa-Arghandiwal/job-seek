@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
@@ -99,21 +100,46 @@ class CandidateSettingsController extends Controller
 
         foreach ($validated['links'] as $link) {
 
-            // //since each candidate can have only one social type, this checks if there is already one or not, and then we continue with the if statment
-            // $existingLink = CandidateSocialLink::where('candidate_id', $candidate->id)->where('social_type', $link['type'])->first();
-
-            // if ($existingLink) {
-            //     $existingLink->url = $link['url'];
-            //     $existingLink->save();
-            // } else {
                 $candidateSocialLink = new CandidateSocialLink();
                 $candidateSocialLink->candidate_id = $candidate->id;
                 $candidateSocialLink->social_type = $link['type'];
                 $candidateSocialLink->url = $link['url'];
                 $candidateSocialLink->save();
-            // }
         }
 
         return back()->with('socialLinksSuccess', 'Your changes have been saved.');
     }
+
+
+    public function updateContact(Request $request) {
+        $validated = $request->validate([
+            'phone' => ['required', 'string', 'regex:/^\+?[0-9]{9,15}$/'],
+            'email' => ['required', 'email'],
+            'city' => ['required', 'string', 'max:100']
+        ]);
+
+        $candidate = $request->user()->candidate;
+        $candidateContact = $request->user()->candidate->contact;
+
+        if(!$candidateContact) {
+            $candidateContact = new CandidateContact();
+            $candidateContact->candidate_id = $candidate->id;
+        }
+
+        $candidateContact->phone = $validated['phone'];
+        $candidateContact->email = $validated['email'];
+        $candidateContact->city = $validated['city'];
+        $candidateContact->save();
+
+
+        return back()->with('contactSuccess', 'Your changes have been saved.');
+
+
+
+    }
+
+
+
+
+
 }
