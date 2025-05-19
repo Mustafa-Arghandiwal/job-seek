@@ -56,6 +56,6 @@ Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::c
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
 Route::post('/candidate/settings/contact', [CandidateSettingsController::class, 'updateContact']);
-
+Route::post('/candidate/settings/change-password', [CandidateSettingsController::class, 'updatePassword']);
 
 

@@ -6,6 +6,7 @@ use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -100,18 +101,19 @@ class CandidateSettingsController extends Controller
 
         foreach ($validated['links'] as $link) {
 
-                $candidateSocialLink = new CandidateSocialLink();
-                $candidateSocialLink->candidate_id = $candidate->id;
-                $candidateSocialLink->social_type = $link['type'];
-                $candidateSocialLink->url = $link['url'];
-                $candidateSocialLink->save();
+            $candidateSocialLink = new CandidateSocialLink();
+            $candidateSocialLink->candidate_id = $candidate->id;
+            $candidateSocialLink->social_type = $link['type'];
+            $candidateSocialLink->url = $link['url'];
+            $candidateSocialLink->save();
         }
 
         return back()->with('socialLinksSuccess', 'Your changes have been saved.');
     }
 
 
-    public function updateContact(Request $request) {
+    public function updateContact(Request $request)
+    {
         $validated = $request->validate([
             'phone' => ['required', 'string', 'regex:/^\+?[0-9]{9,15}$/'],
             'email' => ['required', 'email'],
@@ -121,7 +123,7 @@ class CandidateSettingsController extends Controller
         $candidate = $request->user()->candidate;
         $candidateContact = $request->user()->candidate->contact;
 
-        if(!$candidateContact) {
+        if (!$candidateContact) {
             $candidateContact = new CandidateContact();
             $candidateContact->candidate_id = $candidate->id;
         }
@@ -133,13 +135,24 @@ class CandidateSettingsController extends Controller
 
 
         return back()->with('contactSuccess', 'Your changes have been saved.');
-
-
-
     }
 
 
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'currentPassword' => ['required', 'current_password'],
+            'newPassword' => ['required', 'string', 'min:6', 'different:currentPassword'],
+            'confirmPassword' => ['required', 'same:newPassword']
+        ]);
+        // dd($validated);
 
+        $user = $request->user();
+        $user->password = Hash::make($validated['newPassword']);
 
+        $user->save();
 
+        return back()->with('changePassSuccess', 'Your password has been changed.');
+
+    }
 }

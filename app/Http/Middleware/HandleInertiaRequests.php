@@ -78,6 +78,7 @@ class HandleInertiaRequests extends Middleware
                 'personalSuccess' => session('personalSuccess'),
                 'socialLinksSuccess' => session('socialLinksSuccess'),
                 'contactSuccess' => session('contactSuccess'),
+                'changePassSuccess'=> session('changePassSuccess'),
             ],
         ]);
     }
