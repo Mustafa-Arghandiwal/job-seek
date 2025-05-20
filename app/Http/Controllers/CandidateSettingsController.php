@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -99,21 +102,70 @@ class CandidateSettingsController extends Controller
 
         foreach ($validated['links'] as $link) {
 
-            // //since each candidate can have only one social type, this checks if there is already one or not, and then we continue with the if statment
-            // $existingLink = CandidateSocialLink::where('candidate_id', $candidate->id)->where('social_type', $link['type'])->first();
-
-            // if ($existingLink) {
-            //     $existingLink->url = $link['url'];
-            //     $existingLink->save();
-            // } else {
-                $candidateSocialLink = new CandidateSocialLink();
-                $candidateSocialLink->candidate_id = $candidate->id;
-                $candidateSocialLink->social_type = $link['type'];
-                $candidateSocialLink->url = $link['url'];
-                $candidateSocialLink->save();
-            // }
+            $candidateSocialLink = new CandidateSocialLink();
+            $candidateSocialLink->candidate_id = $candidate->id;
+            $candidateSocialLink->social_type = $link['type'];
+            $candidateSocialLink->url = $link['url'];
+            $candidateSocialLink->save();
         }
 
         return back()->with('socialLinksSuccess', 'Your changes have been saved.');
+    }
+
+
+    public function updateContact(Request $request)
+    {
+        $validated = $request->validate([
+            'phone' => ['required', 'string', 'regex:/^\+?[0-9]{9,15}$/'],
+            'email' => ['required', 'email'],
+            'city' => ['required', 'string', 'max:100']
+        ]);
+
+        $candidate = $request->user()->candidate;
+        $candidateContact = $request->user()->candidate->contact;
+
+        if (!$candidateContact) {
+            $candidateContact = new CandidateContact();
+            $candidateContact->candidate_id = $candidate->id;
+        }
+
+        $candidateContact->phone = $validated['phone'];
+        $candidateContact->email = $validated['email'];
+        $candidateContact->city = $validated['city'];
+        $candidateContact->save();
+
+
+        return back()->with('contactSuccess', 'Your changes have been saved.');
+    }
+
+
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'currentPassword' => ['required', 'current_password'],
+            'newPassword' => ['required', 'string', 'min:6', 'different:currentPassword'],
+            'confirmPassword' => ['required', 'same:newPassword']
+        ]);
+        // dd($validated);
+
+        $user = $request->user();
+        $user->password = Hash::make($validated['newPassword']);
+
+        $user->save();
+
+        return back()->with('changePassSuccess', 'Your password has been changed.');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $user = $request->user();
+
+        Auth::logout();
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('accountDeleted', 'Your account has been deleted');
     }
 }

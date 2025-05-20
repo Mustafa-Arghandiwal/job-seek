@@ -26,6 +26,6 @@ class Candidate extends Model
     }
 
     public function contact() {
-        return $this->hasOne('candidate_contacts', 'candidate_id');
+        return $this->hasOne(CandidateContact::class, 'candidate_id');
     }
 }
