@@ -98,7 +98,7 @@ export default function AccountTabContent() {
 
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="phone" className="text-sm text-customGray-900">Phone</label>
-                        <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
+                        <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500 " />
                         {contactForm.errors.phone && (
                             <span className="text-sm w-full text-danger-600 absolute left-0 -bottom-5">
                                 {contactForm.errors.phone}
