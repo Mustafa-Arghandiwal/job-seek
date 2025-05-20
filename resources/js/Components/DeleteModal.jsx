@@ -21,7 +21,7 @@ export default function DeleteModal(props) {
     return (
 
         // wrapper
-        <div className={`fixed inset-0 z-40 flex items-center justify-center ${props.showDeleteModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}>
+        <div className={`fixed inset-0 z-[100] flex items-center justify-center ${props.showDeleteModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}>
 
             {/* overlay */}
             <div  className={`absolute inset-0 bg-black/70  backdrop:blur-sm  `}>
