@@ -57,16 +57,16 @@ class HandleInertiaRequests extends Middleware
                     'dob' => $request->user()->candidate->profile?->dob,
                     'biography' => $request->user()->candidate->profile?->biography,
 
-                    'social_links' => $request->user()->candidate->socialLinks->map(function ($link) {
+                    'social_links' => $request->user()->candidate->socialLinks?->map(function ($link) {
                         return [
                             'type' => $link->social_type,
                             'url' => $link->url,
                         ];
                     }),
 
-                    'phone' => $request->user()->candidate->contact->phone,
-                    'contactEmail' => $request->user()->candidate->contact->email,
-                    'city' => $request->user()->candidate->contact->city,
+                    'phone' => $request->user()->candidate->contact?->phone,
+                    'contactEmail' => $request->user()->candidate->contact?->email,
+                    'city' => $request->user()->candidate->contact?->city,
                 ]
                 : null,
 
@@ -79,6 +79,8 @@ class HandleInertiaRequests extends Middleware
                 'socialLinksSuccess' => session('socialLinksSuccess'),
                 'contactSuccess' => session('contactSuccess'),
                 'changePassSuccess'=> session('changePassSuccess'),
+                'accountDeleted' => session('accountDeleted'),
+
             ],
         ]);
     }

@@ -6,6 +6,7 @@ use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -153,6 +154,18 @@ class CandidateSettingsController extends Controller
         $user->save();
 
         return back()->with('changePassSuccess', 'Your password has been changed.');
+    }
 
+    public function deleteAccount(Request $request)
+    {
+        $user = $request->user();
+
+        Auth::logout();
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('accountDeleted', 'Your account has been deleted');
     }
 }
