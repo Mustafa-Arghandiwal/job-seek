@@ -63,6 +63,13 @@ class HandleInertiaRequests extends Middleware
                             'url' => $link->url,
                         ];
                     }),
+                    'resumes' => $request->user()->candidate->resumes?->map(function ($resume) {
+                        return [
+                            'path' => $resume->resume,
+                            'file_name' => $resume->file_name,
+                            'size' => $resume->size,
+                        ];
+                    }),
 
                     'phone' => $request->user()->candidate->contact?->phone,
                     'contactEmail' => $request->user()->candidate->contact?->email,
@@ -75,10 +82,11 @@ class HandleInertiaRequests extends Middleware
                 'status' => session('status'),
                 'success' => session('success'),
                 'profileSuccess' => session('profileSuccess'),
+                'resumeUploadSuccess' => session('resumeUploadSuccess'),
                 'personalSuccess' => session('personalSuccess'),
                 'socialLinksSuccess' => session('socialLinksSuccess'),
                 'contactSuccess' => session('contactSuccess'),
-                'changePassSuccess'=> session('changePassSuccess'),
+                'changePassSuccess' => session('changePassSuccess'),
                 'accountDeleted' => session('accountDeleted'),
 
             ],

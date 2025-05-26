@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
+use App\Models\CandidateResume;
 use App\Models\CandidateSocialLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
+// use Illuminate\Validation\Rule;
 
 class CandidateSettingsController extends Controller
 {
@@ -85,6 +86,36 @@ class CandidateSettingsController extends Controller
         $candidateProfile->save();
 
         return back()->with('personalSuccess', 'Your changes have been saved.');
+    }
+
+    public function addResume(Request $request)
+    {
+
+        $candidate = $request->user()->candidate;
+        $resumeCount = CandidateResume::where('candidate_id', $candidate->id)->count();
+
+        if($resumeCount >= 3) {
+            return back()->withErrors(['maxResumesExceed' => 'Maximum 3 resumes allowed.']);
+        }
+
+        $validated = $request->validate([
+            'profilePicture' => ['nullable', 'file', 'max:10240', 'mimetypes:application/pdf']
+        ]);
+
+        if($request->hasFile('resume')) {
+            $file = $request->file('resume');
+            $timestamp = now()->timestamp;
+            $extension = $file->getClientOriginalExtension();
+            $path = $file->storeAs('resumes', "candidate_{$candidate->id}_{$timestamp}.{$extension}", 'public');
+            $candidateResume = new CandidateResume();
+            $candidateResume->candidate_id = $candidate->id;
+            $candidateResume->resume = $path;
+            $candidateResume->file_name = $file->getClientOriginalName();
+            $candidateResume->size = $file->getSize();
+            $candidateResume->save();
+        }
+
+        return back()->with('resumeUploadSuccess', 'File uploaded successfully.');
     }
 
 
