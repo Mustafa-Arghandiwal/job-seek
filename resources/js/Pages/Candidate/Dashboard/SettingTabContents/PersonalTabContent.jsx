@@ -16,7 +16,6 @@ export default function PersonalTabContent() {
     })
 
 
-    console.log(props)
     const handleGenderChagne = (option) => {
         setData(prevData => ({
             ...prevData,

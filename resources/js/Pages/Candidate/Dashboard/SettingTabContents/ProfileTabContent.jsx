@@ -1,5 +1,5 @@
 import { router, useForm, usePage } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
 
@@ -11,6 +11,7 @@ export default function ProfileTabContent() {
     const dbResumes = props.auth.user.resumes
 
 
+    console.log(props.errors)
 
     const basicForm = useForm({
         fullName: props.auth.user.full_name,
@@ -22,7 +23,8 @@ export default function ProfileTabContent() {
     })
     const [fileName, setFileName] = useState('')
     const [dragging, setDragging] = useState(false)
-    const [successMsg, setSuccessMsg] = useState('')
+    const [profileSuccessMsg, setProfileSuccessMsg] = useState('')
+    const [resumeSuccessMsg, setResumeSuccessMsg] = useState('')
 
 
 
@@ -34,20 +36,36 @@ export default function ProfileTabContent() {
 
 
 
-    useEffect(() => {
-        if (successMsg) {
 
-            const timer = setTimeout(() => setSuccessMsg(''), 5000)
-            return () => clearTimeout(timer)
-        }
-    }, [successMsg])
 
+// Messages --------------------------------------------------------
     useEffect(() => {
         if (props.flash.profileSuccess) {
-            setSuccessMsg(props.flash.profileSuccess)
+            setProfileSuccessMsg(props.flash.profileSuccess)
         }
     }, [props.flash.profileSuccess])
 
+    useEffect(() => {
+        if (props.flash.resumeUploadSuccess || props.flash.resumeDeleteSuccess) {
+            setResumeSuccessMsg(props.flash.resumeUploadSuccess || props.flash.resumeDeleteSuccess)
+        }
+    }, [props.flash])
+
+    useEffect(() => {
+        if (profileSuccessMsg) {
+            const timer = setTimeout(() => setProfileSuccessMsg(''), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [profileSuccessMsg])
+
+    useEffect(() => {
+        if (resumeSuccessMsg) {
+            const timer = setTimeout(() => setResumeSuccessMsg(''), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [resumeSuccessMsg])
+
+// --------------------------------------------------------
 
 
     const handleSelectExperience = (option) => {
@@ -82,21 +100,23 @@ export default function ProfileTabContent() {
     //_____________________________________________________________________________________________
     const handleBasicSubmit = (e) => {
         e.preventDefault()
-        setSuccessMsg('')
+        setProfileSuccessMsg('')
         basicForm.post('/candidate/settings/profile/basic', {
             onSuccess: () => {
                 router.reload({ only: ['auth.user', 'flash'] })
                 setFileName('')
-                setSuccessMsg(props.flash.profileSuccess)
             }
         })
     }
 
     const handleResumeUpload = e => {
         e.preventDefault()
-        resumeForm.post('/candidate/settings/profile/resumes')
-
-        setResumeName('')
+        setResumeSuccessMsg('')
+        resumeForm.post('/candidate/settings/profile/resumes/create', {
+            onSuccess: () => {
+                setResumeName('')
+            }
+        })
     }
 
     //_____________________________________________________________________________________________
@@ -212,8 +232,8 @@ export default function ProfileTabContent() {
                             <button disabled={basicForm.processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                                 Save Changes
                             </button>
-                            <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
-                                {successMsg}
+                            <span className={`text-success-500 h-6 w-52 text-sm ${profileSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                                {profileSuccessMsg}
                             </span>
                         </div>
 
@@ -229,11 +249,17 @@ export default function ProfileTabContent() {
 
 
             <div className="">
-                <h2 className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
+
+                <div className="flex gap-2 flex-wrap  items-center ">
+                    <h2 className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
+                    <span className={`text-success-500 h-6 w-52 text-sm  flex items-center ${resumeSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                        {resumeSuccessMsg}
+                    </span>
+                </div>
 
                 <div className="flex gap-6 flex-wrap   mt-5">
-                    {dbResumes.map((item, index) => (
-                        <ResumeBox key={index} fileName={shortenFilename(item.file_name, 27)} size={item.size} />
+                    {dbResumes.map((item) => (
+                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} fileName={shortenFilename(item.file_name, 27)} size={item.size} setSuccessMsg={setResumeSuccessMsg} />
                     ))}
 
                     <div className="relative">
@@ -291,6 +317,7 @@ export default function ProfileTabContent() {
                             </form>
                         }
 
+
                     </div>
 
 
@@ -302,6 +329,8 @@ export default function ProfileTabContent() {
 
 
             </div>
+
+
         </div>
 
     )

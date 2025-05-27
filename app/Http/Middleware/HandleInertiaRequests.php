@@ -65,6 +65,7 @@ class HandleInertiaRequests extends Middleware
                     }),
                     'resumes' => $request->user()->candidate->resumes?->map(function ($resume) {
                         return [
+                            'resume_id' => $resume->id,
                             'path' => $resume->resume,
                             'file_name' => $resume->file_name,
                             'size' => $resume->size,
@@ -83,6 +84,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => session('success'),
                 'profileSuccess' => session('profileSuccess'),
                 'resumeUploadSuccess' => session('resumeUploadSuccess'),
+                'resumeDeleteSuccess' => session('resumeDeleteSuccess'),
                 'personalSuccess' => session('personalSuccess'),
                 'socialLinksSuccess' => session('socialLinksSuccess'),
                 'contactSuccess' => session('contactSuccess'),

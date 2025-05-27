@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ResumeController;
 use App\Http\Middleware\EnsureCandidate;
 use Database\Seeders\CandidateSeeder;
 
@@ -53,10 +54,15 @@ Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.find
 
 
 Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
-Route::post('/candidate/settings/profile/resumes', [CandidateSettingsController::class, 'addResume']);
+Route::post('/candidate/settings/profile/resumes/create', [ResumeController::class, 'create']);
+Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeController::class, 'destroy']);
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
 Route::post('/candidate/settings/contact', [CandidateSettingsController::class, 'updateContact']);
 Route::post('/candidate/settings/change-password', [CandidateSettingsController::class, 'updatePassword']);
 Route::post('/candidate/settings/delete-account', [CandidateSettingsController::class, 'deleteAccount']);
+
+
+
+
 

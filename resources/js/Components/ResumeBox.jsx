@@ -32,9 +32,14 @@ export default function ResumeBox(props) {
         fileSize = (props.size / (1024 * 1024)).toFixed(1) + " MB"
     }
 
+    const handleDelete = (e) => {
+        e.preventDefault()
+        props.setSuccessMsg('')
+        props.delete(`/candidate/settings/profile/resumes/${props.id}`)
+    }
 
     return (
-        <form className="relative w-72 max-h-20 flex-initial  p-5 flex items-center justify-between bg-customGray-50/50 rounded-md hover:shadow-lg hover:bg-customGray-50 duration-150">
+        <form onSubmit={handleDelete} className="relative w-72 max-h-20 flex-initial  p-5 flex items-center justify-between bg-customGray-50/50 rounded-md hover:shadow-lg hover:bg-customGray-50 duration-150">
             <div className="flex  items-center gap-3 ">
                 <svg className="shrink-0" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M24.999 28H6.99805C6.73283 28 6.47848 27.8946 6.29094 27.7071C6.1034 27.5196 5.99805 27.2652 5.99805 27V5C5.99805 4.73478 6.1034 4.48043 6.29094 4.29289C6.47848 4.10536 6.73283 4 6.99805 4H18.999L25.999 11V27C25.999 27.1313 25.9732 27.2614 25.9229 27.3827C25.8727 27.504 25.799 27.6143 25.7061 27.7071C25.6133 27.8 25.503 27.8736 25.3817 27.9239C25.2604 27.9741 25.1303 28 24.999 28Z" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -56,7 +61,7 @@ export default function ResumeBox(props) {
 
             <div ref={deleteModalRef} className={`bg-white  min-w-32 rounded-md absolute right-5 top-2/3 shadow-lg z-10 ${showDeleteBtn ? 'max-h-40 py-2' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75  `}>
 
-                <button className="text-primary-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
+                <button type="button" className="text-primary-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 3.54108C3.75 3.54108 1.25 10 1.25 10C1.25 10 3.75 16.4577 10 16.4577C16.25 16.4577 18.75 10 18.75 10C18.75 10 16.25 3.54108 10 3.54108Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M10 13.1251C11.7259 13.1251 13.125 11.726 13.125 10.0001C13.125 8.27417 11.7259 6.87506 10 6.87506C8.27411 6.87506 6.875 8.27417 6.875 10.0001C6.875 11.726 8.27411 13.1251 10 13.1251Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
