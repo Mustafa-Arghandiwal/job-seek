@@ -287,7 +287,7 @@ export default function ProfileTabContent() {
                         <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} fileName={item.file_name} size={item.size} shortenFilename={shortenFilename} setSuccessMsg={setResumeSuccessMsg} />
                     ))}
 
-                    <div className="relative">
+                    <div className="relative w-72 flex-initial">
                         <label htmlFor="resume" onDragOver={e => { e.preventDefault(); setResumeDragging(true) }}
                             onDrop={e => {
                                 e.preventDefault()
@@ -301,7 +301,7 @@ export default function ProfileTabContent() {
                                 }
 
                             }}
-                            className={`flex gap-3 w-64 flex-1  p-5 max-h-20 items-center rounded-md active:shadow-none
+                            className={`flex gap-3   p-5 max-h-20 items-center rounded-md active:shadow-none
                                         border border-dashed border-customGray-200/70  hover:shadow-lg duration-150 cursor-pointer ${resumeDragging && 'scale-110 bg-customGray-50 drop-shadow-2xl'}`}>
 
                             <input type="file" accept="application/pdf" id="resume" className="hidden" onChange={e => {
@@ -323,8 +323,7 @@ export default function ProfileTabContent() {
                             </div>
 
                             <div>
-                                <p className="text-customGray-900 text-sm font-medium" >Add CV/Résumé (pdf only)</p>
-                                {/* <p className="text-customGray-900 text-sm font-medium" >(pdf only)</p> */}
+                                <p className="text-customGray-900 break-words line-clamp-2 text-sm font-medium" >Add CV/Résumé (pdf only)</p>
                                 <p className={`text-xs ${resumeName ? 'text-primary-500 font-medium' : 'text-customGray-600'}`}>
                                     {resumeName ? `Selected: ${resumeName}` : 'Browse files or drop here'}
                                 </p>
