@@ -7,10 +7,10 @@ export default function ForgotPassword() {
     const {data, setData, post, processing, errors} = useForm({
         email: ''
     })
-    const {flash} = usePage().props 
+    const {flash} = usePage().props
 
     const [flashVisible, setFlashVisible] = useState(!flash.status)
-    
+
         useEffect(() => {
             if(flash.status) {
                 setFlashVisible(true)
@@ -21,7 +21,7 @@ export default function ForgotPassword() {
             }
         }, [flash.status])
 
-    
+
     const handleSubmit = (e) => {
         e.preventDefault()
         post('/forgot-password')
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
 
     return (
         <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-rows-1 lg:grid-cols-2">
-            
+
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
 
                 <div className="absolute top-2 left-8 flex items-center gap-1">
@@ -41,29 +41,29 @@ export default function ForgotPassword() {
 
                     <div className="flex justify-between items-center">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-gray-900 text-[26px] sm:text-[32px]">Forgot Your Password?</h1>
+                            <h1 className="text-customGray-900 text-[26px] sm:text-[32px]">Forgot Your Password?</h1>
                             <div className="flex flex-wrap gap-1">
-                                <p className="text-gray-600">Go back to</p>
-                                <Link className="text-[#0A65CC]" href="/sign-in">Sign In</Link>
+                                <p className="text-customGray-600">Go back to</p>
+                                <Link className="text-primary-500" href="/sign-in">Sign In</Link>
                             </div>
                             <div className="flex flex-wrap gap-1 mt-2 sm:mt-0">
-                                <p className="text-gray-600">Don't have an account?</p>
-                                <Link className="text-[#0A65CC]" href="/sign-up">Create Account</Link>
+                                <p className="text-customGray-600">Don't have an account?</p>
+                                <Link className="text-primary-500" href="/sign-up">Create Account</Link>
                             </div>
 
                         </div>
 
-                        
+
 
                     </div>
 
                     <form onSubmit={handleSubmit}>
-                        <div className="h-16">
-                                    <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-gray-100 px-3 outline-none" />
+                        <div className="h-20 xs:h-16">
+                                    <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100 px-3 outline-none focus:ring-1 focus:ring-primary-500" />
                                     {errors.email && <p className="text-sm text-danger-600">{errors.email}</p>}
                         </div>
 
-                        <button disabled={processing} className="w-full mt-3 border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-[#CEE0F5] text-white font-semibold cursor-pointer select-none">
+                        <button disabled={processing} className="w-full mt-3 border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
                             Send Reset Link <img src="arrow-right.svg" />
                         </button>
 
@@ -86,7 +86,7 @@ export default function ForgotPassword() {
                             <img src="briefcase-bg.svg" className="w-16 h-16" />
                             <div>
                                 <p className="text-xl text-white">2,000</p>
-                                <p className="text-sm text-gray-400">Live Jobs</p>
+                                <p className="text-sm text-customGray-400">Live Jobs</p>
                             </div>
                         </div>
 
@@ -94,7 +94,7 @@ export default function ForgotPassword() {
                             <img src="company-bg.svg" className="w-16 h-16" />
                             <div>
                                 <p className="text-xl text-white">300+</p>
-                                <p className="text-sm text-gray-400">Companies</p>
+                                <p className="text-sm text-customGray-400">Companies</p>
                             </div>
                         </div>
 
@@ -102,12 +102,12 @@ export default function ForgotPassword() {
                             <img src="briefcase-bg.svg" className="w-16 h-16" />
                             <div>
                                 <p className="text-xl text-white">56</p>
-                                <p className="text-sm text-gray-400">New Jobs Today</p>
+                                <p className="text-sm text-customGray-400">New Jobs Today</p>
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
 
                     </div>
                 </div>
