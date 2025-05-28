@@ -34,7 +34,7 @@ export default function ResumeBox(props) {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        props.setSuccessMsg('')
+        props.setSuccessMsg()
         props.delete(`/candidate/settings/profile/resumes/${props.id}`)
     }
 
@@ -48,7 +48,7 @@ export default function ResumeBox(props) {
                     <path d="M12 21H20" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <div className="flex flex-col gap-1 ">
-                    <p className="text-customGray-900  text-sm font-medium">{props.fileName}</p>
+                    <p className="text-customGray-900  text-sm font-medium" title={props.fileName}>{props.shortenFilename(props.fileName, 27)}</p>
                     <span className="text-customGray-600 text-sm">{fileSize}</span>
                 </div>
             </div>

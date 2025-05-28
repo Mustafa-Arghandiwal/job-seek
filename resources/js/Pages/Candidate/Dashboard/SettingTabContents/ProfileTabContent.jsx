@@ -11,7 +11,6 @@ export default function ProfileTabContent() {
     const dbResumes = props.auth.user.resumes
 
 
-    console.log(props.errors)
 
     const basicForm = useForm({
         fullName: props.auth.user.full_name,
@@ -26,6 +25,10 @@ export default function ProfileTabContent() {
     const [profileSuccessMsg, setProfileSuccessMsg] = useState('')
     const [resumeSuccessMsg, setResumeSuccessMsg] = useState('')
 
+    const [pdfSizeTooBig, setPdfSizeTooBig] = useState(false)
+    const [profileSizeTooBig, setProfileSizeTooBig] = useState(false)
+
+
 
 
     const resumeForm = useForm({
@@ -38,7 +41,7 @@ export default function ProfileTabContent() {
 
 
 
-// Messages --------------------------------------------------------
+    // Messages --------------------------------------------------------
     useEffect(() => {
         if (props.flash.profileSuccess) {
             setProfileSuccessMsg(props.flash.profileSuccess)
@@ -65,7 +68,7 @@ export default function ProfileTabContent() {
         }
     }, [resumeSuccessMsg])
 
-// --------------------------------------------------------
+    // --------------------------------------------------------
 
 
     const handleSelectExperience = (option) => {
@@ -127,26 +130,44 @@ export default function ProfileTabContent() {
 
 
         <div className="pb-4">
-            <form onSubmit={handleBasicSubmit} className=""> {/*enctype="multipart/form-data" ??? ans: auto-handled by inertia.js*/}
+            <form onSubmit={e => {
+                e.preventDefault()
+                if (!profileSizeTooBig) {
+                    handleBasicSubmit(e)
+                }
+
+            }} className=""> {/*enctype="multipart/form-data" ??? ans: auto-handled by inertia.js*/}
 
                 <h2 className="text-lg font-medium text-customGray-900">Basic Information</h2>
 
                 <div className="flex flex-col md:flex-row mt-5 gap-12 ">
 
-                    <div className=" min-w-40 max-w-60 shrink-0  relative">
+                    <div className=" min-w-40 max-w-60 shrink-0 relative">
                         <span className="text-sm text-customGray-900 ">Profile Picture</span>
                         <label onDragOver={e => { e.preventDefault(); setDragging(true) }} onDrop={e => {
                             e.preventDefault()
                             setDragging(false)
                             basicForm.setData('profilePicture', e.dataTransfer.files[0])
                             setFileName(shortenFilename(e.dataTransfer.files[0].name))
+                            setResumeName(shortenFilename(e.dataTransfer.files[0].name))
+                            if (e.dataTransfer.files[0].size > 5 * 1024 * 1024) {
+                                setProfileSizeTooBig(true)
+                            } else {
+                                setProfileSizeTooBig(false)
+                            }
+
                         }}
-                            htmlFor="profilePic" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center  text-gray-900 cursor-pointer
+                            htmlFor="profilePic" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center  text-gray-900 cursor-pointer hover:shadow-lg active:shadow-none
                                                     border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${dragging && 'scale-110 drop-shadow-2xl'} `}>
 
                             <input type="file" id="profilePic" className="hidden" onChange={e => {
                                 basicForm.setData('profilePicture', e.target.files[0])
                                 setFileName(shortenFilename(e.target.files[0].name))
+                                if (e.target.files[0].size > 5 * 1024 * 1024) {
+                                    setProfileSizeTooBig(true)
+                                } else {
+                                    setProfileSizeTooBig(false)
+                                }
                             }} accept="image/*" />
 
                             <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="file upload" />
@@ -173,6 +194,10 @@ export default function ProfileTabContent() {
 
                             }
                         </label>
+
+                        <span className="text-xs block w-full  absolute  text-danger-600" >
+                            {(profileSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.profilePicture}
+                        </span>
 
 
                     </div>
@@ -259,7 +284,7 @@ export default function ProfileTabContent() {
 
                 <div className="flex gap-6 flex-wrap   mt-5">
                     {dbResumes.map((item) => (
-                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} fileName={shortenFilename(item.file_name, 27)} size={item.size} setSuccessMsg={setResumeSuccessMsg} />
+                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} fileName={item.file_name} size={item.size} shortenFilename={shortenFilename} setSuccessMsg={setResumeSuccessMsg} />
                     ))}
 
                     <div className="relative">
@@ -269,14 +294,24 @@ export default function ProfileTabContent() {
                                 setResumeDragging(false)
                                 resumeForm.setData('resume', e.dataTransfer.files[0])
                                 setResumeName(shortenFilename(e.dataTransfer.files[0].name))
+                                if (e.dataTransfer.files[0].size > 10 * 1024 * 1024) {
+                                    setPdfSizeTooBig(true)
+                                } else {
+                                    setPdfSizeTooBig(false)
+                                }
 
                             }}
-                            className={`flex gap-3 w-72 flex-initial  p-5 max-h-20 items-center rounded-md active:shadow-none
-                        border border-dashed border-customGray-200/70  hover:shadow-lg duration-150 cursor-pointer ${resumeDragging && 'scale-110 bg-customGray-50 drop-shadow-2xl'}`}>
+                            className={`flex gap-3 w-64 flex-1  p-5 max-h-20 items-center rounded-md active:shadow-none
+                                        border border-dashed border-customGray-200/70  hover:shadow-lg duration-150 cursor-pointer ${resumeDragging && 'scale-110 bg-customGray-50 drop-shadow-2xl'}`}>
 
                             <input type="file" accept="application/pdf" id="resume" className="hidden" onChange={e => {
                                 resumeForm.setData('resume', e.target.files[0])
                                 setResumeName(shortenFilename(e.target.files[0].name))
+                                if (e.target.files[0].size > 10 * 1024 * 1024) {
+                                    setPdfSizeTooBig(true)
+                                } else {
+                                    setPdfSizeTooBig(false)
+                                }
                             }} />
 
                             <div>
@@ -299,23 +334,32 @@ export default function ProfileTabContent() {
 
                         </label>
 
-                        <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                            {props.errors.maxResumesExceed}
-                        </span>
+                        <div>
 
-                        {resumeName &&
-                            <form onSubmit={handleResumeUpload}>
-                                <button className="absolute  flex -bottom-[33px] right-0 text-sm p-1 bg-primary-500 text-white font-medium justify-center gap-1 items-center rounded-md hover:bg-primary-600 cursor-pointer shadow-lg active:scale-95 duration-75">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.75 10H17.5C17.6658 10 17.8247 10.0658 17.9419 10.1831C18.0592 10.3003 18.125 10.4592 18.125 10.625V15.625C18.125 15.7908 18.0592 15.9497 17.9419 16.0669C17.8247 16.1842 17.6658 16.25 17.5 16.25H2.5C2.33424 16.25 2.17527 16.1842 2.05806 16.0669C1.94085 15.9497 1.875 15.7908 1.875 15.625V10.625C1.875 10.4592 1.94085 10.3003 2.05806 10.1831C2.17527 10.0658 2.33424 10 2.5 10H6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10 10V1.875" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M6.25 5.625L10 1.875L13.75 5.625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M14.6875 14.0625C15.2053 14.0625 15.625 13.6428 15.625 13.125C15.625 12.6072 15.2053 12.1875 14.6875 12.1875C14.1697 12.1875 13.75 12.6072 13.75 13.125C13.75 13.6428 14.1697 14.0625 14.6875 14.0625Z" fill="currentColor" />
-                                    </svg>
-                                    <span>Upload</span>
-                                </button>
-                            </form>
-                        }
+                            <span className="text-xs w-full text-danger-600 " >
+                                {(pdfSizeTooBig && 'File size is too big. Max file size is 10 MB.') || props.errors.maxResumesExceed || props.errors.resume}
+                            </span>
+
+                            {resumeName &&
+                                <form onSubmit={e => {
+                                    e.preventDefault()
+                                    if (!pdfSizeTooBig) {
+                                        handleResumeUpload(e)
+                                    }
+                                }}>
+                                    <button className="absolute  flex -bottom-[33px] right-0 text-sm p-1 bg-primary-500 text-white font-medium justify-center gap-1 items-center rounded-md hover:bg-primary-600 cursor-pointer shadow-lg active:scale-95 duration-75">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.75 10H17.5C17.6658 10 17.8247 10.0658 17.9419 10.1831C18.0592 10.3003 18.125 10.4592 18.125 10.625V15.625C18.125 15.7908 18.0592 15.9497 17.9419 16.0669C17.8247 16.1842 17.6658 16.25 17.5 16.25H2.5C2.33424 16.25 2.17527 16.1842 2.05806 16.0669C1.94085 15.9497 1.875 15.7908 1.875 15.625V10.625C1.875 10.4592 1.94085 10.3003 2.05806 10.1831C2.17527 10.0658 2.33424 10 2.5 10H6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M10 10V1.875" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M6.25 5.625L10 1.875L13.75 5.625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M14.6875 14.0625C15.2053 14.0625 15.625 13.6428 15.625 13.125C15.625 12.6072 15.2053 12.1875 14.6875 12.1875C14.1697 12.1875 13.75 12.6072 13.75 13.125C13.75 13.6428 14.1697 14.0625 14.6875 14.0625Z" fill="currentColor" />
+                                        </svg>
+                                        <span>Upload</span>
+                                    </button>
+                                </form>
+                            }
+
+                        </div>
 
 
                     </div>
