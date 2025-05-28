@@ -284,7 +284,7 @@ export default function ProfileTabContent() {
 
                 <div className="flex gap-6 flex-wrap   mt-5">
                     {dbResumes.map((item) => (
-                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} fileName={item.file_name} size={item.size} shortenFilename={shortenFilename} setSuccessMsg={setResumeSuccessMsg} />
+                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} path={item.path} fileName={item.file_name} size={item.size} shortenFilename={shortenFilename} setSuccessMsg={setResumeSuccessMsg} />
                     ))}
 
                     <div className="relative w-72 flex-initial">
