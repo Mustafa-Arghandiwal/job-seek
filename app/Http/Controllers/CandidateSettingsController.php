@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class CandidateSettingsController extends Controller
 {
@@ -86,6 +85,7 @@ class CandidateSettingsController extends Controller
 
         return back()->with('personalSuccess', 'Your changes have been saved.');
     }
+
 
 
     public function updateSocialLinks(Request $request)

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
             $table->date('dob')->nullable();
-            $table->enum('gender', ['Male', 'Female', 'Other' ,'Prefer not to say'])->nullable();
+            $table->enum('gender', ['Male', 'Female', 'Other', 'Prefer not to say'])->nullable();
             $table->enum('marital_status', ['Single', 'Married', 'Separated', 'Prefer not to say'])->nullable();
             $table->enum('education_level', ['School Graduate', 'Bachelor', 'Master'])->nullable();
             $table->enum('experience', ['No Experience', '0-2', '2-4', '4+'])->nullable();
@@ -37,7 +37,6 @@ return new class extends Migration
             $table->string('url', 255)->nullable();
             $table->timestamps();
             $table->unique(['candidate_id', 'social_type']);
-
         });
 
         Schema::create('candidate_contacts', function (Blueprint $table) {
@@ -49,6 +48,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('candidate_resumes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
+            $table->string('resume')->nullable();
+            $table->string('file_name')->nullable();
+            $table->unsignedInteger('size')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

@@ -28,4 +28,7 @@ class Candidate extends Model
     public function contact() {
         return $this->hasOne(CandidateContact::class, 'candidate_id');
     }
+    public function resumes() {
+        return $this->hasMany(CandidateResume::class, 'candidate_id');
+    }
 }
