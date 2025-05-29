@@ -3,14 +3,11 @@ import Layout from "../Layouts/Layout"
 import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
+import EmployerLayout from "../Layouts/EmployerLayout"
 
 function Home() {
-    const { auth } = usePage().props
-    const { post } = useForm({})
-    const handleLogout = (e) => {
-        e.preventDefault()
-        post('/sign-out')
-    }
+
+
     return (
 
         <>
@@ -194,7 +191,7 @@ function Home() {
                     <h4 className="text-[32px] text-white font-medium">Become an Employer</h4>
                     <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                     <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
-                        <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -208,6 +205,10 @@ function Home() {
     )
 }
 
-Home.layout = page => <Layout children={page} />
+Home.layout = page => {
+    const userType = page.props.auth.user?.user_type
+    return userType === 'employer' ? <EmployerLayout children={page} /> : <Layout children={page} />
+
+}
 
 export default Home

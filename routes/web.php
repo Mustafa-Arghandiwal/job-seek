@@ -65,4 +65,13 @@ Route::post('/candidate/settings/delete-account', [CandidateSettingsController::
 
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::inertia('/employer/dashboard/overview', 'Employer/Dashboard/Overview');
+    Route::inertia('/employer/dashboard/post-job', 'Employer/Dashboard/PostJob');
+    Route::inertia('/employer/dashboard/my-jobs', 'Employer/Dashboard/MyJobs');
+    Route::inertia('/employer/dashboard/saved-candidates', 'Employer/Dashboard/SavedCandidates');
+    Route::inertia('/employer/dashboard/settings', 'Employer/Dashboard/Settings');
+
+});
 
