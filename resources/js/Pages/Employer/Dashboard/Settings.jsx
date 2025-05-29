@@ -1,13 +1,11 @@
 
-// import Tab from "../../../Components/Tab"
-// import Tabs from "../../../Components/Tabs"
-// import tab_svgs from "./tab_svgs.jsx"
-// import ProfileTabContent from "./SettingTabContents/ProfileTabContent.jsx"
-// import PersonalTabContent from "./SettingTabContents/PersonalTabContent.jsx"
-// import SocialLinksTabContent from "./SettingTabContents/SocialLinksTabContent.jsx"
-// import AccountTabContent from "./SettingTabContents/AccountTabContent.jsx"
+import Tab from "../../../Components/Tab"
+import Tabs from "../../../Components/Tabs"
+import tab_svgs from "./tab_svgs.jsx"
 import EmployerLayout from "../../../Layouts/EmployerLayout.jsx"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout.jsx"
+import CompanyInfoTabContent from "./SettingTabContents/CompanyInfoTabContent.jsx"
+import FoundingInfoTabContent from "./SettingTabContents/FoundingInfoTabContent.jsx"
 
 
 function Settings() {
@@ -16,24 +14,24 @@ function Settings() {
         <div>
             <h1 className="font-medium text-2xl ">Settings</h1>
 
-            {/* <Tabs> */}
-            {/*     <Tab title="Profile" icon={tab_svgs.profile}> */}
-            {/*         <ProfileTabContent/> */}
-            {/*     </Tab> */}
+            <Tabs>
+                <Tab title="Company Info" icon={tab_svgs.companyInfo}>
+                    <CompanyInfoTabContent/>
+                </Tab>
 
 
-            {/*     <Tab title="Personal" icon={tab_svgs.personal}> */}
-            {/*         <PersonalTabContent /> */}
-            {/*     </Tab> */}
+                <Tab title="Founding Info" icon={tab_svgs.foundingInfo}>
+                    <FoundingInfoTabContent/>
+                </Tab>
 
-            {/*     <Tab title="Social Links" icon={tab_svgs.socialLinks}> */}
-            {/*         <SocialLinksTabContent /> */}
-            {/*     </Tab> */}
+                {/* <Tab title="Social Links" icon={tab_svgs.socialMedia}> */}
+                {/*     <SocialLinksTabContent /> */}
+                {/* </Tab> */}
 
-            {/*     <Tab title="Account" icon={tab_svgs.account}> */}
-            {/*         <AccountTabContent /> */}
-            {/*     </Tab> */}
-            {/* </Tabs> */}
+                {/* <Tab title="Account" icon={tab_svgs.account}> */}
+                {/*     <AccountTabContent /> */}
+                {/* </Tab> */}
+            </Tabs>
 
 
 

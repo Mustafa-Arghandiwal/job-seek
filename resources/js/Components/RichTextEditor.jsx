@@ -98,16 +98,16 @@ const MenuBar = () => {
 
 export default (props) => {
     return (
-        <div className='border border-customGray-100 pb-2 text-customGray-900 rounded-[6px] '>
+        <div className='border  border-customGray-100 pb-2 text-customGray-900 rounded-[6px] '>
             <EditorProvider
                 slotAfter={<MenuBar />}
                 extensions={[StarterKit, Underline, Placeholder.configure({
-                    placeholder: 'Write down your biography here. Let the employers know who you are...',
+                    placeholder: props.placeholder,
                 })]}
                 content={props.content}
                 editorProps={{
                     attributes: {
-                        //to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
+                        //this is to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
                         class: 'editor-content'
                     }
                 }}

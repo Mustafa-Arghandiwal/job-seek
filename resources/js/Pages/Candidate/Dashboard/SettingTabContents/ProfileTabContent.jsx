@@ -149,7 +149,7 @@ export default function ProfileTabContent() {
                             setDragging(false)
                             basicForm.setData('profilePicture', e.dataTransfer.files[0])
                             setFileName(shortenFilename(e.dataTransfer.files[0].name))
-                            setResumeName(shortenFilename(e.dataTransfer.files[0].name))
+                            // setResumeName(shortenFilename(e.dataTransfer.files[0].name))
                             if (e.dataTransfer.files[0].size > 5 * 1024 * 1024) {
                                 setProfileSizeTooBig(true)
                             } else {
@@ -171,7 +171,7 @@ export default function ProfileTabContent() {
                             }} accept="image/*" />
 
                             <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="file upload" />
-                            <p className="text-sm text-gray-700 mt-3">Browse photo or drop here</p>
+                            <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
                             <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
                             <p className={`text-xs  mt-4 max-w-40  text-wrap ${fileName ? 'text-primary-600' : 'text-gray-500'}`}>
                                 {fileName ? `Selected: ${fileName}` : 'No photo selected yet'}

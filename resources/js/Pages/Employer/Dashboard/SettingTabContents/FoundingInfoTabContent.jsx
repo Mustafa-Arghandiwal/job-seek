@@ -1,3 +1,4 @@
+
 import { router, useForm, usePage } from "@inertiajs/react";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
@@ -5,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor"
 
 
-export default function PersonalTabContent() {
+export default function FoundingInfoTabContent() {
 
     const { props } = usePage()
     const { data, setData, processing, post } = useForm({
@@ -107,8 +108,7 @@ export default function PersonalTabContent() {
 
             <div className="relative">
                 <label className="text-sm text-customGray-900">Biography</label>
-                <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)}
-                    placeholder="Write down your biography here. Let the employers know who you are..." />
+                <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)} />
                 <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
                     {props.errors.biography || ''}
                 </span>
