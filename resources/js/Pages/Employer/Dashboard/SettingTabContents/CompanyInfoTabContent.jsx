@@ -234,62 +234,65 @@ export default function CompanyInfoTabContent() {
             <hr className="border-none h-[1px] bg-customGray-50 my-8" />
 
 
-            <div className="flex flex-col w-full  min-w-44 relative">
-                <label htmlFor="comapnyName" className="text-sm text-customGray-900">Company Name</label>
-                <input type="text" placeholder="e.g. Acme Inc." id="companyName" value={data.companyName} onChange={(e) => setData('comapnyName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.companyName}
-                </span>
-            </div>
 
+            <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-4 ">
 
-
-            <div className="relative w-full sm:w-1/2 max-w-96 ">
-                <label className="text-sm text-customGray-900">Company Type</label>
-                <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.companyType} onValueChange={handleCompanyTypeChange} />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.companyType || ''}
-                </span>
-            </div>
-
-            <div className="relative w-full sm:w-1/2 max-w-96 ">
-                <label className="text-sm text-customGray-900">Industry Type</label>
-                <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.industryType} onValueChange={handleIndustryTypeChange} />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.industryType || ''}
-                </span>
-            </div>
-
-            <div className="relative w-full sm:w-1/2 max-w-96 ">
-                <label className="text-sm text-customGray-900">Team Size</label>
-                <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.teamSize} onValueChange={handleTeamSizeChange} />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.teamSize || ''}
-                </span>
-            </div>
-
-            <div className=" flex flex-col relative w-full sm:w-[calc(50%-8px)] max-w-96 ">
-                <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
-                <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.yearEstablished} />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.yearEstablished || ''}
-                </span>
-            </div>
-
-            <div className="w-full max-w-[680px] relative">
-                <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
-                <div className="flex items-center gap-3 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
-                    <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
-                    <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
+                <div className="flex flex-col w-full  min-w-44 relative sm:col-span-2">
+                    <label htmlFor="comapnyName" className="text-sm text-customGray-900">Company Name</label>
+                    <input type="text" placeholder="e.g. Acme Inc." id="companyName" value={data.companyName} onChange={(e) => setData('comapnyName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.companyName}
+                    </span>
                 </div>
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                    {props.errors.companyWebsite}
-                </span>
+
+
+
+                <div className="relative w-full ">
+                    <label className="text-sm text-customGray-900">Company Type</label>
+                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.companyType} onValueChange={handleCompanyTypeChange} />
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.companyType || ''}
+                    </span>
+                </div>
+
+                <div className="relative w-full ">
+                    <label className="text-sm text-customGray-900">Industry Type</label>
+                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.industryType} onValueChange={handleIndustryTypeChange} />
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.industryType || ''}
+                    </span>
+                </div>
+
+                <div className="relative w-full ">
+                    <label className="text-sm text-customGray-900">Team Size</label>
+                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.teamSize} onValueChange={handleTeamSizeChange} />
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.teamSize || ''}
+                    </span>
+                </div>
+
+                <div className="  relative w-full ">
+                    <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
+                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.yearEstablished} />
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.yearEstablished || ''}
+                    </span>
+                </div>
+
+                <div className="w-full max-w-[680px] relative sm:col-span-2">
+                    <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
+                    <div className="flex items-center gap-3 border mt-2 rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
+                        <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
+                        <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
+                    </div>
+                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        {props.errors.companyWebsite}
+                    </span>
+                </div>
             </div>
 
 
-
-            <div className="relative flex flex-col gap-2 mt-6">
+            <div className="relative mt-6">
                 <label className="text-sm text-customGray-900">About Company</label>
                 <RichTextEditor content={data.aboutCompany} onChange={newContent => setData('aboutCompany', newContent)}
                     placeholder="Write down about your company here. Let the candidate know who you are..." />

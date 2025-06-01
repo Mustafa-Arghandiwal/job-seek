@@ -98,7 +98,7 @@ const MenuBar = () => {
 
 export default (props) => {
     return (
-        <div className='border  border-customGray-100 pb-2 text-customGray-900 rounded-[6px] '>
+        <div className='border mt-2  border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-[6px] '>
             <EditorProvider
                 slotAfter={<MenuBar />}
                 extensions={[StarterKit, Underline, Placeholder.configure({

@@ -5,7 +5,8 @@ import tab_svgs from "./tab_svgs.jsx"
 import EmployerLayout from "../../../Layouts/EmployerLayout.jsx"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout.jsx"
 import CompanyInfoTabContent from "./SettingTabContents/CompanyInfoTabContent.jsx"
-import FoundingInfoTabContent from "./SettingTabContents/FoundingInfoTabContent.jsx"
+import SocialLinksTabContent from "./SettingTabContents/SocialLinksTabContent.jsx"
+import AccountTabContent from "./SettingTabContents/AccountTabContent.jsx"
 
 
 function Settings() {
@@ -20,17 +21,14 @@ function Settings() {
                 </Tab>
 
 
-                <Tab title="Founding Info" icon={tab_svgs.foundingInfo}>
-                    <FoundingInfoTabContent/>
+                <Tab title="Social Media" icon={tab_svgs.socialMedia}>
+                    <SocialLinksTabContent/>
                 </Tab>
 
-                {/* <Tab title="Social Links" icon={tab_svgs.socialMedia}> */}
-                {/*     <SocialLinksTabContent /> */}
-                {/* </Tab> */}
 
-                {/* <Tab title="Account" icon={tab_svgs.account}> */}
-                {/*     <AccountTabContent /> */}
-                {/* </Tab> */}
+                <Tab title="Account" icon={tab_svgs.account}>
+                    <AccountTabContent />
+                </Tab>
             </Tabs>
 
 

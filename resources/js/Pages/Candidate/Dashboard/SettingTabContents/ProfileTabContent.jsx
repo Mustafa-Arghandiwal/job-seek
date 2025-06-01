@@ -244,7 +244,7 @@ export default function ProfileTabContent() {
 
                         <div className="w-full max-w-[680px] relative">
                             <label htmlFor="personalWebsite" className="text-sm text-customGray-900">Personal Website</label>
-                            <div className="flex items-center gap-3 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
+                            <div className="flex items-center gap-3 mt-2 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
                                 <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
                                 <input type="text" placeholder="Website url..." id="personalWebsite" value={basicForm.data.personalWebsite} onChange={(e) => basicForm.setData('personalWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                             </div>

@@ -8,6 +8,7 @@ export default function DatePicker(props) {
     const pickerRef = useRef(null)
     const inputRef = useRef(null)
 
+
     useEffect(() => {
         if (pickerRef.current && inputRef.current) {
             const handleClick = () => {
@@ -43,7 +44,7 @@ export default function DatePicker(props) {
 
             <div
                 ref={pickerRef}
-                className={`z-20 border border-customGray-100 rounded-md py-3 px-4 cursor-pointer ${props.currentDate !== '' ? 'text-customGray-900' : 'text-customGray-400'}`}
+                className={`z-20 mt-2 border border-customGray-100  rounded-md py-[11px] px-4 cursor-pointer ${props.currentDate !== '' ? 'text-customGray-900' : 'text-customGray-400'}`}
             >
                 {props.currentDate || 'yyyy-mm-dd'}
             </div>
