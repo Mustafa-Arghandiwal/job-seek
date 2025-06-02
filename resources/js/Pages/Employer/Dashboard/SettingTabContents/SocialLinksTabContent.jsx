@@ -7,7 +7,7 @@ export default function SocialLinksTabContent() {
 
 
     const { props } = usePage()
-    const linksFromDB = props.auth.user.social_links || []
+    const linksFromDB = props.auth.user.employer_social_links || []
     const socialLinkTypes = ["LinkedIn", "X", "GitHub", "Instagram"]
 
     const initialLinks = socialLinkTypes.map(type => {
@@ -18,6 +18,7 @@ export default function SocialLinksTabContent() {
             selectedBy: fromDb ? linksFromDB.indexOf(fromDb) : null
         }
     })
+    console.log(initialLinks)
     const { data, setData, transform, errors, clearErrors, processing, post } = useForm({
         links: initialLinks
     })
@@ -112,7 +113,7 @@ export default function SocialLinksTabContent() {
     const handleSubmit = (e) => {
         e.preventDefault()
         setSuccessMsg('')
-        post('/candidate/settings/social-links', {
+        post('/employer/settings/social-links', {
             onSuccess: () => {
                 setSuccessMsg(props.flash.socialLinksSuccess)
             }
@@ -140,7 +141,7 @@ export default function SocialLinksTabContent() {
             }
 
             <button onClick={addLink}
-                type="button" disabled={isAddBtnDisabled} className={`flex w-full  max-w-[860px] justify-center items-center text-sm  gap-2 disabled:text-customGray-300 disabled:hover:bg-customGray-50 disabled:cursor-not-allowed text-customGray-900 bg-customGray-50 rounded-md py-3 px-2 cursor-pointer hover:bg-primary-500 hover:text-white duration-75`} >
+                type="button" disabled={isAddBtnDisabled} className={`flex w-full mt-3  max-w-[860px] justify-center items-center text-sm  gap-2 disabled:text-customGray-300 disabled:hover:bg-customGray-50 disabled:cursor-not-allowed text-customGray-900 bg-customGray-50 rounded-md py-3 px-2 cursor-pointer hover:bg-primary-500 hover:text-white duration-75`} >
                 <svg className="rotate-45" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
                     <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.3" strokeMiterlimit="10" />
                     <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />

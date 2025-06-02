@@ -171,7 +171,7 @@ export default function EmployerLayout({ children }) {
                 {user ?
 
                     <div className="flex gap-2 mt-6 items-center">
-                        <Link href="/employer/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                        <Link href="/employer/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
                             <img src={headerProfilePic} className="h-full w-full  hover:scale-105 duration-100" />
                         </Link>
 

@@ -169,7 +169,7 @@ export default function Layout({ children }) {
                 {user ?
 
                     <div className="flex gap-2 mt-6 items-center">
-                        <Link href="/candidate/dashboard/overview" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                        <Link href="/candidate/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
                             <img src={headerProfilePic} className="h-full w-full  hover:scale-105 duration-100" />
                         </Link>
 

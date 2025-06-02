@@ -73,7 +73,7 @@ class HandleInertiaRequests extends Middleware
                     }),
 
                     'phone' => $request->user()->candidate?->contact?->phone,
-                    'contactEmail' => $request->user()->candidate?->contact?->email,
+                    'contact_email' => $request->user()->candidate?->contact?->email,
                     'city' => $request->user()->candidate?->contact?->city,
 
 
@@ -84,6 +84,16 @@ class HandleInertiaRequests extends Middleware
                     'establish_date' => $request->user()->employer?->detail?->establish_date,
                     'company_website' => $request->user()->employer?->detail?->company_website,
                     'about' => $request->user()->employer?->detail?->about,
+                    'employer_social_links' => $request->user()->employer?->socialLink?->map(
+                        fn($link) =>
+                        [
+                            'type' => $link->social_type,
+                            'url' => $link->url,
+                        ]
+                    ),
+                    'employer_phone' => $request->user()->employer?->contact?->phone,
+                    'employer_contact_email' => $request->user()->employer?->contact?->email,
+                    'employer_city' => $request->user()->employer?->contact?->city,
 
                 ]
                 : null,

@@ -9,7 +9,7 @@ export default function AccountTabContent() {
 
     const contactForm = useForm({
         phone: props.auth.user.phone || '',
-        email: props.auth.user.contactEmail || '',
+        email: props.auth.user.contact_email || '',
         city: props.auth.user.city || '',
     })
 

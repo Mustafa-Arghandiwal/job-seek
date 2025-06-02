@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployerContact;
 use App\Models\EmployerDetail;
+use App\Models\EmployerSocialLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -67,5 +69,57 @@ class EmployerSettingsController extends Controller
             $user->save();
             $employerDetail->save();
         });
+    }
+
+
+
+    public function updateSocialLinks(Request $request)
+    {
+        $validated = $request->validate([
+            'links' => ['array'],
+            'links.*.type' => ['string', 'in:LinkedIn,X,GitHub,Instagram'],
+            'links.*.url' => ['required', 'url', 'filled']
+        ]);
+
+        $employer = $request->user()->employer;
+
+        EmployerSocialLink::where('employer_id', $employer->id)->delete();
+
+        foreach ($validated['links'] as $link) {
+            $employerSocialLink = new EmployerSocialLink();
+            $employerSocialLink->employer_id = $employer->id;
+            $employerSocialLink->social_type = $link['type'];
+            $employerSocialLink->url = $link['url'];
+            $employerSocialLink->save();
+        }
+
+        return back()->with('socialLinksSuccess', 'Your changes have been saved.');
+    }
+
+
+
+    public function updateContact(Request $request)
+    {
+        $validated = $request->validate([
+            'phone' => ['required', 'string', 'regex:/^\+?[0-9]{9,15}$/'],
+            'email' => ['required', 'email'],
+            'city' => ['required', 'string', 'max:100']
+        ]);
+
+        $employer = $request->user()->employer;
+        $employerContact = $request->user()->employer->contact;
+
+        if (!$employerContact) {
+            $employerContact = new EmployerContact();
+            $employerContact->employer_id = $employer->id;
+        }
+
+        $employerContact->phone = $validated['phone'];
+        $employerContact->email = $validated['email'];
+        $employerContact->city = $validated['city'];
+        $employerContact->save();
+
+
+        return back()->with('contactSuccess', 'Your changes have been saved.');
     }
 }

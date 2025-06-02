@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -89,6 +90,22 @@ class AuthController extends Controller
         }
     }
 
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'currentPassword' => ['required', 'current_password'],
+            'newPassword' => ['required', 'string', 'min:6', 'different:currentPassword'],
+            'confirmPassword' => ['required', 'same:newPassword']
+        ]);
+        // dd($validated);
+
+        $user = $request->user();
+        $user->password = Hash::make($validated['newPassword']);
+
+        $user->save();
+
+        return back()->with('changePassSuccess', 'Your password has been changed.');
+    }
 
     public function signOut(Request $req)
     {
@@ -97,5 +114,19 @@ class AuthController extends Controller
         $req->session()->regenerateToken();
 
         return redirect('/sign-in');
+    }
+
+
+    public function deleteAccount(Request $request)
+    {
+        $user = $request->user();
+
+        Auth::logout();
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('accountDeleted', 'Your account has been deleted');
     }
 }

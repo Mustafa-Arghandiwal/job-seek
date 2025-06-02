@@ -8,9 +8,9 @@ export default function AccountTabContent() {
     const { props } = usePage()
 
     const contactForm = useForm({
-        phone: props.auth.user.phone || '',
-        email: props.auth.user.contactEmail || '',
-        city: props.auth.user.city || '',
+        phone: props.auth.user.employer_phone || '',
+        email: props.auth.user.employer_contact_email || '',
+        city: props.auth.user.employer_city || '',
     })
 
     const changePassForm = useForm({
@@ -63,7 +63,7 @@ export default function AccountTabContent() {
     // ________________________________________________________________________
     const handleContactFormSubmit = (e) => {
         e.preventDefault()
-        contactForm.post('/candidate/settings/contact', {
+        contactForm.post('/employer/settings/contact', {
             onSuccess: () => {
                 setContactSuccessMsg(props.flash.contactSuccess)
             }
@@ -72,7 +72,7 @@ export default function AccountTabContent() {
 
     const handleChangePassSubmit = (e) => {
         e.preventDefault()
-        changePassForm.post('/candidate/settings/change-password', {
+        changePassForm.post('/employer/settings/change-password', {
             onSuccess: () => {
                 setChangePassSuccessMsg(props.flash.changePassSuccess);
                 changePassForm.reset()
@@ -82,7 +82,7 @@ export default function AccountTabContent() {
 
     const handleDeleteAccountSubmit = (e) => {
         e.preventDefault()
-        deleteAccountForm.post('/candidate/settings/delete-account')
+        deleteAccountForm.post('/employer/settings/delete-account')
 
     }
     // ________________________________________________________________________

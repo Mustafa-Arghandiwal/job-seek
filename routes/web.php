@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Middleware\EnsureCandidate;
+use App\Models\EmployerSocialLink;
 use Database\Seeders\CandidateSeeder;
 
 // Route::get('/', function () {
@@ -60,8 +61,8 @@ Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeControll
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
 Route::post('/candidate/settings/contact', [CandidateSettingsController::class, 'updateContact']);
-Route::post('/candidate/settings/change-password', [CandidateSettingsController::class, 'updatePassword']);
-Route::post('/candidate/settings/delete-account', [CandidateSettingsController::class, 'deleteAccount']);
+Route::post('/candidate/settings/change-password', [AuthController::class, 'updatePassword']);
+Route::post('/candidate/settings/delete-account', [AuthController::class, 'deleteAccount']);
 
 
 
@@ -79,6 +80,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
+Route::post('/employer/settings/social-links', [EmployerSettingsController::class, 'updateSocialLinks']);
+Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
+Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
 
 
 
