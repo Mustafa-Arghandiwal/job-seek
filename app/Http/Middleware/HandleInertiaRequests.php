@@ -75,6 +75,16 @@ class HandleInertiaRequests extends Middleware
                     'phone' => $request->user()->candidate?->contact?->phone,
                     'contactEmail' => $request->user()->candidate?->contact?->email,
                     'city' => $request->user()->candidate?->contact?->city,
+
+
+                    // Employer specific
+                    'company_type' => $request->user()->employer?->detail?->company_type,
+                    'industry_type' => $request->user()->employer?->detail?->industry_type,
+                    'team_size' => $request->user()->employer?->detail?->team_size,
+                    'establish_date' => $request->user()->employer?->detail?->establish_date,
+                    'company_website' => $request->user()->employer?->detail?->company_website,
+                    'about' => $request->user()->employer?->detail?->about,
+
                 ]
                 : null,
 

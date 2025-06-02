@@ -11,16 +11,18 @@ export default function CompanyInfoTabContent() {
 
 
     const { props } = usePage({})
+    console.log(props.errors)
+    const employer = props.auth.user
     const { data, setData, processing, progress, errors, post } = useForm({
         logo: null,
         banner: null,
-        companyName: '',
-        companyType: '',
-        industryType: '',
-        teamSize: '',
-        yearEstablished: '',
-        companyWebsite: '',
-        aboutCompany: '',
+        companyName: employer.full_name || '',
+        companyType: employer.company_type || '',
+        industryType: employer.industry_type || '',
+        teamSize: employer.team_size || '',
+        establishDate: (employer.establish_date).slice(0, -3)  || '',
+        companyWebsite: employer.company_website || '',
+        aboutCompany: employer.about || '',
     })
 
     const [logoName, setLogoName] = useState('')
@@ -51,14 +53,14 @@ export default function CompanyInfoTabContent() {
     const handleTeamSizeChange = (option) => {
         setData(prevData => ({
             ...prevData,
-            handleTeamSizeChange: option
+            teamSize: option
         }))
     }
 
     const handleYearEstablishedChange = (option) => {
         setData(prevData => ({
             ...prevData,
-            yearEstablished: option
+            establishDate: option
         }))
     }
 
@@ -94,13 +96,17 @@ export default function CompanyInfoTabContent() {
         return `${start}...${end}${extension}`;
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        post('/employer/settings/company-info')
+    }
 
 
     return (
 
 
 
-        <form>
+        <form onSubmit={handleSubmit}>
 
             <h2 className="text-lg font-medium text-customGray-900">Company Logo & Banner</h2>
 
@@ -158,9 +164,9 @@ export default function CompanyInfoTabContent() {
 
                     </label>
 
-                    <span className="text-xs block w-full  absolute  text-danger-600" >
+                    <div className="text-sm w-full min-h-5 text-danger-600" >
                         {(logoSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.logo}
-                    </span>
+                    </div>
 
 
                 </div>
@@ -219,9 +225,9 @@ export default function CompanyInfoTabContent() {
 
                         </label>
 
-                        <span className="text-xs block w-full  absolute  text-danger-600" >
+                        <div className="text-sm  w-full text-danger-600" >
                             {(bannerSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.banner}
-                        </span>
+                        </div>
                     </div>
 
                 </div>
@@ -235,59 +241,59 @@ export default function CompanyInfoTabContent() {
 
 
 
-            <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-4 ">
+            <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-2 ">
 
                 <div className="flex flex-col w-full  min-w-44 relative sm:col-span-2">
                     <label htmlFor="comapnyName" className="text-sm text-customGray-900">Company Name</label>
-                    <input type="text" placeholder="e.g. Acme Inc." id="companyName" value={data.companyName} onChange={(e) => setData('comapnyName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <input type="text" placeholder="e.g. Acme Inc." id="companyName" value={data.companyName} onChange={(e) => setData('companyName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyName}
-                    </span>
+                    </div>
                 </div>
 
 
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Company Type</label>
-                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.companyType} onValueChange={handleCompanyTypeChange} />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={handleCompanyTypeChange} />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
-                    </span>
+                    </div>
                 </div>
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Industry Type</label>
-                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.industryType} onValueChange={handleIndustryTypeChange} />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={handleIndustryTypeChange} />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.industryType || ''}
-                    </span>
+                    </div>
                 </div>
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Team Size</label>
-                    <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.teamSize} onValueChange={handleTeamSizeChange} />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={handleTeamSizeChange} />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.teamSize || ''}
-                    </span>
+                    </div>
                 </div>
 
                 <div className="  relative w-full ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
-                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.yearEstablished} />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
-                        {props.errors.yearEstablished || ''}
-                    </span>
+                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
+                        {props.errors.establishDate || ''}
+                    </div>
                 </div>
 
-                <div className="w-full max-w-[680px] relative sm:col-span-2">
+                <div className="w-full md:max-w-1/2  relative sm:col-span-2">
                     <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
                     <div className="flex items-center gap-3 border mt-2 rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
                         <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
                         <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                     </div>
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyWebsite}
-                    </span>
+                    </div>
                 </div>
             </div>
 
@@ -296,9 +302,9 @@ export default function CompanyInfoTabContent() {
                 <label className="text-sm text-customGray-900">About Company</label>
                 <RichTextEditor content={data.aboutCompany} onChange={newContent => setData('aboutCompany', newContent)}
                     placeholder="Write down about your company here. Let the candidate know who you are..." />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                <div className="text-sm w-full text-danger-600 min-h-5" >
                     {props.errors.aboutCompany || ''}
-                </span>
+                </div>
             </div>
 
 

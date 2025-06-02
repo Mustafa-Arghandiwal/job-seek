@@ -48,7 +48,7 @@ class CandidateSettingsController extends Controller
             }
             $imageExtension = $request->file('profilePicture')->getClientOriginalExtension();
             // $fileName = $request->user()->id . '_' . str_replace(' ', '', $request->user()->full_name) . '.' . $imageExtension;
-            $path = $request->file('profilePicture')->storeAs('profile_pictures', $request->user()->id . '.' . $imageExtension, 'public');
+            $path = $request->file('profilePicture')->storeAs('profile_pictures', $candidate->id . '.' . $imageExtension, 'public');
             $candidate->profile_picture = $path;
         }
         $user->save();
