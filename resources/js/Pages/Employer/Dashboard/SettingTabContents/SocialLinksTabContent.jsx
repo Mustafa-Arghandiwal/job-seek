@@ -122,7 +122,7 @@ export default function SocialLinksTabContent() {
 
     return (
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             {data.links
                 .filter((l) => l.selectedBy !== null)
                 .sort((a, b) => a.selectedBy - b.selectedBy)
@@ -149,7 +149,7 @@ export default function SocialLinksTabContent() {
                 <span>Add New Social Link</span>
             </button>
 
-            <div className="flex flex-wrap  items-center gap-2">
+            <div className="flex flex-wrap mt-6  items-center gap-2">
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>

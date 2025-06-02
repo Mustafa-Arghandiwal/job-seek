@@ -73,33 +73,33 @@ export default function PersonalTabContent() {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
-            <div className="flex w-full flex-col gap-6 ">
+            <div className="flex w-full flex-col gap-2">
 
-                <div className="w-full  flex gap-4 flex-col sm:flex-row">
+                <div className="w-full  flex gap-2 flex-col sm:flex-row">
                     <div className="relative w-full sm:w-1/2 max-w-96 ">
                         <label className="text-sm text-customGray-900">Gender</label>
                         <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={handleGenderChagne} />
-                        <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.gender || ''}
-                        </span>
+                        </div>
                     </div>
 
                     <div className="relative w-full sm:w-1/2 max-w-96">
                         <label className="text-sm text-customGray-900">Marital Status</label>
                         <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={handleMaritalStatusChange} />
-                        <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                        <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.maritalStatus || ''}
-                        </span>
+                        </div>
                     </div>
                 </div>
 
 
                 <div className=" flex flex-col relative w-full sm:w-[calc(50%-8px)] max-w-96 ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Date of Birth</label>
-                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} />
-                    <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} />
+                    <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.birthDate || ''}
-                    </span>
+                    </div>
                 </div>
 
             </div>
@@ -109,9 +109,9 @@ export default function PersonalTabContent() {
                 <label className="text-sm text-customGray-900">Biography</label>
                 <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)}
                     placeholder="Write down your biography here. Let the employers know who you are..." />
-                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                <div className="text-sm w-full text-danger-600 min-h-5  " >
                     {props.errors.biography || ''}
-                </span>
+                </div>
             </div>
 
 
@@ -120,9 +120,9 @@ export default function PersonalTabContent() {
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
-                <span className={`text-success-500  h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                <div className={`text-success-500  h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                     {successMsg}
-                </span>
+                </div>
             </div>
         </form>
 

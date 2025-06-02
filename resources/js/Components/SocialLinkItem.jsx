@@ -89,7 +89,7 @@ export default function SocialLinksItem(props) {
 
             {errorMsg &&
 
-            <span className="absolute -bottom-5 left-0 text-sm text-danger-500">
+            <span className="min-h-5  text-sm text-danger-500">
                 {errorMsg}
             </span>
             }

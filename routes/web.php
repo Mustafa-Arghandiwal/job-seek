@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
+use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Middleware\EnsureCandidate;
@@ -74,4 +75,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('/employer/dashboard/settings', 'Employer/Dashboard/Settings');
 
 });
+
+
+
+Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
+
+
 

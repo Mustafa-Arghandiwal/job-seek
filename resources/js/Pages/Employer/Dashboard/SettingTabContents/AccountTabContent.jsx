@@ -1,4 +1,3 @@
-
 import { useForm, usePage } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
 import DeleteModal from "../../../../Components/DeleteModal"
@@ -76,7 +75,7 @@ export default function AccountTabContent() {
         changePassForm.post('/candidate/settings/change-password', {
             onSuccess: () => {
                 setChangePassSuccessMsg(props.flash.changePassSuccess);
-                    changePassForm.reset()
+                changePassForm.reset()
             }
         })
     }
@@ -95,39 +94,33 @@ export default function AccountTabContent() {
             <form className="" onSubmit={handleContactFormSubmit}>
                 <h2 className="font-medium text-customGray-900 text-lg">Contact Info</h2>
 
-                <div className="flex flex-col md:flex-row gap-4 mt-5">
+                <div className="flex flex-col md:flex-row gap-2 md:gap-6  mt-5">
 
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="phone" className="text-sm text-customGray-900">Phone</label>
                         <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500 " />
-                        {contactForm.errors.phone && (
-                            <span className="text-sm w-full text-danger-600 absolute left-0 -bottom-5">
-                                {contactForm.errors.phone}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.phone || ''}
+                        </div>
                     </div>
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="email" className="text-sm text-customGray-900">Email</label>
                         <input type="text" id="email" value={contactForm.data.email} onChange={(e) => contactForm.setData('email', e.target.value)} placeholder="example@email.com" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                        {contactForm.errors.email && (
-                            <span className="text-sm w-full text-danger-600 absolute left-0 -bottom-5">
-                                {contactForm.errors.email}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.email}
+                        </div>
                     </div>
 
                 </div>
 
 
                 <div>
-                    <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 mt-5 relative">
+                    <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 mt-2 relative">
                         <label htmlFor="city" className="text-sm text-customGray-900">City</label>
                         <input type="text" id="city" value={contactForm.data.city} onChange={(e) => contactForm.setData('city', e.target.value)} placeholder="e.g. Kabul, Afghanistan" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                        {contactForm.errors.city && (
-                            <span className="text-sm w-full text-danger-600 absolute left-0 -bottom-5">
-                                {contactForm.errors.city}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.city}
+                        </div>
                     </div>
                 </div>
 
@@ -152,8 +145,8 @@ export default function AccountTabContent() {
 
                 <h2 className="font-medium text-customGray-900 text-lg">Change Password</h2>
 
-                <div className={`flex  flex-col lg:flex-row ${Object.keys(changePassForm.errors).length > 0 ? "gap-11 sm:gap-8" : "gap-8"}`}>
-                    <div className="h-20 flex flex-col  w-full max-w-96 relative">
+                <div className="flex flex-col lg:flex-row gap-4 ">
+                    <div className=" flex flex-col  w-full max-w-96 relative">
                         <label htmlFor="currentPassword" className="text-sm text-customGray-900">Current Password</label>
                         <div className="relative mt-2">
                             <input type={currPassVis ? 'text' : 'password'} id="currentPassword" placeholder="Enter current password" value={changePassForm.data.currentPassword} onChange={(e) => changePassForm.setData('currentPassword', e.target.value)}
@@ -163,16 +156,14 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${currPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                        {changePassForm.errors.currentPassword && (
-                            <span className="text-sm w-full text-danger-600">
-                                {changePassForm.errors.currentPassword}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.currentPassword}
+                        </div>
 
                     </div>
 
 
-                    <div className="h-20 flex flex-col  w-full max-w-96 relative">
+                    <div className="flex flex-col  w-full max-w-96 relative">
                         <label htmlFor="newPass" className="text-sm text-customGray-900">New Password</label>
                         <div className="relative mt-2">
                             <input type={newPassVis ? 'text' : 'password'} id="newPass" placeholder="Create a new password" value={changePassForm.data.newPassword} onChange={(e) => changePassForm.setData('newPassword', e.target.value)}
@@ -182,15 +173,13 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${newPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                        {changePassForm.errors.newPassword && (
-                            <span className="text-sm w-full text-danger-600">
-                                {changePassForm.errors.newPassword}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.newPassword}
+                        </div>
                     </div>
 
 
-                    <div className="h-20 flex flex-col   w-full max-w-96 relative">
+                    <div className="flex flex-col   w-full max-w-96 relative">
                         <label htmlFor="confirmPass" className="text-sm text-customGray-900">Confirm Password</label>
                         <div className="relative mt-2">
                             <input type={confPassVis ? 'text' : 'password'} id="confirmPass" placeholder="Re-enter new password" value={changePassForm.data.confirmPassword} onChange={(e) => changePassForm.setData('confirmPassword', e.target.value)}
@@ -200,11 +189,9 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                        {changePassForm.errors.confirmPassword && (
-                            <span className="text-sm w-full text-danger-600">
-                                {changePassForm.errors.confirmPassword}
-                            </span>
-                        )}
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.confirmPassword}
+                        </div>
 
                     </div>
 
