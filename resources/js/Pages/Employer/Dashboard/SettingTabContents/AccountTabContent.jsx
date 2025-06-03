@@ -8,9 +8,9 @@ export default function AccountTabContent() {
     const { props } = usePage()
 
     const contactForm = useForm({
-        phone: props.auth.user.phone || '',
-        email: props.auth.user.contact_email || '',
-        city: props.auth.user.city || '',
+        phone: props.auth.user.employer_phone || '',
+        email: props.auth.user.employer_contact_email || '',
+        city: props.auth.user.employer_city || '',
     })
 
     const changePassForm = useForm({
@@ -63,7 +63,7 @@ export default function AccountTabContent() {
     // ________________________________________________________________________
     const handleContactFormSubmit = (e) => {
         e.preventDefault()
-        contactForm.post('/candidate/settings/contact', {
+        contactForm.post('/employer/settings/contact', {
             onSuccess: () => {
                 setContactSuccessMsg(props.flash.contactSuccess)
             }
@@ -72,17 +72,17 @@ export default function AccountTabContent() {
 
     const handleChangePassSubmit = (e) => {
         e.preventDefault()
-        changePassForm.post('/candidate/settings/change-password', {
+        changePassForm.post('/employer/settings/change-password', {
             onSuccess: () => {
                 setChangePassSuccessMsg(props.flash.changePassSuccess);
-                    changePassForm.reset()
+                changePassForm.reset()
             }
         })
     }
 
     const handleDeleteAccountSubmit = (e) => {
         e.preventDefault()
-        deleteAccountForm.post('/candidate/settings/delete-account')
+        deleteAccountForm.post('/employer/settings/delete-account')
 
     }
     // ________________________________________________________________________
@@ -99,16 +99,16 @@ export default function AccountTabContent() {
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="phone" className="text-sm text-customGray-900">Phone</label>
                         <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500 " />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.phone || ''}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.phone || ''}
+                        </div>
                     </div>
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="email" className="text-sm text-customGray-900">Email</label>
                         <input type="text" id="email" value={contactForm.data.email} onChange={(e) => contactForm.setData('email', e.target.value)} placeholder="example@email.com" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.email}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.email}
+                        </div>
                     </div>
 
                 </div>
@@ -118,9 +118,9 @@ export default function AccountTabContent() {
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 mt-2 relative">
                         <label htmlFor="city" className="text-sm text-customGray-900">City</label>
                         <input type="text" id="city" value={contactForm.data.city} onChange={(e) => contactForm.setData('city', e.target.value)} placeholder="e.g. Kabul, Afghanistan" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.city}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.city}
+                        </div>
                     </div>
                 </div>
 
@@ -156,9 +156,9 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${currPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.currentPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.currentPassword}
+                        </div>
 
                     </div>
 
@@ -173,9 +173,9 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${newPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.newPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.newPassword}
+                        </div>
                     </div>
 
 
@@ -189,9 +189,9 @@ export default function AccountTabContent() {
                                 <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.confirmPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.confirmPassword}
+                        </div>
 
                     </div>
 

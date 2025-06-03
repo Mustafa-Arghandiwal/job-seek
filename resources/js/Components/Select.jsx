@@ -23,7 +23,7 @@ export default function Select(props) {
 
     return (
         <div className="relative">
-            <button type="button" ref={dropdownBtn} className={`w-full  ${props.placeholder === '' ? 'text-customGray-400' : 'text-customGray-900'} ${dropdownVisible && "ring-1 ring-primary-500"} h-12 flex justify-between px-3 items-center border border-customGray-100 rounded-md gap-2 cursor-pointer`}
+            <button type="button" ref={dropdownBtn} className={`w-full mt-2  ${props.placeholder === '' ? 'text-customGray-400' : 'text-customGray-900'} ${dropdownVisible && "ring-1 ring-primary-500"} h-12 flex justify-between px-3 items-center border border-customGray-100 rounded-md gap-2 cursor-pointer`}
                 onClick={() => setDropdownVisible(prev => !prev)}>
                 {props.placeholder === '' ? 'Select...' : props.placeholder}
                 <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="/CaretDown.svg" />

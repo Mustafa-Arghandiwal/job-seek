@@ -149,7 +149,7 @@ export default function ProfileTabContent() {
                             setDragging(false)
                             basicForm.setData('profilePicture', e.dataTransfer.files[0])
                             setFileName(shortenFilename(e.dataTransfer.files[0].name))
-                            setResumeName(shortenFilename(e.dataTransfer.files[0].name))
+                            // setResumeName(shortenFilename(e.dataTransfer.files[0].name))
                             if (e.dataTransfer.files[0].size > 5 * 1024 * 1024) {
                                 setProfileSizeTooBig(true)
                             } else {
@@ -171,7 +171,7 @@ export default function ProfileTabContent() {
                             }} accept="image/*" />
 
                             <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="file upload" />
-                            <p className="text-sm text-gray-700 mt-3">Browse photo or drop here</p>
+                            <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
                             <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
                             <p className={`text-xs  mt-4 max-w-40  text-wrap ${fileName ? 'text-primary-600' : 'text-gray-500'}`}>
                                 {fileName ? `Selected: ${fileName}` : 'No photo selected yet'}
@@ -195,31 +195,31 @@ export default function ProfileTabContent() {
                             }
                         </label>
 
-                        <span className="text-xs block w-full  absolute  text-danger-600" >
+                        <div className="text-sm block w-full  absolute  text-danger-600" >
                             {(profileSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.profilePicture}
-                        </span>
+                        </div>
 
 
                     </div>
 
 
-                    <div className="flex flex-col items-start gap-6 w-full">
+                    <div className="flex flex-col items-start gap-2  w-full">
 
-                        <div className="flex flex-col lg:flex-row gap-4 w-full  max-w-[680px]">
-                            <div className="flex flex-col w-full lg:w-1/2 min-w-44 relative">
+                        <div className="flex flex-col lg:flex-row gap-2 w-full max-w-[680px]">
+                            <div className="flex flex-col w-full lg:w-1/2  min-w-44 relative">
                                 <label htmlFor="fullName" className="text-sm text-customGray-900">Full name</label>
                                 <input type="text" placeholder="e.g. Eqbal Sharaf" id="fullName" value={basicForm.data.fullName} onChange={(e) => basicForm.setData('fullName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
-                                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.fullName}
-                                </span>
+                                </div>
                             </div>
 
-                            <div className="flex flex-col w-full lg:w-1/2 min-w-44 relative">
+                            <div className="flex flex-col w-full lg:w-1/2 min-w-44  relative">
                                 <label htmlFor="title" className="text-sm text-customGray-900">Title</label>
                                 <input type="text" placeholder="e.g. Web Developer" id="title" value={basicForm.data.title} onChange={(e) => basicForm.setData('title', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
-                                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.title}
-                                </span>
+                                </div>
                             </div>
                         </div>
 
@@ -228,29 +228,29 @@ export default function ProfileTabContent() {
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Experience</label>
                                 <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={handleSelectExperience} />
-                                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.experience}
-                                </span>
+                                </div>
                             </div>
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Educations</label>
                                 <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={handleSelectEducations} />
-                                <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.educations}
-                                </span>
+                                </div>
                             </div>
                         </div>
 
 
                         <div className="w-full max-w-[680px] relative">
                             <label htmlFor="personalWebsite" className="text-sm text-customGray-900">Personal Website</label>
-                            <div className="flex items-center gap-3 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
+                            <div className="flex items-center gap-3 mt-2 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
                                 <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
                                 <input type="text" placeholder="Website url..." id="personalWebsite" value={basicForm.data.personalWebsite} onChange={(e) => basicForm.setData('personalWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                             </div>
-                            <span className="text-xs w-full text-danger-600 absolute left-0 -bottom-4" >
+                            <div className="text-sm w-full text-danger-600 min-h-5 " >
                                 {props.errors.personalWebsite}
-                            </span>
+                            </div>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2">
@@ -293,7 +293,7 @@ export default function ProfileTabContent() {
                                 e.preventDefault()
                                 setResumeDragging(false)
                                 resumeForm.setData('resume', e.dataTransfer.files[0])
-                                setResumeName(shortenFilename(e.dataTransfer.files[0].name))
+                                setResumeName(shortenFilename(e.dataTransfer.files[0].name, 25))
                                 if (e.dataTransfer.files[0].size > 10 * 1024 * 1024) {
                                     setPdfSizeTooBig(true)
                                 } else {
@@ -306,7 +306,7 @@ export default function ProfileTabContent() {
 
                             <input type="file" accept="application/pdf" id="resume" className="hidden" onChange={e => {
                                 resumeForm.setData('resume', e.target.files[0])
-                                setResumeName(shortenFilename(e.target.files[0].name))
+                                setResumeName(shortenFilename(e.target.files[0].name, 25))
                                 if (e.target.files[0].size > 10 * 1024 * 1024) {
                                     setPdfSizeTooBig(true)
                                 } else {
@@ -335,9 +335,9 @@ export default function ProfileTabContent() {
 
                         <div>
 
-                            <span className="text-xs w-full text-danger-600 " >
+                            <div className="text-xs w-full text-danger-600 " >
                                 {(pdfSizeTooBig && 'File size is too big. Max file size is 10 MB.') || props.errors.maxResumesExceed || props.errors.resume}
-                            </span>
+                            </div>
 
                             {resumeName &&
                                 <form onSubmit={e => {

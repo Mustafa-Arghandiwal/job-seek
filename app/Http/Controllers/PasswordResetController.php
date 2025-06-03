@@ -14,7 +14,7 @@ use Inertia\Inertia;
 class PasswordResetController extends Controller
 {
     public function sendPassResetLink(Request $request) {
-        
+
         $request->validate(['email' => ['required', 'email']]);
 
         $status = Password::sendResetLink(
@@ -44,9 +44,9 @@ class PasswordResetController extends Controller
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ])->setRememberToken(Str::random(60));
-     
+
                 $user->save();
-     
+
                 event(new PasswordReset($user));
             }
         );

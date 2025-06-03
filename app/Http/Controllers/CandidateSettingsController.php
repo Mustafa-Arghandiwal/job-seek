@@ -48,7 +48,7 @@ class CandidateSettingsController extends Controller
             }
             $imageExtension = $request->file('profilePicture')->getClientOriginalExtension();
             // $fileName = $request->user()->id . '_' . str_replace(' ', '', $request->user()->full_name) . '.' . $imageExtension;
-            $path = $request->file('profilePicture')->storeAs('profile_pictures', $request->user()->id . '.' . $imageExtension, 'public');
+            $path = $request->file('profilePicture')->storeAs('profile_pictures', $candidate->id . '.' . $imageExtension, 'public');
             $candidate->profile_picture = $path;
         }
         $user->save();
@@ -139,33 +139,5 @@ class CandidateSettingsController extends Controller
     }
 
 
-    public function updatePassword(Request $request)
-    {
-        $validated = $request->validate([
-            'currentPassword' => ['required', 'current_password'],
-            'newPassword' => ['required', 'string', 'min:6', 'different:currentPassword'],
-            'confirmPassword' => ['required', 'same:newPassword']
-        ]);
-        // dd($validated);
 
-        $user = $request->user();
-        $user->password = Hash::make($validated['newPassword']);
-
-        $user->save();
-
-        return back()->with('changePassSuccess', 'Your password has been changed.');
-    }
-
-    public function deleteAccount(Request $request)
-    {
-        $user = $request->user();
-
-        Auth::logout();
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/')->with('accountDeleted', 'Your account has been deleted');
-    }
 }

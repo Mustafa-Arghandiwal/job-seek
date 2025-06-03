@@ -25,10 +25,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'email',
         'password',
     ];
-    
+
     public function candidate() {
         return $this->hasOne(Candidate::class);
     }
+
+    public function employer() {
+        return $this->hasOne(Employer::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

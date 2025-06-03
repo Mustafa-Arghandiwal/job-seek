@@ -4,9 +4,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
+use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Middleware\EnsureCandidate;
+use App\Models\EmployerSocialLink;
 use Database\Seeders\CandidateSeeder;
 
 // Route::get('/', function () {
@@ -59,10 +61,29 @@ Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeControll
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
 Route::post('/candidate/settings/contact', [CandidateSettingsController::class, 'updateContact']);
-Route::post('/candidate/settings/change-password', [CandidateSettingsController::class, 'updatePassword']);
-Route::post('/candidate/settings/delete-account', [CandidateSettingsController::class, 'deleteAccount']);
+Route::post('/candidate/settings/change-password', [AuthController::class, 'updatePassword']);
+Route::post('/candidate/settings/delete-account', [AuthController::class, 'deleteAccount']);
 
 
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::inertia('/employer/dashboard/overview', 'Employer/Dashboard/Overview');
+    Route::inertia('/employer/dashboard/post-job', 'Employer/Dashboard/PostJob');
+    Route::inertia('/employer/dashboard/my-jobs', 'Employer/Dashboard/MyJobs');
+    Route::inertia('/employer/dashboard/saved-candidates', 'Employer/Dashboard/SavedCandidates');
+    Route::inertia('/employer/dashboard/settings', 'Employer/Dashboard/Settings');
+
+});
+
+
+
+Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
+Route::post('/employer/settings/social-links', [EmployerSettingsController::class, 'updateSocialLinks']);
+Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
+Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
 
 
 

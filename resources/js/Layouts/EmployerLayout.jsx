@@ -1,8 +1,9 @@
+
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 
 
-export default function Layout({ children }) {
+export default function EmployerLayout({ children }) {
 
     const { url, props } = usePage()
     const [dropdownVisible, setDropdownVisible] = useState(false)
@@ -16,14 +17,16 @@ export default function Layout({ children }) {
     const { post } = useForm()
     const profilePictureStorageLink = props.auth.user?.profile_picture
     //if no profile pic, use placeholder
-    const headerProfilePic = profilePictureStorageLink ? `/storage/${profilePictureStorageLink}`  : '/User.png'
+    const headerProfilePic = profilePictureStorageLink ? `/storage/${profilePictureStorageLink}` : '/User.png'
 
     const dashboardUrls = [
-        '/candidate/dashboard/overview',
-        '/candidate/dashboard/applied-jobs',
-        '/candidate/dashboard/favorite-jobs',
-        '/candidate/dashboard/settings',
+        '/employer/dashboard/overview',
+        '/employer/dashboard/post-job',
+        '/employer/dashboard/my-jobs',
+        '/employer/dashboard/saved-candidates',
+        '/employer/dashboard/settings',
     ]
+
     const handleSubmit = (e) => {
         e.preventDefault()
         post('/sign-out')
@@ -91,10 +94,10 @@ export default function Layout({ children }) {
             <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex justify-between items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden md:flex ">
-                        <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
-                        <li><Link href="/candidate/find-job" className={`${url === '/candidate/find-job' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
-                        <li><Link href="/find-employers" className={`${url === '/find-employers' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
-                        <li><Link href="/candidate/dashboard/overview" className={`${dashboardUrls.includes(url) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
+                        <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`}>Employer Home</Link></li>
+                        {/* <li><Link href="/candidate/find-job" className={`${url === '/candidate/find-job' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li> */}
+                        <li><Link href="/find-employers" className={`${url === '/find-employers' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Find Candidates</Link></li>
+                        <li><Link href="/employer/dashboard/overview" className={`${dashboardUrls.includes(url) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
                         <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-3.5 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
 
@@ -122,7 +125,7 @@ export default function Layout({ children }) {
                             <img src="/briefcase.svg" className="w-8 sm:w-10" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <form className=" ">
+                        <form>
                             <div className="flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
                                 <img src="/fi_search.png" className="h-6" />
                                 <input type="text" placeholder="Search Jobs..."
@@ -135,7 +138,7 @@ export default function Layout({ children }) {
                     {
                         user ?
                             <div className="hidden md:flex gap-2 items-center">
-                                <Link href="/candidate/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                                <Link href="/employer/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
                                     <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-105 duration-100" />
                                 </Link>
 
@@ -161,15 +164,14 @@ export default function Layout({ children }) {
             <div ref={menuRef} className={`fixed z-50 shadow-lg bg-white w-full pb-6 px-6 rounded-b-2xl ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"} transition-all duration-300 ease-in-out`}>
                 <ul className="mt-1 text-sm text-customGray-600 w-full ">
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/">Home</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/find-job">Find Job</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/nothing-for-now">Find Employers</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/candidate/dashboard/overview">Dashboard</Link></li>
+                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/nothing-for-now">Find Candidates</Link></li>
+                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/employer/dashboard/overview">Dashboard</Link></li>
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/support">Support</Link></li>
                 </ul>
                 {user ?
 
                     <div className="flex gap-2 mt-6 items-center">
-                        <Link href="/candidate/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
+                        <Link href="/employer/dashboard/settings" className="h-12 w-12 rounded-full border-2 overflow-hidden border-primary-500">
                             <img src={headerProfilePic} className="h-full w-full  hover:scale-105 duration-100" />
                         </Link>
 
@@ -196,7 +198,7 @@ export default function Layout({ children }) {
 
             {
                 //If we are inside dashboard, render a simpler footer
-                    dashboardUrls.some(dashUrl => url.startsWith(dashUrl))
+                dashboardUrls.some(dashUrl => url.startsWith(dashUrl))
                     ?
                     <footer className=" col-span-2 px-8  h-10 flex justify-center items-center border-t border-customGray-100  ">
                         <p className="text-xs text-center  text-customGray-500 ">&copy; 2025 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
