@@ -20,7 +20,7 @@ export default function CompanyInfoTabContent() {
         companyType: employer.company_type || '',
         industryType: employer.industry_type || '',
         teamSize: employer.team_size || '',
-        establishDate: (employer.establish_date).slice(0, -3)  || '',
+        establishDate: (employer.establish_date)?.slice(0, -3)  || '',
         companyWebsite: employer.company_website || '',
         aboutCompany: employer.about || '',
     })
