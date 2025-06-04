@@ -11,7 +11,7 @@ export default function CompanyInfoTabContent() {
 
 
     const { props } = usePage({})
-    console.log(props.errors)
+    console.log(props.auth.user.full_name)
     const employer = props.auth.user
     const { data, setData, processing, progress, errors, post } = useForm({
         logo: null,
@@ -36,24 +36,10 @@ export default function CompanyInfoTabContent() {
 
 
 
-    const handleCompanyTypeChange = (option) => {
-        setData(prevData => ({
-            ...prevData,
-            companyType: option
-        }))
-    }
-
-    const handleIndustryTypeChange = (option) => {
-        setData(prevData => ({
-            ...prevData,
-            industryType: option
-        }))
-    }
-
-    const handleTeamSizeChange = (option) => {
-        setData(prevData => ({
-            ...prevData,
-            teamSize: option
+    const handleSelectChange = (field, option) => {
+        setData(prev => ({
+            ...prev,
+            [field]: option
         }))
     }
 
@@ -255,7 +241,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Company Type</label>
-                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={handleCompanyTypeChange} />
+                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option) } />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
                     </div>
@@ -263,7 +249,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Industry Type</label>
-                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={handleIndustryTypeChange} />
+                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option) } />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.industryType || ''}
                     </div>
@@ -271,7 +257,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Team Size</label>
-                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={handleTeamSizeChange} />
+                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option) } />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.teamSize || ''}
                     </div>

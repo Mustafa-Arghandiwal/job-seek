@@ -16,17 +16,10 @@ export default function PersonalTabContent() {
     })
 
 
-    const handleGenderChagne = (option) => {
-        setData(prevData => ({
-            ...prevData,
-            gender: option
-        }))
-    }
-
-    const handleMaritalStatusChange = (option) => {
-        setData(prevData => ({
-            ...prevData,
-            maritalStatus: option
+    const handleSelectChange = (field, option) => {
+        setData(prev => ({
+            ...prev,
+            [field]: option
         }))
     }
 
@@ -78,7 +71,7 @@ export default function PersonalTabContent() {
                 <div className="w-full  flex gap-2 flex-col sm:flex-row">
                     <div className="relative w-full sm:w-1/2 max-w-96 ">
                         <label className="text-sm text-customGray-900">Gender</label>
-                        <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={handleGenderChagne} />
+                        <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={(option) => handleSelectChange('gender', option) } />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.gender || ''}
                         </div>
@@ -86,7 +79,7 @@ export default function PersonalTabContent() {
 
                     <div className="relative w-full sm:w-1/2 max-w-96">
                         <label className="text-sm text-customGray-900">Marital Status</label>
-                        <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={handleMaritalStatusChange} />
+                        <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={(option) => handleSelectChange('maritalStatus', option) } />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.maritalStatus || ''}
                         </div>
