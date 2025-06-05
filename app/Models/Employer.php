@@ -14,7 +14,7 @@ class Employer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 
@@ -32,5 +32,9 @@ class Employer extends Model
     public function contact()
     {
         return $this->hasOne(EmployerContact::class, 'employer_id');
+    }
+
+    public function vacancy() {
+        return $this->hasMany(Vacancy::class, 'employer_id');
     }
 }

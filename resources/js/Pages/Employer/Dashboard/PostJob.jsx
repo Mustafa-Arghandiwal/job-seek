@@ -6,13 +6,14 @@ import EmployerLayout from "../../../Layouts/EmployerLayout"
 import Select from "../../../Components/Select"
 import DatePicker from "../../../Components/DatePicker"
 import RichTextEditor from "../../../Components/RichTextEditor"
+import { useEffect, useState } from "react"
 
 
 
 function Overview() {
 
     const { props } = usePage({})
-    const { data, setData, errors } = useForm({
+    const { data, setData, errors ,processing, post} = useForm({
         jobTitle: '',
         salaryType: '',
         salaryFormat: 'Fixed Amount',
@@ -24,6 +25,7 @@ function Overview() {
         jobLevel: '',
         jobType: '',
         workMode: '',
+        city: '',
         deadline: '',
         description: '',
         responsibilities: '',
@@ -45,8 +47,24 @@ function Overview() {
     }
 
 
+    const [successMsg, setSuccessMsg] = useState('')
+    useEffect(() => {
+        if (props.flash.success) {
+            setSuccessMsg(props.flash.success)
+        }
+    }, [props.flash.success])
+
+    useEffect(() => {
+        if (successMsg) {
+            const timer = setTimeout(() => setSuccessMsg(''), 5000)
+            return () => clearTimeout(timer)
+        }
+    }, [successMsg])
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        post('/employer/vacancies')
+
     }
 
 
@@ -187,10 +205,23 @@ function Overview() {
                         </div>
                     </div>
 
+                    {['On-site', 'Hybrid'].includes(data.workMode) &&
+
+                        <div className="flex  flex-col max-w-64 min-w-32 ">
+                            <label htmlFor="city" className="text-sm text-customGray-900">City</label>
+                            <input type="text" placeholder="e.g. Kabul" id="city" value={data.city} onChange={(e) => setData('city', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                            <div className="text-sm w-full text-danger-600 min-h-5" >
+                                {props.errors.city}
+                            </div>
+                        </div>
+
+                    }
+
+
 
                     <div className="w-full max-w-64  min-w-32">
                         <label className="text-sm text-customGray-900" htmlFor="dob">Application Deadline</label>
-                        <DatePicker handleChange={handleDeadlineChange} currentDate={data.deadline} type={'date'} />
+                        <DatePicker handleChange={handleDeadlineChange} currentDate={data.deadline} type={'date'} dateRange={'future'}/>
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.deadline || ''}
                         </div>
@@ -219,9 +250,16 @@ function Overview() {
 
                 </div>
 
+            </div>
 
 
-
+            <div className="flex flex-wrap items-center gap-2 mt-6">
+                <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
+                    Save Changes
+                </button>
+                <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                    {successMsg}
+                </span>
             </div>
         </form>
     )
