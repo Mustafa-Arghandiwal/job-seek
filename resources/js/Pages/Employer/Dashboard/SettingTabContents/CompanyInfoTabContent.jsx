@@ -265,7 +265,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="  relative w-full ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
-                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} />
+                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'}/>
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.establishDate || ''}
                     </div>

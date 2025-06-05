@@ -89,7 +89,7 @@ export default function PersonalTabContent() {
 
                 <div className=" flex flex-col relative w-full sm:w-[calc(50%-8px)] max-w-96 ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Date of Birth</label>
-                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} />
+                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} dateRange={'past'}/>
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.birthDate || ''}
                     </div>
