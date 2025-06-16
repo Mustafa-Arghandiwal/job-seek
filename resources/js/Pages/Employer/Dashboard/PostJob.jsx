@@ -13,10 +13,10 @@ import { useEffect, useState } from "react"
 function Overview() {
 
     const { props } = usePage({})
-    const { data, setData, errors ,processing, post} = useForm({
+    const { data, setData, errors, processing, post } = useForm({
         jobTitle: '',
         salaryType: '',
-        salaryFormat: 'Fixed Amount',
+        salaryFormat: '',
         fixedSalary: '',
         minSalary: '',
         maxSalary: '',
@@ -66,6 +66,7 @@ function Overview() {
         post('/employer/vacancies')
 
     }
+    console.log(props.errors)
 
 
 
@@ -90,12 +91,12 @@ function Overview() {
                     <h2 className="text-lg font-medium text-customGray-900">Salary</h2>
 
                     <div>
-                        <div className="flex lg:gap-5  lg:items-center  flex-col lg:flex-row ">
+                        <div className="flex gap-3 lg:gap-5  lg:items-center  flex-col lg:flex-row ">
 
                             <div className=" mt-3 w-full max-w-64  min-w-32  ">
                                 <label className="text-sm text-customGray-900">Salary Type</label>
                                 <Select options={['Hourly', 'Daily', 'Weekly', 'Monthly', 'Commission-based', 'Negotiable']} placeholder={data.salaryType} onValueChange={(option) => handleSelectChange('salaryType', option)} />
-                                <div className="text-sm w-full text-danger-600 min-h-5" >
+                                <div className="text-sm w-full text-danger-600 min-h-5 " >
                                     {props.errors.salaryType || ''}
                                 </div>
                             </div>
@@ -103,16 +104,22 @@ function Overview() {
                             {
                                 !['', 'Commission-based', 'Negotiable'].includes(data.salaryType) &&
 
-                                <div className="w-full  max-w-fit flex flex-col xs:flex-row  gap-2 xs:gap-4 lg:mt-5 text-customGray-900 text-sm ">
-                                    <label className="cursor-pointer flex  gap-1">
-                                        <input type="radio" name="salaryFormat" value="Fixed Amount" checked={data.salaryFormat === 'Fixed Amount'} onChange={e => setData('salaryFormat', e.target.value)} className="cursor-pointer" />
-                                        <span>Fixed Amount</span>
-                                    </label>
-                                    <label className="cursor-pointer flex  gap-1" >
-                                        <input type="radio" name="salaryFormat" value="Salary Range" checked={data.salaryFormat === 'Salary Range'} onChange={e => setData('salaryFormat', e.target.value)} className="cursor-pointer" />
-                                        <span>Salary Range</span>
-                                    </label>
+                                <div className=" lg:mt-6 relative">
+                                    <div className="w-full  max-w-fit  flex flex-col xs:flex-row gap-2 xs:gap-4  text-customGray-900 text-sm ">
+                                        <label className="cursor-pointer flex  gap-1">
+                                            <input type="radio" name="salaryFormat" value="Fixed Amount" checked={data.salaryFormat === 'Fixed Amount'} onChange={e => setData('salaryFormat', e.target.value)} className="cursor-pointer" />
+                                            <span>Fixed Amount</span>
+                                        </label>
+                                        <label className="cursor-pointer flex  gap-1" >
+                                            <input type="radio" name="salaryFormat" value="Salary Range" checked={data.salaryFormat === 'Salary Range'} onChange={e => setData('salaryFormat', e.target.value)} className="cursor-pointer" />
+                                            <span>Salary Range</span>
+                                        </label>
 
+                                    </div>
+
+                                    <div className="text-sm w-full text-danger-600 min-h-5 lg:absolute lg:-bottom-[35px]" >
+                                        {props.errors.salaryFormat || ''}
+                                    </div>
                                 </div>
 
                             }
@@ -221,7 +228,7 @@ function Overview() {
 
                     <div className="w-full max-w-64  min-w-32">
                         <label className="text-sm text-customGray-900" htmlFor="dob">Application Deadline</label>
-                        <DatePicker handleChange={handleDeadlineChange} currentDate={data.deadline} type={'date'} dateRange={'future'}/>
+                        <DatePicker handleChange={handleDeadlineChange} currentDate={data.deadline} type={'date'} dateRange={'future'} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.deadline || ''}
                         </div>
