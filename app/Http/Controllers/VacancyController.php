@@ -37,11 +37,34 @@ class VacancyController extends Controller
                 Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable'])),
                 'nullable',
                 Rule::in(['Fixed Amount', 'Salary Range']),
-            ]
+            ],
+            'fixedSalary' => [
+                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Fixed Amount"),
+                'nullable', 'numeric', 'min:0', 'max:10000000'
+            ],
+            'minSalary' => [
+                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable', 'numeric', 'min:0', 'max:10000000'
+            ],
+            'maxSalary' => [
+                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable', 'numeric', 'max:10000000', 'gt:minSalary'
+            ],
+            'education' => ['required', 'in:No formal education,High School Diploma,Associate Degree,Bachelor\'s Degree,Master\'s Degree,Doctorate (PhD),Professional Certification,Other'],
+            'experience' => ['required', 'in:No experience,Less than 1 year,1–2 years,2–5 years,5–7 years,7–10 years,10+ years'],
+            'jobLevel' => ['required', 'in:Entry Level,Junior,Mid Level,Senior,Lead,Manager,Director,Executive'],
+            'jobType' => ['required', 'in:Full-Time,Part-Time,Freelance,Internship,Temporary'],
+            'workMode' => ['required', 'in:Remote,On-site,Hybrid'],
+            'city' => [
+                Rule::requiredIf(fn () => in_array($request->workMode, ['On-site', 'Hybrid'])), 'nullable'
+            ],
+            'deadline' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal: today', 'before_or_equal:' . now()->addMonths(6)->toDateString()],
+            'description' => ['required', 'min:10', 'max:65535', 'string'],
+            'responsibilities' => ['required', 'min:10', 'max:65535', 'string']
 
         ]);
 
-       dd($request->all());
+       dd($validated);
 
 
         //

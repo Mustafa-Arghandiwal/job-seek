@@ -131,9 +131,9 @@ function Overview() {
 
                             <div className=" flex flex-col w-full min-w-32 max-w-64 mt-4">
                                 <label htmlFor="salary" className="text-sm text-customGray-900">Salary</label>
-                                <input type="number" placeholder="Salary..." id="salary" value={data.salary} onChange={(e) => setData('salary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                                <input type="number" placeholder="Salary..." id="salary" value={data.fixedSalary} onChange={(e) => setData('fixedSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
-                                    {props.errors.salary || ''}
+                                    {props.errors.fixedSalary || ''}
                                 </div>
                             </div>
                         }
