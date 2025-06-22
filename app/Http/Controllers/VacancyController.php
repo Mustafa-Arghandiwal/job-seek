@@ -21,9 +21,7 @@ class VacancyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -34,21 +32,30 @@ class VacancyController extends Controller
             'jobTitle' => ['required', 'max:255'],
             'salaryType' => ['required', 'in:Hourly,Daily,Weekly,Monthly,Commission-based,Negotiable'],
             'salaryFormat' => [
-                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable'])),
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable'])),
                 'nullable',
                 Rule::in(['Fixed Amount', 'Salary Range']),
             ],
             'fixedSalary' => [
-                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Fixed Amount"),
-                'nullable', 'numeric', 'min:0', 'max:10000000'
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Fixed Amount"),
+                'nullable',
+                'numeric',
+                'min:0',
+                'max:10000000'
             ],
             'minSalary' => [
-                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
-                'nullable', 'numeric', 'min:0', 'max:10000000'
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable',
+                'numeric',
+                'min:0',
+                'max:10000000'
             ],
             'maxSalary' => [
-                Rule::requiredIf(fn () => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
-                'nullable', 'numeric', 'max:10000000', 'gt:minSalary'
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable',
+                'numeric',
+                'max:10000000',
+                'gt:minSalary'
             ],
             'education' => ['required', 'in:No formal education,High School Diploma,Associate Degree,Bachelor\'s Degree,Master\'s Degree,Doctorate (PhD),Professional Certification,Other'],
             'experience' => ['required', 'in:No experience,Less than 1 year,1–2 years,2–5 years,5–7 years,7–10 years,10+ years'],
@@ -56,7 +63,8 @@ class VacancyController extends Controller
             'jobType' => ['required', 'in:Full-Time,Part-Time,Freelance,Internship,Temporary'],
             'workMode' => ['required', 'in:Remote,On-site,Hybrid'],
             'city' => [
-                Rule::requiredIf(fn () => in_array($request->workMode, ['On-site', 'Hybrid'])), 'nullable'
+                Rule::requiredIf(fn() => in_array($request->workMode, ['On-site', 'Hybrid'])),
+                'nullable'
             ],
             'deadline' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal: today', 'before_or_equal:' . now()->addMonths(6)->toDateString()],
             'description' => ['required', 'min:10', 'max:65535', 'string'],
@@ -64,7 +72,29 @@ class VacancyController extends Controller
 
         ]);
 
-       dd($validated);
+        $employer = $request->user()->employer;
+        $vacancy = new Vacancy();
+        $vacancy->employer_id  = $employer->id;
+        $vacancy->job_title = $validated['jobTitle'];
+        $vacancy->salary_type = $validated['salaryType'];
+        $vacancy->salary_format = $validated['salaryFormat'];
+        $vacancy->salary = $validated['fixedSalary'] ?? null;
+        $vacancy->min_salary = $validated['minSalary'] ?? null;
+        $vacancy->max_salary = $validated['maxSalary'] ?? null;
+        $vacancy->education = $validated['education'];
+        $vacancy->experience = $validated['experience'];
+        $vacancy->job_level = $validated['jobLevel'];
+        $vacancy->job_type = $validated['jobType'];
+        $vacancy->work_mode = $validated['workMode'];
+        $vacancy->city = $validated['city'] ?? null;
+        $vacancy->deadline = $validated['deadline'];
+        $vacancy->description = $validated['description'];
+        $vacancy->responsibilities = $validated['responsibilities'];
+
+        dd($employer);
+
+
+
 
 
         //

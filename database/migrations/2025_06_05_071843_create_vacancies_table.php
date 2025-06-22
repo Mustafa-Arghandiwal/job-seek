@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('job_title', 255);
             $table->enum('salary_type', ['Hourly', 'Daily', 'Weekly', 'Monthly', 'Commission-based', 'Negotiable']);
             $table->enum('salary_format', ['Fixed Amount', 'Salary Range']);
-            $table->unsignedMediumInteger('salary')->nullable();
+            $table->unsignedMediumInteger('fixed_salary')->nullable();
             $table->unsignedMediumInteger('min_salary')->nullable();
             $table->unsignedMediumInteger('max_salary')->nullable();
             $table->enum('education', ['No formal education', 'High School Diploma', 'Associate Degree', "Bachelor\'s Degree", "Master\'s Degree" , 'Doctorate (PhD)', 'Professional Certification', 'Other']);
