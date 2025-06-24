@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('employer_id')->constrained()->cascadeOnDelete();
             $table->string('job_title', 255);
             $table->enum('salary_type', ['Hourly', 'Daily', 'Weekly', 'Monthly', 'Commission-based', 'Negotiable']);
-            $table->enum('salary_format', ['Fixed Amount', 'Salary Range']);
+            $table->enum('salary_format', ['Fixed Amount', 'Salary Range'])->nullable();
             $table->unsignedMediumInteger('fixed_salary')->nullable();
             $table->unsignedMediumInteger('min_salary')->nullable();
             $table->unsignedMediumInteger('max_salary')->nullable();

@@ -77,28 +77,35 @@ class VacancyController extends Controller
         $vacancy->employer_id  = $employer->id;
         $vacancy->job_title = $validated['jobTitle'];
         $vacancy->salary_type = $validated['salaryType'];
-        $vacancy->salary_format = $validated['salaryFormat'];
-        $vacancy->salary = $validated['fixedSalary'] ?? null;
-        $vacancy->min_salary = $validated['minSalary'] ?? null;
-        $vacancy->max_salary = $validated['maxSalary'] ?? null;
+        if (in_array($validated['salaryType'], ['Commission-based', 'Negotiable'])) {
+            $vacancy->salary_format = null;
+            $vacancy->fixed_salary = null;
+            $vacancy->min_salary = null;
+            $vacancy->max_salary = null;
+        } else {
+            $vacancy->salary_format = $validated['salaryFormat'];
+            $vacancy->fixed_salary = $validated['fixedSalary'];
+            $vacancy->min_salary = $validated['minSalary'];
+            $vacancy->max_salary = $validated['maxSalary'];
+        }
         $vacancy->education = $validated['education'];
         $vacancy->experience = $validated['experience'];
         $vacancy->job_level = $validated['jobLevel'];
         $vacancy->job_type = $validated['jobType'];
         $vacancy->work_mode = $validated['workMode'];
-        $vacancy->city = $validated['city'] ?? null;
+        if ($validated['workMode'] == 'Remote') {
+            $vacancy->city = null;
+        } else {
+            $vacancy->city = $validated['city'];
+        }
         $vacancy->deadline = $validated['deadline'];
         $vacancy->description = $validated['description'];
         $vacancy->responsibilities = $validated['responsibilities'];
 
-        dd($employer);
+        $vacancy->save();
+        return back()->with('postJobSuccess', 'Job posted successfully.');
 
-
-
-
-
-        //
-    }
+   }
 
     /**
      * Display the specified resource.
