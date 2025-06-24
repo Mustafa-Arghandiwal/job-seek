@@ -13,7 +13,7 @@ import { useEffect, useState } from "react"
 function Overview() {
 
     const { props } = usePage({})
-    const { data, setData, errors, processing, post } = useForm({
+    const { data, setData, reset, errors, processing, post } = useForm({
         jobTitle: '',
         salaryType: '',
         salaryFormat: '',
@@ -49,10 +49,10 @@ function Overview() {
 
     const [successMsg, setSuccessMsg] = useState('')
     useEffect(() => {
-        if (props.flash.success) {
-            setSuccessMsg(props.flash.success)
+        if (props.flash.postJobSuccess) {
+            setSuccessMsg(props.flash.postJobSuccess)
         }
-    }, [props.flash.success])
+    }, [props.flash.postJobSuccess])
 
     useEffect(() => {
         if (successMsg) {
@@ -63,10 +63,13 @@ function Overview() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post('/employer/vacancies')
+        post('/employer/vacancies', {
+            onSuccess: () => {
+                reset()
+            }
+        })
 
     }
-    console.log(props.errors)
 
 
 
@@ -81,7 +84,7 @@ function Overview() {
                     <label htmlFor="jobTitle" className="text-sm text-customGray-900">Job Title</label>
                     <input type="text" placeholder="e.g. Finance Officer" id="jobTitle" value={data.jobTitle} onChange={(e) => setData('jobTitle', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
-                        {props.errors.jobTitle}
+                        {errors.jobTitle}
                     </div>
                 </div>
 
@@ -97,7 +100,7 @@ function Overview() {
                                 <label className="text-sm text-customGray-900">Salary Type</label>
                                 <Select options={['Hourly', 'Daily', 'Weekly', 'Monthly', 'Commission-based', 'Negotiable']} placeholder={data.salaryType} onValueChange={(option) => handleSelectChange('salaryType', option)} />
                                 <div className="text-sm w-full text-danger-600 min-h-5 " >
-                                    {props.errors.salaryType || ''}
+                                    {errors.salaryType || ''}
                                 </div>
                             </div>
 
@@ -118,7 +121,7 @@ function Overview() {
                                     </div>
 
                                     <div className="text-sm w-full text-danger-600 min-h-5 lg:absolute lg:-bottom-[35px]" >
-                                        {props.errors.salaryFormat || ''}
+                                        {errors.salaryFormat || ''}
                                     </div>
                                 </div>
 
@@ -133,7 +136,7 @@ function Overview() {
                                 <label htmlFor="salary" className="text-sm text-customGray-900">Salary</label>
                                 <input type="number" placeholder="Salary..." id="salary" value={data.fixedSalary} onChange={(e) => setData('fixedSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
-                                    {props.errors.fixedSalary || ''}
+                                    {errors.fixedSalary || ''}
                                 </div>
                             </div>
                         }
@@ -146,7 +149,7 @@ function Overview() {
                                     <label htmlFor="minSalary" className="text-sm text-customGray-900">Min Salary</label>
                                     <input type="number" placeholder="Min salary..." id="minSalary" value={data.minSalary} onChange={(e) => setData('minSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
-                                        {props.errors.minSalary || ''}
+                                        {errors.minSalary || ''}
                                     </div>
                                 </div>
 
@@ -154,7 +157,7 @@ function Overview() {
                                     <label htmlFor="maxSalary" className="text-sm text-customGray-900">Max Salary</label>
                                     <input type="number" placeholder="Max salary..." id="maxSalary" value={data.maxSalary} onChange={(e) => setData('maxSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
-                                        {props.errors.maxSalary || ''}
+                                        {errors.maxSalary || ''}
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +176,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900">Education</label>
                         <Select options={["No formal education", "High School Diploma", "Associate Degree", "Bachelor's Degree", "Master's Degree", "Doctorate (PhD)", "Professional Certification", "Other"]} placeholder={data.education} onValueChange={(option) => handleSelectChange('education', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.education || ''}
+                            {errors.education || ''}
                         </div>
                     </div>
 
@@ -181,7 +184,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900">Experience</label>
                         <Select options={["No experience", "Less than 1 year", "1–2 years", "2–5 years", "5–7 years", "7–10 years", "10+ years"]} placeholder={data.experience} onValueChange={(option) => handleSelectChange('experience', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.experience || ''}
+                            {errors.experience || ''}
                         </div>
                     </div>
 
@@ -190,7 +193,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900">Job Level</label>
                         <Select options={["Entry Level", "Junior", "Mid Level", "Senior", "Lead", "Manager", "Director", "Executive"]} placeholder={data.jobLevel} onValueChange={(option) => handleSelectChange('jobLevel', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.jobLevel || ''}
+                            {errors.jobLevel || ''}
                         </div>
                     </div>
 
@@ -199,7 +202,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900">Job Type</label>
                         <Select options={["Full-Time", "Part-Time", "Freelance", "Internship", "Temporary"]} placeholder={data.jobType} onValueChange={(option) => handleSelectChange('jobType', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.jobType || ''}
+                            {errors.jobType || ''}
                         </div>
                     </div>
 
@@ -208,7 +211,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900">Work Mode</label>
                         <Select options={["Remote", "On-site", "Hybrid"]} placeholder={data.workMode} onValueChange={(option) => handleSelectChange('workMode', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.workMode || ''}
+                            {errors.workMode || ''}
                         </div>
                     </div>
 
@@ -218,7 +221,7 @@ function Overview() {
                             <label htmlFor="city" className="text-sm text-customGray-900">City</label>
                             <input type="text" placeholder="e.g. Kabul" id="city" value={data.city} onChange={(e) => setData('city', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                             <div className="text-sm w-full text-danger-600 min-h-5" >
-                                {props.errors.city}
+                                {errors.city}
                             </div>
                         </div>
 
@@ -230,7 +233,7 @@ function Overview() {
                         <label className="text-sm text-customGray-900" htmlFor="dob">Application Deadline</label>
                         <DatePicker handleChange={handleDeadlineChange} currentDate={data.deadline} type={'date'} dateRange={'future'} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.deadline || ''}
+                            {errors.deadline || ''}
                         </div>
                     </div>
 
@@ -242,7 +245,7 @@ function Overview() {
                         <RichTextEditor content={data.description} onChange={newContent => setData('description', newContent)}
                             placeholder="Add your job description..." />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.description || ''}
+                            {errors.description || ''}
                         </div>
                     </div>
 
@@ -251,7 +254,7 @@ function Overview() {
                         <RichTextEditor content={data.responsibilities} onChange={newContent => setData('responsibilities', newContent)}
                             placeholder="Add your job responsibilities..." />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
-                            {props.errors.responsibilities || ''}
+                            {errors.responsibilities || ''}
                         </div>
                     </div>
 

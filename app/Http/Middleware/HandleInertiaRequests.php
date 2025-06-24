@@ -110,6 +110,7 @@ class HandleInertiaRequests extends Middleware
                 'contactSuccess' => session('contactSuccess'),
                 'changePassSuccess' => session('changePassSuccess'),
                 'accountDeleted' => session('accountDeleted'),
+                'postJobSuccess' => session('postJobSuccess'),
 
             ],
         ]);
