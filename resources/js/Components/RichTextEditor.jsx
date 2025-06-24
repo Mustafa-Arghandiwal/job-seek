@@ -5,7 +5,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const MenuBar = () => {
     const { editor } = useCurrentEditor()
@@ -97,9 +97,16 @@ const MenuBar = () => {
 
 
 export default (props) => {
+    const [key, setKey] = useState(0)
+    useEffect(() => {
+        if(props.content === '') {
+            setKey(prev => prev + 1)
+        }
+    }, [props.content])
     return (
         <div className='border mt-2  border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-[6px] '>
             <EditorProvider
+                key={key}
                 slotAfter={<MenuBar />}
                 extensions={[StarterKit, Underline, Placeholder.configure({
                     placeholder: props.placeholder,

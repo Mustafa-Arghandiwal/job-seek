@@ -7,6 +7,7 @@ use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\VacancyController;
 use App\Http\Middleware\EnsureCandidate;
 use App\Models\EmployerSocialLink;
 use Database\Seeders\CandidateSeeder;
@@ -86,4 +87,5 @@ Route::post('/employer/settings/delete-account', [AuthController::class, 'delete
 Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
 
 
+Route::post('/employer/vacancies', [VacancyController::class, 'store']);
 

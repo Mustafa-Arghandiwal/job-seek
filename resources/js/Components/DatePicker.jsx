@@ -44,6 +44,27 @@ export default function DatePicker(props) {
         }
     }
 
+    let min
+    let max
+    if (props.type === 'date') {
+        if (props.dateRange === 'past') {
+            min = '1900-01-01';
+            max = getFormattedDate('day')
+        } else if (props.dateRange === 'future') {
+            min = getFormattedDate('day');
+            max = undefined //being a bit explicit here to avoid confusion
+        }
+    } else if (props.type === 'month') {
+        if (props.dateRange === 'past') {
+            min = '1900-01';
+            max = getFormattedDate('month')
+        } else if (props.dateRange === 'future') {
+            min = getFormattedDate('month');
+            max = undefined
+        }
+    }
+
+
 
 
     return (
@@ -53,8 +74,8 @@ export default function DatePicker(props) {
                 type={props.type}
                 id="date"
                 onChange={e => props.handleChange(e.target.value)}
-                min={props.type === "date" ? "1900-01-01" : "1900-01"}
-                max={props.type === "date" ? getFormattedDate('day') : getFormattedDate('month')}
+                min={min}
+                max={max}
                 className="absolute inset-0 pointer-events-none opacity-0"
             />
 

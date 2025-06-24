@@ -71,16 +71,10 @@ export default function ProfileTabContent() {
     // --------------------------------------------------------
 
 
-    const handleSelectExperience = (option) => {
-        basicForm.setData(prevData => ({
-            ...prevData,
-            experience: option
-        }))
-    }
-    const handleSelectEducations = (option) => {
-        basicForm.setData(prevData => ({
-            ...prevData,
-            educations: option
+    const handleSelectChange = (field, option) => {
+        basicForm.setData(prev => ({
+            ...prev,
+            [field]: option
         }))
     }
 
@@ -227,14 +221,14 @@ export default function ProfileTabContent() {
                         <div className="flex flex-col lg:flex-row gap-4 w-full max-w-[680px]">
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Experience</label>
-                                <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={handleSelectExperience} />
+                                <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={(option) => handleSelectChange('experience', option) } />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.experience}
                                 </div>
                             </div>
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Educations</label>
-                                <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={handleSelectEducations} />
+                                <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={(option) => handleSelectChange('educations', option) } />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.educations}
                                 </div>
