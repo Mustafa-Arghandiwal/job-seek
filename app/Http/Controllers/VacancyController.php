@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateVacancyRequest;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class VacancyController extends Controller
 {
@@ -106,6 +107,15 @@ class VacancyController extends Controller
         return back()->with('postJobSuccess', 'Job posted successfully.');
 
    }
+
+    public function employerVacancies(Request $request) {
+
+        $vacancies = $request->user()->employer->vacancy;
+        return Inertia::render('Employer/Dashboard/MyJobs', [
+            'vacancies' => $vacancies,
+        ]);
+
+    }
 
     /**
      * Display the specified resource.

@@ -3,7 +3,21 @@ import { useState, useRef, useEffect } from "react"
 
 
 
-export default function EmployerJob() {
+export default function EmployerJob({ title, type, deadline }) {
+
+    const today = new Date()
+    const endDate = new Date(deadline)
+    const remainingDays = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24))
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    let remainingMsg
+    if (remainingDays >= 0) {
+        remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
+    } else if (remainingDays < -9) {
+        remainingMsg = `Expired on ${endDate.getDate()} ${monthNames[endDate.getMonth()]} ${endDate.getFullYear()}`
+    } else {
+        remainingMsg = remainingDays === -1 ? `Expired ${Math.abs(remainingDays)} day ago` : `Expired ${Math.abs(remainingDays)} days ago`
+    }
+
 
     const [showMenu, setShowMenu] = useState(false)
     const menuRef = useRef(null)
@@ -23,19 +37,33 @@ export default function EmployerJob() {
     return (
         <tr className="border-b border-b-customGray-100">
             <td scope="row" className="p-5 whitespace-nowrap">
-                <h3 className="text-customGray-900 font-medium ">UI/UX Designer</h3>
-                <p className="text-sm text-customGray-500">Full Time &bull; 27 days remaining</p>
+                <h3 className="text-customGray-900 font-medium ">{title}</h3>
+                <p className="text-sm text-customGray-500">{type} &bull; {remainingMsg}</p>
 
             </td>
 
-            <td className="text-danger-500 text-sm p-5 whitespace-nowrap">
+            <td className={`${remainingDays >= 0 ? "text-success-500" : "text-danger-500"} text-sm p-5 whitespace-nowrap`}>
                 <div className="flex items-center gap-1">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
-                        <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    Expired
+                    {remainingDays >= 0 ?
+                        <>
+
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M13.4375 8.125L8.85414 12.5L6.5625 10.3125" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            Active
+                        </>
+                        :
+                        <>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
+                                <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            Expired
+
+                        </>
+                    }
                 </div>
             </td>
 
@@ -56,37 +84,37 @@ export default function EmployerJob() {
 
             <td className="p-5 whitespace-nowrap">
                 <div className="flex items-center gap-2">
-                <button type="button" className="flex gap-3  font-semibold text-primary-500 hover:text-white bg-customGray-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">View Applications</button>
-                <div className="relative">
-                    <button type="button" ref={threeDotsBtnRef} onClick={() => setShowMenu(prev => !prev)} className=" cursor-pointer scale-110 active:scale-125  text-customGray-500" >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 13.125C12.6213 13.125 13.125 12.6213 13.125 12C13.125 11.3787 12.6213 10.875 12 10.875C11.3787 10.875 10.875 11.3787 10.875 12C10.875 12.6213 11.3787 13.125 12 13.125Z" fill="currentColor" stroke="currentColor" />
-                            <path d="M12 6.65039C12.6213 6.65039 13.125 6.14671 13.125 5.52539C13.125 4.90407 12.6213 4.40039 12 4.40039C11.3787 4.40039 10.875 4.90407 10.875 5.52539C10.875 6.14671 11.3787 6.65039 12 6.65039Z" fill="currentColor" stroke="currentColor" />
-                            <path d="M12 19.6094C12.6213 19.6094 13.125 19.1057 13.125 18.4844C13.125 17.8631 12.6213 17.3594 12 17.3594C11.3787 17.3594 10.875 17.8631 10.875 18.4844C10.875 19.1057 11.3787 19.6094 12 19.6094Z" fill="currentColor" stroke="currentColor" />
-                        </svg>
-                    </button>
-
-                    <div ref={menuRef} className={`bg-white  min-w-32 md:min-w-40 rounded-md absolute -left-32 top-11  shadow-lg z-10 ${showMenu ? 'max-h-40 py-2' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75  `}>
-                        <button type="button"
-                            className="text-customGray-600 hover:text-primary-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10 3.54108C3.75 3.54108 1.25 10 1.25 10C1.25 10 3.75 16.4577 10 16.4577C16.25 16.4577 18.75 10 18.75 10C18.75 10 16.25 3.54108 10 3.54108Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M10 13.1251C11.7259 13.1251 13.125 11.726 13.125 10.0001C13.125 8.27417 11.7259 6.87506 10 6.87506C8.27411 6.87506 6.875 8.27417 6.875 10.0001C6.875 11.726 8.27411 13.1251 10 13.1251Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <button type="button" className="flex gap-3  font-semibold text-primary-500 hover:text-white bg-customGray-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">View Applications</button>
+                    <div className="relative">
+                        <button type="button" ref={threeDotsBtnRef} onClick={() => setShowMenu(prev => !prev)} className=" cursor-pointer scale-110 active:scale-125  text-customGray-500" >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.125C12.6213 13.125 13.125 12.6213 13.125 12C13.125 11.3787 12.6213 10.875 12 10.875C11.3787 10.875 10.875 11.3787 10.875 12C10.875 12.6213 11.3787 13.125 12 13.125Z" fill="currentColor" stroke="currentColor" />
+                                <path d="M12 6.65039C12.6213 6.65039 13.125 6.14671 13.125 5.52539C13.125 4.90407 12.6213 4.40039 12 4.40039C11.3787 4.40039 10.875 4.90407 10.875 5.52539C10.875 6.14671 11.3787 6.65039 12 6.65039Z" fill="currentColor" stroke="currentColor" />
+                                <path d="M12 19.6094C12.6213 19.6094 13.125 19.1057 13.125 18.4844C13.125 17.8631 12.6213 17.3594 12 17.3594C11.3787 17.3594 10.875 17.8631 10.875 18.4844C10.875 19.1057 11.3787 19.6094 12 19.6094Z" fill="currentColor" stroke="currentColor" />
                             </svg>
-                            <span className="text-sm font-medium">View Details</span>
                         </button>
 
-                        <button className=" text-customGray-600 hover:text-danger-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
-                                <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                            <span className="text-sm font-medium ">Expire Job</span>
-                        </button>
+                        <div ref={menuRef} className={`bg-white  min-w-32 md:min-w-40 rounded-md absolute -left-32 top-11  shadow-lg z-10 ${showMenu ? 'max-h-40 py-2' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75  `}>
+                            <button type="button"
+                                className="text-customGray-600 hover:text-primary-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 3.54108C3.75 3.54108 1.25 10 1.25 10C1.25 10 3.75 16.4577 10 16.4577C16.25 16.4577 18.75 10 18.75 10C18.75 10 16.25 3.54108 10 3.54108Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M10 13.1251C11.7259 13.1251 13.125 11.726 13.125 10.0001C13.125 8.27417 11.7259 6.87506 10 6.87506C8.27411 6.87506 6.875 8.27417 6.875 10.0001C6.875 11.726 8.27411 13.1251 10 13.1251Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <span className="text-sm font-medium">View Details</span>
+                            </button>
 
+                            <button className=" text-customGray-600 hover:text-danger-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
+                                    <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <span className="text-sm font-medium ">Expire Job</span>
+                            </button>
+
+                        </div>
                     </div>
-                </div>
 
 
                 </div>
@@ -100,8 +128,3 @@ export default function EmployerJob() {
 
 
 
-//  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-//      <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-//      <path d="M13.4375 8.125L8.85414 12.5L6.5625 10.3125" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-//  </svg>
-// Active

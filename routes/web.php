@@ -85,7 +85,6 @@ Route::post('/employer/settings/social-links', [EmployerSettingsController::clas
 Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
 Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
 Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
-
-
 Route::post('/employer/vacancies', [VacancyController::class, 'store']);
+Route::get('/employer/vacancies', [VacancyController::class, 'employerVacancies']);
 

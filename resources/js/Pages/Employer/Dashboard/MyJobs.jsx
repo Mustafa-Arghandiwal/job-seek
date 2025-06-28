@@ -1,12 +1,16 @@
 
 
+import { usePage } from "@inertiajs/react"
 import EmployerJob from "../../../Components/EmployerJob"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout"
 import EmployerLayout from "../../../Layouts/EmployerLayout"
 
 
 
-function Overview() {
+function Overview({ vacancies }) {
+    const vacancyEls = vacancies.map(vacancy => (
+        <EmployerJob key={vacancy.id} title={vacancy.job_title} type={vacancy.job_type} deadline={vacancy.deadline}/>
+    ))
     return (
         <>
             <h1 className="font-medium text-2xl">My Jobs</h1>
@@ -22,10 +26,8 @@ function Overview() {
                 </thead>
 
                 <tbody>
-                    <EmployerJob />
-                    <EmployerJob />
-                    <EmployerJob />
-               </tbody>
+                    {vacancyEls}
+                </tbody>
 
             </table>
         </>

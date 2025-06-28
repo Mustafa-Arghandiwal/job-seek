@@ -25,6 +25,7 @@ export default function EmployerLayout({ children }) {
         '/employer/dashboard/my-jobs',
         '/employer/dashboard/saved-candidates',
         '/employer/dashboard/settings',
+        '/employer/vacancies'
     ]
 
     const handleSubmit = (e) => {
