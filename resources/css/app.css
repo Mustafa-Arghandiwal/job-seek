@@ -76,7 +76,10 @@
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-    background: #fff;
+    /* background: #fff; */
+    background: transparent;
+    margin: 0.5rem;
+    border-radius: 0.75rem;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
@@ -150,9 +153,9 @@
 }
 
 .editor-content p.is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: #9199A3;
-  pointer-events: none;
-  height: 0;
+    content: attr(data-placeholder);
+    float: left;
+    color: #9199A3;
+    pointer-events: none;
+    height: 0;
 }
