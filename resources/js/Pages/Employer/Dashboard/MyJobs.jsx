@@ -9,7 +9,7 @@ import EmployerLayout from "../../../Layouts/EmployerLayout"
 
 function Overview({ vacancies }) {
     const vacancyEls = vacancies.map(vacancy => (
-        <EmployerJob key={vacancy.id} title={vacancy.job_title} type={vacancy.job_type} deadline={vacancy.deadline}/>
+        <EmployerJob key={vacancy.id}  vacancy={vacancy}/>
     ))
     return (
         <>

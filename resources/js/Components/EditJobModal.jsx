@@ -7,25 +7,25 @@ import DatePicker from "./DatePicker";
 
 
 
-export default function EditJobModal({ close, showModal }) {
+export default function EditJobModal({ close, showModal, vacancy}) {
 
     const { props } = usePage({})
-    const { data, setData, reset, errors, processing, post } = useForm({
-        jobTitle: '',
-        salaryType: '',
-        salaryFormat: '',
-        fixedSalary: '',
-        minSalary: '',
-        maxSalary: '',
-        education: '',
-        experience: '',
-        jobLevel: '',
-        jobType: '',
-        workMode: '',
-        city: '',
-        deadline: '',
-        description: '',
-        responsibilities: '',
+    const { data, setData, reset, errors, processing, put } = useForm({
+        jobTitle: vacancy.job_title,
+        salaryType: vacancy.salary_type,
+        salaryFormat: vacancy.salary_format || '',
+        fixedSalary: vacancy.fixed_salary || '',
+        minSalary: vacancy.min_salary || '',
+        maxSalary: vacancy.max_salary || '',
+        education: vacancy.education,
+        experience: vacancy.experience,
+        jobLevel: vacancy.job_level,
+        jobType: vacancy.job_type,
+        workMode: vacancy.work_mode,
+        city: vacancy.city || '',
+        deadline: vacancy.deadline,
+        description: vacancy.description,
+        responsibilities: vacancy.responsibilities,
 
     })
 
@@ -46,10 +46,10 @@ export default function EditJobModal({ close, showModal }) {
 
     const [successMsg, setSuccessMsg] = useState('')
     useEffect(() => {
-        if (props.flash.postJobSuccess) {
-            setSuccessMsg(props.flash.postJobSuccess)
+        if (props.flash.editJobSuccess) {
+            setSuccessMsg(props.flash.editJobSuccess)
         }
-    }, [props.flash.postJobSuccess])
+    }, [props.flash.editJobSuccess])
 
     useEffect(() => {
         if (successMsg) {
@@ -60,11 +60,7 @@ export default function EditJobModal({ close, showModal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post('/employer/vacancies', {
-            onSuccess: () => {
-                reset()
-            }
-        })
+        put(`/employer/vacancies/${vacancy.id}`)
 
     }
 
@@ -87,7 +83,7 @@ export default function EditJobModal({ close, showModal }) {
                 {/* form here */}
                 <form onSubmit={handleSubmit}>
 
-                    <h1 className="font-medium text-2xl text-customGray-900 ">Edit Job [job name]</h1>
+                    <h1 className="font-medium text-2xl text-customGray-900 ">Edit Job: {vacancy.job_title}</h1>
 
                     <div className="mt-8">
 
