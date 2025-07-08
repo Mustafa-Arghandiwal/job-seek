@@ -116,6 +116,17 @@ class VacancyController extends Controller
         ]);
     }
 
+    public function makeExpire(Request $request, $id)
+    {
+
+        $vacancy = Vacancy::findOrFail($id);
+        if ($request->user()->id == $vacancy->employer_id) {
+            $vacancy->expired = true;
+            $vacancy->save();
+            return back()->with('jobExpireSuccess', 'Job expired. It will no longer be visible to candidates.');
+        }
+    }
+
     /**
      * Display the specified resource.
      */
@@ -178,7 +189,7 @@ class VacancyController extends Controller
 
         ]);
 
-        $vacancy = Vacancy::find($id);
+        $vacancy = Vacancy::findOrFail($id);
         $vacancy->job_title = $validated['jobTitle'];
         $vacancy->salary_type = $validated['salaryType'];
         if (in_array($validated['salaryType'], ['Commission-based', 'Negotiable'])) {

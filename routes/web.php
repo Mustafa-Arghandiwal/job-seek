@@ -88,5 +88,6 @@ Route::post('/employer/settings/change-password', [AuthController::class, 'updat
 Route::post('/employer/vacancies', [VacancyController::class, 'store']);
 Route::get('/employer/vacancies', [VacancyController::class, 'employerVacancies']);
 Route::put('/employer/vacancies/{id}', [VacancyController::class, 'update']);
+Route::post('/employer/vacancies/{id}/expire', [VacancyController::class, 'makeExpire']);
 
 
