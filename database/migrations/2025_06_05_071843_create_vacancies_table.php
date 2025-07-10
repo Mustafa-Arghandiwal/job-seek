@@ -27,7 +27,7 @@ return new class extends Migration
             $table->enum('work_mode', ['Remote', 'On-site', 'Hybrid']);
             $table->string('city', 100)->nullable();
             $table->date('deadline');
-            $table->boolean('expired')->default(false);
+            $table->boolean('manually_expired')->default(false);
             $table->text('description');
             $table->text('responsibilities');
             $table->timestamps();

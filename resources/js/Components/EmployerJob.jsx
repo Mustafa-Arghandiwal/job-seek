@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react"
 import EditJobModal from "./EditJobModal"
 import { useForm } from "@inertiajs/react"
+import ConfirmationModal from "./ConfirmationModal"
 
 
 
@@ -16,8 +17,13 @@ export default function EmployerJob({ vacancy }) {
     const remainingDays = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24))
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     let remainingMsg
+
     if (remainingDays >= 0) {
+        if(vacancy.manually_expired) {
+            remainingMsg = "Expired by User"
+        } else {
         remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
+        }
     } else if (remainingDays < -9) {
         remainingMsg = `Expired on ${endDate.getDate()} ${monthNames[endDate.getMonth()]} ${endDate.getFullYear()}`
     } else {
@@ -43,22 +49,28 @@ export default function EmployerJob({ vacancy }) {
     })
 
 
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false)
+    const expireJobBtn = useRef(null)
+
+
     const handleExpireJob = () => {
         post(`/employer/vacancies/${vacancy.id}/expire`)
-
-
     }
+
+
+
     return (
-        <tr className="border-b border-b-customGray-100">
+        <tr className="border-b border-b-customGray-100 hover:shadow-[1px_1px_8px_rgba(0,0,0,0.25)] duration-150 rounded-sm">
             <td scope="row" className="p-5 whitespace-nowrap">
                 <h3 className="text-customGray-900 font-medium ">{vacancy.job_title}</h3>
                 <p className="text-sm text-customGray-500">{vacancy.job_type} &bull; {remainingMsg}</p>
 
             </td>
 
-            <td className={`${remainingDays >= 0 ? "text-success-500" : "text-danger-500"} text-sm p-5 whitespace-nowrap`}>
+            <td className={`${remainingDays >= 0 && !vacancy.manually_expired ? "text-success-500" : "text-danger-500"} text-sm p-5 whitespace-nowrap`}>
                 <div className="flex items-center gap-1">
-                    {remainingDays >= 0 ?
+                    {remainingDays >= 0 && !vacancy.manually_expired ?
                         <>
 
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +121,7 @@ export default function EmployerJob({ vacancy }) {
                         </button>
 
                         <div ref={menuRef} className={`bg-white  min-w-32 md:min-w-40  border-customGray-50 rounded-md absolute -left-32 top-11  shadow-lg z-10 ${showMenu ? 'max-h-40 py-2 border' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75  `}>
-                            <button type="button" disabled={remainingDays < 0} onClick={() => { setShowEditJobModal(true); setShowMenu(false) }}
+                            <button type="button" disabled={remainingDays < 0 || vacancy.manually_expired} onClick={() => { setShowEditJobModal(true); setShowMenu(false) }}
                                 className="text-customGray-600  hover:text-primary-500 disabled:hover:bg-transparent disabled:cursor-default  disabled:text-customGray-200   flex gap-1.5 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.5 16.8759H3.75C3.58424 16.8759 3.42527 16.81 3.30806 16.6928C3.19085 16.5756 3.125 16.4166 3.125 16.2509V12.7598C3.125 12.6777 3.14117 12.5964 3.17258 12.5206C3.20398 12.4448 3.25002 12.3759 3.30806 12.3178L12.6831 2.94282C12.8003 2.82561 12.9592 2.75977 13.125 2.75977C13.2908 2.75977 13.4497 2.82561 13.5669 2.94282L17.0581 6.43394C17.1753 6.55115 17.2411 6.71012 17.2411 6.87588C17.2411 7.04164 17.1753 7.20061 17.0581 7.31782L7.5 16.8759Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -128,7 +140,7 @@ export default function EmployerJob({ vacancy }) {
                                 <span className="text-sm font-medium">Go to Job</span>
                             </button>
 
-                            <button type="button" disabled={remainingDays < 0} onClick={handleExpireJob}
+                            <button type="button" disabled={remainingDays < 0 || vacancy.manually_expired} ref={expireJobBtn} onClick={() => setShowConfirmationModal(true)}
                                 className=" text-customGray-600 hover:text-primary-500 disabled:hover:bg-transparent disabled:cursor-default  disabled:text-customGray-200  flex gap-1.5 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
@@ -147,6 +159,7 @@ export default function EmployerJob({ vacancy }) {
             </td>
 
             <EditJobModal close={() => setShowEditJobModal(false)} showModal={showEditJobModal} vacancy={vacancy} />
+            <ConfirmationModal  showModal={showConfirmationModal} setShowModal={setShowConfirmationModal} expireJobBtn={expireJobBtn} handleExpireJob={handleExpireJob}/>
 
 
         </tr>

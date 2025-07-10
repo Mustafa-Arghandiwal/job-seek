@@ -121,7 +121,7 @@ class VacancyController extends Controller
 
         $vacancy = Vacancy::findOrFail($id);
         if ($request->user()->id == $vacancy->employer_id) {
-            $vacancy->expired = true;
+            $vacancy->manually_expired = true;
             $vacancy->save();
             return back()->with('jobExpireSuccess', 'Job expired. It will no longer be visible to candidates.');
         }
