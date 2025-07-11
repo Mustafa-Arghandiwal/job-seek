@@ -25,6 +25,7 @@ export default function EmployerLayout({ children }) {
         '/employer/dashboard/my-jobs',
         '/employer/dashboard/saved-candidates',
         '/employer/dashboard/settings',
+        '/employer/vacancies'
     ]
 
     const handleSubmit = (e) => {
@@ -33,26 +34,20 @@ export default function EmployerLayout({ children }) {
     }
 
     const handleScroll = () => {
-        const currentScrollY = window.scrollY
-        //138 is the header's height in pixels
-        if (dropdownVisible) {
-            setIsVisible(true)
-        } else {
-            if (currentScrollY <= 138) {
-                setIsVisible(true)
-            } else {
+        const currentScrollY = window.scrollY;
 
-                if (window.scrollY > lastScrollY) {
-                    setIsVisible(false);
-                } else {
-                    setIsVisible(true);
-                }
-
-            }
+        if (dropdownVisible || currentScrollY <= 138) {
+            setIsVisible(true);
+            return;
         }
 
+        if (currentScrollY > lastScrollY) {
+            setIsVisible(false);
+        } else {
+            setIsVisible(true);
+        }
 
-        setLastScrollY(window.scrollY);
+        setLastScrollY(currentScrollY);
     };
 
     useEffect(() => {
@@ -62,7 +57,7 @@ export default function EmployerLayout({ children }) {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [lastScrollY]);
+    }, [lastScrollY, dropdownVisible]);
 
 
     useEffect(() => {

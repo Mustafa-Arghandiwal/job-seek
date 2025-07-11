@@ -139,9 +139,9 @@ function Home() {
                         <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
                         <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
                         <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
                         <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer and some other shit"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
                     </div>
 
                 </div>
@@ -154,7 +154,7 @@ function Home() {
                 <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
                     <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
                     <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
+                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Some RandomNamed Construction Company"} />
                     <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
                     <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
                     <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />

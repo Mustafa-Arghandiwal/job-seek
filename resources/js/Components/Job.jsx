@@ -12,8 +12,8 @@ export default function Job(props) {
                 ></div>
                 {/* <img src={props.employerLogo} /> */}
                 <div className="flex flex-col gap-3.5">
-                    <div className="flex gap-2 flex-wrap items-center">
-                        <h4 className="text-[#191F33] font-medium text-base md:text-xl">{props.jobTitle}</h4>
+                    <div className="flex gap-2 flex-wrap items-center  w-32 sm:w-auto break-words">
+                        <h4 title={props.jobTitle} className="text-[#191F33] font-medium text-base line-clamp-3  md:text-xl">{props.jobTitle}</h4>
                         <span className="px-2 grid items-center text-sm bg-primary-50 text-primary-500 rounded-[52px] cursor-default">{props.jobType}</span>
                     </div>
                     <div className="flex gap-1 sm:gap-4 flex-wrap">

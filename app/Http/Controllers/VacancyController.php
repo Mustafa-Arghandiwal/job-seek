@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateVacancyRequest;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class VacancyController extends Controller
 {
@@ -104,8 +105,27 @@ class VacancyController extends Controller
 
         $vacancy->save();
         return back()->with('postJobSuccess', 'Job posted successfully.');
+    }
 
-   }
+    public function employerVacancies(Request $request)
+    {
+
+        $vacancies = $request->user()->employer->vacancy;
+        return Inertia::render('Employer/Dashboard/MyJobs', [
+            'vacancies' => $vacancies,
+        ]);
+    }
+
+    public function makeExpire(Request $request, $id)
+    {
+
+        $vacancy = Vacancy::findOrFail($id);
+        if ($request->user()->id == $vacancy->employer_id) {
+            $vacancy->manually_expired = true;
+            $vacancy->save();
+            return back()->with('jobExpireSuccess', 'Job expired. It will no longer be visible to candidates.');
+        }
+    }
 
     /**
      * Display the specified resource.
@@ -118,17 +138,90 @@ class VacancyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vacancy $vacancy)
-    {
-        //
-    }
+    public function edit(Vacancy $vacancy) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVacancyRequest $request, Vacancy $vacancy)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'jobTitle' => ['required', 'max:255'],
+            'salaryType' => ['required', 'in:Hourly,Daily,Weekly,Monthly,Commission-based,Negotiable'],
+            'salaryFormat' => [
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable'])),
+                'nullable',
+                Rule::in(['Fixed Amount', 'Salary Range']),
+            ],
+            'fixedSalary' => [
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Fixed Amount"),
+                'nullable',
+                'numeric',
+                'min:0',
+                'max:10000000'
+            ],
+            'minSalary' => [
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable',
+                'numeric',
+                'min:0',
+                'max:10000000'
+            ],
+            'maxSalary' => [
+                Rule::requiredIf(fn() => !in_array($request->salaryType, ['Commission-based', 'Negotiable']) && $request->salaryFormat == "Salary Range"),
+                'nullable',
+                'numeric',
+                'max:10000000',
+                'gt:minSalary'
+            ],
+            'education' => ['required', 'in:No formal education,High School Diploma,Associate Degree,Bachelor\'s Degree,Master\'s Degree,Doctorate (PhD),Professional Certification,Other'],
+            'experience' => ['required', 'in:No experience,Less than 1 year,1–2 years,2–5 years,5–7 years,7–10 years,10+ years'],
+            'jobLevel' => ['required', 'in:Entry Level,Junior,Mid Level,Senior,Lead,Manager,Director,Executive'],
+            'jobType' => ['required', 'in:Full-Time,Part-Time,Freelance,Internship,Temporary'],
+            'workMode' => ['required', 'in:Remote,On-site,Hybrid'],
+            'city' => [
+                Rule::requiredIf(fn() => in_array($request->workMode, ['On-site', 'Hybrid'])),
+                'nullable'
+            ],
+            'deadline' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:' . now()->addMonths(6)->toDateString()],
+            'description' => ['required', 'min:10', 'max:65535', 'string'],
+            'responsibilities' => ['required', 'min:10', 'max:65535', 'string']
+
+        ]);
+
+        $vacancy = Vacancy::findOrFail($id);
+        $vacancy->job_title = $validated['jobTitle'];
+        $vacancy->salary_type = $validated['salaryType'];
+        if (in_array($validated['salaryType'], ['Commission-based', 'Negotiable'])) {
+            $vacancy->salary_format = null;
+            $vacancy->fixed_salary = null;
+            $vacancy->min_salary = null;
+            $vacancy->max_salary = null;
+        } else {
+            $vacancy->salary_format = $validated['salaryFormat'];
+            $vacancy->fixed_salary = $validated['fixedSalary'];
+            $vacancy->min_salary = $validated['minSalary'];
+            $vacancy->max_salary = $validated['maxSalary'];
+        }
+        $vacancy->education = $validated['education'];
+        $vacancy->experience = $validated['experience'];
+        $vacancy->job_level = $validated['jobLevel'];
+        $vacancy->job_type = $validated['jobType'];
+        $vacancy->work_mode = $validated['workMode'];
+        if ($validated['workMode'] == 'Remote') {
+            $vacancy->city = null;
+        } else {
+            $vacancy->city = $validated['city'];
+        }
+        $vacancy->deadline = $validated['deadline'];
+        $vacancy->description = $validated['description'];
+        $vacancy->responsibilities = $validated['responsibilities'];
+
+        $employer = $request->user()->employer;
+        if ($employer->user_id == $vacancy->employer_id) {
+            $vacancy->save();
+            return back()->with('editJobSuccess', 'Job updated successfully.');
+        }
     }
 
     /**

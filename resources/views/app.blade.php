@@ -9,5 +9,6 @@
 </head>
 <body>
     @inertia
+        <div id="react-portal-root"></div>
 </body>
 </html>
