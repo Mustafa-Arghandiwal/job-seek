@@ -110,7 +110,8 @@ class VacancyController extends Controller
     public function employerVacancies(Request $request)
     {
 
-        $vacancies = $request->user()->employer->vacancy;
+        // $vacancies = $request->user()->employer->vacancy;
+        $vacancies = Vacancy::orderBy('created_at', 'desc')->get();
         return Inertia::render('Employer/Dashboard/MyJobs', [
             'vacancies' => $vacancies,
         ]);
