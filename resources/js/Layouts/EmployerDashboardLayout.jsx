@@ -17,7 +17,7 @@ export default function EmployerDashboardLayout({ children }) {
     }, [])
 
     return (
-        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-1 xl:px-[150px] 2xl-px-[230px] ">
+        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-1 xl:px-[150px] 2xl:px-[230px] ">
 
             <nav className={`text-nowrap relative flex flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? 'w-[200px]' : 'w-16'} duration-300`}>
 

@@ -15,10 +15,10 @@ export default function CandidateDashboardLayout({ children }) {
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
-        
+
     return (
-        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-1 xl:px-[150px] 2xl-px-[230px] ">
-            
+        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-1 xl:px-[150px] 2xl:px-[230px] ">
+
             <nav className={`text-nowrap relative flex flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? 'w-[180px]' : 'w-16'} duration-300`}>
 
                 <h2 className={` text-customGray-400 font-medium text-xs px-6 mb-3 invisible md:visible`}>CANDIDATE DASHBOARD</h2>
@@ -30,7 +30,7 @@ export default function CandidateDashboardLayout({ children }) {
                         <path d="M3 12L12 17.25L21 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M3 7.5L12 12.75L21 7.5L12 2.25L3 7.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    
+
                     <span className={`${(!isOpen) && 'w-0 overflow-hidden'}`}>Overview</span>
                     <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Overview</span>
                 </Link>
