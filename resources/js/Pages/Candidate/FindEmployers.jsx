@@ -27,8 +27,8 @@ function FindEmployers() {
             </div>
 
             <div className="min-h-[512px] flex ">
-                <div className=" max-w-96 w-full  py-6 px-8  hidden lg:block  border">
-                    <div className=" flex flex-col gap-4 border rounded-xl sticky pl-8 pb-8 pt-6 border-customGray-50">
+                <div className=" max-w-96 w-full  py-6 px-8  hidden lg:block  ">
+                    <div className=" flex flex-col gap-4 border rounded-xl sticky top-4 pl-8 pb-8 pt-6 border-customGray-50">
                         <p className="font-medium text-customGray-900 text-lg">Organization Type</p>
                         <label className="cursor-pointer w-fit text-sm text-customGray-700">
                             <input type="radio" name="orgType" value="government" /> <span className="ml-2">Government</span>
@@ -48,7 +48,7 @@ function FindEmployers() {
 
                 <div className=" h-dvh w-full  px-3 xs:px-10 py-6 flex flex-col gap-6" >
                     <Employer logo='' companyName="something" location="Kabul" />
-                    <Employer logo='' companyName="something" location="Kabul" />
+                    <Employer logo='' companyName="Junior Telecommunications officer" location="Kabul" />
                 </div>
             </div>
         </div>

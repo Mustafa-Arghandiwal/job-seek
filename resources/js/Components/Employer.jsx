@@ -11,9 +11,9 @@ export default function Employer(props) {
                     style={{ backgroundImage: `url(${props.logo})` }}
                 ></div>
                 {/* <img src={props.employerLogo} /> */}
-                <div className="flex flex-col gap-3.5">
-                    <div className="flex gap-2 flex-wrap items-center  w-32 sm:w-auto break-words">
-                        <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-3  md:text-xl">{props.companyName}</h4>
+                <div className="flex flex-col gap-3.5 ">
+                    <div className="flex gap-2 flex-wrap items-center  break-words">
+                        <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-3  md:text-xl border ">{props.companyName}</h4>
 
                     </div>
                     <div className="flex gap-1 sm:gap-4 flex-wrap">
@@ -23,7 +23,7 @@ export default function Employer(props) {
                                 <path d="M11 11.917C12.5188 11.917 13.75 10.6858 13.75 9.16699C13.75 7.64821 12.5188 6.41699 11 6.41699C9.48122 6.41699 8.25 7.64821 8.25 9.16699C8.25 10.6858 9.48122 11.917 11 11.917Z" stroke="#C5C9D6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                             {props.location}</div>
-                        <div className="flex items-center  gap-1 text-customGray-600 text-sm">
+                        <div className="flex items-center gap-1 text-customGray-600 text-sm">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1754_48742)">
                                     <path d="M18.5635 6.1875H3.43848C3.05878 6.1875 2.75098 6.4953 2.75098 6.875V17.875C2.75098 18.2547 3.05878 18.5625 3.43848 18.5625H18.5635C18.9432 18.5625 19.251 18.2547 19.251 17.875V6.875C19.251 6.4953 18.9432 6.1875 18.5635 6.1875Z" stroke="#C5C9D6" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
