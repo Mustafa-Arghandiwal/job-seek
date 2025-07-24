@@ -4,7 +4,7 @@
 export default function Employer(props) {
 
     return (
-        <div className=" relative border border-customGray-50 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
+        <div className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center border"
@@ -12,8 +12,8 @@ export default function Employer(props) {
                 ></div>
                 {/* <img src={props.employerLogo} /> */}
                 <div className="flex flex-col gap-3.5 ">
-                    <div className="flex gap-2 flex-wrap items-center  break-words">
-                        <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-3  md:text-xl border ">{props.companyName}</h4>
+                    <div className="flex gap-2 flex-wrap items-center  break-words h-12 md:h-14   overflow-hidden">
+                        <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-2  md:text-xl  ">{props.companyName}</h4>
 
                     </div>
                     <div className="flex gap-1 sm:gap-4 flex-wrap">
@@ -46,7 +46,7 @@ export default function Employer(props) {
                 </div>
             </div>
 
-            <div className="flex gap-3 items-center mx-auto sm:mx-0 ">
+            <div className="flex gap-3 items-center  ">
                 <button className="group flex gap-3 text-sm sm:text-base rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     Open Positions
                     <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

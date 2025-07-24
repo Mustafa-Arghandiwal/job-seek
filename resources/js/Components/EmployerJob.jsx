@@ -46,7 +46,7 @@ export default function EmployerJob({ vacancy }) {
 
         return () => document.removeEventListener('click', handleClickOutside)
 
-    })
+    }, [menuRef, threeDotsBtnRef])
 
 
 
