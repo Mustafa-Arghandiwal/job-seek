@@ -1,4 +1,4 @@
-import { usePage } from "@inertiajs/react"
+import { router, useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
 import Employer from "../../Components/Employer"
 import { useEffect, useRef, useState } from "react"
@@ -10,6 +10,45 @@ function FindEmployers() {
     const [showFilter, setShowFilter] = useState(false)
     const filterBtn = useRef(null)
     const filterDropDown = useRef(null)
+    const pageProps = usePage().props.employers
+    console.log(pageProps)
+
+
+
+    const [employerType, setEmployerType] = useState('all')
+    const handleFilterChange = (e) => {
+        const selectedVal = e.target.value
+        if (selectedVal !== employerType) { //this prevents redundant request on same filter click
+            setEmployerType(selectedVal)
+            if (selectedVal !== "all") {
+                router.get('/employers', { type: selectedVal }, { preserveState: true })
+            } else {
+                router.get('/employers', {}, { preserveState: true })
+            }
+        }
+    }
+
+
+
+    const employerEls = pageProps.map(emp => (
+        <Employer key={emp.user_id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
+    ))
+
+
+
+    const employerTypes = ['all', 'government', 'private', 'startup', 'agency', 'ngo', 'un']
+    const radioBtnsSidebar = employerTypes.map(type => (
+        <label key={type} className="cursor-pointer w-fit text-sm text-customGray-700">
+            <input className="cursor-pointer" type="radio" onClick={() => setShowFilter(false)} checked={type === employerType} name="orgTypeSidebar" value={type} onChange={handleFilterChange} /> <span className={`${['ngo', 'un'].includes(type) ? 'uppercase' : 'capitalize'} ml-2`}>{type}</span>
+        </label>
+    ))
+    const radioBtnsDropdown = employerTypes.map(type => (
+        <label key={type} className="cursor-pointer w-fit text-sm text-customGray-700">
+            <input className="cursor-pointer" type="radio" onClick={() => setShowFilter(false)} checked={type === employerType} name="orgTypeDropdown" value={type} onChange={handleFilterChange} /> <span className={`${['ngo', 'un'].includes(type) ? 'uppercase' : 'capitalize'} ml-2`}>{type}</span>
+        </label>
+
+    ))
+
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -44,29 +83,7 @@ function FindEmployers() {
                 <div ref={filterDropDown} className={`drop-shadow-xl  rounded-lg p-5 absolute z-20 bg-white ${showFilter ? 'opacity-100' : 'opacity-0 pointer-events-none'} duration-100`}>
                     <p className="font-medium text-customGray-400 uppercase text-xs">Organization Type</p>
                     <div className="flex flex-col gap-3 mt-3">
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="all" /> <span className="ml-2">All</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="government" /> <span className="ml-2">Government</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="privateCompany" /> <span className="ml-2">Private Company</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="startup" /> <span className="ml-2">Startup</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="agency" /> <span className="ml-2">Agency</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="ngo" /> <span className="ml-2">NGO</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="un" /> <span className="ml-2">UN</span>
-                        </label>
-
-
+                        {radioBtnsDropdown}
                     </div>
                 </div>
 
@@ -76,35 +93,17 @@ function FindEmployers() {
                 <div className=" max-w-96 w-full  py-6 px-8  hidden lg:block  ">
                     <div className=" flex flex-col gap-4 border rounded-xl sticky top-4 pl-8 pb-8 pt-6 border-customGray-50">
                         <p className="font-medium text-customGray-900 text-lg">Organization Type</p>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="all" /> <span className="ml-2">All</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="government" /> <span className="ml-2">Government</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="privateCompany" /> <span className="ml-2">Private Company</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="startup" /> <span className="ml-2">Startup</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="agency" /> <span className="ml-2">Agency</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="ngo" /> <span className="ml-2">NGO</span>
-                        </label>
-                        <label className="cursor-pointer w-fit text-sm text-customGray-700">
-                            <input type="radio" name="orgType" value="un" /> <span className="ml-2">UN</span>
-                        </label>
+                        {radioBtnsSidebar}
 
                     </div>
                 </div>
 
                 <div className=" h-dvh w-full  px-3 xs:px-10 py-6 flex flex-col gap-6" >
-                    <Employer logo='' companyName="Data Entry Clerk" location="Kabul" />
-                    <Employer logo='' companyName="Motion Graphic Designer" location="Kabul" />
-                    <Employer logo='' companyName="Junior Telecommunications officer" location="Kabul" />
+                    {employerEls.length === 0
+                        ?
+                            <div className="text-customGray-900 mt-28 mx-auto"><span className="font-medium">No employers found</span> for this organization type. Please try a different filter.</div>
+                        :
+                        employerEls}
                 </div>
             </div>
         </div>

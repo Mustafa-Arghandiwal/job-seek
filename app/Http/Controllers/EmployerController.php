@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employer;
-use App\Models\EmployerDetail;
 use Illuminate\Http\Request;
 use Inertia\inertia;
 
@@ -12,16 +11,27 @@ class EmployerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employers = Employer::with(['detail', 'socialLink', 'contact'])->get();
+        $type = strtolower($request->query('type', 'all')); //default to "all" on initial page load
+        $employersQuery = Employer::with(['detail', 'socialLink', 'contact', 'user']);
+
+        if ($type !== 'all') {
+            $employersQuery->whereHas('detail', function ($query) use ($type) {
+                $query->where('company_type', $type);
+            });
+        }
+
+        if($type === 'All') {
+            dd('hi');
+        }
+        $employers = $employersQuery->get();
 
 
         return inertia::render('Candidate/FindEmployers', [
             'employers' => $employers,
 
         ]);
-
     }
 
     /**

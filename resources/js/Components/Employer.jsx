@@ -2,27 +2,29 @@
 
 
 export default function Employer(props) {
+    const logoPath = props.logo ? "/storage/" + props.logo : "/chess_pattern.png"
+    const location = props.location || "Location not specified"
+
 
     return (
         <div className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
                 <div
-                    className="h-16 min-w-16 bg-cover bg-center border"
-                    style={{ backgroundImage: `url(${props.logo})` }}
+                    className="h-16 min-w-16 bg-cover bg-center rounded-md"
+                    style={{backgroundImage: `url(${logoPath})`}}
                 ></div>
-                {/* <img src={props.employerLogo} /> */}
                 <div className="flex flex-col gap-3.5 ">
                     <div className="flex gap-2 flex-wrap items-center  break-words h-12 md:h-14   overflow-hidden">
                         <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-2  md:text-xl  ">{props.companyName}</h4>
 
                     </div>
                     <div className="flex gap-1 sm:gap-4 flex-wrap">
-                        <div className="flex items-center gap-1.5 text-customGray-600 text-sm ">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div className="flex items-center gap-1.5 text-customGray-600 text-sm  ">
+                            <svg className="shrink-0" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19.25 9.16699C19.25 15.5837 11 21.0837 11 21.0837C11 21.0837 2.75 15.5837 2.75 9.16699C2.75 6.97896 3.61919 4.88054 5.16637 3.33336C6.71354 1.78619 8.81196 0.916992 11 0.916992C13.188 0.916992 15.2865 1.78619 16.8336 3.33336C18.3808 4.88054 19.25 6.97896 19.25 9.16699Z" stroke="#C5C9D6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 <path d="M11 11.917C12.5188 11.917 13.75 10.6858 13.75 9.16699C13.75 7.64821 12.5188 6.41699 11 6.41699C9.48122 6.41699 8.25 7.64821 8.25 9.16699C8.25 10.6858 9.48122 11.917 11 11.917Z" stroke="#C5C9D6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            {props.location}</div>
+                            {location}</div>
                         <div className="flex items-center gap-1 text-customGray-600 text-sm">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1754_48742)">

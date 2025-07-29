@@ -46,6 +46,8 @@ class HandleInertiaRequests extends Middleware
                         // adding timestamp to the image path so that when post is successfull in candidate dashboard personal page, the avatar
                         // in the header gets updated immediately. No need to refresh!
                         ? $request->user()->candidate->profile_picture . '?v=' . now()->timestamp : null,
+                    'emp_profile_picture' => $request->user()->employer?->detail?->logo_path
+                        ? $request->user()->employer->detail->logo_path . '?v=' . now()->timestamp : null,
 
                     'title' => $request->user()->candidate?->title,
                     'website' => $request->user()->candidate?->website,
