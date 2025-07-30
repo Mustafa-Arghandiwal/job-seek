@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react"
 
 
 
@@ -7,7 +8,7 @@ export default function Employer(props) {
 
 
     return (
-        <div className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
+        <Link href={`/employers/${props.id}`} className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center rounded-md"
@@ -60,6 +61,6 @@ export default function Employer(props) {
                 </button>
 
             </div>
-        </div>
+        </Link>
     )
 }

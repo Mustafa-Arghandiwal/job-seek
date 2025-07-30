@@ -55,7 +55,11 @@ class EmployerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render('Candidate/SingleEmployerPage', [
+            // 'props' => 'hi',
+            'id' => $id
+        ]);
+
     }
 
     /**
