@@ -15,7 +15,7 @@ export default function EmployerLayout({ children }) {
     //Will be null if guest
     const user = props.auth.user
     const { post } = useForm()
-    const profilePictureStorageLink = props.auth.user?.profile_picture
+    const profilePictureStorageLink = props.auth.user?.emp_profile_picture
     //if no profile pic, use placeholder
     const headerProfilePic = profilePictureStorageLink ? `/storage/${profilePictureStorageLink}` : '/User.png'
 

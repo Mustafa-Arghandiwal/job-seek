@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
@@ -90,4 +91,6 @@ Route::get('/employer/vacancies', [VacancyController::class, 'employerVacancies'
 Route::put('/employer/vacancies/{id}', [VacancyController::class, 'update']);
 Route::post('/employer/vacancies/{id}/expire', [VacancyController::class, 'makeExpire']);
 
+
+Route::get('/employers', [EmployerController::class, 'index']);
 
