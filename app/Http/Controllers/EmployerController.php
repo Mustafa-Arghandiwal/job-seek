@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employer;
+use App\Models\Vacancy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\inertia;
 
@@ -22,7 +24,7 @@ class EmployerController extends Controller
             });
         }
 
-        if($type === 'All') {
+        if ($type === 'All') {
             dd('hi');
         }
         $employers = $employersQuery->get();
@@ -55,11 +57,20 @@ class EmployerController extends Controller
      */
     public function show(string $id)
     {
-        return Inertia::render('Candidate/SingleEmployerPage', [
-            // 'props' => 'hi',
-            'id' => $id
-        ]);
+        // dd(Carbon::today());
+        $employerDetails = Employer::with(['detail', 'socialLink', 'contact', 'user'])->where('user_id', $id)->get();
+        $vacancies = Vacancy::whereHas('employer', function ($query) use ($id) {
+            $query->where('user_id', $id);
+        })
+            ->where('manually_expired', false)
+            ->where('deadline', '>=', Carbon::today())
+            ->orderBy('deadline', 'asc')
+            ->get();
 
+        return Inertia::render('Candidate/SingleEmployerPage', [
+            'employerDetails' => $employerDetails,
+            'vacancies' => $vacancies
+        ]);
     }
 
     /**

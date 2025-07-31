@@ -8,6 +8,7 @@ import EmployerLayout from "../../../Layouts/EmployerLayout"
 
 
 function Overview({ vacancies }) {
+    console.log(usePage().props.flash)
     const vacancyEls = vacancies.map(vacancy => (
         <EmployerJob key={vacancy.id}  vacancy={vacancy}/>
     ))
