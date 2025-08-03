@@ -57,7 +57,6 @@ class EmployerController extends Controller
      */
     public function show(string $id)
     {
-        // dd(Carbon::today());
         $employerDetails = Employer::with(['detail', 'socialLink', 'contact', 'user'])->where('user_id', $id)->get();
         $vacancies = Vacancy::whereHas('employer', function ($query) use ($id) {
             $query->where('user_id', $id);

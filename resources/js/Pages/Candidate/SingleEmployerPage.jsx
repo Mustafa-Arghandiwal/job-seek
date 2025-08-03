@@ -18,11 +18,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     const email = ed.contact?.email
     const socialLinks = ed.social_link
 
-    console.log(vacancies)
-    const today = new Date()
     const openPositions = vacancies.map(vacancy => {
-        const endDate = new Date(vacancy.deadline)
-        const remainingDays = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24))
         let salary
         let salaryFrequency
         const salaryType = vacancy.salary_type
@@ -49,18 +45,18 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
             if (vacancy.fixed_salary) {
                 salary = `$${vacancy.fixed_salary.toLocaleString()}${salaryFrequency}`;
             } else {
-                // const min = vacancy.min_salary.toLocaleString();
-                const min = vacancy.min_salary
-                // const max = vacancy.max_salary.toLocaleString();
-                const max = vacancy.max_salary
+                const min = vacancy.min_salary.toLocaleString();
+                // const min = vacancy.min_salary
+                const max = vacancy.max_salary.toLocaleString();
+                // const max = vacancy.max_salary
                 salary = `$${min} – $${max}${salaryFrequency}`;
             }
         }
 
-        if (remainingDays >= 0 && !vacancy.manually_expired) {
+        // if (remainingDays >= 0 && !vacancy.manually_expired) {  //handled in backend
             return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
                 jobType={vacancy.job_type} salary={salary} logo={logo} />
-        }
+        // }
     })
 
 
