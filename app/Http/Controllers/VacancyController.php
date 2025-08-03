@@ -121,10 +121,13 @@ class VacancyController extends Controller
     {
 
         $vacancy = Vacancy::findOrFail($id);
-        if ($request->user()->id == $vacancy->employer_id) {
+        // dd($request->user()->employer->id);
+        if ($request->user()->employer->id == $vacancy->employer_id) {
             $vacancy->manually_expired = true;
             $vacancy->save();
             return back()->with('jobExpireSuccess', 'Job expired. It will no longer be visible to candidates.');
+        } else {
+            abort(403, 'You are not authorized to perform this action.');
         }
     }
 

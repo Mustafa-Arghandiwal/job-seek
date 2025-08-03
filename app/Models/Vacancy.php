@@ -12,6 +12,6 @@ class Vacancy extends Model
     use HasFactory;
 
     public function employer() {
-        return $this->belongTo(Employer::class);
+        return $this->belongsTo(Employer::class);
     }
 }

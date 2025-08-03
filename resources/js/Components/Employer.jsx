@@ -1,3 +1,4 @@
+import { Link, router } from "@inertiajs/react"
 
 
 
@@ -5,9 +6,12 @@ export default function Employer(props) {
     const logoPath = props.logo ? "/storage/" + props.logo : "/chess_pattern.png"
     const location = props.location || "Location not specified"
 
+    const goToEmployerPage = () => {
+        router.visit(`/employers/${props.id}`)
+    }
 
     return (
-        <div className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
+        <div onClick={goToEmployerPage}  className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center rounded-md"
@@ -49,7 +53,8 @@ export default function Employer(props) {
             </div>
 
             <div className="flex gap-3 items-center  ">
-                <button className="group flex gap-3 text-sm sm:text-base rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
+                <Link href={`/employers/${props.id}#open-positions-section`} onClick={(e) => e.stopPropagation()}
+                    className="group flex gap-3 text-sm sm:text-base rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     Open Positions
                     <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -57,7 +62,7 @@ export default function Employer(props) {
                     </svg>
 
 
-                </button>
+                </Link>
 
             </div>
         </div>

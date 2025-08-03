@@ -11,7 +11,6 @@ function FindEmployers() {
     const filterBtn = useRef(null)
     const filterDropDown = useRef(null)
     const pageProps = usePage().props.employers
-    console.log(pageProps)
 
 
 
@@ -31,7 +30,7 @@ function FindEmployers() {
 
 
     const employerEls = pageProps.map(emp => (
-        <Employer key={emp.user_id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
+        <Employer key={emp.user_id} id={emp.user_id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
     ))
 
 
