@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use App\Models\Vacancy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -14,9 +15,21 @@ class VacancyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = strtolower($request->query('filter'));
+
+        if ($filter == 'expiring today') {
+            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])->where('deadline', Carbon::today())->get();
+            return inertia::render('Candidate/FindJob', [
+                'vacancies' => $ExpiringTodayJobs
+            ]);
+        } else {
+            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])->orderBy('created_at', 'desc')->get();
+            return inertia::render('Candidate/FindJob', [
+                'vacancies' => $latestJobs
+            ]);
+        }
     }
 
     /**

@@ -95,3 +95,4 @@ Route::post('/employer/vacancies/{id}/expire', [VacancyController::class, 'makeE
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 
+Route::get('/candidate/find-job', [VacancyController::class, 'index']);
