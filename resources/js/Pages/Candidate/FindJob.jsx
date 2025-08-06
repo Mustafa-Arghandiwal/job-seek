@@ -3,6 +3,7 @@ import Select from "../../Components/Select"
 import OpenPosition from "../../Components/OpenPosition"
 import { useState } from "react"
 import { router } from "@inertiajs/react"
+import { formatSalary } from "../../utils/formatSalary"
 
 
 
@@ -15,53 +16,22 @@ function FindJob(props) {
         if(option === filter) return //this is to prevent reduntant filter requests
 
         setFilter(option)
-        router.get('/candidate/find-job', { filter: option }, { preserveState: true, preserveScroll: true })
+        router.get('/find-job', { filter: option }, { preserveState: true, preserveScroll: true })
     }
 
-    console.log(props.vacancies)
     const vacancies = props.vacancies.map(vacancy => {
         const logo = vacancy.employer.detail?.logo_path ? "/storage/" + vacancy.employer.detail.logo_path : null
         const compName = vacancy.employer.user.full_name
+        const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
-        let salary
-        let salaryFrequency
-        const salaryType = vacancy.salary_type
-        switch (salaryType) {
-            case "Hourly":
-                salaryFrequency = "/hour"
-                break;
-            case "Daily":
-                salaryFrequency = "/day"
-                break;
-            case "Weekly":
-                salaryFrequency = "/week"
-                break;
-            case "Monthly":
-                salaryFrequency = "/month"
-                break;
-            default:
-                break;
-        }
-
-        if (['Commission-based', 'Negotiable'].includes(salaryType)) {
-            salary = salaryType
-        } else {
-            if (vacancy.fixed_salary) {
-                salary = `$${vacancy.fixed_salary.toLocaleString()}${salaryFrequency}`;
-            } else {
-                const min = vacancy.min_salary.toLocaleString();
-                const max = vacancy.max_salary.toLocaleString();
-                salary = `$${min} – $${max}${salaryFrequency}`;
-            }
-        }
         return (
-            < OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy.city} companyName={compName} jobType={vacancy.job_type} salary={salary} logo={logo} />
+            < OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy.city} companyName={compName} jobType={vacancy.job_type} salary={salary} logo={logo} />
         )
     })
 
 
     return (
-        <div className="px-4 xl:px-[120px] border  pb-16 md:pb-36">
+        <div className="px-4 xl:px-[120px] pb-16 md:pb-36">
 
             <div className=" h-20 mt-5">
                 <div className="text-sm text-customGray-900 max-w-44">
@@ -71,7 +41,7 @@ function FindJob(props) {
             </div>
 
             {vacancies.length !== 0 ?
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-y-6 gap-x-12 w-fit mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-6  w-fit mx-auto">
                     {vacancies}
                 </div>
                 :
