@@ -21,7 +21,6 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
     const openPositions = vacancies.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-        console.log(salary)
 
             return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
                 jobType={vacancy.job_type} salary={salary} logo={logo} />
@@ -222,7 +221,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
             </div>
 
-            <hr className="text-customGray-200  mt-32" />
+            <hr className="text-customGray-200  mt-32 " />
 
 
 

@@ -1,6 +1,6 @@
 
 export const LinkedInIcon = () => (
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="48" height="48" rx="4" fill="currentColor" />
         <g clipPath="url(#clip0)">
             <path
@@ -18,7 +18,7 @@ export const LinkedInIcon = () => (
 
 
 export const TwitterIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="4" fill="currentColor" />
     <path
       d="M20.2547 32.0025C27.7602 32.0025 31.8646 25.8202 31.8646 20.4591C31.8646 20.2836 31.861 20.1088 31.8531 19.9347C32.6517 19.3602 33.3409 18.6488 33.8885 17.8339C33.1573 18.1571 32.3706 18.3746 31.5452 18.4726C32.3877 17.9704 33.0344 17.1758 33.3396 16.2287C32.5386 16.7011 31.6623 17.0342 30.7485 17.2135C30.0039 16.4249 28.9438 15.9316 27.77 15.9316C25.5166 15.9316 23.6893 17.7485 23.6893 19.9881C23.6893 20.3065 23.7251 20.6161 23.7952 20.9132C20.4038 20.7435 17.3966 19.1291 15.384 16.6744C15.0215 17.2935 14.8309 17.9972 14.8315 18.7135C14.8315 20.1211 15.5519 21.3636 16.6473 22.0906C15.9994 22.0709 15.3656 21.8969 14.7993 21.5832C14.7987 21.6002 14.7987 21.6168 14.7987 21.635C14.7987 23.5998 16.2052 25.2403 18.0723 25.612C17.7217 25.7069 17.3598 25.7549 16.9964 25.7547C16.7339 25.7547 16.4781 25.729 16.2295 25.6816C16.749 27.2936 18.2553 28.4666 20.0413 28.4994C18.6447 29.5878 16.8854 30.236 14.9733 30.236C14.6481 30.2363 14.323 30.2176 14 30.1798C15.8059 31.3307 17.9502 32.0022 20.2549 32.0022"
@@ -29,7 +29,7 @@ export const TwitterIcon = () => (
 
 
 export const FacebookIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="4" fill="currentColor" />
     <path
       d="M25.6666 34H21.7013V24.1414H19V20.9316H21.7012V18.6476C21.7012 15.9411 22.8959 14 26.8505 14C27.6869 14 29 14.1681 29 14.1681V17.1486H27.6208C26.2155 17.1486 25.6668 17.5749 25.6668 18.7535V20.9316H28.9474L28.6553 24.1414H25.6667L25.6666 34Z"
@@ -40,7 +40,7 @@ export const FacebookIcon = () => (
 
 
 export const InstagramIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="4" fill="currentColor" />
     <g clipPath="url(#clip0_6920_23191)">
       <path
@@ -58,7 +58,7 @@ export const InstagramIcon = () => (
 
 
 export const YouTubeIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="4" fill="currentColor" />
     <path
       d="M24.4433 31.041L20.34 30.9644C19.0114 30.9377 17.6796 30.991 16.3771 30.7145C14.3956 30.3015 14.2553 28.2762 14.1084 26.5774C13.906 24.189 13.9843 21.7574 14.3663 19.389C14.5817 18.0599 15.4304 17.2672 16.7427 17.1805C21.1724 16.8674 25.6315 16.9041 30.0514 17.0506C30.5182 17.064 30.9883 17.1372 31.4486 17.2205C33.7206 17.6269 33.7761 19.922 33.923 21.854C34.0699 23.806 34.0078 25.7679 33.7271 27.7066C33.5019 29.3122 33.071 30.6579 31.2527 30.7878C28.9742 30.9577 26.7479 31.0943 24.4629 31.051C24.4629 31.041 24.4498 31.041 24.4433 31.041V31.041ZM22.0309 26.9771C23.748 25.9711 25.4324 24.9818 27.1396 23.9825C25.4193 22.9765 23.7382 21.9872 22.0309 20.9879V26.9771Z"
@@ -69,8 +69,8 @@ export const YouTubeIcon = () => (
 
 export const GitHubIcon = () => (
   <svg
-    width="48"
-    height="48"
+    width="40"
+    height="40"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

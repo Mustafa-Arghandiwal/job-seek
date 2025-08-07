@@ -1,33 +1,40 @@
 import Layout from "../../Layouts/Layout"
 import { formatSalary } from "../../utils/formatSalary"
+import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "../Candidate/socialMediaSvgs"
 
 
 function SingleJobView({ employer, vacancy }) {
     console.log(employer)
-    console.log(vacancy)
+    // console.log(vacancy)
 
     const logo = employer.detail?.logo_path ? "/storage/" + employer.detail.logo_path : "/chess_pattern.png"
     const jobTitle = vacancy.job_title
     const companyWebsite = employer.detail?.company_website
     const companyPhone = employer.contact?.phone
     const companyEmail = employer.contact?.email
-    const companyFoundingDate = employer.detail?.establish_date
     const companyType = employer.detail?.company_type
+    const companyIndustry = employer.detail?.industry_type
     const companySize = employer.detail?.team_size
+    const companyName = employer.user?.full_name
 
 
+    const companyFoundingDate = new Date(employer.detail?.establish_date).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    })
     const jobPostDate = new Date(vacancy.created_at).toLocaleDateString("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
-    });
-    const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-    console.log(salary)
+    })
     const deadline = new Date(vacancy.deadline).toLocaleDateString("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
-    });
+    })
+
+    const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
     const jobEducation = vacancy.education
     const location = vacancy?.city || "Remote"
     const jobType = vacancy.job_type
@@ -35,29 +42,67 @@ function SingleJobView({ employer, vacancy }) {
     const description = vacancy.description
     const responsibilities = vacancy.responsibilities
 
+    const socialLinks = employer?.social_link
+    const socialIcons = socialLinks.map(link => {
+        if (link.social_type === "LinkedIn") {
+            return (
+                <a href={link.url} target="_blank" key={link.id} className=" text-primary-50 hover:text-primary-100">
+                    <LinkedInIcon />
+                </a>
+            )
+
+        } else if (link.social_type === "X") {
+            return (
+                <a href={link.url} target="_blank" key={link.id} className=" text-primary-50 hover:text-primary-100">
+                    <TwitterIcon />
+                </a>
+            )
+        } else if (link.social_type === "GitHub") {
+            return (
+                <a href={link.url} target="_blank" key={link.id} className=" text-primary-50 hover:text-primary-100">
+                    <GitHubIcon />
+                </a>
+            )
+        } else if (link.social_type === "Instagram") {
+            return (
+                <a href={link.url} target="_blank" key={link.id} className=" text-primary-50 hover:text-primary-100">
+                    <InstagramIcon />
+                </a>
+            )
+        }
+        else {
+            return null
+        }
+    })
 
 
-    console.log(logo)
+    // const relatedJobs = vacancies.map(vacancy => {
+    //     const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
+
+    //     return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
+    //         jobType={vacancy.job_type} salary={salary} logo={logo} />
+    // })
+    const relatedJobs = []
 
     return (
-        <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30">
-            <div className="py-8  flex items-center flex-wrap gap-4  justify-center md:justify-between ">
+        <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30  ">
+            <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
 
-                <div className="flex gap-6 items-center ">
+                <div className="flex gap-6 items-center  flex-col xs:flex-row">
                     <div className="h-24 min-w-24 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${logo})` }}></div>
-                    <div className="flex flex-col gap-3">
-                        <div className="flex gap-2 items-center flex-wrap">
-                            <h2 className="text-2xl font-medium text-customGray-900">{jobTitle}</h2>
+                    <div className="flex flex-col gap-3 items-center xs:items-start">
+                        <div className="flex gap-2 items-center flex-wrap justify-center xs:justify-start">
+                            <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{jobTitle}</h2>
                             <div className="bg-[#E8F1FF] text-[#0066FF] rounded-full text-sm grid place-items-center h-6 px-3">{jobType}</div>
                         </div>
 
 
                         {(companyWebsite || companyPhone || companyEmail) &&
-                            <div className="flex flex-wrap gap-2 text-customGray-700 ">
+                            <div className="flex flex-wrap gap-2 text-customGray-700 justify-center xs:justify-start">
                                 {companyWebsite &&
                                     <div className="flex gap-1 items-center ">
                                         <img src="/link_blue.png" className="h-5 w-5" />
-                                        <p>{companyWebsite}</p>
+                                        <p className="break-all">{companyWebsite}</p>
                                     </div>
                                 }
                                 {companyPhone &&
@@ -70,7 +115,7 @@ function SingleJobView({ employer, vacancy }) {
                                 {companyEmail &&
                                     <div className="flex gap-1 items-center">
                                         <img src="/envelope_blue.png" className="h-5 w-5" />
-                                        <p>{companyEmail}</p>
+                                        <p className="break-all">{companyEmail}</p>
                                     </div>
                                 }
 
@@ -82,7 +127,7 @@ function SingleJobView({ employer, vacancy }) {
                 </div>
 
                 <div className=" ">
-                    <div className="flex gap-3 ">
+                    <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
                         <button className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
                             <svg width="18" height="18" viewBox="0 0 14 19" fill={`${false ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -100,7 +145,7 @@ function SingleJobView({ employer, vacancy }) {
                         </button>
                     </div>
 
-                    <p className="text-customGray-500 text-xs text-center xs:text-right mt-2">Job expires on: <span className="text-danger-500">{deadline}</span></p>
+                    <p className="text-customGray-500 text-xs text-right mt-2">Job expires on: <span className="text-danger-500">{deadline}</span></p>
 
                 </div>
 
@@ -137,74 +182,68 @@ function SingleJobView({ employer, vacancy }) {
 
                     <div className="p-8 border border-primary-200  rounded-lg lg:min-w-[400px] max-w-[600px] ">
                         <h3 className="font-medium text-xl text-customGray-900">Job Overview</h3>
-                        <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap  gap-2">
-                            {/* <div className=" flex flex-col gap-6 "> */}
-                                <div className=" min-w-40 ">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/founded-in.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobPostDate}</p>
-                                    </div>
+                        <div className="mt-6 flex flex-wrap  gap-8 sm:gap-2">
+                            <div className=" min-w-40 ">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/founded-in.png" />
                                 </div>
-                                <div className=" min-w-40">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/timer.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{deadline}</p>
-                                    </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobPostDate}</p>
                                 </div>
-                            {/* </div> */}
-
-
-                            {/* <div className=" flex flex-col gap-6 "> */}
-                                <div className=" min-w-40">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/grad_cap.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobEducation}</p>
-                                    </div>
+                            </div>
+                            <div className=" min-w-40">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/timer.png" />
                                 </div>
-
-                            {/* </div> */}
-
-
-                            {/* <div className=" flex flex-col gap-6 "> */}
-                                <div className=" min-w-40">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/wallet.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{salary}</p>
-                                    </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{deadline}</p>
                                 </div>
-                                <div className=" min-w-40">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/location.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{location}</p>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div className=" min-w-40">
-                                    <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/industry-type.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobExperience}</p>
-                                    </div>
-                                </div>
 
-                            {/* </div> */}
+                            <div className=" min-w-40">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/grad_cap.png" />
+                                </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobEducation}</p>
+                                </div>
+                            </div>
+
+
+
+                            <div className=" min-w-40">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/wallet.png" />
+                                </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{salary}</p>
+                                </div>
+                            </div>
+                            <div className=" min-w-40">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/location.png" />
+                                </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{location}</p>
+                                </div>
+                            </div>
+
+                            <div className=" min-w-40">
+                                <div className="w-8 h-8">
+                                    <img src="/single-employer-view-icons/industry-type.png" />
+                                </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobExperience}</p>
+                                </div>
+                            </div>
+
 
 
                         </div>
@@ -213,67 +252,91 @@ function SingleJobView({ employer, vacancy }) {
 
 
 
+                    <div className="p-8 mt-6 border border-primary-200  rounded-lg  lg:min-w-[400px] max-w-[600px]">
+                        <div className="flex gap-4  items-center">
+                            <div className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></div>
+                            <div>
+                                <p className="text-customGray-900 font-medium text-xl">{companyName}</p>
+                                <p className="text-sm text-customGray-500 mt-2">{companyIndustry}</p>
+                            </div>
+                        </div>
+
+                        <div className="mt-8">
+                            <div className="flex gap-2  justify-between">
+                                <p className="text-customGray-600">Founded in:</p>
+                                {
+                                    companyFoundingDate ? <p className=" text-customGray-900">{companyFoundingDate}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+
+                            <div className="flex gap-2  justify-between mt-4">
+                                <p className="text-customGray-600">Organization type:</p>
+                                {
+                                    companyType ? <p className="text-customGray-900">{companyType}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+
+                            <div className="flex justify-between gap-2  mt-4">
+                                <p className="text-customGray-600">Company size:</p>
+                                {
+                                    companySize ? <p className="text-customGray-900">{companySize}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+
+                            <div className="flex justify-between gap-2  mt-4">
+                                <p className="text-customGray-600">Phone:</p>
+                                {
+                                    companyPhone ? <p className="text-customGray-900">{companyPhone}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+
+                            <div className="flex justify-between gap-2  mt-4">
+                                <p className="text-customGray-600">Email:</p>
+                                {
+                                    companyEmail ? <p className="text-customGray-900 break-all">{companyEmail}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+
+                            <div className="flex justify-between gap-2  mt-4">
+                                <p className="text-customGray-600">Website:</p>
+                                {
+                                    companyWebsite ? <p className="text-customGray-900 break-all">{companyWebsite}</p> : <p className="text-customGray-500">Not provided</p>
+                                }
+                            </div>
+                        </div>
 
 
-
-                    {/*contact info*/}
-                    {/* <div className="border border-primary-200 rounded-lg p-8 mt-6 max-w-[340px]  w-full"> */}
-
-                    {/*     <h3 className="text-customGray-900 font-medium text-xl ">Contact Information</h3> */}
-
-                    {/*     <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100"> */}
-                    {/*         <div className="w-8 h-8 shrink-0"> */}
-                    {/*             <img src="/single-employer-view-icons/website.png" className="-0" /> */}
-                    {/*         </div> */}
-                    {/*         <div className=""> */}
-                    {/*             <p className="text-xs text-customGray-500">WEBSITE</p> */}
-                    {/*             <p className={`mt-2 text-sm max-w-[290px] break-all ${website ? "text-customGray-900 font-medium" : "text-customGray-400"}`}>{website || "Not provided"}</p> */}
-                    {/*         </div> */}
-                    {/*     </div> */}
-
-                    {/*     <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100"> */}
-                    {/*         <div className="w-8 h-8 shrink-0"> */}
-                    {/*             <img src="/single-employer-view-icons/phone.png" className="" /> */}
-                    {/*         </div> */}
-                    {/*         <div className=""> */}
-                    {/*             <p className="text-xs text-customGray-500">PHONE</p> */}
-                    {/*             <p className={`mt-2 text-sm max-w-[290px] break-all ${phone ? "text-customGray-900 font-medium" : "text-customGray-400"}`}>{phone || "Not provided"}</p> */}
-                    {/*         </div> */}
-                    {/*     </div> */}
-
-                    {/*     <div className="flex items-center gap-4 pt-6 "> */}
-                    {/*         <div className="w-8-h-8 shrink-0"> */}
-                    {/*             <img src="/single-employer-view-icons/envelope.png" className="shrink-0" /> */}
-                    {/*         </div> */}
-                    {/*         <div className=""> */}
-                    {/*             <p className="text-xs text-customGray-500">EMAIL ADDRESS</p> */}
-                    {/*             <p className={`mt-2 text-sm max-w-[290px] break-all ${email ? "text-customGray-900 font-medium" : "text-customGray-400"}`}>{email || "Not provided"}</p> */}
-                    {/*         </div> */}
-                    {/*     </div> */}
-
-                    {/* </div> */}
+                        {socialIcons.length !== 0 &&
+                            <div className="mt-8">
+                                <div className="flex gap-3 mt-4 flex-wrap">
+                                    {socialIcons}
+                                </div>
+                            </div>
+                        }
 
 
-
-                    {/* Follow us on */}
-                    {/* <div className="border border-primary-200 p-7 sm:p-8 rounded-lg mt-6 max-w-[340px] w-full"> */}
-                    {/*     <h3 className="text-customGray-900 font-medium text-xl ">Follow us on:</h3> */}
-                    {/*     {socialIcons.length !== 0 ? */}
-
-                    {/*         <div className="flex gap-3 mt-4 flex-wrap"> */}
-                    {/*             {socialIcons} */}
-                    {/*         </div> */}
-                    {/*         : */}
-                    {/*         <p className="text-customGray-400 mt-4">Not provided</p> */}
-                    {/*     } */}
-
-                    {/* </div> */}
+                    </div>
 
 
                 </div>
 
             </div>
 
+            <hr className="mt-8 text-customGray-200 "></hr>
+
+
+            <div className="mt-20">
+                <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Related Jobs</h3>
+                {relatedJobs.length !== 0 ?
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap   scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                        {relatedJobs}
+                    </div>
+                    :
+                    <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
+                        No related jobs at the moment.
+                    </div>
+                }
+            </div>
 
         </div>
     )
