@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
+use App\Models\Employer;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -147,9 +148,16 @@ class VacancyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vacancy $vacancy)
+    public function show(Request $request, $id)
     {
-        //
+        $vacancy = Vacancy::findOrFail($id);
+        $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
+        // dd($employer);
+
+        return inertia::render('General/SingleJobView', [
+            'vacancy' => $vacancy,
+            'employer' => $employer
+        ]);
     }
 
     /**

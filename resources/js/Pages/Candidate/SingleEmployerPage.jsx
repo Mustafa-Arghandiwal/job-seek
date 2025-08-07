@@ -1,5 +1,6 @@
 import OpenPosition from "../../Components/OpenPosition"
 import Layout from "../../Layouts/Layout"
+import { formatSalary } from "../../utils/formatSalary"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
 
 
@@ -19,44 +20,10 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     const socialLinks = ed.social_link
 
     const openPositions = vacancies.map(vacancy => {
-        let salary
-        let salaryFrequency
-        const salaryType = vacancy.salary_type
-        switch (salaryType) {
-            case "Hourly":
-                salaryFrequency = "/hour"
-                break;
-            case "Daily":
-                salaryFrequency = "/day"
-                break;
-            case "Weekly":
-                salaryFrequency = "/week"
-                break;
-            case "Monthly":
-                salaryFrequency = "/month"
-                break;
-            default:
-                break;
-        }
+        const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
-        if (['Commission-based', 'Negotiable'].includes(salaryType)) {
-            salary = salaryType
-        } else {
-            if (vacancy.fixed_salary) {
-                salary = `$${vacancy.fixed_salary.toLocaleString()}${salaryFrequency}`;
-            } else {
-                const min = vacancy.min_salary.toLocaleString();
-                // const min = vacancy.min_salary
-                const max = vacancy.max_salary.toLocaleString();
-                // const max = vacancy.max_salary
-                salary = `$${min} – $${max}${salaryFrequency}`;
-            }
-        }
-
-        // if (remainingDays >= 0 && !vacancy.manually_expired) {  //handled in backend
             return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
                 jobType={vacancy.job_type} salary={salary} logo={logo} />
-        // }
     })
 
 
@@ -254,7 +221,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
             </div>
 
-            <hr className="text-customGray-200  mt-32" />
+            <hr className="text-customGray-200  mt-32 " />
 
 
 
