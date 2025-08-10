@@ -12,7 +12,7 @@ import AccountTabContent from "./SettingTabContents/AccountTabContent.jsx"
 function Settings() {
 
     return (
-        <div>
+        <div className="">
             <h1 className="font-medium text-2xl ">Settings</h1>
 
             <Tabs>

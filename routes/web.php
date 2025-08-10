@@ -1,6 +1,8 @@
 <?php
 
 // use Inertia\Inertia;
+
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
@@ -98,3 +100,4 @@ Route::get('/employers/{id}', [EmployerController::class, 'show']);
 Route::get('/find-job', [VacancyController::class, 'index']);
 Route::get('/find-job/{id}', [VacancyController::class, 'show']);
 
+Route::get('/employer/vacancies/{vacancy}/applications', [ApplicationController::class, 'indexForEmployer']);

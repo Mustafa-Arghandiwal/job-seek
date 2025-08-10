@@ -5,20 +5,20 @@ import EmployerLayout from "../../../Layouts/EmployerLayout"
 
 
 
-function Overview() {
+function SavedCandidates() {
     return (
-        <div className="">
+        <div className="border">
             <h1 className="font-medium text-2xl">Saved Candidates</h1>
         </div>
     )
 }
 
 
-Overview.layout = page => (
+SavedCandidates.layout = page => (
     <EmployerLayout>
         <EmployerDashboardLayout children={page} />
     </EmployerLayout>
 
 )
 
-export default Overview
+export default SavedCandidates

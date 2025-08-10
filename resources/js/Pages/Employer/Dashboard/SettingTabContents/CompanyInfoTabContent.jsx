@@ -11,7 +11,6 @@ export default function CompanyInfoTabContent() {
 
 
     const { props } = usePage({})
-    console.log(props.auth.user.full_name)
     const employer = props.auth.user
     const { data, setData, processing, progress, errors, post } = useForm({
         logo: null,

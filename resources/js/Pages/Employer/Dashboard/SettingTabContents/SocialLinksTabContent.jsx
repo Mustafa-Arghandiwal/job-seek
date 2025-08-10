@@ -18,7 +18,6 @@ export default function SocialLinksTabContent() {
             selectedBy: fromDb ? linksFromDB.indexOf(fromDb) : null
         }
     })
-    console.log(initialLinks)
     const { data, setData, transform, errors, clearErrors, processing, post } = useForm({
         links: initialLinks
     })

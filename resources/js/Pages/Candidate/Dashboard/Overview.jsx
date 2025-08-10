@@ -6,7 +6,7 @@ import Layout from "../../../Layouts/Layout"
 
 function Overview() {
     return (
-        <div className="">
+        <div className=" ">
             <h1 className="text-3xl">Overview page</h1>
             <div>
                 <Job />
@@ -24,7 +24,7 @@ function Overview() {
 
 Overview.layout = page => (
     <Layout>
-        <CandidateDashboardLayout children={page} />  
+        <CandidateDashboardLayout children={page} />
     </Layout>
 
 )
