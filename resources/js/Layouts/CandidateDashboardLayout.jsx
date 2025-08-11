@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 export default function CandidateDashboardLayout({ children }) {
     const { url } = usePage()
 
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(window.innerWidth >= 768)
     const [isMd, setIsMd] = useState(false)
 
     useEffect(() => {

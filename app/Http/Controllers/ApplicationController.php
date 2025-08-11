@@ -16,8 +16,9 @@ class ApplicationController extends Controller
         //
     }
     public function indexForEmployer(Vacancy $vacancy) {
+
         return Inertia::render('Employer/Dashboard/Applications', [
-            'vacancy' => $vacancy
+            'jobTitle' => $vacancy->job_title
         ]);
 
     }
