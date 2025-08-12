@@ -12,7 +12,7 @@ export default function DashboardApplication(props) {
         transform,
         transition,
         isDragging,
-    } = useSortable({ id: props.id, data: { type: "Application" } });
+    } = useSortable({ id: props.id, data: { type: "Application", id: props.id, columnId: props.columnId, name: props.name, title: props.title } });
 
     const style = {
         transition,
@@ -54,11 +54,9 @@ export default function DashboardApplication(props) {
     }
 
     return (
-            props.id !== 1000000 && props.id !== 1000001 ?
-                (
-
                     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="mx-auto   bg-white rounded-sm p-4 mt-3 cursor-grab"
-                        onMouseDown={(e) => e.currentTarget.style.cursor = "grabbing"} onMouseUp={(e) => e.currentTarget.style.cursor = "grab"}>
+                        // onMouseDown={(e) => e.currentTarget.style.cursor = "grabbing"} onMouseUp={(e) => e.currentTarget.style.cursor = "grab"}
+        >
                         <div className="flex gap-3">
                             <div className="w-12 h-12 rounded-full overflow-hidden">
                                 <img src="/chess_pattern.png" className=" w-full h-full object-cover" />
@@ -86,9 +84,6 @@ export default function DashboardApplication(props) {
                         </button>
 
                     </div>
-                )
-                :
-                <div ref={setNodeRef} {...attributes} {...listeners} className=""></div>
 
     )
 }
