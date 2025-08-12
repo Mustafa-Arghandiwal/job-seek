@@ -19,7 +19,7 @@ export default function ColumnContainer(props) {
         <div ref={setNodeRef}  className="rounded-md bg-customGray-100 px-4 py-4  min-w-56 max-w-[450px]
             touch-none min-h-screen border border-customGray-200 ">
             <h3  className="text-customGray-900 text-sm">
-                {props.title} (xxx)
+                {props.title} ({props.applications.length - 1})
             </h3>
             <SortableContext items={props.applications.map(app => app.id)}>
                 {props.applications.map(app => (
