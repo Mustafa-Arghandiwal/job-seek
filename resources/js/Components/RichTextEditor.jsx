@@ -97,32 +97,33 @@ const MenuBar = () => {
 
 
 export default (props) => {
+    const editorSlot = props.menuOnTop ? { slotBefore: <MenuBar /> } : { slotAfer: <MenuBar /> }
     const [key, setKey] = useState(0)
     useEffect(() => {
-        if(props.content === '') {
+        if (props.content === '') {
             setKey(prev => prev + 1)
         }
     }, [props.content])
     return (
-        <div className='border mt-2  border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-[6px] '>
+        <div className={`border mt-2 ${props.menuOnTop && "overflow-y-auto max-h-44"} border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-md `}>
             <EditorProvider
                 key={key}
-                slotAfter={<MenuBar />}
-                extensions={[StarterKit, Underline, Placeholder.configure({
-                    placeholder: props.placeholder,
-                })]}
-                content={props.content}
-                editorProps={{
-                    attributes: {
-                        //this is to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
-                        class: 'editor-content'
-                    }
-                }}
-                onUpdate={({ editor }) => {
-                    props.onChange(editor.getHTML())
-                }}
+                {...editorSlot}
+            extensions={[StarterKit, Underline, Placeholder.configure({
+                placeholder: props.placeholder,
+            })]}
+            content={props.content}
+            editorProps={{
+                attributes: {
+                    //this is to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
+                    class: 'editor-content'
+                }
+            }}
+            onUpdate={({ editor }) => {
+                props.onChange(editor.getHTML())
+            }}
             >
-            </EditorProvider>
-        </div>
+        </EditorProvider>
+        </div >
     )
 }

@@ -1,5 +1,5 @@
 import { closestCorners, DndContext, DragOverlay, PointerSensor, pointerWithin, rectIntersection, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import DashboardApplication from "../../../Components/DashboardApplication";
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout";
 import EmployerLayout from "../../../Layouts/EmployerLayout";
