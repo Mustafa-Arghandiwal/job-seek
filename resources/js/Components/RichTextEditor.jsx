@@ -7,7 +7,7 @@ import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect, useState } from 'react'
 
-const MenuBar = () => {
+const MenuBar = (props) => {
     const { editor } = useCurrentEditor()
 
 
@@ -16,8 +16,9 @@ const MenuBar = () => {
         return null
     }
 
+    console.log(props)
     return (
-        <div className=" flex px-3  gap-1 overflow-x-auto  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
+        <div className={`${props.menuOnTop && "border-b  border-customGray-100 "} flex px-3  gap-1 overflow-x-auto  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]`}>
             <button type='button'
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 className={`flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50 ${editor.isActive('bold') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
@@ -97,7 +98,7 @@ const MenuBar = () => {
 
 
 export default (props) => {
-    const editorSlot = props.menuOnTop ? { slotBefore: <MenuBar /> } : { slotAfer: <MenuBar /> }
+    const editorSlot = props.menuOnTop ? { slotBefore: <MenuBar menuOnTop={true} /> } : { slotAfter: <MenuBar menuOnTop={false}/> }
     const [key, setKey] = useState(0)
     useEffect(() => {
         if (props.content === '') {

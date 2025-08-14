@@ -1,5 +1,6 @@
 import { router } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
+import { shortenFilename } from "../utils/shortenFilename"
 
 
 export default function ResumeBox(props) {
@@ -62,7 +63,7 @@ export default function ResumeBox(props) {
                     <path d="M12 21H20" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <div className="flex flex-col gap-1 ">
-                    <p className="text-customGray-900 break-all line-clamp-2  text-sm font-medium" title={props.fileName}>{props.shortenFilename(props.fileName, 27)}</p>
+                    <p className="text-customGray-900 break-all line-clamp-2  text-sm font-medium" title={props.fileName}>{shortenFilename(props.fileName, 27)}</p>
                     <span className="text-customGray-600 text-sm">{fileSize}</span>
                 </div>
             </div>

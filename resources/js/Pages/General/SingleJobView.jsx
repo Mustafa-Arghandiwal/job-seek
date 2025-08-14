@@ -397,7 +397,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
             {/* Apply job modal */}
             {createPortal(
                 <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                    <form onSubmit={handleApply} ref={modalRef} className="w-[600px] rounded-xl p-8 absolute top-[30dvh] left-1/2 -translate-x-1/2   bg-white  ">
+                    <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[20dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2   bg-white  ">
 
                         <h3 className="text-customGray-900 font-medium text-lg">Apply to: {jobTitle}</h3>
 
@@ -420,11 +420,11 @@ function SingleJobView({ employer, vacancy, resumes }) {
                         </div>
 
 
-                        <div className="mt-4 flex justify-between">
+                        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-between">
 
-                            <button type="button" onClick={() => setShowModal(false)} className="text-primary-500 bg-primary-50 py-3 px-6 font-semibold rounded-sm cursor-pointer
+                            <button type="button" onClick={() => setShowModal(false)} className="order-2 sm:order-1 text-primary-500 bg-primary-50 py-3 px-6 font-semibold rounded-sm cursor-pointer
                                hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
-                            <button className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
+                            <button className="order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
                                 <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
