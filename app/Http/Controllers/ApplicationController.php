@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ApplicationController extends Controller
@@ -34,9 +35,16 @@ class ApplicationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $job_id)
     {
-        //
+        $validated = $request->validate([
+            'resumeId' => ['required', 'integer', Rule::exists('candidate_resumes', 'id')->where('candidate_id', $request->user()->candidate->id)],
+            'coverLetter' =>  ['required', 'min:10', 'max:65535', 'string']
+
+        ]);
+        $validated['coverLetter'] = trim($validated['coverLetter']);
+
+
     }
 
     /**

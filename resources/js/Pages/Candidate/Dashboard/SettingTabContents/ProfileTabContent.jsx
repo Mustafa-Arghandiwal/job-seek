@@ -10,6 +10,7 @@ export default function ProfileTabContent() {
     const { props } = usePage()
     const dbResumes = props.auth.user.resumes
 
+    console.log(dbResumes)
 
 
     const basicForm = useForm({
@@ -109,7 +110,7 @@ export default function ProfileTabContent() {
     const handleResumeUpload = e => {
         e.preventDefault()
         setResumeSuccessMsg('')
-        resumeForm.post('/candidate/settings/profile/resumes/create', {
+        resumeForm.post('/candidate/settings/profile/resumes', {
             onSuccess: () => {
                 setResumeName('')
             }

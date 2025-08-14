@@ -10,7 +10,7 @@ export default function Select(props) {
     // const [placeholder, setPlaceholder] = useState('Select...')
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if(e.target !== dropdownBtn.current && e.target !== caret.current) {
+            if (e.target !== dropdownBtn.current && e.target !== caret.current) {
                 setDropdownVisible(false)
             }
         }
@@ -32,8 +32,15 @@ export default function Select(props) {
                 {/* <span onClick={() => setData("user_type", "candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Candidate</span>
                 <span onClick={() => setData("user_type", "employer")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">Employer</span> */}
                 {props.options.map((option, index) => {
-                    return <span key={index} onClick={() => {props.onValueChange(option) }}
-                     className="w-full rounded-sm flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">{option}</span>
+                    return <span key={index} onClick={() => {
+                        if (props.indexNeeded) {
+                            props.onValueChange(index)
+                        } else {
+                            props.onValueChange(option)
+                        }
+
+                    }}
+                        className="w-full rounded-sm flex px-2 py-1 hover:text-primary-500 hover:bg-[#E8F1FF] cursor-pointer">{option}</span>
                 })}
             </div>
         </div>

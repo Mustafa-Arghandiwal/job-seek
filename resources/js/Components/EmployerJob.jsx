@@ -110,7 +110,7 @@ export default function EmployerJob({ vacancy }) {
 
             <td className="p-5 whitespace-nowrap">
                 <div className="flex items-center gap-2 ">
-                    <Link href={`/employer/vacancies/${vacancy.id}/applications`} type="button" className="flex gap-3  font-semibold text-primary-500 hover:text-white bg-customGray-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">View Applications</Link>
+                    <Link href={`/employer/vacancies/${vacancy.id}/applications`} type="button" className="flex gap-3  font-semibold text-primary-500 hover:text-white bg-customGray-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap rounded-sm">View Applications</Link>
                     <div className="relative">
                         <button type="button" ref={threeDotsBtnRef} onClick={() => setShowMenu(prev => !prev)} className="hover:bg-customGray-50 py-[10px] px-2 rounded-sm cursor-pointer group scale-110 text-customGray-500" >
                             <svg className="group-active:scale-125 duration-100" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,3 +1,4 @@
+import { router } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
 
 
@@ -39,8 +40,14 @@ export default function ResumeBox(props) {
     }
 
     const handlePreview = () => {
-        const pdfUrl = `${import.meta.env.VITE_STORAGE_URL}/${props.path}`
-        window.open(pdfUrl, '_blank').focus()
+        //This is for when the resume was served public
+        // const pdfUrl = `${import.meta.env.VITE_STORAGE_URL}/${props.path}`
+        // window.open(pdfUrl, '_blank').focus()
+        // console.log(pdfUrl)
+
+        window.open(`/candidate/settings/profile/resume/${props.id}`, '_blank')
+
+
     }
 
 
