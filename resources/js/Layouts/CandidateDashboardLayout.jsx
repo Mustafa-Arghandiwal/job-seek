@@ -5,7 +5,7 @@ export default function CandidateDashboardLayout({ children }) {
     const { url } = usePage()
 
     const [isOpen, setIsOpen] = useState(window.innerWidth >= 768)
-    const [isMd, setIsMd] = useState(false)
+    const [isMd, setIsMd] = useState(window.innerWidth >= 768)
 
     useEffect(() => {
         const handleResize = () => {

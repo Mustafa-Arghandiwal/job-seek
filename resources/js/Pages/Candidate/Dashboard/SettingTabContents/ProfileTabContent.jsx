@@ -11,8 +11,6 @@ export default function ProfileTabContent() {
     const { props } = usePage()
     const dbResumes = props.auth.user.resumes
 
-    console.log(dbResumes)
-
 
     const basicForm = useForm({
         fullName: props.auth.user.full_name,
