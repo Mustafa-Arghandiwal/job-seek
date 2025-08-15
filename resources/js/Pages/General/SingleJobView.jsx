@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react"
+import { useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
 import { formatSalary } from "../../utils/formatSalary"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "../Candidate/socialMediaSvgs"
@@ -27,6 +27,10 @@ function SingleJobView({ employer, vacancy, resumes }) {
         resumeId: '',
         coverLetter: ''
     })
+    const { flash } = usePage().props
+
+    console.log(flash.applySuccess)
+    console.log(errors)
 
     let resumeError
     if (errors.resumeId) {
@@ -115,8 +119,9 @@ function SingleJobView({ employer, vacancy, resumes }) {
     const [showModal, setShowModal] = useState(false)
 
     const modalRef = useRef(null)
+    const successRef = useRef(null)
     const handleOutsideClick = (e) => {
-        if (modalRef.current && !modalRef.current.contains(e.target)) {
+        if ((modalRef.current && !modalRef.current.contains(e.target)) || successRef.current && !successRef.current.contains(e.target)) {
             setShowModal(false)
         }
     }
@@ -397,52 +402,68 @@ function SingleJobView({ employer, vacancy, resumes }) {
             {/* Apply job modal */}
             {createPortal(
                 <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                    <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[20dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2   bg-white  ">
+                    {flash.applySuccess ?
+                        <div ref={successRef} className="grid place-items-center text-center text-success-500 font-semibold max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[20dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2 bg-white  ">
+                            {flash.applySuccess}
 
-                        <h3 className="text-customGray-900 font-medium text-lg">Apply to: {jobTitle}</h3>
-
-                        <div className="mt-4">
-                            <label className="text-sm text-customGray-900">Choose Resume/CV</label>
-                            <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />
-                            <div className="text-sm w-full text-danger-600 min-h-5" >
-                                {resumeError}
-                            </div>
-                        </div>
-
-                        <div className="mt-2">
-                            <label className="text-sm text-customGray-900">Cover Letter</label>
-                            <RichTextEditor content={data.coverLetter} onChange={newContent => setData('coverLetter', newContent)} menuOnTop={true}
-                                placeholder="Write a short note to the employer about your background, skills, and why you’re excited about this role..." />
-                            <div className="text-sm w-full text-danger-600 min-h-5" >
-                                {errors.coverLetter}
-                            </div>
-
-                        </div>
-
-
-                        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-between">
-
-                            <button type="button" onClick={() => setShowModal(false)} className="order-2 sm:order-1 text-primary-500 bg-primary-50 py-3 px-6 font-semibold rounded-sm cursor-pointer
-                               hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
-                            <button className="order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
-                                <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
-
                         </div>
+                        :
+                        <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[10dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2   bg-white  ">
+
+                            <h3 className="text-customGray-900 font-medium text-lg">Apply to: {jobTitle}</h3>
+
+                            <div className="mt-4">
+                                <label className="text-sm text-customGray-900">Choose Resume/CV</label>
+                                <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
+                                    {resumeError}
+                                </div>
+                            </div>
+
+                            <div className="mt-2">
+                                <label className="text-sm text-customGray-900">Cover Letter</label>
+                                <RichTextEditor content={data.coverLetter} onChange={newContent => setData('coverLetter', newContent)} menuOnTop={true}
+                                    placeholder="Write a short note to the employer about your background, skills, and why you’re excited about this role..." />
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
+                                    {errors.coverLetter}
+                                </div>
+
+                            </div>
+
+
+                            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-between">
+
+                                <button type="button" onClick={() => setShowModal(false)} className="order-2 sm:order-1 text-primary-500 bg-primary-50 w-full sm:w-44  py-3 px-1 font-semibold rounded-sm cursor-pointer
+                               hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
+                                <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">Apply Now
+                                    <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+
+                            </div>
+
+                            <div className="mt-3 min-h-5 w-full text-danger-600 text-sm">
+                                {errors[0]}
+                            </div>
 
 
 
-
-                        <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                    </form>
+                            <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                        </form>
+                    }
                 </div>, root
 
             )}

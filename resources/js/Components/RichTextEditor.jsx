@@ -16,7 +16,6 @@ const MenuBar = (props) => {
         return null
     }
 
-    console.log(props)
     return (
         <div className={`${props.menuOnTop && "border-b  border-customGray-100 "} flex px-3  gap-1 overflow-x-auto  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]`}>
             <button type='button'

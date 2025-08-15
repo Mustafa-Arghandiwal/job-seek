@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\CandidateResume;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Mews\Purifier\Facades\Purifier;
 
 class ApplicationController extends Controller
 {
@@ -16,12 +19,12 @@ class ApplicationController extends Controller
     {
         //
     }
-    public function indexForEmployer(Vacancy $vacancy) {
+    public function indexForEmployer(Vacancy $vacancy)
+    {
 
         return Inertia::render('Employer/Dashboard/Applications', [
             'jobTitle' => $vacancy->job_title
         ]);
-
     }
 
     /**
@@ -43,8 +46,25 @@ class ApplicationController extends Controller
 
         ]);
         $validated['coverLetter'] = trim($validated['coverLetter']);
+        $validated['coverLetter'] = Purifier::clean($validated['coverLetter'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+        ]);
 
+        $resume_path = CandidateResume::findOrFail($validated['resumeId'])->resume;
 
+        $candidate_id = $request->user()->candidate->id;
+        $already_applied = Application::where('candidate_id', $candidate_id)->where('vacancy_id', $job_id)->exists();
+        if ($already_applied) {
+            return back()->withErrors('You have already applied for this job.');
+        }
+
+        $application = new Application();
+        $application->vacancy_id = $job_id;
+        $application->candidate_id = $request->user()->candidate->id;
+        $application->cover_letter = $validated['coverLetter'];
+        $application->resume_path = $resume_path;
+        $application->save();
+        return back()->with('applySuccess', 'You have successfully applied for this job. The employer can now view your application.');
     }
 
     /**
