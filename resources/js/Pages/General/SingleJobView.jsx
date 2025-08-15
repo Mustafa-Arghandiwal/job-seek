@@ -13,7 +13,7 @@ import confetti from "canvas-confetti"
 function SingleJobView({ employer, vacancy, resumes }) {
 
 
-    const dropdownResumes = resumes.map(resume => resume.file_name)
+    const dropdownResumes = resumes ? resumes.map(resume => resume.file_name) : []
 
 
     const handleSelectChange = (index) => {
@@ -30,8 +30,6 @@ function SingleJobView({ employer, vacancy, resumes }) {
     })
     const { flash } = usePage().props
 
-    console.log(flash.applySuccess)
-    console.log(errors)
 
     let resumeError
     if (errors.resumeId) {

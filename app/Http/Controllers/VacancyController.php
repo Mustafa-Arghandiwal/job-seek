@@ -153,7 +153,7 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::findOrFail($id);
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
-        $resumes = $request->user()->candidate->resumes;
+        $resumes = $request->user()?->candidate->resumes;
         // dd($employer);
 
         return inertia::render('General/SingleJobView', [

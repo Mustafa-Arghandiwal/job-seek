@@ -22,8 +22,34 @@ class ApplicationController extends Controller
     public function indexForEmployer(Vacancy $vacancy)
     {
 
+        // $applications = Application::select(['id', 'candidate_id', 'applied_at', 'cover_letter', 'resume_path'])
+        //     ->with(['candidate:id','candidate.profile:candidate_id,experience,education_level'])
+        //     ->where('vacancy_id', $vacancy->id)->orderBy('applied_at', 'desc')->get();
+        // Lets flatten the response instead of this nested crap, for ease of use in front-end
+
+        $applications = Application::select(
+            'job_applications.id',
+            'job_applications.candidate_id',
+            'job_applications.column_id',
+            'job_applications.applied_at',
+            'job_applications.cover_letter',
+            'job_applications.resume_path',
+            // 'candidate_profiles.experience',
+            'users.full_name',
+            'candidates.title',
+            'candidate_contacts.city',
+            'candidate_profiles.education_level'
+        )
+            ->leftJoin('candidates', 'candidates.id', '=', 'job_applications.candidate_id')
+            ->leftJoin('users', 'users.id', '=', 'candidates.user_id')
+            ->leftJoin('candidate_profiles', 'candidate_profiles.candidate_id', '=', 'job_applications.candidate_id')
+            ->leftJoin('candidate_contacts', 'candidate_contacts.candidate_id', '=', 'job_applications.candidate_id')
+            ->where('vacancy_id', $vacancy->id)
+            ->orderBy('applied_at', 'desc')
+            ->get();
         return Inertia::render('Employer/Dashboard/Applications', [
-            'jobTitle' => $vacancy->job_title
+            'jobTitle' => $vacancy->job_title,
+            'applicationDetails' => $applications
         ]);
     }
 

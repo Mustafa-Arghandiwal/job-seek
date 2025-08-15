@@ -4,14 +4,9 @@ import DashboardApplication from "./DashboardApplication";
 
 export default function ColumnContainer(props) {
 
-
-
     const {
         setNodeRef,
     } = useSortable({ id: props.id, data: { type: "Column" } });
-
-
-
 
     return (
 
@@ -22,7 +17,7 @@ export default function ColumnContainer(props) {
             </h3>
             <SortableContext items={props.applications.map(app => app.id)}>
                 {props.applications.map(app => (
-                    <DashboardApplication key={app.id} id={app.id} columnId={app.columnId} name={app.name} title={app.title} />
+                    <DashboardApplication key={app.id} id={app.id} columnId={app.column_id} appDetails={app}/>
                 ))}
             </SortableContext>
         </div>

@@ -8,61 +8,63 @@ import ColumnContainer from "../../../Components/ColumnContainer";
 import { RiDragDropFill } from "react-icons/ri";
 import { createPortal } from "react-dom";
 
-function Applications({ jobTitle }) {
+function Applications({ jobTitle, applicationDetails }) {
 
-    const [columns, setColumns] = useState([{ id: "A", title: "All Applications" }, { id: "B", title: "Shortlisted" }])
+    const [columns, setColumns] = useState([{ id: "all", title: "All Applications" }, { id: "shortlisted", title: "Shortlisted" }])
 
-    const [apps, setApps] = useState([
-        { id: 1, columnId: "A", name: '1', title: 'IT Technician (CCNP)' },
-        { id: 2, columnId: "A", name: '2', title: 'IT Professional' },
-        { id: 3, columnId: "A", name: '3', title: 'Writer' },
-        { id: 4, columnId: "A", name: '4', title: 'Plumber' },
-        { id: 5, columnId: "A", name: '5', title: 'Plumber' },
-        { id: 6, columnId: "A", name: '6', title: 'Plumber' },
-        { id: 7, columnId: "A", name: '7', title: 'Plumber' },
-        { id: 8, columnId: "A", name: '8', title: 'Plumber' },
-    ])
+    // const [apps, setApps] = useState([
+    //     { id: 1, columnId: "all", name: '1', title: 'IT Technician (CCNP)' },
+    //     { id: 2, columnId: "all", name: '2', title: 'IT Professional' },
+    //     { id: 3, columnId: "all", name: '3', title: 'Writer' },
+    //     { id: 4, columnId: "all", name: '4', title: 'Plumber' },
+    //     { id: 5, columnId: "all", name: '5', title: 'Plumber' },
+    //     { id: 6, columnId: "all", name: '6', title: 'Plumber' },
+    //     { id: 7, columnId: "all", name: '7', title: 'Plumber' },
+    //     { id: 8, columnId: "all", name: '8', title: 'Plumber' },
+    // ])
+    const [apps, setApps] = useState(applicationDetails)
 
     const [activeApp, setActiveApp] = useState(null)
 
 
-    const onDragEnd = (event) => {
+    // const onDragEnd = (event) => {
 
-        document.body.style.cursor = "auto"
+    //     document.body.style.cursor = "auto"
 
-        const { active, over } = event
-        if (!over) return;
+    //     const { active, over } = event
+    //     if (!over) return;
 
-        if (active.id !== over.id) {
-            if (active.data.current.sortable.containerId !== over.data.current.sortable.containerId) {
-                return
-            }
-            if (active.data.current.sortable.containerId === "all-apps") {
-                setApps(apps => {
-                    const oldIndex = apps.findIndex(app => app.id === active.id)
-                    const newIndex = apps.findIndex(app => app.id === over.id)
-                    return arrayMove(apps, oldIndex, newIndex)
+    //     if (active.id !== over.id) {
+    //         if (active.data.current.sortable.containerId !== over.data.current.sortable.containerId) {
+    //             return
+    //         }
+    //         if (active.data.current.sortable.containerId === "all-apps") {
+    //             setApps(apps => {
+    //                 const oldIndex = apps.findIndex(app => app.id === active.id)
+    //                 const newIndex = apps.findIndex(app => app.id === over.id)
+    //                 return arrayMove(apps, oldIndex, newIndex)
 
-                })
-            } else if (active.data.current.sortable.containerId === "shortlisted") {
-                setShortlisted(shortlisted => {
-                    const oldIndex = shortlisted.findIndex(sh => sh.id === active.id)
-                    const newIndex = shortlisted.findIndex(sh => sh.id === over.id)
-                    return arrayMove(shortlisted, oldIndex, newIndex)
+    //             })
+    //         } else if (active.data.current.sortable.containerId === "shortlisted") {
+    //             setShortlisted(shortlisted => {
+    //                 const oldIndex = shortlisted.findIndex(sh => sh.id === active.id)
+    //                 const newIndex = shortlisted.findIndex(sh => sh.id === over.id)
+    //                 return arrayMove(shortlisted, oldIndex, newIndex)
 
-                })
+    //             })
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
     const onDragStart = (event) => {
 
-        document.body.style.cursor = "grabbing"
+        // document.body.style.cursor = "grabbing"
 
         const data = event.active.data.current
         if (data?.type === "Application") {
-            setActiveApp({id:data.id, columnId: data.columnId, name: data.name, title: data.title})
+            // setActiveApp({id:data.id, columnId: data.columnId, name: data.name, title: data.title})
+            setActiveApp({ id: event.active.id, details: data.details })
             return
         }
 
@@ -84,8 +86,8 @@ function Applications({ jobTitle }) {
                 const activeIndex = apps.findIndex(app => app.id === active.id)
                 const overIndex = apps.findIndex(app => app.id === over.id)
 
-                if (apps[activeIndex].columnId !== apps[overIndex].columnId) {
-                    apps[activeIndex].columnId = apps[overIndex].columnId
+                if (apps[activeIndex].column_id !== apps[overIndex].column_id) {
+                    apps[activeIndex].column_id = apps[overIndex].column_id
 
                 }
 
@@ -98,7 +100,8 @@ function Applications({ jobTitle }) {
             setApps(apps => {
                 const activeIndex = apps.findIndex(app => app.id === active.id)
 
-                apps[activeIndex].columnId = over.id
+                apps[activeIndex].column_id = over.id
+                console.log(apps)
 
                 return arrayMove(apps, activeIndex, activeIndex)
             })
@@ -127,28 +130,30 @@ function Applications({ jobTitle }) {
                 <RiDragDropFill className="w-8 h-8 " />
             </div>
 
-            <DndContext onDragOver={onDragOver} onDragStart={onDragStart} onDragEnd={onDragEnd} sensors={sensors} collisionDetection={pointerWithin}>
+            <DndContext onDragOver={onDragOver} onDragStart={onDragStart}  sensors={sensors} collisionDetection={pointerWithin}>
 
                 <div className="flex xs:grid xs:grid-cols-[1fr_1fr] gap-6 mt-3">
-                    <SortableContext items={["A", "B"]}>
+                    <SortableContext items={["all", "shortlisted"]}>
                         {columns.map(col => (
                             <ColumnContainer key={col.id} id={col.id} title={col.title}
-                                applications={apps.filter(app => app.columnId === col.id)}
+                                applications={apps.filter(app => app.column_id === col.id)}
                             />
                         ))}
                     </SortableContext>
                 </div>
 
 
-            {createPortal(
-                <DragOverlay>
-                    {activeApp && (
-                        <DashboardApplication key={activeApp.id} id={activeApp.id} name={activeApp.name} title={activeApp.title}  />
-                    )}
+                {createPortal(
+                    <DragOverlay>
+                        {activeApp && (
+                            <DashboardApplication key={activeApp.id} id={activeApp.id}
+                               columnId={activeApp.details.column_id} appDetails={activeApp.details} />
+                        )}
 
-                </DragOverlay>, document.body
-            )}
+                    </DragOverlay>, document.body
+                )}
 
+                {/* <DashboardApplication key={activeApp.id} id={activeApp.id} name={activeApp.full_name} title={activeApp.title} /> */}
             </DndContext >
 
 
