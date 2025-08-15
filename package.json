@@ -25,6 +25,7 @@
         "@tiptap/pm": "^2.11.9",
         "@tiptap/react": "^2.11.9",
         "@tiptap/starter-kit": "^2.11.9",
+        "canvas-confetti": "^1.9.3",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-icons": "^5.5.0",

@@ -105,7 +105,7 @@ export default (props) => {
         }
     }, [props.content])
     return (
-        <div className={`border mt-2 ${props.menuOnTop && "overflow-y-auto max-h-44"} border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-md `}>
+        <div className={`border mt-2 ${props.menuOnTop && "overflow-y-auto pb-6 max-h-44"} border-customGray-100 text-customGray-900 text-sm sm:text-base rounded-md `}>
             <EditorProvider
                 key={key}
                 {...editorSlot}

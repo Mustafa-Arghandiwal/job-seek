@@ -6,6 +6,7 @@ import { createPortal } from "react-dom"
 import { useEffect, useRef, useState } from "react"
 import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
+import confetti from "canvas-confetti"
 
 
 
@@ -141,6 +142,19 @@ function SingleJobView({ employer, vacancy, resumes }) {
     //         jobType={vacancy.job_type} salary={salary} logo={logo} />
     // })
     const relatedJobs = []
+
+
+    const showConfetti = () => {
+        confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.6 }
+        });
+    };
+    useEffect(() => {
+        if(flash.applySuccess) showConfetti()
+    }, [flash.applySuccess])
+
 
 
     return (
@@ -403,7 +417,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
             {createPortal(
                 <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
                     {flash.applySuccess ?
-                        <div ref={successRef} className="grid place-items-center text-center text-success-500 font-semibold max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[20dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2 bg-white  ">
+                        <div ref={successRef} className="grid place-items-center text-center text-success-500  max-w-[260px] sm:max-w-[300px] w-full rounded-xl p-8 absolute top-[30dvh] sm:top-[40dvh] left-1/2 -translate-x-1/2  bg-white ">
                             {flash.applySuccess}
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
@@ -414,7 +428,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                             </button>
                         </div>
                         :
-                        <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] rounded-xl p-8 absolute top-[10dvh] sm:top-[30dvh] left-1/2 -translate-x-1/2   bg-white  ">
+                        <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] w-full rounded-xl p-8 absolute top-[20dvh]  left-1/2 -translate-x-1/2   bg-white  ">
 
                             <h3 className="text-customGray-900 font-medium text-lg">Apply to: {jobTitle}</h3>
 
