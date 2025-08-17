@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
@@ -30,6 +31,7 @@ class ApplicationController extends Controller
         $applications = Application::select(
             'job_applications.id',
             'job_applications.candidate_id',
+            'job_applications.app_id',
             'job_applications.column_id',
             'job_applications.applied_at',
             'job_applications.cover_letter',
@@ -87,6 +89,8 @@ class ApplicationController extends Controller
         $application = new Application();
         $application->vacancy_id = $job_id;
         $application->candidate_id = $request->user()->candidate->id;
+        $application->column_id = 'all';
+        $application->app_id = (string) Str::uuid();
         $application->cover_letter = $validated['coverLetter'];
         $application->resume_path = $resume_path;
         $application->save();
@@ -115,6 +119,17 @@ class ApplicationController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+    public function shortlist(Request $request)
+    {
+        Application::where('column_id', 'shortlisted')->update(['column_id' => 'all']);
+        $shortlistedIDs = $request->input('shortlistedIDs', []);
+        if (!empty($shortlistedIDs)) {
+            Application::whereIn('id', $shortlistedIDs)->update(['column_id' => 'shortlisted']);
+        }
+        // $application = Application::findOrFail($id);
+        // $application->column_id = $application->column_id === 'all' ? 'shortlisted' : 'all';
+        // $application->save();
     }
 
     /**

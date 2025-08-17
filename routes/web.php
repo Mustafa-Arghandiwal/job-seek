@@ -98,11 +98,13 @@ Route::post('/employer/vacancies/{id}/expire', [VacancyController::class, 'makeE
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 
-Route::get('/jobs', [VacancyController::class, 'index']);
-Route::get('/jobs/{id}', [VacancyController::class, 'show']);
+Route::get('/vacancies', [VacancyController::class, 'index']);
+Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
 
 
 
-Route::post('/jobs/{job_id}/applications', [ApplicationController::class, 'store']);
+Route::post('/vacancies/{id}/applications', [ApplicationController::class, 'store']);
 Route::get('/employer/vacancies/{vacancy}/applications', [ApplicationController::class, 'indexForEmployer']);
+// Route::patch('/applications/{id}/shortlist', [ApplicationController::class, 'shortlist']);
+Route::post('/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
 

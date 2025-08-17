@@ -5,7 +5,6 @@ import { CSS } from "@dnd-kit/utilities"
 
 export default function DashboardApplication(props) {
 
-    console.log(props)
     const appDetails = props.appDetails
     const appliedAt = new Date(appDetails?.applied_at).toLocaleDateString("en-US", {
         day: "numeric",
@@ -21,7 +20,6 @@ export default function DashboardApplication(props) {
         transform,
         transition,
         isDragging,
-        // } = useSortable({ id: props.id, data: { type: "Application", id: props.id, columnId: props.columnId, name: props.name, title: props.title } });
     } = useSortable({ id: props.id, data: { type: "Application", details: appDetails } });
 
     const style = {

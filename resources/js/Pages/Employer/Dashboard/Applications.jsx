@@ -1,5 +1,5 @@
 import { closestCorners, DndContext, DragOverlay, PointerSensor, pointerWithin, rectIntersection, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardApplication from "../../../Components/DashboardApplication";
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout";
 import EmployerLayout from "../../../Layouts/EmployerLayout";
@@ -7,55 +7,26 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import ColumnContainer from "../../../Components/ColumnContainer";
 import { RiDragDropFill } from "react-icons/ri";
 import { createPortal } from "react-dom";
+import { router, useForm } from "@inertiajs/react";
 
 function Applications({ jobTitle, applicationDetails }) {
 
     const [columns, setColumns] = useState([{ id: "all", title: "All Applications" }, { id: "shortlisted", title: "Shortlisted" }])
 
-    // const [apps, setApps] = useState([
-    //     { id: 1, columnId: "all", name: '1', title: 'IT Technician (CCNP)' },
-    //     { id: 2, columnId: "all", name: '2', title: 'IT Professional' },
-    //     { id: 3, columnId: "all", name: '3', title: 'Writer' },
-    //     { id: 4, columnId: "all", name: '4', title: 'Plumber' },
-    //     { id: 5, columnId: "all", name: '5', title: 'Plumber' },
-    //     { id: 6, columnId: "all", name: '6', title: 'Plumber' },
-    //     { id: 7, columnId: "all", name: '7', title: 'Plumber' },
-    //     { id: 8, columnId: "all", name: '8', title: 'Plumber' },
-    // ])
     const [apps, setApps] = useState(applicationDetails)
 
     const [activeApp, setActiveApp] = useState(null)
 
+    useEffect(() => {
+        return () => {
+            const shortlistedIDs = apps.filter(app => app.column_id === "shortlisted").map(app => app.id)
+            // if (shortlistedIDs.length > 0) {
+                router.post('/applications/updateShortlistStatus', { shortlistedIDs })
+            // }
+        }
+    }, [apps])
 
-    // const onDragEnd = (event) => {
 
-    //     document.body.style.cursor = "auto"
-
-    //     const { active, over } = event
-    //     if (!over) return;
-
-    //     if (active.id !== over.id) {
-    //         if (active.data.current.sortable.containerId !== over.data.current.sortable.containerId) {
-    //             return
-    //         }
-    //         if (active.data.current.sortable.containerId === "all-apps") {
-    //             setApps(apps => {
-    //                 const oldIndex = apps.findIndex(app => app.id === active.id)
-    //                 const newIndex = apps.findIndex(app => app.id === over.id)
-    //                 return arrayMove(apps, oldIndex, newIndex)
-
-    //             })
-    //         } else if (active.data.current.sortable.containerId === "shortlisted") {
-    //             setShortlisted(shortlisted => {
-    //                 const oldIndex = shortlisted.findIndex(sh => sh.id === active.id)
-    //                 const newIndex = shortlisted.findIndex(sh => sh.id === over.id)
-    //                 return arrayMove(shortlisted, oldIndex, newIndex)
-
-    //             })
-
-    //         }
-    //     }
-    // }
 
     const onDragStart = (event) => {
 
@@ -63,7 +34,6 @@ function Applications({ jobTitle, applicationDetails }) {
 
         const data = event.active.data.current
         if (data?.type === "Application") {
-            // setActiveApp({id:data.id, columnId: data.columnId, name: data.name, title: data.title})
             setActiveApp({ id: event.active.id, details: data.details })
             return
         }
@@ -80,11 +50,10 @@ function Applications({ jobTitle, applicationDetails }) {
 
         if (!isActiveAnApplication) return
 
-        //Dropping task over another task
         if (isActiveAnApplication && isOverAnApplication) {
             setApps(apps => {
-                const activeIndex = apps.findIndex(app => app.id === active.id)
-                const overIndex = apps.findIndex(app => app.id === over.id)
+                const activeIndex = apps.findIndex(app => app.app_id === active.id)
+                const overIndex = apps.findIndex(app => app.app_id === over.id)
 
                 if (apps[activeIndex].column_id !== apps[overIndex].column_id) {
                     apps[activeIndex].column_id = apps[overIndex].column_id
@@ -97,17 +66,15 @@ function Applications({ jobTitle, applicationDetails }) {
 
         const isOverAColumn = over.data.current?.type === "Column"
         if (isActiveAnApplication && isOverAColumn) {
-            setApps(apps => {
-                const activeIndex = apps.findIndex(app => app.id === active.id)
 
+            setApps(apps => {
+                const activeIndex = apps.findIndex(app => app.app_id === active.id)
                 apps[activeIndex].column_id = over.id
-                console.log(apps)
 
                 return arrayMove(apps, activeIndex, activeIndex)
             })
 
         }
-
 
     }
 
@@ -147,7 +114,7 @@ function Applications({ jobTitle, applicationDetails }) {
                     <DragOverlay>
                         {activeApp && (
                             <DashboardApplication key={activeApp.id} id={activeApp.id}
-                               columnId={activeApp.details.column_id} appDetails={activeApp.details} />
+                                columnId={activeApp.details.column_id} appDetails={activeApp.details} />
                         )}
 
                     </DragOverlay>, document.body

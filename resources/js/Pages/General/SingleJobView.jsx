@@ -39,7 +39,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
 
     const handleApply = (e) => {
         e.preventDefault()
-        post(`/jobs/${vacancy.id}/applications`)
+        post(`/vacancies/${vacancy.id}/applications`)
     }
 
     const logo = employer.detail?.logo_path ? "/storage/" + employer.detail.logo_path : "/chess_pattern.png"
