@@ -30,7 +30,7 @@ export default function DashboardApplication(props) {
     if (isDragging) {
         return (
             <div ref={setNodeRef} style={style} className={` border bg-white opacity-50 rounded-sm p-4 mt-3
-                ${props.columnId === "all" ? "border-warning-400" : "border-success-400"}`}>
+                ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}>
                 <div className="flex gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden">
                         <img src="/chess_pattern.png" className=" w-full h-full object-cover" />
@@ -64,7 +64,7 @@ export default function DashboardApplication(props) {
 
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={`mx-auto   bg-white rounded-sm p-4 mt-3 cursor-grab border
-            ${props.columnId === "all" ? "border-warning-400" : "border-success-400"}`}
+            ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}
         // onMouseDown={(e) => e.currentTarget.style.cursor = "grabbing"} onMouseUp={(e) => e.currentTarget.style.cursor = "grab"}
         >
             <div className="flex gap-3">

@@ -1,4 +1,4 @@
-import { useForm, usePage } from "@inertiajs/react"
+import { Link, useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
 import { formatSalary } from "../../utils/formatSalary"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "../Candidate/socialMediaSvgs"
@@ -432,6 +432,11 @@ function SingleJobView({ employer, vacancy, resumes }) {
 
                             <div className="mt-4">
                                 <label className="text-sm text-customGray-900">Choose Resume/CV</label>
+                                {dropdownResumes.length === 0 &&
+                                    <span className="text-danger-700 text-sm block">You haven't added any CVs yet.
+                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings#your-resumes"> Go to your dashboard</Link> to upload one.</span>
+
+                                }
                                 <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {resumeError}

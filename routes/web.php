@@ -106,5 +106,5 @@ Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
 Route::post('/vacancies/{id}/applications', [ApplicationController::class, 'store']);
 Route::get('/employer/vacancies/{vacancy}/applications', [ApplicationController::class, 'indexForEmployer']);
 // Route::patch('/applications/{id}/shortlist', [ApplicationController::class, 'shortlist']);
-Route::post('/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
+Route::post('/employer/vacancies/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
 

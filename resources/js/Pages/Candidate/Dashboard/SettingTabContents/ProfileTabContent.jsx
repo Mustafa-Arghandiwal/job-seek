@@ -256,7 +256,7 @@ export default function ProfileTabContent() {
             <div className="">
 
                 <div className="flex gap-2 flex-wrap  items-center ">
-                    <h2 className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
+                    <h2 id="your-resumes" className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
                     <span className={`text-success-500 h-6 w-52 text-sm  flex items-center ${resumeSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                         {resumeSuccessMsg}
                     </span>

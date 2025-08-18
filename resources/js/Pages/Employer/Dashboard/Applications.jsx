@@ -21,7 +21,7 @@ function Applications({ jobTitle, applicationDetails }) {
         return () => {
             const shortlistedIDs = apps.filter(app => app.column_id === "shortlisted").map(app => app.id)
             // if (shortlistedIDs.length > 0) {
-                router.post('/applications/updateShortlistStatus', { shortlistedIDs })
+                router.post('/employer/vacancies/applications/updateShortlistStatus', { shortlistedIDs })
             // }
         }
     }, [apps])
