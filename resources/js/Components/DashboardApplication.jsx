@@ -11,6 +11,7 @@ export default function DashboardApplication(props) {
         month: "long",
         year: "numeric",
     })
+    console.log(props)
 
 
     const {

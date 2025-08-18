@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\CandidateResume;
 use App\Models\Vacancy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -68,6 +69,10 @@ class ApplicationController extends Controller
      */
     public function store(Request $request, $job_id)
     {
+        $job = Vacancy::findOrFail($job_id);
+        if($job->manually_expired || $job->deadline->isBefore(Carbon::today())) {
+            return back()->withErrors("Can't apply to expired jobs.");
+        }
         $validated = $request->validate([
             'resumeId' => ['required', 'integer', Rule::exists('candidate_resumes', 'id')->where('candidate_id', $request->user()->candidate->id)],
             'coverLetter' =>  ['required', 'min:10', 'max:65535', 'string']

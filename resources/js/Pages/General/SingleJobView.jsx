@@ -29,6 +29,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
         coverLetter: ''
     })
     const { flash } = usePage().props
+    console.log(errors)
 
 
     let resumeError
@@ -260,7 +261,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobPostDate}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobPostDate}</p>
                                 </div>
                             </div>
                             <div className=" min-w-40">
@@ -269,7 +270,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{deadline}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{deadline}</p>
                                 </div>
                             </div>
 
@@ -280,7 +281,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobEducation}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobEducation}</p>
                                 </div>
                             </div>
 
@@ -292,7 +293,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{salary}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{salary}</p>
                                 </div>
                             </div>
                             <div className=" min-w-40">
@@ -301,7 +302,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{location}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{location}</p>
                                 </div>
                             </div>
 
@@ -311,7 +312,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobExperience}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobExperience}</p>
                                 </div>
                             </div>
 

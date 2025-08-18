@@ -21,12 +21,20 @@ class VacancyController extends Controller
         $filter = strtolower($request->query('filter'));
 
         if ($filter == 'expiring today') {
-            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])->where('deadline', Carbon::today())->get();
+            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                ->where('deadline', Carbon::today())
+                ->get();
             return inertia::render('Candidate/FindJob', [
                 'vacancies' => $ExpiringTodayJobs
             ]);
         } else {
-            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])->orderBy('created_at', 'desc')->get();
+            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                ->where('manually_expired', false)
+                ->where('deadline', '>=', Carbon::today())
+                ->orderBy('created_at', 'desc')
+                ->get();
             return inertia::render('Candidate/FindJob', [
                 'vacancies' => $latestJobs
             ]);
