@@ -40,6 +40,7 @@ class ApplicationController extends Controller
             // 'candidate_profiles.experience',
             'users.full_name',
             'candidates.title',
+            'candidates.profile_picture',
             'candidate_contacts.city',
             'candidate_profiles.education_level'
         )

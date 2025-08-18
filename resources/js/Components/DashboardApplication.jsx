@@ -6,12 +6,13 @@ import { CSS } from "@dnd-kit/utilities"
 export default function DashboardApplication(props) {
 
     const appDetails = props.appDetails
+    const profilePic = appDetails?.profile_picture ? "/storage/" + appDetails.profile_picture : "/chess_pattern.png"
     const appliedAt = new Date(appDetails?.applied_at).toLocaleDateString("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
     })
-    console.log(props)
+
 
 
     const {
@@ -34,7 +35,7 @@ export default function DashboardApplication(props) {
                 ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}>
                 <div className="flex gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden">
-                        <img src="/chess_pattern.png" className=" w-full h-full object-cover" />
+                        <img src={profilePic} className=" w-full h-full object-cover" />
                     </div>
                     <div>
                         <span className="block text-customGray-900 text-sm font-medium">{appDetails?.full_name || "Not provided"}</span>
@@ -70,7 +71,7 @@ export default function DashboardApplication(props) {
         >
             <div className="flex gap-3">
                 <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/chess_pattern.png" className=" w-full h-full object-cover" />
+                    <img src={profilePic} className=" w-full h-full object-cover" />
                 </div>
                 <div>
                     <span className="block text-customGray-900 text-sm font-medium">{appDetails?.full_name || "Not provided"}</span>
