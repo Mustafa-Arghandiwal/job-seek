@@ -71,7 +71,7 @@ class ApplicationController extends Controller
     public function store(Request $request, $job_id)
     {
         $job = Vacancy::findOrFail($job_id);
-        if($job->manually_expired || $job->deadline->isBefore(Carbon::today())) {
+        if($job->manually_expired || Carbon::parse($job->deadline)->isBefore(Carbon::today())) {
             return back()->withErrors("Can't apply to expired jobs.");
         }
         $validated = $request->validate([

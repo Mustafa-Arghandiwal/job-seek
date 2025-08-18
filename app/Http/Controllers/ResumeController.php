@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\CandidateResume;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ResumeController extends Controller
@@ -67,6 +70,45 @@ class ResumeController extends Controller
         $candidate = $request->user()->candidate;
         if ($resume->candidate_id == $candidate->id) {
             return response()->file(storage_path('app/private/' . $resume->resume));
+        } else {
+            abort(403);
+        }
+    }
+
+    public function employerDownloadCv($id)
+    {
+        $application = Application::findOrFail($id);
+        $candidateName = $application->candidate->user->full_name;
+        $extension = pathinfo($application->resume_path, PATHINFO_EXTENSION);
+
+        //checking if logged-in employer is the owner of the job or not
+        $loggedInEmpId = Auth::user()->employer->id;
+        $applicationEmpId = $application->vacancy->employer_id;
+        if ($loggedInEmpId == $applicationEmpId) {
+            try {
+                // dd($application->resume_path);
+                return response()->download(storage_path('app/private/' . $application->resume_path), $candidateName . "." . $extension);
+            } catch (\Throwable $th) {
+                abort(404);
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function employerViewCv($id)
+    {
+        $application = Application::findOrFail($id);
+
+        //checking if logged-in employer is the owner of the job or not
+        $loggedInEmpId = Auth::user()->employer->id;
+        $applicationEmpId = $application->vacancy->employer_id;
+        if ($loggedInEmpId == $applicationEmpId) {
+            try {
+                return response()->file(storage_path('app/private/' . $application->resume_path));
+            } catch (\Throwable $th) {
+                abort(404);
+            }
         } else {
             abort(403);
         }
