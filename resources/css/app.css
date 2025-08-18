@@ -3,7 +3,6 @@
 
 
 
-
 @theme {
     --font-inter: "Inter", "sans-serif";
 
@@ -73,6 +72,12 @@
 html {
     scroll-behavior: smooth;
 }
+body {
+    @apply font-inter;
+}
+
+
+
 
 
 /* Custom styled scrollbar */

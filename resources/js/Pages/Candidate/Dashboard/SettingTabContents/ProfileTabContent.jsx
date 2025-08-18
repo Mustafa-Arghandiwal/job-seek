@@ -2,6 +2,7 @@ import { router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
+import { shortenFilename } from "../../../../utils/shortenFilename";
 
 
 
@@ -9,7 +10,6 @@ export default function ProfileTabContent() {
 
     const { props } = usePage()
     const dbResumes = props.auth.user.resumes
-
 
 
     const basicForm = useForm({
@@ -78,20 +78,6 @@ export default function ProfileTabContent() {
         }))
     }
 
-    //GPT generated function, not gonna take any credits for it
-    function shortenFilename(filename, maxLength = 30) {
-        if (filename.length <= maxLength) return filename;
-
-        const extIndex = filename.lastIndexOf('.');
-        const extension = extIndex !== -1 ? filename.slice(extIndex) : '';
-        const base = filename.slice(0, extIndex !== -1 ? extIndex : filename.length);
-
-        const visibleChars = maxLength - extension.length - 3;
-        const start = base.slice(0, Math.ceil(visibleChars / 2));
-        const end = base.slice(-Math.floor(visibleChars / 2));
-
-        return `${start}...${end}${extension}`;
-    }
 
 
     //_____________________________________________________________________________________________
@@ -109,7 +95,7 @@ export default function ProfileTabContent() {
     const handleResumeUpload = e => {
         e.preventDefault()
         setResumeSuccessMsg('')
-        resumeForm.post('/candidate/settings/profile/resumes/create', {
+        resumeForm.post('/candidate/settings/profile/resumes', {
             onSuccess: () => {
                 setResumeName('')
             }
@@ -270,7 +256,7 @@ export default function ProfileTabContent() {
             <div className="">
 
                 <div className="flex gap-2 flex-wrap  items-center ">
-                    <h2 className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
+                    <h2 id="your-resumes" className="text-lg font-medium text-customGray-900">Your CV/Résumés</h2>
                     <span className={`text-success-500 h-6 w-52 text-sm  flex items-center ${resumeSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                         {resumeSuccessMsg}
                     </span>
@@ -278,7 +264,7 @@ export default function ProfileTabContent() {
 
                 <div className="flex gap-6 flex-wrap   mt-5">
                     {dbResumes.map((item) => (
-                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} path={item.path} fileName={item.file_name} size={item.size} shortenFilename={shortenFilename} setSuccessMsg={setResumeSuccessMsg} />
+                        <ResumeBox key={item.resume_id} delete={resumeForm.delete} id={item.resume_id} path={item.path} fileName={item.file_name} size={item.size} setSuccessMsg={setResumeSuccessMsg} />
                     ))}
 
                     <div className="relative w-72 flex-initial">

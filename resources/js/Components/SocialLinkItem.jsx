@@ -6,7 +6,6 @@ import { useState, useRef, useEffect } from "react"
 
 export default function SocialLinksItem(props) {
 
-    console.log(props.error)
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropdownBtn = useRef(null)
     const caret = useRef(null)

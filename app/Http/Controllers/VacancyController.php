@@ -21,12 +21,20 @@ class VacancyController extends Controller
         $filter = strtolower($request->query('filter'));
 
         if ($filter == 'expiring today') {
-            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])->where('deadline', Carbon::today())->get();
+            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                ->where('deadline', Carbon::today())
+                ->get();
             return inertia::render('Candidate/FindJob', [
                 'vacancies' => $ExpiringTodayJobs
             ]);
         } else {
-            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])->orderBy('created_at', 'desc')->get();
+            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                ->where('manually_expired', false)
+                ->where('deadline', '>=', Carbon::today())
+                ->orderBy('created_at', 'desc')
+                ->get();
             return inertia::render('Candidate/FindJob', [
                 'vacancies' => $latestJobs
             ]);
@@ -124,8 +132,9 @@ class VacancyController extends Controller
     public function employerVacancies(Request $request)
     {
 
-        // $vacancies = $request->user()->employer->vacancy;
-        $vacancies = Vacancy::orderBy('created_at', 'desc')->get();
+        // $employerId = Employer::select(['id'])->where('user_id', $request->user()->id)->first()->id;
+        $employerId = Employer::where('user_id', $request->user()->id)->value('id');
+        $vacancies = Vacancy::where('employer_id', $employerId)->orderBy('created_at', 'desc')->get();
         return Inertia::render('Employer/Dashboard/MyJobs', [
             'vacancies' => $vacancies,
         ]);
@@ -152,11 +161,13 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::findOrFail($id);
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
+        $resumes = $request->user()?->candidate->resumes;
         // dd($employer);
 
         return inertia::render('General/SingleJobView', [
             'vacancy' => $vacancy,
-            'employer' => $employer
+            'employer' => $employer,
+            'resumes' => $resumes
         ]);
     }
 

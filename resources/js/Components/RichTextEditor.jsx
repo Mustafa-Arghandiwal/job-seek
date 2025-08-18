@@ -7,7 +7,7 @@ import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect, useState } from 'react'
 
-const MenuBar = () => {
+const MenuBar = (props) => {
     const { editor } = useCurrentEditor()
 
 
@@ -17,7 +17,7 @@ const MenuBar = () => {
     }
 
     return (
-        <div className=" flex px-3  gap-1 overflow-x-auto  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
+        <div className={`${props.menuOnTop && "border-b  border-customGray-100 "} flex px-3  gap-1 overflow-x-auto  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]`}>
             <button type='button'
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 className={`flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50 ${editor.isActive('bold') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
@@ -97,32 +97,33 @@ const MenuBar = () => {
 
 
 export default (props) => {
+    const editorSlot = props.menuOnTop ? { slotBefore: <MenuBar menuOnTop={true} /> } : { slotAfter: <MenuBar menuOnTop={false}/> }
     const [key, setKey] = useState(0)
     useEffect(() => {
-        if(props.content === '') {
+        if (props.content === '') {
             setKey(prev => prev + 1)
         }
     }, [props.content])
     return (
-        <div className='border mt-2  border-customGray-100 pb-2 text-customGray-900 text-sm sm:text-base rounded-[6px] '>
+        <div className={`border mt-2 ${props.menuOnTop && "overflow-y-auto pb-6 max-h-44"} border-customGray-100 text-customGray-900 text-sm sm:text-base rounded-md `}>
             <EditorProvider
                 key={key}
-                slotAfter={<MenuBar />}
-                extensions={[StarterKit, Underline, Placeholder.configure({
-                    placeholder: props.placeholder,
-                })]}
-                content={props.content}
-                editorProps={{
-                    attributes: {
-                        //this is to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
-                        class: 'editor-content'
-                    }
-                }}
-                onUpdate={({ editor }) => {
-                    props.onChange(editor.getHTML())
-                }}
+                {...editorSlot}
+            extensions={[StarterKit, Underline, Placeholder.configure({
+                placeholder: props.placeholder,
+            })]}
+            content={props.content}
+            editorProps={{
+                attributes: {
+                    //this is to style this in app.css, mainly for ol and ul, coz tailwind doesn't show'em by default
+                    class: 'editor-content'
+                }
+            }}
+            onUpdate={({ editor }) => {
+                props.onChange(editor.getHTML())
+            }}
             >
-            </EditorProvider>
-        </div>
+        </EditorProvider>
+        </div >
     )
 }

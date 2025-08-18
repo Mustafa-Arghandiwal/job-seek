@@ -1,6 +1,8 @@
 <?php
 
 // use Inertia\Inertia;
+
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
@@ -54,11 +56,12 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
 
 });
 
-Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
+// Route::inertia('/candidate/find-job', 'Candidate/FindJob')->name('candidate.findjob');
 
 
 Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
-Route::post('/candidate/settings/profile/resumes/create', [ResumeController::class, 'create']);
+Route::post('/candidate/settings/profile/resumes', [ResumeController::class, 'store']);
+Route::get('/candidate/settings/profile/resume/{resume_id}', [ResumeController::class, 'show']);
 Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeController::class, 'destroy']);
 Route::post('/candidate/settings/personal', [CandidateSettingsController::class, 'updatePersonalBasic']);
 Route::post('/candidate/settings/social-links', [CandidateSettingsController::class, 'updateSocialLinks']);
@@ -95,6 +98,14 @@ Route::post('/employer/vacancies/{id}/expire', [VacancyController::class, 'makeE
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 
-Route::get('/find-job', [VacancyController::class, 'index']);
-Route::get('/find-job/{id}', [VacancyController::class, 'show']);
+Route::get('/vacancies', [VacancyController::class, 'index']);
+Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
+
+
+
+Route::post('/vacancies/{id}/applications', [ApplicationController::class, 'store']);
+Route::get('/employer/vacancies/{vacancy}/applications', [ApplicationController::class, 'indexForEmployer']);
+Route::post('/employer/vacancies/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
+Route::get('/applications/{application}/resume', [ResumeController::class, 'employerViewCv']);
+Route::get('/applications/{application}/resume/download', [ResumeController::class, 'employerDownloadCv']);
 

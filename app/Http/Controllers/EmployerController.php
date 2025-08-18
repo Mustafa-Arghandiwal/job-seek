@@ -24,9 +24,6 @@ class EmployerController extends Controller
             });
         }
 
-        if ($type === 'All') {
-            dd('hi');
-        }
         $employers = $employersQuery->get();
 
 

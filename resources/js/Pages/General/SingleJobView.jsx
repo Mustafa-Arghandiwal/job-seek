@@ -1,11 +1,47 @@
+import { Link, useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
 import { formatSalary } from "../../utils/formatSalary"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "../Candidate/socialMediaSvgs"
+import { createPortal } from "react-dom"
+import { useEffect, useRef, useState } from "react"
+import Select from "../../Components/Select"
+import RichTextEditor from "../../Components/RichTextEditor"
+import confetti from "canvas-confetti"
 
 
-function SingleJobView({ employer, vacancy }) {
-    console.log(employer)
-    // console.log(vacancy)
+
+function SingleJobView({ employer, vacancy, resumes }) {
+
+
+    const dropdownResumes = resumes ? resumes.map(resume => resume.file_name) : []
+
+
+    const handleSelectChange = (index) => {
+        setData('resumeId', resumes[index].id)
+        setResumeName(dropdownResumes[index])
+    }
+
+    //just for <select>'s placeholder
+    const [resumeName, setResumeName] = useState('')
+
+    const { data, setData, post, errors, processing } = useForm({
+        resumeId: '',
+        coverLetter: ''
+    })
+    const { flash } = usePage().props
+    console.log(errors)
+
+
+    let resumeError
+    if (errors.resumeId) {
+        resumeError = errors.resumeId.replace(/\bId\b/i, '')
+    }
+
+
+    const handleApply = (e) => {
+        e.preventDefault()
+        post(`/vacancies/${vacancy.id}/applications`)
+    }
 
     const logo = employer.detail?.logo_path ? "/storage/" + employer.detail.logo_path : "/chess_pattern.png"
     const jobTitle = vacancy.job_title
@@ -76,6 +112,28 @@ function SingleJobView({ employer, vacancy }) {
     })
 
 
+
+
+
+    const root = document.getElementById("react-portal-root")
+    const [showModal, setShowModal] = useState(false)
+
+    const modalRef = useRef(null)
+    const successRef = useRef(null)
+    const handleOutsideClick = (e) => {
+        if ((modalRef.current && !modalRef.current.contains(e.target)) || successRef.current && !successRef.current.contains(e.target)) {
+            setShowModal(false)
+        }
+    }
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick)
+        return () => document.removeEventListener('click', handleOutsideClick)
+
+    }, [])
+
+
+
+
     // const relatedJobs = vacancies.map(vacancy => {
     //     const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
@@ -83,6 +141,20 @@ function SingleJobView({ employer, vacancy }) {
     //         jobType={vacancy.job_type} salary={salary} logo={logo} />
     // })
     const relatedJobs = []
+
+
+    const showConfetti = () => {
+        confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.6 }
+        });
+    };
+    useEffect(() => {
+        if(flash.applySuccess) showConfetti()
+    }, [flash.applySuccess])
+
+
 
     return (
         <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30  ">
@@ -137,7 +209,7 @@ function SingleJobView({ employer, vacancy }) {
                             </svg>
                         </button>
 
-                        <button className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
+                        <button onClick={(e) => { e.stopPropagation(); setShowModal(true) }} className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
                             <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -189,7 +261,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobPostDate}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobPostDate}</p>
                                 </div>
                             </div>
                             <div className=" min-w-40">
@@ -198,7 +270,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{deadline}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{deadline}</p>
                                 </div>
                             </div>
 
@@ -209,7 +281,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobEducation}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobEducation}</p>
                                 </div>
                             </div>
 
@@ -221,7 +293,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{salary}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{salary}</p>
                                 </div>
                             </div>
                             <div className=" min-w-40">
@@ -230,7 +302,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{location}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{location}</p>
                                 </div>
                             </div>
 
@@ -240,7 +312,7 @@ function SingleJobView({ employer, vacancy }) {
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 font-medium text-customGray-900`}>{jobExperience}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10  font-medium text-customGray-900`}>{jobExperience}</p>
                                 </div>
                             </div>
 
@@ -337,6 +409,84 @@ function SingleJobView({ employer, vacancy }) {
                     </div>
                 }
             </div>
+
+
+
+            {/* Apply job modal */}
+            {createPortal(
+                <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                    {flash.applySuccess ?
+                        <div ref={successRef} className="grid place-items-center text-center text-success-500  max-w-[260px] sm:max-w-[300px] w-full rounded-xl p-8 absolute top-[30dvh] sm:top-[40dvh] left-1/2 -translate-x-1/2  bg-white ">
+                            {flash.applySuccess}
+
+                            <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        :
+                        <form onSubmit={handleApply} ref={modalRef} className="max-w-[80vw] sm:max-w-[60vw] xl:max-w-[40vw] w-full rounded-xl p-8 absolute top-[20dvh]  left-1/2 -translate-x-1/2   bg-white  ">
+
+                            <h3 className="text-customGray-900 font-medium text-lg">Apply to: {jobTitle}</h3>
+
+                            <div className="mt-4">
+                                <label className="text-sm text-customGray-900">Choose Resume/CV</label>
+                                {dropdownResumes.length === 0 &&
+                                    <span className="text-danger-700 text-sm block">You haven't added any CVs yet.
+                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings#your-resumes"> Go to your dashboard</Link> to upload one.</span>
+
+                                }
+                                <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
+                                    {resumeError}
+                                </div>
+                            </div>
+
+                            <div className="mt-2">
+                                <label className="text-sm text-customGray-900">Cover Letter</label>
+                                <RichTextEditor content={data.coverLetter} onChange={newContent => setData('coverLetter', newContent)} menuOnTop={true}
+                                    placeholder="Write a short note to the employer about your background, skills, and why you’re excited about this role..." />
+                                <div className="text-sm w-full text-danger-600 min-h-5" >
+                                    {errors.coverLetter}
+                                </div>
+
+                            </div>
+
+
+                            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-between">
+
+                                <button type="button" onClick={() => setShowModal(false)} className="order-2 sm:order-1 text-primary-500 bg-primary-50 w-full sm:w-44  py-3 px-1 font-semibold rounded-sm cursor-pointer
+                               hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
+                                <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">Apply Now
+                                    <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+
+                            </div>
+
+                            <div className="mt-3 min-h-5 w-full text-danger-600 text-sm">
+                                {errors[0]}
+                            </div>
+
+
+
+                            <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                        </form>
+                    }
+                </div>, root
+
+            )}
+
+
 
         </div>
     )

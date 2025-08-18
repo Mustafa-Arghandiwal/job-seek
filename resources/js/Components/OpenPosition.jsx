@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 export default function OpenPosition(props) {
 
     return (
-        <Link href={`find-job/${props.id}`} className="bg-white relative border border-primary-50 hover:border-primary-500 flex flex-col min-w-[260px] max-w-[350px] min-h-[242px]  w-full justify-between  flex-wrap  p-8  rounded-xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-2xl peer duration-150 snap-center cursor-pointer">
+        <Link href={`vacancies/${props.id}`} className="bg-white relative border border-primary-50 hover:border-primary-500 flex flex-col min-w-[260px] max-w-[350px] min-h-[242px]  w-full justify-between  flex-wrap  p-8  rounded-xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:shadow-2xl peer duration-150 snap-center cursor-pointer">
             <div className="flex  gap-5 ">
                 <div className="h-14 min-w-14 bg-cover bg-center rounded-sm" style={{ backgroundImage: `url(${props.logo || "/chess_pattern.png"})` }}></div>
                 <div className="flex gap-1.5 flex-col w-32 sm:w-auto break-words">

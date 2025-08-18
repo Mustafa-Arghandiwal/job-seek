@@ -7,8 +7,7 @@ import EmployerLayout from "../../../Layouts/EmployerLayout"
 
 
 
-function Overview({ vacancies }) {
-    console.log(usePage().props.flash)
+function MyJobs({ vacancies }) {
     const vacancyEls = vacancies.map(vacancy => (
         <EmployerJob key={vacancy.id}  vacancy={vacancy}/>
     ))
@@ -36,11 +35,11 @@ function Overview({ vacancies }) {
 }
 
 
-Overview.layout = page => (
+MyJobs.layout = page => (
     <EmployerLayout>
         <EmployerDashboardLayout children={page} />
     </EmployerLayout>
 
 )
 
-export default Overview
+export default MyJobs

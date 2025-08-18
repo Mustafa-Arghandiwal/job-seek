@@ -16,7 +16,7 @@ function FindJob(props) {
         if(option === filter) return //this is to prevent reduntant filter requests
 
         setFilter(option)
-        router.get('/find-job', { filter: option }, { preserveState: true, preserveScroll: true })
+        router.get('/vacancies', { filter: option }, { preserveState: true, preserveScroll: true })
     }
 
     const vacancies = props.vacancies.map(vacancy => {

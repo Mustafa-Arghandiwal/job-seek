@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 
 
 
-function Overview() {
+function PostJob() {
 
     const { props } = usePage({})
     const { data, setData, reset, errors, processing, post } = useForm({
@@ -75,10 +75,9 @@ function Overview() {
 
     return (
         <form onSubmit={handleSubmit}>
-
             <h1 className="font-medium text-2xl text-customGray-900 ">Post a Job</h1>
 
-            <div className="mt-8">
+            <div className="mt-8 w-full  ">
 
                 <div className="flex  flex-col w-full  min-w-44 ">
                     <label htmlFor="jobTitle" className="text-sm text-customGray-900">Job Title</label>
@@ -95,7 +94,6 @@ function Overview() {
 
                     <div>
                         <div className="flex gap-3 lg:gap-5  lg:items-center  flex-col lg:flex-row ">
-
                             <div className=" mt-3 w-full max-w-64  min-w-32  ">
                                 <label className="text-sm text-customGray-900">Salary Type</label>
                                 <Select options={['Hourly', 'Daily', 'Weekly', 'Monthly', 'Commission-based', 'Negotiable']} placeholder={data.salaryType} onValueChange={(option) => handleSelectChange('salaryType', option)} />
@@ -276,11 +274,11 @@ function Overview() {
 }
 
 
-Overview.layout = page => (
+PostJob.layout = page => (
     <EmployerLayout>
         <EmployerDashboardLayout children={page} />
     </EmployerLayout>
 
 )
 
-export default Overview
+export default PostJob
