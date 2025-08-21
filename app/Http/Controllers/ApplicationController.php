@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Candidate;
 use App\Models\CandidateResume;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Mews\Purifier\Facades\Purifier;
@@ -43,6 +45,7 @@ class ApplicationController extends Controller
             'candidates.profile_picture',
             'candidate_contacts.city',
             'candidate_profiles.education_level'
+
         )
             ->leftJoin('candidates', 'candidates.id', '=', 'job_applications.candidate_id')
             ->leftJoin('users', 'users.id', '=', 'candidates.user_id')
@@ -53,10 +56,48 @@ class ApplicationController extends Controller
             ->get();
         return Inertia::render('Employer/Dashboard/Applications', [
             'jobTitle' => $vacancy->job_title,
-            'applicationDetails' => $applications
+            'applicationDetails' => $applications,
+            'vacancyId' => $vacancy->id,
         ]);
     }
 
+
+    public function candidate(Vacancy $vacancy, Application $application)
+    {
+
+
+        $candidate = Candidate::select(
+            'candidates.id',
+            'users.full_name',
+            'candidates.title',
+            'candidates.website',
+            'candidates.profile_picture',
+            'candidate_profiles.dob',
+            'candidate_profiles.gender',
+            'candidate_profiles.marital_status',
+            'candidate_profiles.education_level',
+            'candidate_profiles.experience',
+            'candidate_profiles.biography',
+            'candidate_contacts.city',
+            'candidate_contacts.email',
+            'candidate_contacts.phone',
+            'candidate_contacts.phone',
+        )
+            ->leftJoin('candidate_profiles', 'candidate_profiles.candidate_id', '=', 'candidates.id')
+            ->leftJoin('candidate_contacts', 'candidate_contacts.candidate_id', '=', 'candidates.id')
+            ->leftJoin('users', 'users.id', '=', 'candidates.user_id')
+            ->where('candidates.id', $application->candidate_id)
+            ->get();
+
+        $candidateSocialLinks = DB::table('candidate_social_links')->where('candidate_id', $application->candidate_id)
+            ->select('id', 'social_type', 'url')
+            ->get();
+
+        return response()->json([
+            'candidate' => $candidate,
+            'socialLinks' => $candidateSocialLinks
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -71,7 +112,7 @@ class ApplicationController extends Controller
     public function store(Request $request, $job_id)
     {
         $job = Vacancy::findOrFail($job_id);
-        if($job->manually_expired || Carbon::parse($job->deadline)->isBefore(Carbon::today())) {
+        if ($job->manually_expired || Carbon::parse($job->deadline)->isBefore(Carbon::today())) {
             return back()->withErrors("Can't apply to expired jobs.");
         }
         $validated = $request->validate([

@@ -67,7 +67,7 @@ export default function EditJobModal({ close, showModal, vacancy}) {
     const root = document.getElementById("react-portal-root")
     return createPortal(
         <div className={`inset-0 bg-black/60 z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-            <div className="relative w-[80dvw] h-[80dvh] bg-white   rounded-xl p-7 sm:p-12 overflow-y-auto scrollbar-custom">
+            <div className="relative w-[80dvw] h-[80dvh] z-40 bg-white   rounded-xl p-7 sm:p-12 overflow-y-auto scrollbar-custom">
                 <div className="sticky  z-10 flex justify-end -mt-6 -mr-6 sm:-mr-10 -top-6 sm:-top-10">
                     <button onClick={close} className="bg-white  w-7 sm:w-10 h-7 sm:h-10 rounded-full border border-customGray-200 grid place-items-center cursor-pointer active:scale-95">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

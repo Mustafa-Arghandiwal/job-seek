@@ -43,7 +43,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
             $table->string('city');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone', 20)->nullable();
             $table->timestamps();
         });

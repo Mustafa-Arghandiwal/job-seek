@@ -1,6 +1,10 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { router, usePage } from "@inertiajs/react"
+import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
+import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Pages/Candidate/socialMediaSvgs"
+import CandidateProfileModal from "../Pages/General/CandidateProfileModal"
 
 
 
@@ -14,7 +18,19 @@ export default function DashboardApplication(props) {
         year: "numeric",
     })
 
-    console.log()
+    const [showModal, setShowModal] = useState(false)
+
+    const [candidate, setCandidate] = useState(null)
+
+    useEffect(() => {
+        if (showModal) {
+            fetch(`/employer/vacancies/${props.vacancyId}/applications/${appDetails.id}/candidate`)
+                .then(res => res.json())
+                .then(data => setCandidate(data))
+                .then(err => console.log(err))
+        }
+
+    }, [showModal])
 
 
     const {
@@ -87,7 +103,7 @@ export default function DashboardApplication(props) {
     }
 
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={`mx-auto   bg-white rounded-sm p-4 mt-3 cursor-grab border
+        <div ref={setNodeRef} style={style} {...attributes} {...(showModal ? {} : listeners)} className={`mx-auto  bg-white rounded-sm p-4 mt-3 cursor-grab border
             ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}
         // onMouseDown={(e) => e.currentTarget.style.cursor = "grabbing"} onMouseUp={(e) => e.currentTarget.style.cursor = "grab"}
         >
@@ -129,7 +145,10 @@ export default function DashboardApplication(props) {
                     {/* <span>{usePage().props.errors.fileDeleted}</span> */}
                 </button>
 
-                <button className="flex gap-1 items-center mt-4 cursor-pointer text-primary-600 hover:text-primary-500">
+                <button
+                    onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
+                    // onClick={() => {router.get(`/employer/vacancies/${props.vacancyId}/applications/${appDetails.id}/candidate`)}}
+                    className="flex gap-1 items-center mt-4 cursor-pointer text-primary-600 hover:text-primary-500">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
                         <path d="M2.90527 20.2491C3.82736 18.6531 5.15322 17.3278 6.74966 16.4064C8.34611 15.485 10.1569 15 12.0002 15C13.8434 15 15.6542 15.4851 17.2506 16.4065C18.8471 17.3279 20.1729 18.6533 21.0949 20.2493" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -137,6 +156,10 @@ export default function DashboardApplication(props) {
                     <span className="  font-medium  text-xs">View Profile</span>
                 </button>
             </div>
+
+
+
+            <CandidateProfileModal showModal={showModal} setShowModal={setShowModal} candidate={candidate} />
 
 
         </div>

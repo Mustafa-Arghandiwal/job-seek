@@ -9,7 +9,7 @@ import { RiDragDropFill } from "react-icons/ri";
 import { createPortal } from "react-dom";
 import { router, useForm } from "@inertiajs/react";
 
-function Applications({ jobTitle, applicationDetails }) {
+function Applications({ jobTitle, applicationDetails, vacancyId }) {
 
     const [columns, setColumns] = useState([{ id: "all", title: "All Applications" }, { id: "shortlisted", title: "Shortlisted" }])
 
@@ -103,7 +103,7 @@ function Applications({ jobTitle, applicationDetails }) {
                     <SortableContext items={["all", "shortlisted"]}>
                         {columns.map(col => (
                             <ColumnContainer key={col.id} id={col.id} title={col.title}
-                                applications={apps.filter(app => app.column_id === col.id)}
+                                applications={apps.filter(app => app.column_id === col.id)} vacancyId={vacancyId}
                             />
                         ))}
                     </SortableContext>

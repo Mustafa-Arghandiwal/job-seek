@@ -105,6 +105,7 @@ Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
 
 Route::post('/vacancies/{id}/applications', [ApplicationController::class, 'store']);
 Route::get('/employer/vacancies/{vacancy}/applications', [ApplicationController::class, 'indexForEmployer']);
+Route::get('/employer/vacancies/{vacancy}/applications/{application}/candidate', [ApplicationController::class, 'candidate']);
 Route::post('/employer/vacancies/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
 Route::get('/applications/{application}/resume', [ResumeController::class, 'employerViewCv']);
 Route::get('/applications/{application}/resume/download', [ResumeController::class, 'employerDownloadCv']);
