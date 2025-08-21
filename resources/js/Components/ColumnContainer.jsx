@@ -17,7 +17,7 @@ export default function ColumnContainer(props) {
             </h3>
             <SortableContext items={props.applications.map(app => app.app_id)}>
                 {props.applications.map(app => (
-                    <DashboardApplication key={app.id} id={app.app_id} columnId={app.column_id} appDetails={app}/>
+                    <DashboardApplication key={app.id} id={app.app_id} columnId={app.column_id} appDetails={app} vacancyId={props.vacancyId}/>
                 ))}
             </SortableContext>
         </div>

@@ -1,6 +1,5 @@
 
 
-import { usePage } from "@inertiajs/react"
 import EmployerJob from "../../../Components/EmployerJob"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout"
 import EmployerLayout from "../../../Layouts/EmployerLayout"

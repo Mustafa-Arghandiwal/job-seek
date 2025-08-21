@@ -200,7 +200,7 @@ function SingleJobView({ employer, vacancy, resumes }) {
 
                 <div className=" ">
                     <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
-                        <button className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
+                        <button title="Add to saved jobs" className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
                             <svg width="18" height="18" viewBox="0 0 14 19" fill={`${false ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
