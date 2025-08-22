@@ -114,3 +114,4 @@ Route::get('/applications/{application}/resume/download', [ResumeController::cla
 
 
 Route::post('/candidate/vacancies/{vacancy}/favorite', [FavoritesController::class, 'addVacancy']);
+Route::get('/candidate/saved-jobs', [FavoritesController::class, 'indexVacancies']);

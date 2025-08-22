@@ -21,7 +21,7 @@ export default function Layout({ children }) {
     const dashboardUrls = [
         '/candidate/dashboard/overview',
         '/candidate/dashboard/applied-jobs',
-        '/candidate/dashboard/favorite-jobs',
+        '/candidate/saved-jobs',
         '/candidate/dashboard/settings',
     ]
     const handleSubmit = (e) => {
