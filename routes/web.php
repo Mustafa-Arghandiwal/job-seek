@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\VacancyController;
@@ -110,3 +111,6 @@ Route::post('/employer/vacancies/applications/updateShortlistStatus', [Applicati
 Route::get('/applications/{application}/resume', [ResumeController::class, 'employerViewCv']);
 Route::get('/applications/{application}/resume/download', [ResumeController::class, 'employerDownloadCv']);
 
+
+
+Route::post('/candidate/vacancies/{vacancy}/favorite', [FavoritesController::class, 'addVacancy']);
