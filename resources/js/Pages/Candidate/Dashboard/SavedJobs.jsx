@@ -7,7 +7,7 @@ import { formatSalary } from "../../../utils/formatSalary"
 
 
 
-function FavoriteJobs({ savedVacancies }) {
+function SavedJobs({ savedVacancies }) {
 
 
     const savedJobs = savedVacancies.map(vacancy => {
@@ -18,11 +18,11 @@ function FavoriteJobs({ savedVacancies }) {
         const remainingDays = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24))
         let remainingMsg
         if (remainingDays >= 0 && !vacancy.manually_expired) {
-                remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
+            remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
         }
 
-        return <CandidateFavoriteJob key={vacancy.id} logo={logoPath} title={vacancy.job_title} type={vacancy.job_type}
-                    location={vacancy.city} salary={salary} deadline={remainingMsg} />
+        return <CandidateFavoriteJob key={vacancy.id} vacancyId={vacancy.vacancy_id} logo={logoPath} title={vacancy.job_title}
+            type={vacancy.job_type} location={vacancy.city} salary={salary} deadline={remainingMsg} />
 
     })
 
@@ -38,11 +38,11 @@ function FavoriteJobs({ savedVacancies }) {
 }
 
 
-FavoriteJobs.layout = page => (
+SavedJobs.layout = page => (
     <Layout>
         <CandidateDashboardLayout children={page} />
     </Layout>
 
 )
 
-export default FavoriteJobs
+export default SavedJobs
