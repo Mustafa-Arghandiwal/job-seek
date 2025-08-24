@@ -20,7 +20,7 @@ function SavedCandidates({ savedCandidates }) {
             {savedCandidates.length !== 0 ?
                 savedCandidateEls
                 :
-                <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You haven't saved any candidates yet.</div>
+                <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You have no saved candidates.</div>
             }
         </div>
     )

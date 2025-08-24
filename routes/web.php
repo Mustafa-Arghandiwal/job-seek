@@ -118,5 +118,6 @@ Route::get('/candidate/saved-jobs', [FavoritesController::class, 'indexVacancies
 
 Route::post('/employer/saved-candidates/{candidate}', [FavoritesController::class, 'addCandidate']);
 Route::get('/employer/saved-candidates/', [FavoritesController::class, 'indexCandidates']);
+Route::get('/employer/saved-candidates/{candidate}', [FavoritesController::class, 'viewCandidate']);
 
 

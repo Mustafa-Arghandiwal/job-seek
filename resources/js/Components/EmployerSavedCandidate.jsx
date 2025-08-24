@@ -1,18 +1,33 @@
 
 import { router } from "@inertiajs/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import CandidateProfileModal from "../Pages/General/CandidateProfileModal"
+import SavedCandidateProfileModal from "../Pages/General/SavedCandidateProfileModal"
 
 
 export default function EmployerSavedCandidate(props) {
 
-    console.log(props)
+
+    const [showModal, setShowModal] = useState(false)
+    const [candidate, setCandidate] = useState(null)
+    useEffect(() => {
+        if (showModal) {
+            fetch(`/employer/saved-candidates/${props.candidateId}`)
+                .then(res => res.json())
+                .then(data => setCandidate(data))
+        }
+
+    }, [showModal])
+
+
+
     const [bookmarked, setBookmarked] = useState(true)
     const handleBookmark = () => {
         setBookmarked(prev => !prev)
 
         router.post(`/employer/saved-candidates/${props.candidateId}`, {}, {
             onSuccess: (page) => {
-                if(page.props?.bookmarked !== undefined) {
+                if (page.props?.bookmarked !== undefined) {
                     setBookmarked(page.props.bookmarked)
                 }
             },
@@ -48,7 +63,9 @@ export default function EmployerSavedCandidate(props) {
                         />
                     </svg>
                 </button>
-                <button onClick={() => router.get(`/vacancies/${props.vacancyId}`)} className="group disabled:cursor-auto   flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
+                <button
+                    onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
+                    className="group disabled:cursor-auto   flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     View Profile
                     <svg className="text-primary-500 group-disabled:text-primary-200 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -57,6 +74,12 @@ export default function EmployerSavedCandidate(props) {
                 </button>
 
             </div>
+
+
+            <SavedCandidateProfileModal showModal={showModal} setShowModal={setShowModal}
+                candidateData={candidate}
+                // savedCandidates={props.savedCandidates}
+            />
         </div>
     )
 }

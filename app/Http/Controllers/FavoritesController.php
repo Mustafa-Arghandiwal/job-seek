@@ -125,4 +125,42 @@ class FavoritesController extends Controller
             'savedCandidates' => $savedCandidates
         ]);
     }
+
+    public function viewCandidate(Candidate $candidate) {
+
+        $candidateData = Candidate::select(
+            'candidates.id',
+            'users.full_name',
+            'candidates.title',
+            'candidates.website',
+            'candidates.profile_picture',
+            'candidate_profiles.dob',
+            'candidate_profiles.gender',
+            'candidate_profiles.marital_status',
+            'candidate_profiles.education_level',
+            'candidate_profiles.experience',
+            'candidate_profiles.biography',
+            'candidate_contacts.city',
+            'candidate_contacts.email',
+            'candidate_contacts.phone',
+        )
+            ->leftJoin('candidate_profiles', 'candidate_profiles.candidate_id', '=', 'candidates.id')
+            ->leftJoin('candidate_contacts', 'candidate_contacts.candidate_id', '=', 'candidates.id')
+            ->leftJoin('users', 'users.id', '=', 'candidates.user_id')
+            ->where('candidates.id', $candidate->id)
+            ->first();
+
+        $candidateSocialLinks = DB::table('candidate_social_links')->where('candidate_id', $candidate->id)
+            ->select('id', 'social_type', 'url')
+            ->get();
+
+        return response()->json([
+            'candidate' => $candidateData,
+            'socialLinks' => $candidateSocialLinks
+        ]);
+    }
+
+
+
+
 }

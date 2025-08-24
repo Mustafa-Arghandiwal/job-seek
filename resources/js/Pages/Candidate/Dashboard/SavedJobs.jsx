@@ -34,7 +34,7 @@ function SavedJobs({ savedVacancies }) {
                 {savedVacancies.length !== 0 ?
                 savedJobs
                     :
-                    <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You haven't saved any jobs yet.</div>
+                    <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You have no saved jobs.</div>
                 }
             </div>
         </div>

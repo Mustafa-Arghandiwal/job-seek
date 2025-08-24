@@ -83,7 +83,6 @@ class ApplicationController extends Controller
             'candidate_contacts.city',
             'candidate_contacts.email',
             'candidate_contacts.phone',
-            'candidate_contacts.phone',
         )
             ->leftJoin('candidate_profiles', 'candidate_profiles.candidate_id', '=', 'candidates.id')
             ->leftJoin('candidate_contacts', 'candidate_contacts.candidate_id', '=', 'candidates.id')

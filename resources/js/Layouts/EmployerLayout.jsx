@@ -23,7 +23,7 @@ export default function EmployerLayout({ children }) {
         '/employer/dashboard/overview',
         '/employer/dashboard/post-job',
         '/employer/dashboard/my-jobs',
-        '/employer/dashboard/saved-candidates',
+        '/employer/saved-candidates',
         '/employer/dashboard/settings',
         '/employer/vacancies'
     ]
