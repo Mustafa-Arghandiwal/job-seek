@@ -1,36 +1,17 @@
+
 import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
-import { router, usePage } from "@inertiajs/react"
+import { router } from "@inertiajs/react"
 
 
-export default function CandidateProfileModal({ showModal, setShowModal, candidate, savedCandidates }) {
+export default function SavedCandidateProfileModal({ showModal, setShowModal, candidateData }) {
 
 
     const root = document.getElementById("react-portal-root")
 
-    const candidateId = candidate?.candidate[0].id ? candidate.candidate[0].id : null
-    const [bookmarked, setBookmarked] = useState(false)
-    useEffect(() => {
-        if (candidateId) {
-            setBookmarked(savedCandidates.includes(candidateId))
-        }
-    }, [candidateId, savedCandidates])
-
-    const handleBookmark = () => {
-        setBookmarked(prev => !prev)
-
-        router.post(`/employer/saved-candidates/${candidateId}`, {}, {
-            onSuccess: (page) => {
-                if (page.props?.bookmarked !== undefined) {
-                    setBookmarked(page.props.bookmarked)
-                }
-            },
-            onError: () => {
-                setBookmarked(prev => !prev)
-            }
-        })
-    }
+    // const savedCandidates = []
+    const candidateId = candidateData?.candidate.id ? candidateData.candidate.id : null
 
     const modalRef = useRef(null)
     const handleOutsideClick = (e) => {
@@ -44,7 +25,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
     }, [])
 
-    const candidateDetails = candidate?.candidate[0]
+    const candidateDetails = candidateData?.candidate
     const title = candidateDetails?.title
     const profilePicture = candidateDetails?.profile_picture ? "/storage/" + candidateDetails.profile_picture : "/chess_pattern.png"
     const biography = candidateDetails?.biography
@@ -62,7 +43,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
     const phone = candidateDetails?.phone
     const email = candidateDetails?.email
 
-    const socialLinks = candidate?.socialLinks ? candidate.socialLinks : []
+    const socialLinks = candidateData?.socialLinks ? candidateData.socialLinks : []
     const socialIcons = socialLinks.map(link => {
         if (link.social_type === "LinkedIn") {
             return (
@@ -125,17 +106,6 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
                         <div className="">
                             <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
-                                <button
-                                    onClick={handleBookmark}
-                                    title={bookmarked ? "Remove from Saved Candidates" : "Add to Saved Candidates"} className="p-4 rounded-sm cursor-pointer hover:bg-primary-50">
-                                    <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
-                                            stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-
                                 <a title={`${!email && "No email address provided"}`} href={email ? `mailto:${email}` : undefined}
                                     className={`${email ? "bg-primary-500 hover:bg-primary-600 cursor-pointer" : "bg-primary-200 cursor-default"} group flex gap-2 rounded-sm font-semibold text-white px-6 py-3 duration-150 text-nowrap`}>
                                         <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

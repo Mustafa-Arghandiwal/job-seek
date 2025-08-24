@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\VacancyController;
@@ -77,7 +78,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('/employer/dashboard/overview', 'Employer/Dashboard/Overview');
     Route::inertia('/employer/dashboard/post-job', 'Employer/Dashboard/PostJob');
     Route::inertia('/employer/dashboard/my-jobs', 'Employer/Dashboard/MyJobs');
-    Route::inertia('/employer/dashboard/saved-candidates', 'Employer/Dashboard/SavedCandidates');
+    // Route::inertia('/employer/dashboard/saved-candidates', 'Employer/Dashboard/SavedCandidates');
     Route::inertia('/employer/dashboard/settings', 'Employer/Dashboard/Settings');
 
 });
@@ -109,4 +110,14 @@ Route::get('/employer/vacancies/{vacancy}/applications/{application}/candidate',
 Route::post('/employer/vacancies/applications/updateShortlistStatus', [ApplicationController::class, 'shortlist']);
 Route::get('/applications/{application}/resume', [ResumeController::class, 'employerViewCv']);
 Route::get('/applications/{application}/resume/download', [ResumeController::class, 'employerDownloadCv']);
+
+
+
+Route::post('/candidate/saved-jobs/{vacancy}', [FavoritesController::class, 'addVacancy']);
+Route::get('/candidate/saved-jobs', [FavoritesController::class, 'indexVacancies']);
+
+Route::post('/employer/saved-candidates/{candidate}', [FavoritesController::class, 'addCandidate']);
+Route::get('/employer/saved-candidates/', [FavoritesController::class, 'indexCandidates']);
+Route::get('/employer/saved-candidates/{candidate}', [FavoritesController::class, 'viewCandidate']);
+
 

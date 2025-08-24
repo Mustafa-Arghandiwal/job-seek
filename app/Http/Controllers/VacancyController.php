@@ -8,6 +8,8 @@ use App\Models\Employer;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -161,13 +163,24 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::findOrFail($id);
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
-        $resumes = $request->user()?->candidate->resumes;
-        // dd($employer);
+        if (Auth::user()->user_type == 'candidate') {
+            $resumes = $request->user()?->candidate->resumes;
+            if (true) {
+                $candidateId = Auth::user()->candidate->id;
+                $isBookmarked = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->where('vacancy_id', $id)->exists();
+            }
+
+            return inertia::render('General/SingleJobView', [
+                'vacancy' => $vacancy,
+                'employer' => $employer,
+                'resumes' => $resumes,
+                'isBookmarked' => $isBookmarked,
+            ]);
+        }
 
         return inertia::render('General/SingleJobView', [
             'vacancy' => $vacancy,
             'employer' => $employer,
-            'resumes' => $resumes
         ]);
     }
 

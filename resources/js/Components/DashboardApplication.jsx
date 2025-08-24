@@ -159,7 +159,7 @@ export default function DashboardApplication(props) {
 
 
 
-            <CandidateProfileModal showModal={showModal} setShowModal={setShowModal} candidate={candidate} />
+            <CandidateProfileModal showModal={showModal} setShowModal={setShowModal} candidate={candidate} savedCandidates={props.savedCandidates}/>
 
 
         </div>

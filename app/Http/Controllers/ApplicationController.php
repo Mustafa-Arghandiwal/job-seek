@@ -8,6 +8,7 @@ use App\Models\CandidateResume;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -25,11 +26,6 @@ class ApplicationController extends Controller
     }
     public function indexForEmployer(Vacancy $vacancy)
     {
-
-        // $applications = Application::select(['id', 'candidate_id', 'applied_at', 'cover_letter', 'resume_path'])
-        //     ->with(['candidate:id','candidate.profile:candidate_id,experience,education_level'])
-        //     ->where('vacancy_id', $vacancy->id)->orderBy('applied_at', 'desc')->get();
-        // Lets flatten the response instead of this nested crap, for ease of use in front-end
 
         $applications = Application::select(
             'job_applications.id',
@@ -54,10 +50,16 @@ class ApplicationController extends Controller
             ->where('vacancy_id', $vacancy->id)
             ->orderBy('applied_at', 'desc')
             ->get();
+
+        $savedCandidates = DB::table('employer_saved_candidates')
+            ->where('employer_id', Auth::user()->employer->id)
+            ->pluck('candidate_id')->toArray();
+
         return Inertia::render('Employer/Dashboard/Applications', [
             'jobTitle' => $vacancy->job_title,
             'applicationDetails' => $applications,
             'vacancyId' => $vacancy->id,
+            'savedCandidates' => $savedCandidates
         ]);
     }
 
@@ -80,7 +82,6 @@ class ApplicationController extends Controller
             'candidate_profiles.biography',
             'candidate_contacts.city',
             'candidate_contacts.email',
-            'candidate_contacts.phone',
             'candidate_contacts.phone',
         )
             ->leftJoin('candidate_profiles', 'candidate_profiles.candidate_id', '=', 'candidates.id')
