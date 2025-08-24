@@ -163,20 +163,24 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::findOrFail($id);
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
-        $resumes = $request->user()?->candidate->resumes;
-        if (true) {
-            $candidateId = Auth::user()->candidate->id;
-            $isBookmarked = DB::table('candidate_favorite_jobs')->where('candidate_id', $candidateId)->where('vacancy_id', $id)->exists();
+        if (Auth::user()->user_type == 'candidate') {
+            $resumes = $request->user()?->candidate->resumes;
+            if (true) {
+                $candidateId = Auth::user()->candidate->id;
+                $isBookmarked = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->where('vacancy_id', $id)->exists();
+            }
+
+            return inertia::render('General/SingleJobView', [
+                'vacancy' => $vacancy,
+                'employer' => $employer,
+                'resumes' => $resumes,
+                'isBookmarked' => $isBookmarked,
+            ]);
         }
-
-
-        // dd($employer);
 
         return inertia::render('General/SingleJobView', [
             'vacancy' => $vacancy,
             'employer' => $employer,
-            'resumes' => $resumes,
-            'isBookmarked' => $isBookmarked,
         ]);
     }
 

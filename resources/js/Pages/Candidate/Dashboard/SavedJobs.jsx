@@ -1,6 +1,6 @@
 
 
-import CandidateFavoriteJob from "../../../Components/CandidateFavoriteJob"
+import CandidateSavedJob from "../../../Components/CandidateSavedJob"
 import CandidateDashboardLayout from "../../../Layouts/CandidateDashboardLayout"
 import Layout from "../../../Layouts/Layout"
 import { formatSalary } from "../../../utils/formatSalary"
@@ -21,7 +21,7 @@ function SavedJobs({ savedVacancies }) {
             remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
         }
 
-        return <CandidateFavoriteJob key={vacancy.id} vacancyId={vacancy.vacancy_id} logo={logoPath} title={vacancy.job_title}
+        return <CandidateSavedJob key={vacancy.id} vacancyId={vacancy.vacancy_id} logo={logoPath} title={vacancy.job_title}
             type={vacancy.job_type} location={vacancy.city} salary={salary} deadline={remainingMsg} />
 
     })
@@ -31,7 +31,11 @@ function SavedJobs({ savedVacancies }) {
             <h1 className="text-customGray-900 font-medium text-lg">Saved Jobs</h1>
 
             <div className="mt-2">
-                {savedJobs}
+                {savedVacancies.length !== 0 ?
+                savedJobs
+                    :
+                    <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You haven't saved any jobs yet.</div>
+                }
             </div>
         </div>
     )

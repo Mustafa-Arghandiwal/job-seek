@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +15,9 @@ class FavoritesController extends Controller
     public function indexVacancies()
     {
         $candidate = Auth::user()->candidate;
-        $savedVacancies = DB::table('candidate_favorite_jobs')
+        $savedVacancies = DB::table('candidate_saved_jobs')
             ->select([
-                'candidate_favorite_jobs.id',
+                'candidate_saved_jobs.id',
                 'vacancy_id',
                 'logo_path',
                 'vacancies.job_title',
@@ -29,9 +30,10 @@ class FavoritesController extends Controller
                 'vacancies.max_salary',
                 'vacancies.fixed_salary'
             ])
-            ->leftJoin('vacancies', 'vacancies.id', '=', 'candidate_favorite_jobs.vacancy_id')
+            ->leftJoin('vacancies', 'vacancies.id', '=', 'candidate_saved_jobs.vacancy_id')
             ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
             ->where('candidate_id', $candidate->id)
+            ->orderBy('candidate_saved_jobs.created_at', 'desc')
             ->get();
 
         return Inertia::render('Candidate/Dashboard/SavedJobs', [
@@ -48,11 +50,11 @@ class FavoritesController extends Controller
         }
 
         $currCandidate = Auth::user()->candidate;
-        $isAlreadyBookmarked = DB::table('candidate_favorite_jobs')
+        $isAlreadyBookmarked = DB::table('candidate_saved_jobs')
             ->where('candidate_id', $currCandidate->id)
             ->where('vacancy_id', $vacancy->id)->exists();
         if (!$isAlreadyBookmarked) {
-            DB::table('candidate_favorite_jobs')->insert([
+            DB::table('candidate_saved_jobs')->insert([
                 'candidate_id' => $currCandidate->id,
                 'vacancy_id' => $vacancy->id,
                 'created_at' => now(),
@@ -61,10 +63,66 @@ class FavoritesController extends Controller
             ]);
             return back()->with(['success' => true, 'bookmarked' => true]);
         } else {
-            DB::table('candidate_favorite_jobs')
+            DB::table('candidate_saved_jobs')
                 ->where('candidate_id', $currCandidate->id)
-                ->where('vacancy_id', $vacancy->id)->delete();
+                ->where('vacancy_id', $vacancy->id)
+                ->delete();
             return back()->with(['success' => true, 'bookmarked' => false]);
         }
+    }
+
+
+
+
+
+    public function addCandidate(Candidate $candidate)
+    {
+
+        if (Auth::user()->user_type != "employer") {
+            abort(403);
+        }
+
+        $employer = Auth::user()->employer;
+        $isAlreadyBookmarked = DB::table('employer_saved_candidates')
+            ->where('employer_id', $employer->id)
+            ->where('candidate_id', $candidate->id)->exists();
+        if (!$isAlreadyBookmarked) {
+            DB::table('employer_saved_candidates')->insert([
+                'employer_id' => $employer->id,
+                'candidate_id' => $candidate->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+
+            ]);
+            return back()->with(['success' => true, 'bookmarked' => true]);
+        } else {
+            DB::table('employer_saved_candidates')
+                ->where('employer_id', $employer->id)
+                ->where('candidate_id', $candidate->id)
+                ->delete();
+            return back()->with(['success' => true, 'bookmarked' => false]);
+        }
+    }
+
+    public function indexCandidates()
+    {
+        $employer = Auth::user()->employer;
+        $savedCandidates = DB::table('employer_saved_candidates')
+            ->select([
+                'employer_saved_candidates.id',
+                'candidate_id',
+                'full_name',
+                'title',
+                'profile_picture',
+            ])
+            ->leftJoin('candidates', 'candidates.id', '=', 'employer_saved_candidates.candidate_id')
+            ->leftJoin('users', 'candidates.user_id', '=', 'users.id')
+            ->where('employer_id', $employer->id)
+            ->orderBy('employer_saved_candidates.created_at', 'desc')
+            ->get();
+
+        return Inertia::render('Employer/Dashboard/SavedCandidates', [
+            'savedCandidates' => $savedCandidates
+        ]);
     }
 }

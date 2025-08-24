@@ -12,6 +12,7 @@ import confetti from "canvas-confetti"
 
 function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
+    const userType = usePage().props.auth.user.user_type
 
     const dropdownResumes = resumes ? resumes.map(resume => resume.file_name) : []
 
@@ -19,9 +20,9 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
     const handleBookmark = () => {
         setBookmarked(prev => !prev)
 
-        router.post(`/candidate/vacancies/${vacancy.id}/favorite`, {}, {
+        router.post(`/candidate/saved-jobs/${vacancy.id}`, {}, {
             onSuccess: (page) => {
-                if(page.props?.bookmarked !== undefined) {
+                if (page.props?.bookmarked !== undefined) {
                     setBookmarked(page.props.bookmarked)
                 }
             },
@@ -215,23 +216,26 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                 </div>
 
                 <div className=" ">
-                    <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
-                        <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
-                            <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
-                                    stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                />
-                            </svg>
-                        </button>
+                    {userType === "candidate" &&
+                        <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
+                            <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
+                                <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
+                                        stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </button>
 
-                        <button onClick={(e) => { e.stopPropagation(); setShowModal(true) }} className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
-                            <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
+                            <button onClick={(e) => { e.stopPropagation(); setShowModal(true) }} className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
+                                <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                    }
+
 
                     <p className="text-customGray-500 text-xs text-right mt-2">Job expires on: <span className="text-danger-500">{deadline}</span></p>
 

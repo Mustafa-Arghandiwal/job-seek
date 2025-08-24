@@ -9,7 +9,7 @@ import { RiDragDropFill } from "react-icons/ri";
 import { createPortal } from "react-dom";
 import { router, useForm } from "@inertiajs/react";
 
-function Applications({ jobTitle, applicationDetails, vacancyId }) {
+function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates}) {
 
     const [columns, setColumns] = useState([{ id: "all", title: "All Applications" }, { id: "shortlisted", title: "Shortlisted" }])
 
@@ -24,6 +24,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId }) {
                 router.post('/employer/vacancies/applications/updateShortlistStatus', { shortlistedIDs })
             // }
         }
+        //see if I can do apps.some column instead of all the apps
     }, [apps])
 
 
@@ -103,7 +104,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId }) {
                     <SortableContext items={["all", "shortlisted"]}>
                         {columns.map(col => (
                             <ColumnContainer key={col.id} id={col.id} title={col.title}
-                                applications={apps.filter(app => app.column_id === col.id)} vacancyId={vacancyId}
+                                applications={apps.filter(app => app.column_id === col.id)} vacancyId={vacancyId} savedCandidates={savedCandidates}
                             />
                         ))}
                     </SortableContext>
@@ -114,7 +115,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId }) {
                     <DragOverlay>
                         {activeApp && (
                             <DashboardApplication key={activeApp.id} id={activeApp.id}
-                                columnId={activeApp.details.column_id} appDetails={activeApp.details} />
+                                columnId={activeApp.details.column_id} appDetails={activeApp.details}  />
                         )}
 
                     </DragOverlay>, document.body

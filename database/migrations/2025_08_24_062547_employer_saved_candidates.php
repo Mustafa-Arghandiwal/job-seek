@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidate_favorite_jobs', function (Blueprint $table) {
+        Schema::create('employer_saved_candidates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('vacancy_id')->constrained()->cascadeOnDelete();
-            $table->index(['candidate_id', 'vacancy_id']);
+            $table->index(['employer_id', 'candidate_id']);
             $table->timestamps();
         });
-        //
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('employer_saved_candidates');
     }
 };

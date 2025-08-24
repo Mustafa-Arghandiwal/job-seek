@@ -2,14 +2,13 @@ import { router } from "@inertiajs/react"
 import { useState } from "react"
 
 
-export default function CandidateFavoriteJob(props) {
-
+export default function CandidateSavedJob(props) {
 
     const [bookmarked, setBookmarked] = useState(true)
     const handleBookmark = () => {
         setBookmarked(prev => !prev)
 
-        router.post(`/candidate/vacancies/${props.vacancyId}/favorite`, {}, {
+        router.post(`/candidate/saved-jobs/${props.vacancyId}`, {}, {
             onSuccess: (page) => {
                 if(page.props?.bookmarked !== undefined) {
                     setBookmarked(page.props.bookmarked)
@@ -25,16 +24,16 @@ export default function CandidateFavoriteJob(props) {
         <div className=" relative border-b border-customGray-100 border border-t-transparent border-x-transparent hover:rounded-lg  hover:border-primary-500 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-4 duration-150 ">
             <div className="flex gap-5">
                 <div
-                    className="h-16 min-w-16 bg-cover bg-center"
+                    className="h-16 min-w-16 bg-cover bg-center rounded-sm"
                     style={{ backgroundImage: `url(${props.logo})` }}
                 ></div>
                 {/* <img src={props.employerLogo} /> */}
-                <div className="flex flex-col gap-3.5">
+                <div className="  flex flex-col gap-3.5">
                     <div className="flex gap-2 flex-wrap items-center  w-32 sm:w-auto break-words">
                         <h4 title={props.title} className=" text-customGray-900 font-medium  line-clamp-3">{props.title}</h4>
                         <span className="px-2 grid items-center text-sm bg-primary-50 text-primary-500 rounded-full cursor-default">{props.type}</span>
                     </div>
-                    <div className="flex gap-1 sm:gap-4 flex-wrap">
+                    <div className="flex flex-col sm:flex-row min-w-auto xs:min-w-[180px] sm:min-w-[380px] lg:min-w-[420px]  gap-1 sm:gap-4 flex-wrap ">
                         <div className="flex items-center gap-1 text-customGray-500 text-sm ">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19.25 9.16699C19.25 15.5837 11 21.0837 11 21.0837C11 21.0837 2.75 15.5837 2.75 9.16699C2.75 6.97896 3.61919 4.88054 5.16637 3.33336C6.71354 1.78619 8.81196 0.916992 11 0.916992C13.188 0.916992 15.2865 1.78619 16.8336 3.33336C18.3808 4.88054 19.25 6.97896 19.25 9.16699Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -95,9 +94,9 @@ export default function CandidateFavoriteJob(props) {
                         />
                     </svg>
                 </button>
-                <button className="group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
+                <button onClick={() => router.get(`/vacancies/${props.vacancyId}`)} disabled={!props.deadline} className="group disabled:cursor-auto disabled:bg-primary-50 disabled:text-primary-200 flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     Apply Now
-                    <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="text-primary-500 group-disabled:text-primary-200 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

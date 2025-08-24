@@ -1,14 +1,36 @@
 import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
-import { usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 
 
-export default function CandidateProfileModal({showModal, setShowModal, candidate}) {
+export default function CandidateProfileModal({ showModal, setShowModal, candidate, savedCandidates }) {
 
 
     const root = document.getElementById("react-portal-root")
 
+    const candidateId = candidate?.candidate[0].id ? candidate.candidate[0].id : null
+    const [bookmarked, setBookmarked] = useState(false)
+    useEffect(() => {
+        if (candidateId) {
+            setBookmarked(savedCandidates.includes(candidateId))
+        }
+    }, [candidateId, savedCandidates])
+
+    const handleBookmark = () => {
+        setBookmarked(prev => !prev)
+
+        router.post(`/employer/saved-candidates/${candidateId}`, {}, {
+            onSuccess: (page) => {
+                if (page.props?.bookmarked !== undefined) {
+                    setBookmarked(page.props.bookmarked)
+                }
+            },
+            onError: () => {
+                setBookmarked(prev => !prev)
+            }
+        })
+    }
 
     const modalRef = useRef(null)
     const handleOutsideClick = (e) => {
@@ -103,8 +125,10 @@ export default function CandidateProfileModal({showModal, setShowModal, candidat
 
                         <div className="">
                             <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
-                                <button title="Add to saved candidates" className="p-4 rounded-sm cursor-pointer hover:bg-primary-50">
-                                    <svg width="18" height="18" viewBox="0 0 14 19" fill={`${true ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
+                                <button
+                                    onClick={handleBookmark}
+                                    title={bookmarked ? "Remove from Saved Candidates" : "Add to Saved Candidates"} className="p-4 rounded-sm cursor-pointer hover:bg-primary-50">
+                                    <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
                                             stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
