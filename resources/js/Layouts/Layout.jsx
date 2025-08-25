@@ -20,7 +20,7 @@ export default function Layout({ children }) {
 
     const dashboardUrls = [
         '/candidate/dashboard/overview',
-        '/candidate/dashboard/applied-jobs',
+        '/candidate/applied-jobs',
         '/candidate/saved-jobs',
         '/candidate/dashboard/settings',
     ]

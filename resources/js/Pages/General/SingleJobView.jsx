@@ -164,7 +164,19 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
         confetti({
             particleCount: 60,
             spread: 60,
-            origin: { y: 0.6 }
+            origin: { y: 0.6 },
+            colors: [
+                "#E7F0FA",
+                "#CEE0F5",
+                "#9DC1EB",
+                "#6CA3E0",
+                "#3B84D6",
+                "#0A65CC",
+                "#0851A3",
+                "#063D7A",
+                "#042852",
+                "#021429",
+            ],
         });
     };
     useEffect(() => {
