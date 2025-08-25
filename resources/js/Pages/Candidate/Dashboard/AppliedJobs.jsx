@@ -29,20 +29,25 @@ function AppliedJobs({ applications }) {
                 <span className="text-customGray-400 font-normal">({applications.length})</span>
             </h1>
 
-            <table className="mt-5 w-full text-left overflow-x-auto min-w-[600px] ">
-                <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
-                    <tr>
-                        <th className="px-5 py-3" scope="col">JOB</th>
-                        <th className="px-5 py-3" scope="col">DATE APPLIED</th>
-                        <th className="px-5 py-3" scope="col">ACTION</th>
-                    </tr>
-                </thead>
+            {applications.length !== 0 ?
+                <table className="mt-5 w-full text-left overflow-x-auto min-w-[600px] ">
+                    <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
+                        <tr>
+                            <td className="px-5 py-3" scope="col">JOB</td>
+                            <td className="px-5 py-3" scope="col">DATE APPLIED</td>
+                            <td className="px-5 py-3" scope="col">ACTION</td>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {applicationEls}
-                </tbody>
+                    <tbody>
+                        {applicationEls}
+                    </tbody>
 
-            </table>
+                </table>
+                :
+
+                <div className="h-[40dvh] mt-2 grid place-items-center font-medium text-lg text-customGray-600 ">Your applications will appear here.</div>
+            }
 
 
         </>

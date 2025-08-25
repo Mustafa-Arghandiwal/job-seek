@@ -41,7 +41,10 @@ function FindJob(props) {
             </div>
 
             {vacancies.length !== 0 ?
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-6  w-fit mx-auto">
+                    // grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-6  w-fit mx-auto
+                <div className="min-h-[30dvh]
+                    flex gap-6 flex-wrap justify-center
+                    ">
                     {vacancies}
                 </div>
                 :

@@ -25,6 +25,7 @@ class VacancyController extends Controller
         if ($filter == 'expiring today') {
             $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
                 ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                ->where('manually_expired', false)
                 ->where('deadline', Carbon::today())
                 ->get();
             return inertia::render('Candidate/FindJob', [
