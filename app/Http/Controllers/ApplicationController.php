@@ -64,6 +64,31 @@ class ApplicationController extends Controller
     }
 
 
+    public function indexForCandidate()
+    {
+
+        if (Auth::user()->user_type != 'candidate') {
+            abort(403);
+        }
+
+        $candidateId = Auth::user()->candidate->id;
+        $applications = Application::select(['id', 'vacancy_id', 'applied_at'])
+            ->with([
+                'vacancy:id,employer_id,job_title,job_type,city,salary_type,fixed_salary,min_salary,max_salary',
+                'vacancy.employer:id',
+                'vacancy.employer.detail:employer_id,logo_path'
+            ])
+            ->where('candidate_id', $candidateId)
+            ->get();
+
+        return Inertia::render('Candidate/Dashboard/AppliedJobs', [
+            'applications' => $applications,
+        ]);
+    }
+
+
+
+
     public function candidate(Vacancy $vacancy, Application $application)
     {
 

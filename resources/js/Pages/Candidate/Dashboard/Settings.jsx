@@ -13,7 +13,7 @@ function Settings() {
 
     return (
         <div>
-            <h1 className="font-medium text-2xl ">Settings</h1>
+            <h1 className="font-medium text-2xl text-customGray-900">Settings</h1>
 
             <Tabs>
                 <Tab title="Profile" icon={tab_svgs.profile}>

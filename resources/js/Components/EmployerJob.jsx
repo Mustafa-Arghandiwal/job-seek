@@ -61,7 +61,7 @@ export default function EmployerJob({ vacancy }) {
 
 
     return (
-        <tr className="border-b border-b-customGray-100 hover:shadow-[1px_1px_8px_rgba(0,0,0,0.25)] duration-150 rounded-sm">
+        <tr className="border-b border-b-customGray-100">
             <td scope="row" className="p-5 whitespace-nowrap">
                 <h3 className="text-customGray-900 font-medium ">{vacancy.job_title}</h3>
                 <p className="text-sm text-customGray-500">{vacancy.job_type} &bull; {remainingMsg}</p>

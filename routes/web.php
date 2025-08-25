@@ -121,3 +121,4 @@ Route::get('/employer/saved-candidates/', [FavoritesController::class, 'indexCan
 Route::get('/employer/saved-candidates/{candidate}', [FavoritesController::class, 'viewCandidate']);
 
 
+Route::get('/candidate/applied-jobs', [ApplicationController::class, 'indexForCandidate']);
