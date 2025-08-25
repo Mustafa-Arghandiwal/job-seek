@@ -87,6 +87,15 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
         year: "numeric",
     })
 
+    const expired = new Date(vacancy.deadline).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)
+    let expireMsg
+    if (vacancy.manually_expired) {
+        expireMsg = "Job listing ended by employer"
+    } else if (expired) {
+        expireMsg = "Job expired on: "
+    } else { expireMsg = "Job expires on: " }
+    // expireMsg = (expired && !vacancy.manually_expired) ? "" : "Job expires on: "
+
     const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
     const jobEducation = vacancy.education
     const location = vacancy?.city || "Remote"
@@ -239,7 +248,10 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 </svg>
                             </button>
 
-                            <button onClick={(e) => { e.stopPropagation(); setShowModal(true) }} className="group flex gap-3 rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
+                            <button
+                                disabled={vacancy.manually_expired || expired}
+                                onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
+                                className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
                                 <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -249,7 +261,12 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                     }
 
 
-                    <p className="text-customGray-500 text-xs text-right mt-2">Job expires on: <span className="text-danger-500">{deadline}</span></p>
+                    <p className={` ${vacancy.manually_expired ? "text-danger-400" : "text-customGray-500"} text-xs text-right mt-2`}>
+                        {expireMsg}
+                        {!vacancy.manually_expired &&
+                            <span className="text-danger-500">{deadline}</span>
+                        }
+                    </p>
 
                 </div>
 
