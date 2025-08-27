@@ -6,6 +6,7 @@ use App\Models\Employer;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\inertia;
 
 class EmployerController extends Controller
@@ -66,6 +67,13 @@ class EmployerController extends Controller
         return Inertia::render('Candidate/SingleEmployerPage', [
             'employerDetails' => $employerDetails,
             'vacancies' => $vacancies
+        ]);
+    }
+
+    public function dashboardOverview() {
+
+        return inertia::render('Employer/Dashboard/Overview', [
+            'msg' => "Hi Dear " . Auth::user()->full_name,
         ]);
     }
 
