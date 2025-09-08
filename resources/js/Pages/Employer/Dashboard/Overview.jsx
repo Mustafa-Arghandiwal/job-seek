@@ -1,12 +1,16 @@
 
-import { usePage } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout"
 import EmployerLayout from "../../../Layouts/EmployerLayout"
+import EmployerJob from "../../../Components/EmployerJob"
 
 
 
-function Overview({ }) {
+function Overview({ vacancies, openJobsCount, savedCandidatesCount}) {
 
+    const vacancyEls = vacancies.map(vacancy => (
+        <EmployerJob key={vacancy.id} vacancy={vacancy} />
+    ))
 
     const employerName = usePage().props.auth.user.full_name
     return (
@@ -16,10 +20,11 @@ function Overview({ }) {
 
 
             <div className="flex gap-6">
+
                 <div className="flex justify-between w-[312px] rounded-lg bg-primary-50 p-6 mt-6">
                     <div>
-                        <div className="font-semibold text-customGray-900 text-2xl">23</div>
-                        <div className="text-customGray-600 text-sm">Open Jobs</div>
+                        <div className="font-semibold text-customGray-900 text-2xl">{openJobsCount}</div>
+                        <div className="text-customGray-600 text-sm">Open Job{openJobsCount !== 1 && 's'}</div>
                     </div>
                     <div className="grid place-items-center p-4 bg-white rounded-[5px]">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,8 +39,8 @@ function Overview({ }) {
 
                 <div className="flex justify-between w-[312px] rounded-lg bg-warning-50 p-6 mt-6">
                     <div>
-                        <div className="font-semibold text-customGray-900 text-2xl">48</div>
-                        <div className="text-customGray-600 text-sm">Saved Candidates</div>
+                        <div className="font-semibold text-customGray-900 text-2xl">{savedCandidatesCount}</div>
+                        <div className="text-customGray-600 text-sm">Saved Candidate{savedCandidatesCount !== 1 && 's'}</div>
                     </div>
                     <div className="grid place-items-center p-4 bg-white rounded-[5px]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -47,7 +52,48 @@ function Overview({ }) {
                         </svg>
                     </div>
                 </div>
+
             </div>
+
+            <div className="flex justify-between mt-8">
+                <h3 className="font-medium text-customGray-900">Recently Posted Jobs</h3>
+                {vacancies.length !== 0 &&
+                    <Link href="/employer/vacancies" className="flex items-center gap-1 cursor-pointer font-medium text-customGray-500 hover:text-primary-500 duration-100">
+                        <span>View all</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </Link>
+                }
+            </div>
+
+
+            {vacancies.length !== 0 ?
+                <table className="mt-6 w-full text-left overflow-x-auto min-w-[600px]">
+                    <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
+                        <tr>
+                            <td className="px-5 py-3" scope="col">JOBS</td>
+                            <td className="px-5 py-3" scope="col">STATUS</td>
+                            <td className="px-5 py-3" scope="col">APPLICATIONS</td>
+                            <td className="px-5 py-3" scope="col">ACTIONS</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {vacancyEls}
+                    </tbody>
+
+                </table>
+                :
+
+                <div className="h-[25dvh] mt-6 flex items-center justify-center gap-2   text-customGray-600 ">
+                    <p>You haven't posted any jobs yet.</p>
+                    <Link className=" text-primary-500 underline" href="/employer/dashboard/post-job">
+                        Post a job
+                    </Link>
+
+                </div>
+            }
 
         </div>
     )

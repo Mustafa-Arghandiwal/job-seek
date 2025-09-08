@@ -7,6 +7,7 @@ use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\inertia;
 
 class EmployerController extends Controller
@@ -70,10 +71,20 @@ class EmployerController extends Controller
         ]);
     }
 
-    public function dashboardOverview() {
+    public function dashboardOverview(Request $request) {
+
+        $employerId = Employer::where('user_id', $request->user()->id)->value('id');
+        $LatestVacancies = Vacancy::where('employer_id', $employerId)->orderBy('created_at', 'desc')->limit(4)->get();
+        $activeVacanciesCount = Vacancy::where('employer_id', $employerId)
+            ->where('manually_expired', false)
+            ->where('deadline', '>=', Carbon::today())
+            ->count();
+        $savedCandidatesCount = DB::table('employer_saved_candidates')->where('employer_id', $employerId)->count();
 
         return inertia::render('Employer/Dashboard/Overview', [
-            'msg' => "Hi Dear " . Auth::user()->full_name,
+            'vacancies' => $LatestVacancies,
+            'openJobsCount' => $activeVacanciesCount,
+            'savedCandidatesCount' => $savedCandidatesCount,
         ]);
     }
 
