@@ -14,4 +14,8 @@ class Vacancy extends Model
     public function employer() {
         return $this->belongsTo(Employer::class);
     }
+
+    public function applications() {
+        return $this->hasMany(Application::class);
+    }
 }

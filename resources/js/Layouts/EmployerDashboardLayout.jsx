@@ -19,7 +19,7 @@ export default function EmployerDashboardLayout({ children }) {
     }, [])
 
     return (
-        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-3 xl:px-[150px] 2xl:px-[230px] ">
+        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-3 xl:px-[150px] 2xl:px-[180px] ">
 
 
             {/* open sidebar */}

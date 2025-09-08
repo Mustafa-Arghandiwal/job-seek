@@ -6,6 +6,8 @@ use App\Models\Employer;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\inertia;
 
 class EmployerController extends Controller
@@ -66,6 +68,24 @@ class EmployerController extends Controller
         return Inertia::render('Candidate/SingleEmployerPage', [
             'employerDetails' => $employerDetails,
             'vacancies' => $vacancies
+        ]);
+    }
+
+    public function dashboardOverview(Request $request) {
+
+        $employerId = Employer::where('user_id', $request->user()->id)->value('id');
+        //withCount is groupBy, it counts the number of applications for each vacancy as applications_count, vacancy model must have hasMany(Application::class)
+        $LatestVacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->limit(4)->get();
+        $activeVacanciesCount = Vacancy::where('employer_id', $employerId)
+            ->where('manually_expired', false)
+            ->where('deadline', '>=', Carbon::today())
+            ->count();
+        $savedCandidatesCount = DB::table('employer_saved_candidates')->where('employer_id', $employerId)->count();
+
+        return inertia::render('Employer/Dashboard/Overview', [
+            'vacancies' => $LatestVacancies,
+            'openJobsCount' => $activeVacanciesCount,
+            'savedCandidatesCount' => $savedCandidatesCount,
         ]);
     }
 

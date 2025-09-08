@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
+use App\Models\Application;
 use App\Models\Employer;
 use App\Models\Vacancy;
 use Carbon\Carbon;
@@ -132,16 +133,22 @@ class VacancyController extends Controller
         return back()->with('postJobSuccess', 'Job posted successfully.');
     }
 
+
+
+
     public function employerVacancies(Request $request)
     {
 
-        // $employerId = Employer::select(['id'])->where('user_id', $request->user()->id)->first()->id;
         $employerId = Employer::where('user_id', $request->user()->id)->value('id');
-        $vacancies = Vacancy::where('employer_id', $employerId)->orderBy('created_at', 'desc')->get();
+        //withCount is groupBy, it counts the number of applications for each vacancy as applications_count, vacancy model must have hasMany(Application::class)
+        $vacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->get();
         return Inertia::render('Employer/Dashboard/MyJobs', [
             'vacancies' => $vacancies,
         ]);
     }
+
+
+
 
     public function makeExpire(Request $request, $id)
     {

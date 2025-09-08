@@ -16,22 +16,25 @@ function MyJobs({ vacancies }) {
                 <span className="font-normal text-customGray-400">({vacancies.length})</span>
             </h1>
             {vacancies.length !== 0 ?
-                <table className="mt-6 w-full text-left overflow-x-auto min-w-[600px]">
 
-                    <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
-                        <tr>
-                            <td className="px-5 py-3" scope="col">JOBS</td>
-                            <td className="px-5 py-3" scope="col">STATUS</td>
-                            <td className="px-5 py-3" scope="col">APPLICATIONS</td>
-                            <td className="px-5 py-3" scope="col">ACTIONS</td>
-                        </tr>
-                    </thead>
+                <div className=" overflow-x-auto scrollbar-custom  ">
+                    <table className="mt-6 w-full text-left overflow-x-auto">
 
-                    <tbody>
-                        {vacancyEls}
-                    </tbody>
+                        <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
+                            <tr>
+                                <td className="px-5 py-3" scope="col">JOBS</td>
+                                <td className="px-5 py-3" scope="col">STATUS</td>
+                                <td className="px-5 py-3" scope="col">APPLICATIONS</td>
+                                <td className="px-5 py-3" scope="col">ACTIONS</td>
+                            </tr>
+                        </thead>
 
-                </table>
+                        <tbody>
+                            {vacancyEls}
+                        </tbody>
+
+                    </table>
+                </div>
                 :
 
                 <div className="h-[40dvh] mt-6 grid place-items-center font-medium text-lg text-customGray-600 ">Jobs you post will be listed here.</div>
