@@ -6,7 +6,7 @@ import EmployerJob from "../../../Components/EmployerJob"
 
 
 
-function Overview({ vacancies, openJobsCount, savedCandidatesCount}) {
+function Overview({ vacancies, openJobsCount, savedCandidatesCount }) {
 
     const vacancyEls = vacancies.map(vacancy => (
         <EmployerJob key={vacancy.id} vacancy={vacancy} />
@@ -19,7 +19,7 @@ function Overview({ vacancies, openJobsCount, savedCandidatesCount}) {
             <p className="text-sm text-customGray-500 mt-2">Here are some highlights</p>
 
 
-            <div className="flex gap-6">
+            <div className="flex sm:gap-6 flex-wrap sm:flex-nowrap">
 
                 <div className="flex justify-between w-[312px] rounded-lg bg-primary-50 p-6 mt-6">
                     <div>
@@ -70,20 +70,22 @@ function Overview({ vacancies, openJobsCount, savedCandidatesCount}) {
 
 
             {vacancies.length !== 0 ?
-                <table className="mt-6 w-full text-left overflow-x-auto min-w-[600px]">
-                    <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
-                        <tr>
-                            <td className="px-5 py-3" scope="col">JOBS</td>
-                            <td className="px-5 py-3" scope="col">STATUS</td>
-                            <td className="px-5 py-3" scope="col">APPLICATIONS</td>
-                            <td className="px-5 py-3" scope="col">ACTIONS</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {vacancyEls}
-                    </tbody>
+                <div className="overflow-x-auto scrollbar-custom lg:min-w-[750px]">
+                    <table className="mt-6 w-full text-left  ">
+                        <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
+                            <tr>
+                                <td className="px-5 py-3" scope="col">JOBS</td>
+                                <td className="px-5 py-3" scope="col">STATUS</td>
+                                <td className="px-5 py-3" scope="col">APPLICATIONS</td>
+                                <td className="px-5 py-3" scope="col">ACTIONS</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {vacancyEls}
+                        </tbody>
+                    </table>
 
-                </table>
+                </div>
                 :
 
                 <div className="h-[25dvh] mt-6 flex items-center justify-center gap-2   text-customGray-600 ">
