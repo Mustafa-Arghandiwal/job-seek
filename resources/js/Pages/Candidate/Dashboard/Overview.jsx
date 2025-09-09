@@ -2,12 +2,34 @@ import { Link, usePage } from "@inertiajs/react"
 import Job from "../../../Components/Job"
 import CandidateDashboardLayout from "../../../Layouts/CandidateDashboardLayout"
 import Layout from "../../../Layouts/Layout"
+import { formatSalary } from "../../../utils/formatSalary"
+import CandidateAppliedJob from "../../../Components/CandidateAppliedJob"
 
 
 
-function Overview({ appliedJobsCount, savedJobsCount }) {
+function Overview({ appliedJobsCount, savedJobsCount, applications }) {
 
     const candidateName = usePage().props.auth.user.full_name
+
+
+    const applicationEls = applications.map(app => {
+        const logo = app.vacancy.employer.detail?.logo_path ? "/storage/" + app.vacancy.employer.detail.logo_path : "/chess_patter.png"
+        const salary = formatSalary(app.vacancy.salary_type, app.vacancy.fixed_salary, app.vacancy.min_salary, app.vacancy.max_salary)
+        const appliedAt = new Date(app.applied_at).toLocaleString("en-US", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
+        return <CandidateAppliedJob key={app.id} vacancyId={app.vacancy_id} logo={logo} title={app.vacancy.job_title}
+            type={app.vacancy.job_type} city={app.vacancy.city} salary={salary} appliedAt={appliedAt} />
+
+    })
+
+
+
     return (
         <>
             <h2 className="font-medium text-lg text-customGray-900 ">Hello {candidateName}</h2>
@@ -48,7 +70,7 @@ function Overview({ appliedJobsCount, savedJobsCount }) {
 
             <div className="flex justify-between mt-8">
                 <h3 className="font-medium text-customGray-900">Recently Applied Jobs</h3>
-                {2 !== 0 &&
+                {applications.length !== 0 &&
                     <Link href="/employer/vacancies" className="flex items-center gap-1 cursor-pointer font-medium text-customGray-500 hover:text-primary-500 duration-100">
                         <span>View all</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,6 +80,36 @@ function Overview({ appliedJobsCount, savedJobsCount }) {
                     </Link>
                 }
             </div>
+
+
+
+            {applications.length !== 0 ?
+                <div className="overflow-x-auto scrollbar-custom  ">
+                    <table className="mt-5 w-full text-left  ">
+                        <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
+                            <tr>
+                                <td className="px-5 py-3" scope="col">JOB</td>
+                                <td className="px-5 py-3" scope="col">DATE APPLIED</td>
+                                <td className="px-5 py-3" scope="col">ACTION</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {applicationEls}
+                        </tbody>
+
+                    </table>
+                </div>
+                :
+
+                <div className="h-[25dvh] mt-6 flex items-center justify-center gap-2   text-customGray-600 ">
+                    <p>You haven't applied to any jobs yet.</p>
+                    <Link className="text-primary-500 underline" href="/vacancies">
+                        Find a Job
+                    </Link>
+
+                </div>
+            }
 
 
 

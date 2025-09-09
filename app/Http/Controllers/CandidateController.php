@@ -20,17 +20,29 @@ class CandidateController extends Controller
         //
     }
 
-    public function dashboardOverview(Request $request) {
+    public function dashboardOverview(Request $request)
+    {
 
         $candidateId = $request->user()->candidate->id;
         $appliedJobsCount = Application::where('candidate_id', $candidateId)->count();
         $savedJobsCount = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->count();
 
+        $applications = Application::select(['id', 'vacancy_id', 'applied_at'])
+            ->with([
+                'vacancy:id,employer_id,job_title,job_type,city,salary_type,fixed_salary,min_salary,max_salary',
+                'vacancy.employer:id',
+                'vacancy.employer.detail:employer_id,logo_path'
+            ])
+            ->where('candidate_id', $candidateId)
+            ->orderBy('applied_at', 'desc')
+            ->limit(3)
+            ->get();
+
         return Inertia::render('Candidate/Dashboard/Overview', [
             'appliedJobsCount' => $appliedJobsCount,
             'savedJobsCount' => $savedJobsCount,
+            'applications' => $applications
         ]);
-
     }
 
     /**

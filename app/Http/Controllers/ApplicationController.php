@@ -79,6 +79,7 @@ class ApplicationController extends Controller
                 'vacancy.employer.detail:employer_id,logo_path'
             ])
             ->where('candidate_id', $candidateId)
+            ->orderBy('applied_at', 'desc')
             ->get();
 
         return Inertia::render('Candidate/Dashboard/AppliedJobs', [
