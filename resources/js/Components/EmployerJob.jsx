@@ -131,14 +131,14 @@ export default function EmployerJob({ vacancy }) {
                                 <span className="text-sm font-medium">Edit Job</span>
                             </button>
 
-                            <button type="button"
+                            <Link href={`/vacancies/${vacancy.id}`} type="button"
                                 className="text-customGray-600 hover:text-primary-500  flex gap-1.5 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 3.54108C3.75 3.54108 1.25 10 1.25 10C1.25 10 3.75 16.4577 10 16.4577C16.25 16.4577 18.75 10 18.75 10C18.75 10 16.25 3.54108 10 3.54108Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M10 13.1251C11.7259 13.1251 13.125 11.726 13.125 10.0001C13.125 8.27417 11.7259 6.87506 10 6.87506C8.27411 6.87506 6.875 8.27417 6.875 10.0001C6.875 11.726 8.27411 13.1251 10 13.1251Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                                <span className="text-sm font-medium">Go to Job</span>
-                            </button>
+                                <span className="text-sm font-medium">View Job</span>
+                            </Link>
 
                             <button type="button" disabled={remainingDays < 0 || vacancy.manually_expired} ref={expireJobBtn} onClick={() => setShowConfirmationModal(true)}
                                 className=" text-customGray-600 hover:text-primary-500 disabled:hover:bg-transparent disabled:cursor-default  disabled:text-customGray-200  flex gap-1.5 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">

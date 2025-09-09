@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('experience', ['No experience', 'Less than 1 year', '1–2 years', '2–5 years', '5–7 years', '7–10 years', '10+ years']);
             $table->enum('job_level', ['Entry Level', 'Junior', 'Mid Level', 'Senior', 'Lead', 'Manager', 'Director', 'Executive']);
             $table->enum('job_type', ['Full-Time', 'Part-Time', 'Freelance', 'Internship', 'Temporary']);
+            $table->enum('category', ['Management & Operations', 'Finance & Accounting', 'Technology & Engineering', 'Health & Education', 'Logistics', 'Manufacturing', 'Media & Art', 'Agriculture', 'Other']);
             $table->enum('work_mode', ['Remote', 'On-site', 'Hybrid']);
             $table->string('city', 100)->nullable();
             $table->date('deadline');
