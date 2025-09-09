@@ -17,7 +17,7 @@ function MyJobs({ vacancies }) {
             </h1>
             {vacancies.length !== 0 ?
 
-                <div className=" overflow-x-auto scrollbar-custom  ">
+                <div className="overflow-x-auto scrollbar-custom">
                     <table className="mt-6 w-full text-left overflow-x-auto">
 
                         <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">

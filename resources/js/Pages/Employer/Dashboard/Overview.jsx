@@ -14,7 +14,7 @@ function Overview({ vacancies, openJobsCount, savedCandidatesCount }) {
 
     const employerName = usePage().props.auth.user.full_name
     return (
-        <div className="">
+        <>
             <h2 className="font-medium text-lg text-customGray-900 ">Hello {employerName}</h2>
             <p className="text-sm text-customGray-500 mt-2">Here are some highlights</p>
 
@@ -97,7 +97,7 @@ function Overview({ vacancies, openJobsCount, savedCandidatesCount }) {
                 </div>
             }
 
-        </div>
+        </>
     )
 }
 

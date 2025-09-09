@@ -5,6 +5,7 @@
 use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
@@ -125,3 +126,4 @@ Route::get('/candidate/applied-jobs', [ApplicationController::class, 'indexForCa
 
 
 Route::get('/employer/dashboard/overview', [EmployerController::class, 'dashboardOverview']);
+Route::get('/candidate/dashboard/overview', [CandidateController::class, 'dashboardOverview']);

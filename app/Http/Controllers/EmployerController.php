@@ -73,7 +73,8 @@ class EmployerController extends Controller
 
     public function dashboardOverview(Request $request) {
 
-        $employerId = Employer::where('user_id', $request->user()->id)->value('id');
+        // $employerId = Employer::where('user_id', $request->user()->id)->value('id');
+        $employerId = $request->user()->employer->id;
         //withCount is groupBy, it counts the number of applications for each vacancy as applications_count, vacancy model must have hasMany(Application::class)
         $LatestVacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->limit(4)->get();
         $activeVacanciesCount = Vacancy::where('employer_id', $employerId)
