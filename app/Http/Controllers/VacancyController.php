@@ -21,27 +21,55 @@ class VacancyController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = strtolower($request->query('filter'));
+        $filterDate = $request->query('filterDate', 'Latest');
+        $filterCategory = $request->query('filterCategory', 'All Categories');
+        // dd($filterDate, $filterCategory);
 
-        if ($filter == 'expiring today') {
-            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
-                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
-                ->where('manually_expired', false)
-                ->where('deadline', Carbon::today())
-                ->get();
-            return inertia::render('Candidate/FindJob', [
-                'vacancies' => $ExpiringTodayJobs
-            ]);
-        } else {
-            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
-                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
-                ->where('manually_expired', false)
-                ->where('deadline', '>=', Carbon::today())
-                ->orderBy('created_at', 'desc')
-                ->get();
-            return inertia::render('Candidate/FindJob', [
-                'vacancies' => $latestJobs
-            ]);
+        if ( $filterDate === 'Expiring Today') {
+            if ($filterCategory === 'All Categories') {
+                $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', Carbon::today())
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $ExpiringTodayJobs
+                ]);
+            } else {
+
+                $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', Carbon::today())
+                    ->where('category', $filterCategory)
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $ExpiringTodayJobs
+                ]);
+            }
+        } else if($filterDate === 'Latest') {
+            if ($filterCategory === 'All Categories') {
+                $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', '>=', Carbon::today())
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $latestJobs
+                ]);
+            } else {
+                $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', '>=', Carbon::today())
+                    ->where('category', $filterCategory)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $latestJobs
+                ]);
+            }
         }
     }
 

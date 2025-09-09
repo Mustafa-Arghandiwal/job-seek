@@ -4,19 +4,28 @@ import OpenPosition from "../../Components/OpenPosition"
 import { useState } from "react"
 import { router } from "@inertiajs/react"
 import { formatSalary } from "../../utils/formatSalary"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 
 
 
 function FindJob(props) {
 
 
-    const [filter, setFilter] = useState("Latest")
+    const [filterDate, setFilterDate] = useState("Latest")
+    const [filterCategory, setFilterCategory] = useState("All Categories")
 
-    const handleSelectChange = (option) => {
-        if(option === filter) return //this is to prevent reduntant filter requests
+    const handleDateChange = (option) => {
+        if (option === filterDate) return //this is to prevent reduntant filter requests
 
-        setFilter(option)
-        router.get('/vacancies', { filter: option }, { preserveState: true, preserveScroll: true })
+        setFilterDate(option)
+        router.get('/vacancies', { filterDate: option, filterCategory: filterCategory }, { preserveState: true, preserveScroll: true })
+    }
+
+    const handleCategoryChange = (option) => {
+        if (option === filterCategory) return //this is to prevent reduntant filter requests
+
+        setFilterCategory(option)
+        router.get('/vacancies', { filterDate: filterDate, filterCategory: option }, { preserveState: true, preserveScroll: true })
     }
 
     const vacancies = props.vacancies.map(vacancy => {
@@ -33,18 +42,19 @@ function FindJob(props) {
     return (
         <div className="px-4 xl:px-[120px] pb-16 md:pb-36">
 
-            <div className=" h-20 mt-5">
-                <div className="text-sm text-customGray-900 max-w-44">
-                    <Select options={["Latest", "Expiring Today"]} placeholder={filter} onValueChange={handleSelectChange} />
+            <div className="  mt-5  flex flex-wrap gap-5">
+                <div className="text-sm text-customGray-900 min-w-56">
+                    <Select options={["Latest", "Expiring Today"]} placeholder={filterDate} onValueChange={handleDateChange} />
+                </div>
+                <div className="text-sm text-customGray-900 min-w-56">
+                    <Select options={['All Categories', 'Management & Operations', 'Finance & Accounting', 'Technology & Engineering', 'Health & Education', 'Logistics', 'Manufacturing', 'Media & Art', 'Agriculture', 'Other']}
+                        placeholder={filterCategory} onValueChange={handleCategoryChange} />
                 </div>
 
             </div>
 
             {vacancies.length !== 0 ?
-                    // grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-6  w-fit mx-auto
-                <div className="min-h-[30dvh]
-                    flex gap-6 flex-wrap justify-center
-                    ">
+                <div className="min-h-[30dvh] mt-6 flex gap-6 flex-wrap justify-center">
                     {vacancies}
                 </div>
                 :
@@ -63,6 +73,13 @@ function FindJob(props) {
 }
 
 
-FindJob.layout = page => <Layout children={page} />
+FindJob.layout = page => {
+
+    const userType = page.props?.auth?.user?.user_type
+    if (userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+}
 
 export default FindJob
