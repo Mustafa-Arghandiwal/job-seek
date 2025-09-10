@@ -1,5 +1,6 @@
 import { Link, router, useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 import { formatSalary } from "../../utils/formatSalary"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "../Candidate/socialMediaSvgs"
 import { createPortal } from "react-dom"
@@ -543,5 +544,15 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
 
-SingleJobView.layout = page => <Layout children={page} />
+SingleJobView.layout = page => {
+    const userType = page.props?.auth?.user?.user_type
+    if(userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+
+}
 export default SingleJobView
+
+
+

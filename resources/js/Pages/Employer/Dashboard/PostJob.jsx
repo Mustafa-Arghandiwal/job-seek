@@ -24,6 +24,7 @@ function PostJob() {
         experience: '',
         jobLevel: '',
         jobType: '',
+        jobCategory: '',
         workMode: '',
         city: '',
         deadline: '',
@@ -201,6 +202,16 @@ function PostJob() {
                         <Select options={["Full-Time", "Part-Time", "Freelance", "Internship", "Temporary"]} placeholder={data.jobType} onValueChange={(option) => handleSelectChange('jobType', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {errors.jobType || ''}
+                        </div>
+                    </div>
+
+
+                    <div className="w-full max-w-64  min-w-32  ">
+                        <label className="text-sm text-customGray-900">Job Category</label>
+                        <Select options={['Management & Operations', 'Finance & Accounting', 'Technology & Engineering', 'Health & Education', 'Logistics', 'Manufacturing', 'Media & Art', 'Agriculture', 'Other']}
+                            placeholder={data.jobCategory} onValueChange={(option) => handleSelectChange('jobCategory', option)} />
+                        <div className="text-sm w-full text-danger-600 min-h-5" >
+                            {errors.jobCategory || ''}
                         </div>
                     </div>
 

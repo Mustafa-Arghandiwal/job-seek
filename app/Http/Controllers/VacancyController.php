@@ -21,27 +21,55 @@ class VacancyController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = strtolower($request->query('filter'));
+        $filterDate = $request->query('filterDate', 'Latest');
+        $filterCategory = $request->query('filterCategory', 'All Categories');
+        // dd($filterDate, $filterCategory);
 
-        if ($filter == 'expiring today') {
-            $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
-                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
-                ->where('manually_expired', false)
-                ->where('deadline', Carbon::today())
-                ->get();
-            return inertia::render('Candidate/FindJob', [
-                'vacancies' => $ExpiringTodayJobs
-            ]);
-        } else {
-            $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
-                ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
-                ->where('manually_expired', false)
-                ->where('deadline', '>=', Carbon::today())
-                ->orderBy('created_at', 'desc')
-                ->get();
-            return inertia::render('Candidate/FindJob', [
-                'vacancies' => $latestJobs
-            ]);
+        if ( $filterDate === 'Expiring Today') {
+            if ($filterCategory === 'All Categories') {
+                $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', Carbon::today())
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $ExpiringTodayJobs
+                ]);
+            } else {
+
+                $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', Carbon::today())
+                    ->where('category', $filterCategory)
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $ExpiringTodayJobs
+                ]);
+            }
+        } else if($filterDate === 'Latest') {
+            if ($filterCategory === 'All Categories') {
+                $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', '>=', Carbon::today())
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $latestJobs
+                ]);
+            } else {
+                $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+                    ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
+                    ->where('manually_expired', false)
+                    ->where('deadline', '>=', Carbon::today())
+                    ->where('category', $filterCategory)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                return inertia::render('Candidate/FindJob', [
+                    'vacancies' => $latestJobs
+                ]);
+            }
         }
     }
 
@@ -88,6 +116,7 @@ class VacancyController extends Controller
             'experience' => ['required', 'in:No experience,Less than 1 year,1–2 years,2–5 years,5–7 years,7–10 years,10+ years'],
             'jobLevel' => ['required', 'in:Entry Level,Junior,Mid Level,Senior,Lead,Manager,Director,Executive'],
             'jobType' => ['required', 'in:Full-Time,Part-Time,Freelance,Internship,Temporary'],
+            'jobCategory' => ['required', 'in:Management & Operations,Finance & Accounting,Technology & Engineering,Health & Education,Logistics,Manufacturing,Media & Art,Agriculture,Other'],
             'workMode' => ['required', 'in:Remote,On-site,Hybrid'],
             'city' => [
                 Rule::requiredIf(fn() => in_array($request->workMode, ['On-site', 'Hybrid'])),
@@ -119,6 +148,7 @@ class VacancyController extends Controller
         $vacancy->experience = $validated['experience'];
         $vacancy->job_level = $validated['jobLevel'];
         $vacancy->job_type = $validated['jobType'];
+        $vacancy->category = $validated['jobCategory'];
         $vacancy->work_mode = $validated['workMode'];
         if ($validated['workMode'] == 'Remote') {
             $vacancy->city = null;
@@ -235,6 +265,7 @@ class VacancyController extends Controller
             'experience' => ['required', 'in:No experience,Less than 1 year,1–2 years,2–5 years,5–7 years,7–10 years,10+ years'],
             'jobLevel' => ['required', 'in:Entry Level,Junior,Mid Level,Senior,Lead,Manager,Director,Executive'],
             'jobType' => ['required', 'in:Full-Time,Part-Time,Freelance,Internship,Temporary'],
+            'jobCategory' => ['required', 'in:Management & Operations,Finance & Accounting,Technology & Engineering,Health & Education,Logistics,Manufacturing,Media & Art,Agriculture,Other'],
             'workMode' => ['required', 'in:Remote,On-site,Hybrid'],
             'city' => [
                 Rule::requiredIf(fn() => in_array($request->workMode, ['On-site', 'Hybrid'])),
@@ -264,6 +295,7 @@ class VacancyController extends Controller
         $vacancy->experience = $validated['experience'];
         $vacancy->job_level = $validated['jobLevel'];
         $vacancy->job_type = $validated['jobType'];
+        $vacancy->category = $validated['jobCategory'];
         $vacancy->work_mode = $validated['workMode'];
         if ($validated['workMode'] == 'Remote') {
             $vacancy->city = null;
@@ -275,9 +307,11 @@ class VacancyController extends Controller
         $vacancy->responsibilities = $validated['responsibilities'];
 
         $employer = $request->user()->employer;
-        if ($employer->user_id == $vacancy->employer_id) {
+        if ($employer->id == $vacancy->employer_id) {
             $vacancy->save();
             return back()->with('editJobSuccess', 'Job updated successfully.');
+        } else {
+            abort(403);
         }
     }
 
