@@ -42,7 +42,7 @@ function FindJob(props) {
     return (
         <div className="px-4 xl:px-[120px] pb-16 md:pb-36">
 
-            <div className="  mt-5  flex flex-wrap gap-5">
+            <div className="  mt-5  flex flex-col sm:flex-row gap-1 sm:gap-5">
                 <div className="text-sm text-customGray-900 min-w-56">
                     <Select options={["Latest", "Expiring Today"]} placeholder={filterDate} onValueChange={handleDateChange} />
                 </div>
