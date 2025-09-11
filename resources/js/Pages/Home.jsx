@@ -4,9 +4,11 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
+import { BriefCaseIcon, BuildingIcon, UsersIcon } from "../utils/svgs.jsx"
 
-function Home() {
+function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDaysCount }) {
 
+    console.log(liveJobsCount)
 
     return (
 
@@ -16,7 +18,7 @@ function Home() {
                 <div className="flex flex-col lg:flex-row gap-20 xl:gap-36  justify-between items-center">
                     <div>
                         <div className="">
-                            <h1 className="font-medium  text-4xl md:text-[56px] text-[#18191c] max-w-[652px]">Find a job that suits your interest and skills.</h1>
+                            <h1 className="font-medium  text-4xl md:text-[56px] text-customGray-900 max-w-[652px]">Find a job that suits your interest and skills.</h1>
                             <p className="text-base/5 md:text-lg/5 text-customGray-600 max-w-[652px] mt-6">Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo.</p>
                         </div>
                         <div className="mt-8 max-w-[680px]">
@@ -37,35 +39,43 @@ function Home() {
 
                 <div className="flex flex-wrap justify-center xl:justify-normal gap-4 mt-15 ">
 
-                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md">
-                        <img src="briefcase_home.png" className="w-[72px] h-[72px]" />
+                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md group">
+                        <div className="bg-primary-50 p-4 rounded-sm group-hover:bg-primary-500 duration-150">
+                            <BriefCaseIcon className="text-primary-500 group-hover:text-white duration-150" />
+                        </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-[18191c] text-xl sm:text-2xl">300+</span>
+                            <span className=" text-customGray-900 text-xl sm:text-2xl">{liveJobsCount}+</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Live Jobs</span>
                         </div>
                     </div>
 
-                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md">
-                        <img src="company_home.png" className="w-[72px] h-[72px]" />
+                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md group">
+                        <div className="bg-primary-50 p-4 rounded-sm group-hover:bg-primary-500 duration-150">
+                            <BuildingIcon className="text-primary-500 group-hover:text-white duration-150" />
+                        </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-[18191c] text-xl sm:text-2xl">22</span>
+                            <span className="text-customGray-900  text-xl sm:text-2xl">{companiesCount}</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Companies</span>
                         </div>
                     </div>
 
-                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md">
-                        <img src="candidates_home.png" className="w-[72px] h-[72px]" />
+                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md group">
+                        <div className="bg-primary-50 p-4 rounded-sm group-hover:bg-primary-500 duration-150">
+                            <UsersIcon className="text-primary-500 group-hover:text-white duration-150" />
+                        </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-[18191c] text-xl sm:text-2xl">12,000</span>
+                            <span className="text-customGray-900 text-xl sm:text-2xl">{candidatesCount}</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Candidates</span>
                         </div>
                     </div>
 
-                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md">
-                        <img src="briefcase_home.png" className="w-[72px] h-[72px]" />
+                    <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md group">
+                        <div className="bg-primary-50 p-4 rounded-sm group-hover:bg-primary-500 duration-150">
+                            <BriefCaseIcon className="text-primary-500 group-hover:text-white duration-150" />
+                        </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-[18191c] text-xl sm:text-2xl">18</span>
-                            <span className="text-customGray-500 text-sm sm:text-base">New Jobs this week</span>
+                            <span className="text-customGray-900 text-xl sm:text-2xl">{jobsLastSevenDaysCount}</span>
+                            <span className="text-customGray-500 text-sm sm:text-base">New Jobs (Last 7 Days)</span>
                         </div>
                     </div>
 
