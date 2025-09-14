@@ -4,7 +4,7 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, LineChartIcon, ProcessorIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, LineChartIcon, ProcessorIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 
 function Home(props) {
 
@@ -96,36 +96,43 @@ function Home(props) {
 
             <section className="bg-customGray-50 gap-6 rounded-xl">
                 <div className=" xl:px-4 py-10 md:py-16 lg:py-24 max-w-[700px] lg:max-w-[1320px]   mx-auto">
-                    <h2 className="text-center text-4xl lg:text-[40px] font-medium text-gray-900">JobSeek is Simple</h2>
+                    <h2 className="text-center text-4xl lg:text-[40px] font-medium text-customGray-900">JobSeek is Simple</h2>
 
                     <div className="grid  grid-cols-2 lg:grid-cols-4 gap-4 mt-[50px] px-4  relative ">
 
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%]" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%]" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%]" />
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%] pointer-events-none" />
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%] pointer-events-none" />
+                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%] pointer-events-none" />
 
-                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl shadow-md">
-                            <img src="extra/create-account.png" className="max-h-[72px]" />
+                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
+                            <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">
+                                <AddAccountIcon className="text-primary-500 group-hover:text-white" />
+                            </div>
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Create an Account</span>
-                            {/* <span className="text-gray-500 text-sm text-center">Create a candidate account</span> */}
                         </div>
 
-                        <div className="flex flex-col max-w-[312px] justify-center items-center  gap-3  p-6 pb-10 rounded-xl shadow-md">
-                            <img src="extra/upload.png" className="max-h-[72px]" />
-                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3  text-center">Upload CV/Resume</span>
-                            {/* <span className="text-gray-500 text-sm text-center">Upload your resume (PDF/Word document) to your profile</span> */}
+
+                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
+                            <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">
+                                <UploadIcon className="text-primary-500 group-hover:text-white" />
+                            </div>
+                            <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Upload CV/Resume</span>
                         </div>
 
-                        <div className="flex flex-col max-w-[312px] justify-center items-center gap-3  shadow-md p-6 pb-10 rounded-xl">
-                            <img src="extra/find.png" className="max-h-[72px]" />
+
+                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
+                            <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">
+                                <FindPlusIcon className="text-primary-500 group-hover:text-white" />
+                            </div>
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Find Your Job</span>
-                            {/* <span className="text-gray-500 text-sm text-center">Find a job that suits you</span> */}
                         </div>
 
-                        <div className="flex flex-col max-w-[312px] justify-center items-center gap-3 shadow-md p-6 pb-10 rounded-xl">
-                            <img src="extra/apply.png" className="max-h-[72px]" />
+
+                        <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
+                            <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">
+                                <CheckmarkIcon className="text-primary-500 group-hover:text-white" />
+                            </div>
                             <span className="text-base lg:text-lg font-medium text-customGray-900 mt-3 text-center">Apply</span>
-                            {/* <span className="text-gray-500 text-sm text-center">Apply in seconds!</span> */}
                         </div>
                     </div>
                 </div>
