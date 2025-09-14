@@ -4,11 +4,10 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { BriefCaseIcon, BuildingIcon, UsersIcon } from "../utils/svgs.jsx"
+import { BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, LineChartIcon, ProcessorIcon, UsersIcon } from "../utils/svgs.jsx"
 
-function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDaysCount }) {
+function Home(props) {
 
-    console.log(liveJobsCount)
 
     return (
 
@@ -44,7 +43,7 @@ function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDay
                             <BriefCaseIcon className="text-primary-500 group-hover:text-white duration-150" />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className=" text-customGray-900 text-xl sm:text-2xl">{liveJobsCount}+</span>
+                            <span className=" text-customGray-900 text-xl sm:text-2xl">{props.liveJobsCount}+</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Live Jobs</span>
                         </div>
                     </div>
@@ -54,7 +53,7 @@ function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDay
                             <BuildingIcon className="text-primary-500 group-hover:text-white duration-150" />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-customGray-900  text-xl sm:text-2xl">{companiesCount}</span>
+                            <span className="text-customGray-900  text-xl sm:text-2xl">{props.companiesCount}</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Companies</span>
                         </div>
                     </div>
@@ -64,7 +63,7 @@ function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDay
                             <UsersIcon className="text-primary-500 group-hover:text-white duration-150" />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-customGray-900 text-xl sm:text-2xl">{candidatesCount}</span>
+                            <span className="text-customGray-900 text-xl sm:text-2xl">{props.candidatesCount}</span>
                             <span className="text-customGray-500 text-sm sm:text-base">Candidates</span>
                         </div>
                     </div>
@@ -74,7 +73,7 @@ function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDay
                             <BriefCaseIcon className="text-primary-500 group-hover:text-white duration-150" />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                            <span className="text-customGray-900 text-xl sm:text-2xl">{jobsLastSevenDaysCount}</span>
+                            <span className="text-customGray-900 text-xl sm:text-2xl">{props.jobsLastSevenDaysCount}</span>
                             <span className="text-customGray-500 text-sm sm:text-base">New Jobs (Last 7 Days)</span>
                         </div>
                     </div>
@@ -87,16 +86,12 @@ function Home({ liveJobsCount, companiesCount, candidatesCount, jobsLastSevenDay
 
             <section className="  xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                 <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
-
                 <div className=" px-4 md:px-8 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-4 scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Category icon="/categories/pen.png" name={"Graphics & Design"} openCount={12} />
-                    <Category icon="/categories/code.png" name={"Programming"} openCount={7} />
-                    <Category icon="/categories/speaker.png" name={"Digital Marketing"} openCount={26} />
-                    <Category icon="/categories/video.png" name={"Video and Animation"} openCount={2} />
-                    <Category icon="/categories/graph.png" name={"Finance & Accounting"} openCount={45} />
-                    <Category icon="/categories/db.png" name={"Data & Informaion"} openCount={8} />
+                    <Category icon={<BarChartIcon className=""/>} name={"Finance & Accounting"} openCount={props.financeJobsCount} />
+                    <Category icon={<CameraIcon className=""/>} name={"Media & Art"} openCount={props.mediaJobsCount} />
+                    <Category icon={<ProcessorIcon className=""/>} name={"Technology & Engineering"} openCount={props.techJobsCount} />
+                    <Category icon={<LineChartIcon className=""/>} name={"Management & Operations"} openCount={props.managementJobsCount} />
                 </div>
-
             </section>
 
             <section className="bg-customGray-50 gap-6 rounded-xl">

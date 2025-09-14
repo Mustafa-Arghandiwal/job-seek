@@ -20,11 +20,21 @@ class HomeController extends Controller
         $candidatesCount = Candidate::count();
         $jobsLastSevenDaysCount = Vacancy::where('created_at', '>=', Carbon::now()->subDays(7)->startOfDay())->count();
 
+        $financeJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Finance & Accounting')->count();
+        $mediaJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Media & Art')->count();
+        $techJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Technology & Engineering')->count();
+        $managementJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Management & Operations')->count();
+
+
         return Inertia::render('Home', [
             'liveJobsCount' => $liveJobsCount,
             'companiesCount' => $companiesCount,
             'candidatesCount' => $candidatesCount,
             'jobsLastSevenDaysCount' => $jobsLastSevenDaysCount,
+            'financeJobsCount' => $financeJobsCount,
+            'mediaJobsCount' => $mediaJobsCount,
+            'techJobsCount' => $techJobsCount,
+            'managementJobsCount' => $managementJobsCount,
         ]);
     }
 }

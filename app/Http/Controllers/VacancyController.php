@@ -23,7 +23,6 @@ class VacancyController extends Controller
     {
         $filterDate = $request->query('filterDate', 'Latest');
         $filterCategory = $request->query('filterCategory', 'All Categories');
-        // dd($filterDate, $filterCategory);
 
         if ( $filterDate === 'Expiring Today') {
             if ($filterCategory === 'All Categories') {
@@ -56,7 +55,8 @@ class VacancyController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
                 return inertia::render('Candidate/FindJob', [
-                    'vacancies' => $latestJobs
+                    'vacancies' => $latestJobs,
+                    'filterCategory' => $filterCategory
                 ]);
             } else {
                 $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
@@ -67,7 +67,8 @@ class VacancyController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
                 return inertia::render('Candidate/FindJob', [
-                    'vacancies' => $latestJobs
+                    'vacancies' => $latestJobs,
+                    'filterCategory' => $filterCategory
                 ]);
             }
         }
