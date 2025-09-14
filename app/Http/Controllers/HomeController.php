@@ -13,7 +13,8 @@ class HomeController extends Controller
 {
 
 
-    public function index() {
+    public function index()
+    {
 
         $liveJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->count();
         $companiesCount = Employer::count();
@@ -25,6 +26,15 @@ class HomeController extends Controller
         $techJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Technology & Engineering')->count();
         $managementJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Management & Operations')->count();
 
+        $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'deadline', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
+            ->with(['employer.detail:employer_id,logo_path'])
+            ->where('manually_expired', false)
+            ->where('deadline', '>=', Carbon::today())
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+
+
 
         return Inertia::render('Home', [
             'liveJobsCount' => $liveJobsCount,
@@ -35,6 +45,7 @@ class HomeController extends Controller
             'mediaJobsCount' => $mediaJobsCount,
             'techJobsCount' => $techJobsCount,
             'managementJobsCount' => $managementJobsCount,
+            'latestJobs' => $latestJobs,
         ]);
     }
 }

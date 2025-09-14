@@ -252,7 +252,8 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             <button
                                 disabled={vacancy.manually_expired || expired}
                                 onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
-                                className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">Apply Now
+                                className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
+                                Apply Now
                                 <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -509,11 +510,12 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                                 <button type="button" onClick={() => setShowModal(false)} className="order-2 sm:order-1 text-primary-500 bg-primary-50 w-full sm:w-44  py-3 px-1 font-semibold rounded-sm cursor-pointer
                                hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
-                                <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">Apply Now
-                                    <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
+                                <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">
+                                    Apply
+                                    {/* <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+                                    {/*     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
+                                    {/*     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
+                                    {/* </svg> */}
                                 </button>
 
                             </div>

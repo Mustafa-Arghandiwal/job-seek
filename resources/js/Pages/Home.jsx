@@ -8,6 +8,11 @@ import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, 
 
 function Home(props) {
 
+    console.log(props.latestJobs)
+    const latestJobEls = props.latestJobs.map(job => (
+        <Job key={job.id} id={job.id} logo={job.employer.detail.logo_path} title={job.job_title} type={job.job_type} location={job.city} deadline={job.deadline}
+        salaryType={job.salary_type} fixedSalary={job.fixed_salary} minSalary={job.min_salary} maxSalary={job.max_salary} />
+    ))
 
     return (
 
@@ -87,10 +92,10 @@ function Home(props) {
             <section className="  xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                 <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
                 <div className=" px-4 md:px-8 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-4 scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Category icon={<BarChartIcon className=""/>} name={"Finance & Accounting"} openCount={props.financeJobsCount} />
-                    <Category icon={<CameraIcon className=""/>} name={"Media & Art"} openCount={props.mediaJobsCount} />
-                    <Category icon={<ProcessorIcon className=""/>} name={"Technology & Engineering"} openCount={props.techJobsCount} />
-                    <Category icon={<LineChartIcon className=""/>} name={"Management & Operations"} openCount={props.managementJobsCount} />
+                    <Category icon={<BarChartIcon className="" />} name={"Finance & Accounting"} openCount={props.financeJobsCount} />
+                    <Category icon={<CameraIcon className="" />} name={"Media & Art"} openCount={props.mediaJobsCount} />
+                    <Category icon={<ProcessorIcon className="" />} name={"Technology & Engineering"} openCount={props.techJobsCount} />
+                    <Category icon={<LineChartIcon className="" />} name={"Management & Operations"} openCount={props.managementJobsCount} />
                 </div>
             </section>
 
@@ -143,17 +148,18 @@ function Home(props) {
             <section className="mb-10 py-4">
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                     <div className="w-full flex justify-between px-4">
-                        <h2 className="font-medium text-xl md:text-[25px] px-4 ">Featured Jobs</h2>
-                        <Link href="#" className="flex flex-wrap gap-3 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View all <img className="w-6" src="arrow.svg" /></Link>
+                        <h2 className="font-medium text-xl md:text-[25px] px-4 ">Latest Jobs</h2>
+                        <Link href="/vacancies" className="flex flex-wrap gap-3 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View all <img className="w-6" src="arrow.svg" /></Link>
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} />
-                        <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer and some other shit"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} />
+                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer and some other shit"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
+                        {latestJobEls}
                     </div>
 
                 </div>
