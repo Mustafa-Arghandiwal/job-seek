@@ -149,3 +149,13 @@ export const CalendarIcon = ({ className = "" }) => (
         <path d="M3.4375 7.5625H18.5625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 )
+
+
+
+//-------------------------other--------------------------
+export const RightArrowIcon = ({ className = "" }) => (
+    <svg className={className} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.1665 10H15.8332" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 4.16602L15.8333 9.99935L10 15.8327" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+)

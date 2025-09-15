@@ -1,6 +1,9 @@
 
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
+import { BriefCaseIcon, RightArrowIcon } from "../utils/svgs";
+import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
+import FooterLink from "../Components/FooterLink";
 
 
 export default function EmployerLayout({ children }) {
@@ -200,97 +203,67 @@ export default function EmployerLayout({ children }) {
 
                     :
                     <footer>
-                        <div className="flex flex-col gap-8 bg-customGray-900">
-                            <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:gap-x-4 lg:px-12 max-w-[1320px] mx-auto">
+                        <div className="flex flex-col gap-8 bg-black/90 ">
+                            <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:px-12 max-w-[1320px] mx-auto">
                                 <div className="flex flex-col gap-4 col-span-2">
-                                    <div className="flex items-center gap-1">
-                                        <img src="/briefcase.svg" />
-                                        <span className="font-semibold text-2xl text-white">JobSeek</span>
-                                    </div>
+                                    <Link href="/" className="flex items-center gap-1 hover:text-primary-500 text-white duration-150">
+                                        <BriefCaseIcon className="" />
+                                        <span className="font-semibold text-2xl">JobSeek</span>
+                                    </Link>
                                     <div className="flex flex-col gap-3">
-                                        <p className="text-customGray-400">
-                                            Call now: <span className="text-white">+93-777-777-777</span>
+                                        <p className="text-customGray-600 text-lg">
+                                            Call now: <span className="text-white text-lg">+93-777-777-777</span>
                                         </p>
-                                        <p className="text-customGray-400">
-                                            6391 Elgin St. Celina, Delaware 10299, New York, United States of America
+                                        <p className="text-customGray-600 text-sm">
+                                            Shar-e-Naw, Kabul, Afghanistan
                                         </p>
                                     </div>
 
                                 </div>
                                 <div className="flex flex-col gap-4">
-                                    <h3 className="text-white font-semibold text-xl">Quick Links</h3>
-                                    <ul className="flex flex-col gap-3">
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">About</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Contact</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Pricing</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Blog</Link>
-                                        </li>
+                                    <h3 className="text-white font-medium text-xl">Quick Links</h3>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                        <FooterLink href="/">Home</FooterLink>
+                                        <FooterLink href="/about">About</FooterLink>
+                                        <FooterLink href="/sign-in">Sign In</FooterLink>
+                                        <FooterLink href="/sign-up">Sign Up</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
-                                    <h3 className="text-white font-semibold text-xl">Candidate</h3>
-                                    <ul className="flex flex-col gap-3">
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Browse Jobs</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Browse Employers</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Candidate Dashboard</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Saved Jobs</Link>
-                                        </li>
+                                    <h3 className="text-white font-medium text-xl">Candidate</h3>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                        <FooterLink href="/vacancies">Browse Jobs</FooterLink>
+                                        <FooterLink href="/employers">Browse Employers</FooterLink>
+                                        <FooterLink href="/candidate/dashboard/overview">Candidate Dashboard</FooterLink>
+                                        <FooterLink href="/candidate/dashboard/settings">Candidate Settings</FooterLink>
                                     </ul>
                                 </div>
-                                <div className="flex flex-col gap-4">
-                                    <h3 className="text-white font-semibold text-xl">Employers</h3>
-                                    <ul className="flex flex-col gap-3">
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Post a Job</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Browse Candidates</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Employers Dashboard</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Applications</Link>
-                                        </li>
+
+                                <div className="flex flex-col gap-4 min-w-48">
+                                    <h3 className="text-white font-medium text-xl">Employers</h3>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                            <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
+                                            <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
+                                            <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-semibold text-xl">Support</h3>
-                                    <ul className="flex flex-col gap-3">
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Faqs</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Privacy Policy</Link>
-                                        </li>
-                                        <li className="text-customGray-400">
-                                            <Link href="" className="">Terms & Conditions</Link>
-                                        </li>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                            <FooterLink href="" className="">Faqs</FooterLink>
+                                            <FooterLink href="" className="">Terms & Conditions</FooterLink>
+                                            <FooterLink href="" className="">Contact</FooterLink>
                                     </ul>
                                 </div>
                             </div>
-                            <div className="border-t border-customGray-600 ">
-                                <div className="flex justify-center items-center lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
-                                    <p className="text-customGray-400">@ 2024 MyJob - Job Portal. All rights reserved.</p>
-                                    <div className=" hidden lg:flex lg:gap-1">
-                                        <img src="/briefcase.svg" className="" />
-                                        <img src="/briefcase.svg" className="" />
-                                        <img src="/briefcase.svg" className="" />
-                                        <img src="/briefcase.svg" className="" />
+                            <div className="border-t border-customGray-900 ">
+                                <div className="flex items-center flex-col lg:flex-row gap-2 lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
+                                    <p className="text-customGray-600 text-sm order-2 lg:order-1">@ 2024 MyJob - Job Portal. All rights reserved.</p>
+                                    <div className=" flex gap-1 order-1 lg:order-2">
+                                        <a href="#" ><LinkedInIcon className="text-transparent hover:text-white duration-150" /></a>
+                                        <a href="#"><FacebookIcon className="text-transparent hover:text-white duration-150" /></a>
+                                        <a href="#"><InstagramIcon className="text-transparent hover:text-white duration-150" /></a>
+                                        <a href="#"><YouTubeIcon className="text-transparent hover:text-white duration-150" /></a>
                                     </div>
                                 </div>
                             </div>
