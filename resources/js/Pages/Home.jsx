@@ -8,10 +8,14 @@ import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, 
 
 function Home(props) {
 
-    console.log(props.latestJobs)
     const latestJobEls = props.latestJobs.map(job => (
-        <Job key={job.id} id={job.id} logo={job.employer.detail.logo_path} title={job.job_title} type={job.job_type} location={job.city} deadline={job.deadline}
-        salaryType={job.salary_type} fixedSalary={job.fixed_salary} minSalary={job.min_salary} maxSalary={job.max_salary} />
+        <Job key={job.id} id={job.id} logo={job.employer?.detail?.logo_path} title={job.job_title} type={job.job_type} location={job.city} deadline={job.deadline}
+            salaryType={job.salary_type} fixedSalary={job.fixed_salary} minSalary={job.min_salary} maxSalary={job.max_salary} />
+    ))
+
+
+    const  activeCompanyEls = props.activeCompanies.map(emp => (
+        <Company key={emp.employer_id} id={emp.employer_id} logo={emp.logo_path} location={emp.city} name={emp.full_name} />
     ))
 
     return (
@@ -149,16 +153,10 @@ function Home(props) {
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                     <div className="w-full flex justify-between px-4">
                         <h2 className="font-medium text-xl md:text-[25px] px-4 ">Latest Jobs</h2>
-                        <Link href="/vacancies" className="flex flex-wrap gap-3 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View all <img className="w-6" src="arrow.svg" /></Link>
+                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
-                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Software Engineer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
-                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
-                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Telecommunication Officer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
-                        {/* <Job employerLogo={"/up-logo.png"} jobTitle={"Senior UX Designer"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"4 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
-                        {/* <Job employerLogo={"/apple-logo.png"} jobTitle={"Junior Telecommunication Officer and some other shit"} jobType={"Full-time"} jobLocation={"Kabul"} jobDeadline={"18 days remaining"} bookmarkIcon={"bookmark.png"} /> */}
                         {latestJobEls}
                     </div>
 
@@ -166,35 +164,25 @@ function Home(props) {
             </section>
 
 
-            <section className="sm:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto ">
-                <h2 className="font-medium text-[25px] px-4 ">Top Companies</h2>
-                {/* px-4 md:px-8    */}
+            <section className="sm:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px] mx-auto   ">
+                <div className="w-full flex justify-between px-4">
+                    <h2 className="font-medium text-xl md:text-[25px] px-4 ">Active Companies</h2>
+                    <Link href="/employers" className="flex items-center  gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                </div>
                 <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
-                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Some RandomNamed Construction Company"} />
-                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
-                    <Company companyLogo={"/up-logo.png"} companyLocation={"Kabul"} companyFeatured={true} companyName={"Upwork"} />
-                    <Company companyLogo={"/apple-logo.png"} companyLocation={"Kabul"} companyFeatured={false} companyName={"Apple"} />
+                    {activeCompanyEls}
                 </div>
 
             </section>
 
 
-            <section className="bg-customGray-50 gap-6 rounded-xl">
-                <div className=" xl:px-4 py-10 md:py-16 lg:py-24 max-w-[700px] lg:max-w-[1320px] border   mx-auto">
-
-                </div>
-
-            </section>
+            <hr className="  text-customGray-200"/>
 
 
             <section className="flex gap-6 flex-wrap sm:flex-nowrap justify-center items-center sm:px-4 py-10 mb-10 md:py-16 lg:py-24 px-4 md:px-8 max-w-[1320px]   mx-auto ">
                 <div className="bg-customGray-100 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl ">
                     <h4 className="text-[32px] font-medium">Become a Candidate</h4>
-                    <p className="text-sm max-w-[312px] text-gray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
+                    <p className="text-sm max-w-[312px] text-customGray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                     <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
                         <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
