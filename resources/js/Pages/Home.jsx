@@ -4,7 +4,7 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, LineChartIcon, ProcessorIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 
 function Home(props) {
 
@@ -35,8 +35,8 @@ function Home(props) {
                         <div className="mt-8 max-w-[680px]">
                             <div className="flex items-center w-full px-3 py-3 -h-12 md:h-20 rounded-sm border border-customGray-100 focus-within:ring focus-within:ring-primary-500">
                                 <input type="text" placeholder="Job title, Keyword..." className="text-customGray-900 text-sm sm:text-base lg:text-lg outline-none px-2  w-full" />
-                                <button className="ml-auto text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-3 py-1 md:py-2 cursor-pointer duration-150 text-nowrap">
-                                    <img src="fi_search_white.png" className="h-6" />
+                                <button className="ml-auto text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-3 py-1 md:py-2 cursor-pointer duration-150 text-nowrap group">
+                                    <SearchIcon className="text-white group-active:scale-90 duration-75"/>
                                 </button>
                             </div>
                         </div>
