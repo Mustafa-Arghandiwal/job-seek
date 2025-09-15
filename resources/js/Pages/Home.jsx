@@ -18,6 +18,9 @@ function Home(props) {
         <Company key={emp.employer_id} id={emp.employer_id} logo={emp.logo_path} location={emp.city} name={emp.full_name} />
     ))
 
+
+    //this is to preselect employer in the dropdown in the sign up page if Become an Employer is clicked
+
     return (
 
         <>
@@ -180,15 +183,15 @@ function Home(props) {
 
 
             <section className="flex gap-6 flex-wrap sm:flex-nowrap justify-center items-center sm:px-4 py-10 mb-10 md:py-16 lg:py-24 px-4 md:px-8 max-w-[1320px]   mx-auto ">
-                <div className="bg-customGray-100 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl ">
+                <div className="bg-customGray-100 max-w-[648px] w-full  p-[50px] rounded-xl shadow-lg">
                     <h4 className="text-[32px] font-medium">Become a Candidate</h4>
                     <p className="text-sm max-w-[312px] text-customGray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
-                    <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
+                    <Link href="/sign-up?user_type=candidate" className="max-w-48 mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
                         <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                    </button>
+                    </Link>
 
                 </div>
 
@@ -196,12 +199,12 @@ function Home(props) {
                 <div className="bg-primary-600 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl duration-150">
                     <h4 className="text-[32px] text-white font-medium">Become an Employer</h4>
                     <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
-                    <button className="mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
+                    <Link href="/sign-up?user_type=employer" className="max-w-48   mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                    </button>
+                    </Link>
 
                 </div>
 

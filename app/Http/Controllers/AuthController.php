@@ -12,6 +12,15 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+
+
+    public function signUpForm(Request $request) {
+
+        $userType = $request->query('user_type', 'candidate'); //default the dropdown to candidate
+
+        return Inertia::render('Auth/SignUp', ['userType' => $userType]);
+    }
+
     public function signUp(Request $req)
     {
 
@@ -24,7 +33,7 @@ class AuthController extends Controller
         ]);
 
         $user = new User();
-        $user->user_type = $fields['user_type'];
+        $user->user_type = strtolower($fields['user_type']);
 
         if ($user->user_type === 'candidate') {
             $user->full_name = ucwords(trim($fields['full_name']));

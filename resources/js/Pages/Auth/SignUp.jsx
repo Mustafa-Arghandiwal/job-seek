@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link } from "@inertiajs/react"
 
-export default function SignUp() {
+export default function SignUp({userType}) {
+    console.log(userType)
     const { data, setData, post, errors, processing } = useForm({
         full_name: '',
         email: '',
         password: '',
         password_confirmation: '',
         agree_terms: false,
-        user_type: 'candidate'
+        user_type: userType
     })
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropDownBtn = useRef(null)
@@ -56,7 +57,7 @@ export default function SignUp() {
                         <div className="relative ml-auto">
                             <button ref={dropDownBtn} className="text-[14px] text-customGray-600 h-12 flex justify-between px-7 items-center border border-gray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                                 onClick={() => setDropdownVisible(prev => !prev)}>
-                                {data.user_type}
+                                {(data.user_type).charAt(0).toUpperCase() + (data.user_type).slice(1)}
                                 <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="CaretDown.svg" />
                             </button>
                             <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-customGray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>

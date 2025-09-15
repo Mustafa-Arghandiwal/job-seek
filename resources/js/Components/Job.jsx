@@ -5,7 +5,8 @@ import { CalendarIcon, DollarIcon, LocationIcon } from "../utils/svgs";
 
 export default function Job(props) {
 
-    const userType = usePage().props.auth.user.user_type
+
+    const userType = usePage().props.auth.user?.user_type
     const logo = props?.logo ? `/storage/${props.logo}` : '/chess_pattern.png'
     const salary = formatSalary(props.salaryType, props.fixedSalary, props.minSalary, props.maxSalary)
     const deadline = new Date(props.deadline).toLocaleDateString("en-US", {

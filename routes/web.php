@@ -25,7 +25,8 @@ use Database\Seeders\CandidateSeeder;
 // Route::inertia('/', 'Home')->name('home');
 Route::get('/', [HomeController::class, 'index']);
 
-Route::inertia('/sign-up', 'Auth/SignUp');
+// Route::inertia('/sign-up', 'Auth/SignUp');
+Route::get('/sign-up', [AuthController::class, 'signUpForm']);
 
 Route::post('/sign-up', [AuthController::class, 'signUp']);
 
