@@ -56,9 +56,9 @@ class EmployerController extends Controller
      */
     public function show(string $id)
     {
-        $employerDetails = Employer::with(['detail', 'socialLink', 'contact', 'user'])->where('user_id', $id)->get();
+        $employerDetails = Employer::with(['detail', 'socialLink', 'contact', 'user'])->where('id', $id)->get();
         $vacancies = Vacancy::whereHas('employer', function ($query) use ($id) {
-            $query->where('user_id', $id);
+            $query->where('id', $id);
         })
             ->where('manually_expired', false)
             ->where('deadline', '>=', Carbon::today())

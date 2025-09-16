@@ -72,6 +72,7 @@
 html {
     scroll-behavior: smooth;
 }
+
 body {
     @apply font-inter;
     box-sizing: border-box;
@@ -79,8 +80,36 @@ body {
 
 
 
+/* homepage cover image color animation */
+/* @keyframes color-change { */
+/*     from { */
+/*         color: #6CA3E0; */
+/*     } */
 
+/*     to { */
+/*         color: #063D7A; */
+/*     } */
 
+/* } */
+
+/* .color-animation { */
+/*     animation: color-change .5s linear infinite; */
+
+/* } */
+
+@keyframes hueShift {
+    from {
+        filter: hue-rotate(0deg);
+    }
+
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.hue-animation {
+    animation: hueShift 10s linear infinite;
+}
 
 /* Custom styled scrollbar */
 .scrollbar-custom::-webkit-scrollbar {

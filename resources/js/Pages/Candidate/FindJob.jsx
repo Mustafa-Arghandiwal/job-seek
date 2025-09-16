@@ -12,7 +12,7 @@ function FindJob(props) {
 
 
     const [filterDate, setFilterDate] = useState("Latest")
-    const [filterCategory, setFilterCategory] = useState("All Categories")
+    const [filterCategory, setFilterCategory] = useState(props.filterCategory || "All Categories")
 
     const handleDateChange = (option) => {
         if (option === filterDate) return //this is to prevent reduntant filter requests

@@ -10,6 +10,7 @@ use App\Http\Controllers\CandidateSettingsController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\VacancyController;
@@ -21,9 +22,11 @@ use Database\Seeders\CandidateSeeder;
 //     return view('welcome');
 // });
 
-Route::inertia('/', 'Home')->name('home');
+// Route::inertia('/', 'Home')->name('home');
+Route::get('/', [HomeController::class, 'index']);
 
-Route::inertia('/sign-up', 'Auth/SignUp');
+// Route::inertia('/sign-up', 'Auth/SignUp');
+Route::get('/sign-up', [AuthController::class, 'signUpForm']);
 
 Route::post('/sign-up', [AuthController::class, 'signUp']);
 
