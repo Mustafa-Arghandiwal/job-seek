@@ -244,7 +244,7 @@ export default function EmployerLayout({ children }) {
 
                                 <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                    <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
                                             <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
                                             <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
                                             <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>

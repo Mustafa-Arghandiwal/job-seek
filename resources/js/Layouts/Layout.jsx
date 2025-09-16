@@ -17,7 +17,6 @@ export default function Layout({ children }) {
     const user = props.auth.user
     const { post } = useForm()
     const profilePicPath = props.auth.user?.profile_picture
-    //if no profile pic, use placeholder
     const headerProfilePic = profilePicPath ? `/storage/${profilePicPath}` : null
 
     const dashboardUrls = [

@@ -4,7 +4,7 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 
 function Home(props) {
 
@@ -43,7 +43,8 @@ function Home(props) {
 
                     </div>
 
-                    <img src="/Illustration.png" className="max-w-[492px] w-full" />
+                    {/* <img src="/Illustration.png" className="max-w-[492px] w-full" /> */}
+                    <HomePageCover className="text-primary-500 hue-animation max-w-[492] w-full "/>
                 </div>
 
 
