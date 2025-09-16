@@ -6,6 +6,7 @@ import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
 import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 import Tilt from "react-parallax-tilt"
+import { useState } from "react"
 function Home(props) {
 
     const latestJobEls = props.latestJobs.map(job => (
@@ -19,7 +20,7 @@ function Home(props) {
     ))
 
 
-    //this is to preselect employer in the dropdown in the sign up page if Become an Employer is clicked
+
 
     return (
 
@@ -202,7 +203,7 @@ function Home(props) {
 
                 <Tilt className="w-full" glareEnable={true} glareColor="#ffffff" glareMaxOpacity={0.3}>
                     <div className="bg-primary-600 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl duration-150">
-                        <h4 className="text-[32px] text-white font-medium">Become an Employer</h4>
+                        <h4 className="text-[32px] text-white   font-medium" style={{ transform: "translateZ(40px)" }}>Become an Employer</h4>
                         <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=employer" className="max-w-48   mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

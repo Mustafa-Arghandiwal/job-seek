@@ -2,6 +2,8 @@ import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, UserIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
+import FooterLink from "../Components/FooterLink";
+import SearchItem from "../Components/SearchItem";
 
 
 export default function Layout({ children }) {
@@ -87,6 +89,24 @@ export default function Layout({ children }) {
     }, [])
 
 
+
+    const searchBarRef = useRef(null)
+    const searchModalRef = useRef(null)
+    const searchInputRef = useRef(null)
+    const [isTyping, setIsTyping] = useState(false)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+
+            if ((searchBarRef.current && !searchBarRef.current.contains(e.target)) && (searchModalRef.current && !searchModalRef.current.contains(e.target))) {
+                setIsTyping(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+
+    }, [])
+
     return (
         <div className="h-screen">
             <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
@@ -105,9 +125,6 @@ export default function Layout({ children }) {
 
                     <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer md:hidden w-6 h-6 relative">
                         <MenuIcon className="absolute top-1/2 -translate-y-1/2 active:scale-95" />
-                        {/* <RightArrowIcon className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} /> */}
-                        {/* <img src="/fi_menu.png" className={`absolute top-1/2 -translate-y-1/2  ${dropdownVisible ? 'opacity-0' : 'opacity-100'} transition-opacity duration-150`} alt="open menu icon" /> */}
-                        {/* <img src="/X.png" className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} alt="close menu icon" /> */}
                     </button>
                 </nav>
 
@@ -119,11 +136,19 @@ export default function Layout({ children }) {
                             <BriefCaseIcon className="w-10 hidden sm:flex  text-primary-500" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <form className=" ">
-                            <div className="flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
-                                <SearchIcon className="text-primary-500"/>
-                                <input type="text" placeholder="Search Jobs..."
-                                    className="px-3.5 h-12 w-full outline-0  text-customGray-900" />
+                        <form className="relative">
+                            <div ref={searchBarRef} className=" flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
+                                <SearchIcon className="text-primary-500" />
+                                <input ref={searchInputRef} type="text" placeholder="Search jobs..."
+                                    className="px-3.5 h-12 w-full outline-0  text-customGray-900"
+                                    onFocus={() => setIsTyping(searchInputRef.current.value.length > 0)}
+                                    onChange={() => setIsTyping(searchInputRef.current.value.length > 0)}
+                                // onBlur={() => setIsTyping(false)}
+                                />
+                            </div>
+                            <div ref={searchModalRef} className={`w-full max-h-56 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
+                                <SearchItem />
+                                <SearchItem />
                             </div>
                         </form>
 
@@ -211,7 +236,7 @@ export default function Layout({ children }) {
                     //main footer
                     <footer>
                         <div className="flex flex-col gap-8 bg-black/90 ">
-                            <div className="grid grid-cols-2 grid-rows-auto  gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:gap-x-6 lg:px-12 max-w-[1320px] mx-auto">
+                            <div className="grid grid-cols-2 grid-rows-auto gap-y-8 gap-x-2 py-8 px-4 lg:grid-rows-1 lg:grid-cols-6 lg:px-12 max-w-[1320px] mx-auto">
                                 <div className="flex flex-col gap-4 col-span-2">
                                     <Link href="/" className="flex items-center gap-1 hover:text-primary-500 text-white duration-150">
                                         <BriefCaseIcon className="" />
@@ -229,65 +254,37 @@ export default function Layout({ children }) {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Quick Links</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600">
-                                        <li>
-                                            <Link href="/">Home</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/about">About</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/sign-in">Sign In</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/sign-up">Sign Up</Link>
-                                        </li>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                        <FooterLink href="/">Home</FooterLink>
+                                        <FooterLink href="/about">About</FooterLink>
+                                        <FooterLink href="/sign-in">Sign In</FooterLink>
+                                        <FooterLink href="/sign-up">Sign Up</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Candidate</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600">
-                                        <li>
-                                            <Link href="/vacancies">Browse Jobs</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/employers">Browse Employers</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/candidate/dashboard/overview">Candidate Dashboard</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/candidate/dashboard/settings">Candidate Settings</Link>
-                                        </li>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                        <FooterLink href="/vacancies">Browse Jobs</FooterLink>
+                                        <FooterLink href="/employers">Browse Employers</FooterLink>
+                                        <FooterLink href="/candidate/dashboard/overview">Candidate Dashboard</FooterLink>
+                                        <FooterLink href="/candidate/dashboard/settings">Candidate Settings</FooterLink>
                                     </ul>
                                 </div>
 
-                                <div className="flex flex-col gap-4">
+                                <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600">
-                                        <li>
-                                            <Link href="/employer/dashboard/post-job">Post a Job</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/employer/dashboard/overview">Employer Dashboard</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/employer/dashboard/settings">Employer Settings</Link>
-                                        </li>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
+                                        <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
+                                        <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
+                                        <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-semibold text-xl">Support</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600">
-                                        <li>
-                                            <Link href="" className="">Faqs</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="" className="">Terms & Conditions</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="" className="">Contact</Link>
-                                        </li>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                        <FooterLink href="" className="">Faqs</FooterLink>
+                                        <FooterLink href="" className="">Terms & Conditions</FooterLink>
+                                        <FooterLink href="" className="">Contact</FooterLink>
                                     </ul>
                                 </div>
                             </div>
