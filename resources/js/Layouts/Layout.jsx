@@ -92,7 +92,6 @@ export default function Layout({ children }) {
 
     const searchBarRef = useRef(null)
     const searchModalRef = useRef(null)
-    // const searchInputRef = useRef(null)
     const [isTyping, setIsTyping] = useState(false)
 
     useEffect(() => {
@@ -107,9 +106,6 @@ export default function Layout({ children }) {
 
     }, [])
 
-    // const handleChange = (term) => {
-    //     router.post('/search', {term: term})
-    // }
 
     const [searchResults, setSearchResults] = useState([])
 
@@ -160,7 +156,7 @@ export default function Layout({ children }) {
                             <BriefCaseIcon className="w-10 hidden sm:flex  text-primary-500" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <form className="relative" onSubmit={(e) => e.preventDefault()}>
+                        <div className="relative">
                             <div ref={searchBarRef} className=" flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
                                 <SearchIcon className="text-primary-500" />
                                 <input type="text" placeholder="Search jobs..."
@@ -172,7 +168,7 @@ export default function Layout({ children }) {
                             <div ref={searchModalRef} className={`w-full max-h-64 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
                                 {searchItems}
                             </div>
-                        </form>
+                        </div>
 
                     </div>
 

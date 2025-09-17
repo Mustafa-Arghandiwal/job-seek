@@ -13,7 +13,7 @@ class SearchController extends Controller
     public function search(Request $request) {
 
         $validated = $request->validate([
-            'term' => ['nullable', 'string', 'min:2', 'max:100']
+            'term' => ['nullable', 'string', 'max:100']
         ]);
         // $term = $request->query('term');
         $term = $validated['term'] ?? null;
