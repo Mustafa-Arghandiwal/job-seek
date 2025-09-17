@@ -13,6 +13,7 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Middleware\EnsureCandidate;
 use App\Models\EmployerSocialLink;
@@ -130,3 +131,6 @@ Route::get('/candidate/applied-jobs', [ApplicationController::class, 'indexForCa
 
 Route::get('/employer/dashboard/overview', [EmployerController::class, 'dashboardOverview']);
 Route::get('/candidate/dashboard/overview', [CandidateController::class, 'dashboardOverview']);
+
+
+Route::get('/search', [SearchController::class, 'search']);

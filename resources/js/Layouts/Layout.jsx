@@ -92,7 +92,7 @@ export default function Layout({ children }) {
 
     const searchBarRef = useRef(null)
     const searchModalRef = useRef(null)
-    const searchInputRef = useRef(null)
+    // const searchInputRef = useRef(null)
     const [isTyping, setIsTyping] = useState(false)
 
     useEffect(() => {
@@ -106,6 +106,30 @@ export default function Layout({ children }) {
         return () => document.removeEventListener('click', handleClickOutside)
 
     }, [])
+
+    // const handleChange = (term) => {
+    //     router.post('/search', {term: term})
+    // }
+
+    const [searchResults, setSearchResults] = useState([])
+
+    const handleSearch = (term) => {
+        const trimmedTerm = term?.trim() || ''
+        if (trimmedTerm !== '') {
+
+            fetch(`/search?term=${trimmedTerm}`)
+                .then(res => res.json())
+                .then(data => setSearchResults(data.results))
+                .catch(err => console.log(err))
+        }
+    }
+
+    const searchItems = searchResults.map(res => (
+        <SearchItem key={res.id} id={res.id} logo={res.employer.detail?.logo_path} title={res.job_title} location={res.city} setIsTyping={setIsTyping} />
+
+    ))
+
+
 
     return (
         <div className="h-screen">
@@ -136,19 +160,17 @@ export default function Layout({ children }) {
                             <BriefCaseIcon className="w-10 hidden sm:flex  text-primary-500" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <form className="relative">
+                        <form className="relative" onSubmit={(e) => e.preventDefault()}>
                             <div ref={searchBarRef} className=" flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
                                 <SearchIcon className="text-primary-500" />
-                                <input ref={searchInputRef} type="text" placeholder="Search jobs..."
+                                <input type="text" placeholder="Search jobs..."
                                     className="px-3.5 h-12 w-full outline-0  text-customGray-900"
-                                    onFocus={() => setIsTyping(searchInputRef.current.value.length > 0)}
-                                    onChange={() => setIsTyping(searchInputRef.current.value.length > 0)}
-                                // onBlur={() => setIsTyping(false)}
+                                    onFocus={(e) => setIsTyping(e.target.value.length > 0)}
+                                    onChange={(e) => { handleSearch(e.target.value); setIsTyping(e.target.value.length > 0); }}
                                 />
                             </div>
-                            <div ref={searchModalRef} className={`w-full max-h-56 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
-                                <SearchItem />
-                                <SearchItem />
+                            <div ref={searchModalRef} className={`w-full max-h-64 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
+                                {searchItems}
                             </div>
                         </form>
 
