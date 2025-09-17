@@ -19,29 +19,18 @@ function Home(props) {
     ))
 
 
-    //this is to preselect employer in the dropdown in the sign up page if Become an Employer is clicked
 
     return (
 
         <>
             <section className=" bg-customGray-50 flex flex-col items-center  px-4 md:px-14 lg:px-20 py-12 md:py-28">
 
-                <div className="flex flex-col lg:flex-row gap-10 justify-between items-center">
-                    <div className="">
+                <div className="flex flex-col lg:flex-row  sm:gap-10 justify-between items-center">
                         <div className=" max-w-[652px]">
                             <h1 className="font-medium  text-4xl md:text-[56px] text-customGray-900  ">Find a job that suits your interest and skills.</h1>
                             <p className="text-base/5 md:text-lg/5 text-customGray-600  mt-6">Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo.</p>
                         </div>
-                        <div className="mt-8 max-w-[680px] w-full ">
-                            <div className="flex items-center w-full px-3 py-3 -h-12 md:h-20 rounded-sm border border-customGray-100 focus-within:ring focus-within:ring-primary-500">
-                                <input type="text" placeholder="Job title, Keyword..." className="text-customGray-900 text-sm sm:text-base lg:text-lg outline-none px-2  w-full" />
-                                <button className="ml-auto text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-3 py-1 md:py-2 cursor-pointer duration-150 text-nowrap group">
-                                    <SearchIcon className="text-white group-active:scale-90 duration-75" />
-                                </button>
-                            </div>
-                        </div>
 
-                    </div>
 
                     {/* <img src="/Illustration.png" className="max-w-[492px] w-full" /> */}
                     <HomePageCover className="text-primary-500 hue-animation max-w-[492px] w-full " />
@@ -49,7 +38,7 @@ function Home(props) {
 
 
 
-                <div className="flex flex-wrap justify-center xl:justify-normal gap-4 mt-15 ">
+                <div className="flex flex-wrap justify-center xl:justify-normal gap-4 mt-4 sm:mt-15 ">
 
                     <div className="p-5 flex gap-5 bg-white rounded-lg w-[290px] lg:w-[312px] drop-shadow-md group">
                         <div className="bg-primary-50 p-4 rounded-sm group-hover:bg-primary-500 duration-150">
@@ -202,7 +191,7 @@ function Home(props) {
 
                 <Tilt className="w-full" glareEnable={true} glareColor="#ffffff" glareMaxOpacity={0.3}>
                     <div className="bg-primary-600 max-w-[648px] w-full  p-[50px] rounded-xl shadow-2xl duration-150">
-                        <h4 className="text-[32px] text-white font-medium">Become an Employer</h4>
+                        <h4 className="text-[32px] text-white   font-medium" style={{ transform: "translateZ(40px)" }}>Become an Employer</h4>
                         <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=employer" className="max-w-48   mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
