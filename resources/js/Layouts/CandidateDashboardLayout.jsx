@@ -28,7 +28,7 @@ export default function CandidateDashboardLayout({ children }) {
                 </svg>
             </button>
 
-            <nav className={`text-nowrap bg-white md:bg-transparent z-50 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
+            <nav className={`text-nowrap bg-white md:bg-transparent z-40 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
 
                 <div className="flex justify-center items-center gap-4 mb-3">
                     <h2 className={` text-customGray-400 font-medium  text-xs `}>CANDIDATE DASHBOARD</h2>

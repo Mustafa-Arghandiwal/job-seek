@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
+import { SpinnerIcon } from "../../../../utils/svgs";
 
 
 
@@ -125,26 +126,14 @@ export default function CompanyInfoTabContent() {
                         }} accept="image/*" />
 
                         <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="logo upload" />
-                        <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
-                        <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
-                        <p className={`text-xs  mt-4 max-w-40  text-wrap ${logoName ? 'text-primary-600' : 'text-gray-500'}`}>
+                        <p className="text-sm text-customGray-700 mt-3">Browse photos or drop here</p>
+                        <p className="text-xs text-customGray-500">Max photo size is 5 MB</p>
+                        <p className={`text-xs  mt-4 max-w-40  text-wrap ${logoName ? 'text-primary-600' : 'text-custumGray-500'}`}>
                             {logoName ? `Selected: ${logoName}` : 'No photo selected yet'}
                         </p>
 
                         {(progress && data.logo !== null) &&
-                            <svg viewBox="0 0 24 24" className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" >
-                                <path
-                                    className="text-primary-200"
-                                    fill="currentColor"
-                                    d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
-                                    opacity=".25"
-                                />
-                                <path
-                                    className="text-primary-500"
-                                    fill="currentColor"
-                                    d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-                                />
-                            </svg>
+                            <SpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75"/>
                         }
 
                     </label>

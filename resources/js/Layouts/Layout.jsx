@@ -1,6 +1,6 @@
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, UserIcon } from "../utils/svgs";
+import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
@@ -108,14 +108,19 @@ export default function Layout({ children }) {
 
 
     const [searchResults, setSearchResults] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSearch = (term) => {
         const trimmedTerm = term?.trim() || ''
-        if (trimmedTerm !== '') {
 
+        setIsLoading(true)
+        if (trimmedTerm !== '') {
             fetch(`/search?term=${trimmedTerm}`)
                 .then(res => res.json())
-                .then(data => setSearchResults(data.results))
+                .then(data => {
+                        setIsLoading(false)
+                        return setSearchResults(data.results)
+                })
                 .catch(err => console.log(err))
         }
     }
@@ -124,6 +129,19 @@ export default function Layout({ children }) {
         <SearchItem key={res.id} id={res.id} logo={res.employer.detail?.logo_path} title={res.job_title} location={res.city} setIsTyping={setIsTyping} />
 
     ))
+
+    let searchModalContent
+    if (isLoading) {
+        searchModalContent = <div className="min-h-32 bg-white text-customGray-400 grid place-items-center">
+            <SpinnerIcon className="animate-spin-fast w-8 h-8 text-primary-400" />
+        </div>
+    } else {
+        if (searchItems.length > 0) {
+            searchModalContent = searchItems
+        } else {
+            searchModalContent = <div className="min-h-32 text-customGray-400 grid place-items-center">No Results</div>
+        }
+    }
 
 
 
@@ -166,7 +184,7 @@ export default function Layout({ children }) {
                                 />
                             </div>
                             <div ref={searchModalRef} className={`w-full max-h-64 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
-                                {searchItems}
+                                {searchModalContent}
                             </div>
                         </div>
 
