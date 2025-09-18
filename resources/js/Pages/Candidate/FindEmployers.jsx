@@ -97,7 +97,7 @@ function FindEmployers() {
                     </div>
                 </div>
 
-                <div className=" h-dvh w-full  px-3 xs:px-10 py-6 flex flex-col gap-6" >
+                <div className=" w-full px-3 xs:px-10 py-6 flex flex-col gap-6 mb-12" >
                     {employerEls.length === 0
                         ?
                             <div className="text-customGray-900 mt-28 mx-auto"><span className="font-medium">No employers found</span> for this organization type. Please try a different filter.</div>

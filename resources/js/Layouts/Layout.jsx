@@ -118,8 +118,8 @@ export default function Layout({ children }) {
             fetch(`/search?term=${trimmedTerm}`)
                 .then(res => res.json())
                 .then(data => {
-                        setIsLoading(false)
-                        return setSearchResults(data.results)
+                    setIsLoading(false)
+                    return setSearchResults(data.results)
                 })
                 .catch(err => console.log(err))
         }
@@ -149,7 +149,7 @@ export default function Layout({ children }) {
         <div className="h-screen">
             <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
-                    <ul className="text-customGray-600 text-sm gap-4 hidden md:flex ">
+                    <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
                         <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/employers" className={`${url.startsWith('/employers') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
@@ -161,21 +161,24 @@ export default function Layout({ children }) {
 
 
 
-                    <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer md:hidden w-6 h-6 relative">
+                    <Link href="/" className="flex sm:hidden items-center gap-1">
+                        <BriefCaseIcon className="w-8 text-primary-500" />
+                        <span className="text-customGray-900 font-semibold text-lg ">JobSeek</span>
+                    </Link>
+                    <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer sm:hidden w-6 h-6 relative ml-auto">
                         <MenuIcon className="absolute top-1/2 -translate-y-1/2 active:scale-95" />
                     </button>
                 </nav>
 
                 <section className="h-[90px] border-b  border-b-customGray-50 flex justify-between gap-2 px-3 xl:px-24 items-center">
 
-                    {/* <img src="/briefcase.svg" className="w-8 sm:w-10" /> */}
-                    <div className="flex gap-4">
-                        <Link href="/" className="flex items-center gap-1">
-                            <BriefCaseIcon className="w-10 hidden sm:flex  text-primary-500" />
+                    <div className=" w-full sm:flex gap-4 ">
+                        <Link href="/" className="hidden sm:flex items-center gap-1">
+                            <BriefCaseIcon className="w-10 text-primary-500" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <div className="relative">
-                            <div ref={searchBarRef} className=" flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
+                        <div className="relative w-full max-w-[800px]">
+                            <div ref={searchBarRef} className=" flex items-center rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
                                 <SearchIcon className="text-primary-500" />
                                 <input type="text" placeholder="Search jobs..."
                                     className="px-3.5 h-12 w-full outline-0  text-customGray-900"
@@ -187,12 +190,11 @@ export default function Layout({ children }) {
                                 {searchModalContent}
                             </div>
                         </div>
-
                     </div>
 
                     {
                         user ?
-                            <div className="hidden md:flex ">
+                            <div className="hidden sm:flex ">
                                 <Link href="/candidate/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500 group">
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
@@ -207,7 +209,7 @@ export default function Layout({ children }) {
                             </div>
 
                             :
-                            <div className="hidden md:flex gap-2">
+                            <div className="hidden sm:flex gap-2">
                                 <Link className="text-primary-500 hover:text-primary-600 border-primary-100 hover:border-primary-600 hover:bg-primary-50 font-semibold border  rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-in">Sign In</Link>
                                 <Link className="text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-up">Create Account</Link>
                             </div>

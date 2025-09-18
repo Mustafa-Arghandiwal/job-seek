@@ -1,9 +1,10 @@
 
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, UserIcon } from "../utils/svgs";
+import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
+import SearchItem from "../Components/SearchItem";
 
 
 export default function EmployerLayout({ children }) {
@@ -87,11 +88,67 @@ export default function EmployerLayout({ children }) {
     }, [])
 
 
+
+    // ----------------search stuff----------------
+    const searchBarRef = useRef(null)
+    const searchModalRef = useRef(null)
+    const [isTyping, setIsTyping] = useState(false)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+
+            if ((searchBarRef.current && !searchBarRef.current.contains(e.target)) && (searchModalRef.current && !searchModalRef.current.contains(e.target))) {
+                setIsTyping(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+
+    }, [])
+
+
+    const [searchResults, setSearchResults] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSearch = (term) => {
+        const trimmedTerm = term?.trim() || ''
+
+        setIsLoading(true)
+        if (trimmedTerm !== '') {
+            fetch(`/search?term=${trimmedTerm}`)
+                .then(res => res.json())
+                .then(data => {
+                    setIsLoading(false)
+                    return setSearchResults(data.results)
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    const searchItems = searchResults.map(res => (
+        <SearchItem key={res.id} id={res.id} logo={res.employer.detail?.logo_path} title={res.job_title} location={res.city} setIsTyping={setIsTyping} />
+
+    ))
+
+    let searchModalContent
+    if (isLoading) {
+        searchModalContent = <div className="min-h-32 bg-white text-customGray-400 grid place-items-center">
+            <SpinnerIcon className="animate-spin-fast w-8 h-8 text-primary-400" />
+        </div>
+    } else {
+        if (searchItems.length > 0) {
+            searchModalContent = searchItems
+        } else {
+            searchModalContent = <div className="min-h-32 text-customGray-400 grid place-items-center">No Results</div>
+        }
+    }
+
+
     return (
         <div className="h-screen">
             <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
-                    <ul className="text-customGray-600 text-sm gap-4 hidden md:flex ">
+                    <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
                         <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Jobs</Link></li>
                         <li><Link href="/employer/dashboard/overview" className={`${(dashboardUrls.includes(url) || url.startsWith('/employer/vacancies')) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
@@ -101,11 +158,12 @@ export default function EmployerLayout({ children }) {
 
 
 
-                    <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer md:hidden w-6 h-6 relative">
+                    <Link href="/" className="flex sm:hidden items-center gap-1">
+                        <BriefCaseIcon className="w-8 text-primary-500" />
+                        <span className="text-customGray-900 font-semibold text-lg ">JobSeek</span>
+                    </Link>
+                    <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer sm:hidden w-6 h-6 relative ml-auto">
                         <MenuIcon className="absolute top-1/2 -translate-y-1/2 active:scale-95" />
-                        {/* <RightArrowIcon className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} /> */}
-                        {/* <img src="/fi_menu.png" className={`absolute top-1/2 -translate-y-1/2  ${dropdownVisible ? 'opacity-0' : 'opacity-100'} transition-opacity duration-150`} alt="open menu icon" /> */}
-                        {/* <img src="/X.png" className={` absolute top-1/2 -translate-y-1/2 ${dropdownVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-150`} alt="close menu icon" /> */}
                     </button>
 
 
@@ -115,19 +173,24 @@ export default function EmployerLayout({ children }) {
 
                 <section className="h-[90px] border-b  border-b-customGray-50 flex justify-between gap-2 px-3 xl:px-24 items-center">
 
-                    <div className="flex gap-4">
-                        <Link href="/" className="flex items-center gap-1">
-                            <BriefCaseIcon className="w-10 hidden sm:flex  text-primary-500" />
+                    <div className=" w-full sm:flex gap-4 ">
+                        <Link href="/" className="hidden sm:flex items-center gap-1">
+                            <BriefCaseIcon className="w-10 text-primary-500" />
                             <span className="text-customGray-900 font-semibold text-lg sm:text-2xl">JobSeek</span>
                         </Link>
-                        <form className=" ">
-                            <div className="flex items-center w-[60svw] md:w-[45svw]  rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
-                                <SearchIcon className="text-primary-500"/>
-                                <input type="text" placeholder="Search Jobs..."
-                                    className="px-3.5 h-12 w-full outline-0  text-customGray-900" />
+                        <div className="relative w-full max-w-[800px]">
+                            <div ref={searchBarRef} className=" flex items-center rounded-sm border border-customGray-100 px-4 pr-0 focus-within:ring focus-within:ring-primary-500">
+                                <SearchIcon className="text-primary-500" />
+                                <input type="text" placeholder="Search jobs..."
+                                    className="px-3.5 h-12 w-full outline-0  text-customGray-900"
+                                    onFocus={(e) => setIsTyping(e.target.value.length > 0)}
+                                    onChange={(e) => { handleSearch(e.target.value); setIsTyping(e.target.value.length > 0); }}
+                                />
                             </div>
-                        </form>
-
+                            <div ref={searchModalRef} className={`w-full max-h-64 bg-white shadow-xl rounded-sm overflow-y-auto overflow-hidden scrollbar-custom absolute mt-2 opacity-0  z-50 duration-200 ${isTyping ? "opacity-100 pointer-events-auto" : "pointer-events-none"}`}>
+                                {searchModalContent}
+                            </div>
+                        </div>
                     </div>
 
                     {
@@ -137,7 +200,7 @@ export default function EmployerLayout({ children }) {
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
                                         :
-                                        <UserIcon className="group-hover:scale-120  duration-100"/>
+                                        <UserIcon className="group-hover:scale-120  duration-100" />
                                     }
                                 </Link>
 
@@ -147,7 +210,7 @@ export default function EmployerLayout({ children }) {
                             </div>
 
                             :
-                            <div className="hidden md:flex gap-2">
+                            <div className="hidden sm:flex gap-2">
                                 <Link className="text-primary-500 hover:text-primary-600 border-primary-100 hover:border-primary-600 hover:bg-primary-50 font-semibold border  rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-in">Sign In</Link>
                                 <Link className="text-white bg-primary-500 hover:bg-primary-600 font-semibold rounded-[3px] px-6 py-3 duration-150 text-nowrap" href="/sign-up">Create Account</Link>
                             </div>
@@ -245,17 +308,17 @@ export default function EmployerLayout({ children }) {
                                 <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
                                     <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
-                                            <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
-                                            <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
-                                            <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
+                                        <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
+                                        <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
+                                        <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-semibold text-xl">Support</h3>
                                     <ul className="flex flex-col gap-3 text-customGray-600 ">
-                                            <FooterLink href="" className="">Faqs</FooterLink>
-                                            <FooterLink href="" className="">Terms & Conditions</FooterLink>
-                                            <FooterLink href="" className="">Contact</FooterLink>
+                                        <FooterLink href="" className="">Faqs</FooterLink>
+                                        <FooterLink href="" className="">Terms & Conditions</FooterLink>
+                                        <FooterLink href="" className="">Contact</FooterLink>
                                     </ul>
                                 </div>
                             </div>
