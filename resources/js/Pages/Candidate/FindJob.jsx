@@ -2,9 +2,10 @@ import Layout from "../../Layouts/Layout"
 import Select from "../../Components/Select"
 import OpenPosition from "../../Components/OpenPosition"
 import { useState } from "react"
-import { router } from "@inertiajs/react"
+import { Link, router, usePage } from "@inertiajs/react"
 import { formatSalary } from "../../utils/formatSalary"
 import EmployerLayout from "../../Layouts/EmployerLayout"
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
 
 
 
@@ -28,13 +29,24 @@ function FindJob(props) {
         router.get('/vacancies', { filterDate: filterDate, filterCategory: option }, { preserveState: true, preserveScroll: true })
     }
 
-    const vacancies = props.vacancies.map(vacancy => {
+    console.log(props.vacancies)
+    const vacancies = props.vacancies.data.map(vacancy => {
         const logo = vacancy.employer.detail?.logo_path ? "/storage/" + vacancy.employer.detail.logo_path : null
         const compName = vacancy.employer.user.full_name
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
         return (
             < OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy.city} companyName={compName} jobType={vacancy.job_type} salary={salary} logo={logo} />
+        )
+    })
+
+    const {url} = usePage()
+    const paginationLinks = props.vacancies.links.map((link, index) => {
+        if (isNaN(link.label)) return
+        return (
+            <PaginationItem key={index}>
+                <PaginationLink href={link.url} isActive={link.url.endsWith(url)}>{link.label}</PaginationLink>
+            </PaginationItem>
         )
     })
 
@@ -67,6 +79,25 @@ function FindJob(props) {
             }
 
 
+
+            <Pagination className=" mt-10">
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious href={props.vacancies.prev_page_url} />
+                    </PaginationItem>
+
+                        {paginationLinks}
+
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+
+                    <PaginationItem>
+                        <PaginationNext href={props.vacancies.next_page_url} />
+                    </PaginationItem>
+
+                </PaginationContent>
+            </Pagination>
 
         </div>
     )

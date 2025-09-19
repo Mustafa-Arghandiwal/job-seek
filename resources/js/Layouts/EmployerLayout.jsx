@@ -115,7 +115,7 @@ export default function EmployerLayout({ children }) {
 
         setIsLoading(true)
         if (trimmedTerm !== '') {
-            fetch(`/search?term=${trimmedTerm}`)
+            fetch(`/search?term=${encodeURIComponent(trimmedTerm)}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsLoading(false)

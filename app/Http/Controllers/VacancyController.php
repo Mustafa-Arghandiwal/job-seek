@@ -53,7 +53,7 @@ class VacancyController extends Controller
                     ->where('manually_expired', false)
                     ->where('deadline', '>=', Carbon::today())
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->paginate(2);
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $latestJobs,
                     'filterCategory' => $filterCategory
