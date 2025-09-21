@@ -40,6 +40,7 @@ function FindJob(props) {
     })
 
     const { url } = usePage()
+    console.log(props.vacancies)
     const activeLink = props.vacancies.links.find(link => link.active)
     const activeLabel = activeLink ? Number(activeLink.label) : 1
     const lastLabel = Number(props.vacancies.last_page)
@@ -61,7 +62,7 @@ function FindJob(props) {
         if (!show) return
         return (
             <PaginationItem key={index}>
-                <PaginationLink href={link.url} isActive={link.url.endsWith(url)}>{link.label}</PaginationLink>
+                <PaginationLink href={link.url} isActive={link.active}>{link.label}</PaginationLink>
             </PaginationItem>
         )
     })
@@ -95,33 +96,35 @@ function FindJob(props) {
             }
 
 
-
-            <Pagination className=" mt-10">
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href={props.vacancies.prev_page_url} />
-                    </PaginationItem>
-
-                    {(props.vacancies.last_page > 5 && props.vacancies.current_page > 3) &&
-                        < PaginationItem >
-                            <PaginationEllipsis />
+            {props.vacancies.total > 11 &&
+                <Pagination className=" mt-10">
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious href={props.vacancies.prev_page_url} />
                         </PaginationItem>
-                    }
 
-                    {paginationLinks}
+                        {(props.vacancies.last_page > 5 && props.vacancies.current_page > 3) &&
+                            < PaginationItem >
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                        }
 
-                    {(props.vacancies.last_page > 5 && (props.vacancies.current_page <= (props.vacancies.last_page - 3))) &&
-                        < PaginationItem >
-                            <PaginationEllipsis />
+                        {paginationLinks}
+
+                        {(props.vacancies.last_page > 5 && (props.vacancies.current_page <= (props.vacancies.last_page - 3))) &&
+                            < PaginationItem >
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                        }
+
+                        <PaginationItem>
+                            <PaginationNext href={props.vacancies.next_page_url} />
                         </PaginationItem>
-                    }
 
-                    <PaginationItem>
-                        <PaginationNext href={props.vacancies.next_page_url} />
-                    </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+            }
 
-                </PaginationContent>
-            </Pagination>
 
         </div >
     )
