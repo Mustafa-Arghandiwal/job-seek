@@ -47,7 +47,6 @@ function PaginationLink({
     size = "icon",
     ...props
 }) {
-    console.log(isActive)
     return (
         <Link
             href={href}
@@ -55,9 +54,9 @@ function PaginationLink({
             data-slot="pagination-link"
             data-active={isActive}
             className={cn(
-                "inline-flex items-center justify-center rounded-md px-3 py-1 text-sm font-medium duration-300 transition-all text-customGray-900",
+                "inline-flex items-center justify-center px-4 py-1 rounded-full text-sm font-medium duration-300 transition-all text-customGray-900",
                 isActive
-                    ? "ring ring-primary-600 bg-primary-400 text-white"
+                    ? " bg-primary-400 text-white"
                     : "hover:bg-customGray-50",
                 className
             )}

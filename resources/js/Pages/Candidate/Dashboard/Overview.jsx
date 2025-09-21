@@ -104,7 +104,7 @@ function Overview({ appliedJobsCount, savedJobsCount, applications }) {
 
                 <div className="h-[25dvh] mt-6 flex items-center justify-center gap-2   text-customGray-600 ">
                     <p>You haven't applied to any jobs yet.</p>
-                    <Link className="text-primary-500 underline" href="/vacancies">
+                    <Link className="text-primary-500 underline" href="/vacancies?page=1">
                         Find a Job
                     </Link>
 
