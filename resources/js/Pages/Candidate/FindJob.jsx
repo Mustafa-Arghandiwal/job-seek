@@ -9,11 +9,11 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 
 
 
-function FindJob(props) {
+function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
 
 
     const [filterDate, setFilterDate] = useState("Latest")
-    const [filterCategory, setFilterCategory] = useState(props.filterCategory || "All Categories")
+    const [filterCategory, setFilterCategory] = useState(filterCategoryFromBackend || "All Categories")
 
     const handleDateChange = (option) => {
         if (option === filterDate) return //this is to prevent reduntant filter requests
@@ -29,7 +29,7 @@ function FindJob(props) {
         router.get('/vacancies', { filterDate: filterDate, filterCategory: option }, { preserveState: true, preserveScroll: true })
     }
 
-    const vacancies = props.vacancies.data.map(vacancy => {
+    const vacancyEls = vacancies.data.map(vacancy => {
         const logo = vacancy.employer.detail?.logo_path ? "/storage/" + vacancy.employer.detail.logo_path : null
         const compName = vacancy.employer.user.full_name
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
@@ -39,12 +39,10 @@ function FindJob(props) {
         )
     })
 
-    const { url } = usePage()
-    console.log(props.vacancies)
-    const activeLink = props.vacancies.links.find(link => link.active)
+    const activeLink = vacancies.links.find(link => link.active)
     const activeLabel = activeLink ? Number(activeLink.label) : 1
-    const lastLabel = Number(props.vacancies.last_page)
-    const paginationLinks = props.vacancies.links.map((link, index) => {
+    const lastLabel = Number(vacancies.last_page)
+    const paginationLinks = vacancies.links.map((link, index) => {
         if (isNaN(link.label)) return
         const currLabel = Number(link.label)
         let show = false
@@ -82,9 +80,9 @@ function FindJob(props) {
 
             </div>
 
-            {vacancies.length !== 0 ?
+            {vacancyEls.length !== 0 ?
                 <div className="min-h-[30dvh] mt-6 flex gap-6 flex-wrap justify-center">
-                    {vacancies}
+                    {vacancyEls}
                 </div>
                 :
 
@@ -96,14 +94,14 @@ function FindJob(props) {
             }
 
 
-            {props.vacancies.total > 11 &&
+            {vacancies.total > 11 &&
                 <Pagination className=" mt-10">
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious href={props.vacancies.prev_page_url} />
+                            <PaginationPrevious href={vacancies.prev_page_url} />
                         </PaginationItem>
 
-                        {(props.vacancies.last_page > 5 && props.vacancies.current_page > 3) &&
+                        {(vacancies.last_page > 5 && vacancies.current_page > 3) &&
                             < PaginationItem >
                                 <PaginationEllipsis />
                             </PaginationItem>
@@ -111,14 +109,14 @@ function FindJob(props) {
 
                         {paginationLinks}
 
-                        {(props.vacancies.last_page > 5 && (props.vacancies.current_page <= (props.vacancies.last_page - 3))) &&
+                        {(vacancies.last_page > 5 && (vacancies.current_page <= (vacancies.last_page - 3))) &&
                             < PaginationItem >
                                 <PaginationEllipsis />
                             </PaginationItem>
                         }
 
                         <PaginationItem>
-                            <PaginationNext href={props.vacancies.next_page_url} />
+                            <PaginationNext href={vacancies.next_page_url} />
                         </PaginationItem>
 
                     </PaginationContent>
