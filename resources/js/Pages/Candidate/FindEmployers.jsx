@@ -2,19 +2,22 @@ import { router, useForm, usePage } from "@inertiajs/react"
 import Layout from "../../Layouts/Layout"
 import Employer from "../../Components/Employer"
 import { useEffect, useRef, useState } from "react"
+import { FilterIcon } from "../../utils/svgs"
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
+import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 
-function FindEmployers() {
+function FindEmployers({ employers, type }) {
+    // console.log(employers)
 
     const [showFilter, setShowFilter] = useState(false)
     const filterBtn = useRef(null)
     const filterDropDown = useRef(null)
-    const pageProps = usePage().props.employers
 
 
 
-    const [employerType, setEmployerType] = useState('all')
+    const [employerType, setEmployerType] = useState(type)
     const handleFilterChange = (e) => {
         const selectedVal = e.target.value
         if (selectedVal !== employerType) { //this prevents redundant request on same filter click
@@ -29,7 +32,7 @@ function FindEmployers() {
 
 
 
-    const employerEls = pageProps.map(emp => (
+    const employerEls = employers.data.map(emp => (
         <Employer key={emp.user_id} id={emp.id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
     ))
 
@@ -61,21 +64,14 @@ function FindEmployers() {
 
     }, [filterBtn, filterDropDown])
 
+
+
+
     return (
         <div className="xl:px-[150px] 2xl:px-[230px] ">
             <div className=" mt-8 px-3 xs:px-10  lg:hidden relative ">
                 <button ref={filterBtn} onClick={() => setShowFilter(prev => !prev)} className="flex text-nowrap gap-3 px-4 py-2 text-white rounded-[3px] bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 11.25L12 20.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12 3.75L12 8.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M18.75 18.75L18.7501 20.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M18.7501 3.75L18.75 15.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M21 15.75H16.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M5.25007 15.75L5.25 20.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M5.25 3.75L5.25007 12.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M3 12.75H7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M14.25 8.25H9.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <FilterIcon />
                     Filter
                 </button>
 
@@ -97,12 +93,15 @@ function FindEmployers() {
                     </div>
                 </div>
 
-                <div className=" h-dvh w-full  px-3 xs:px-10 py-6 flex flex-col gap-6" >
+                <div className="w-full px-3 xs:px-10 py-6 flex flex-col gap-6 mb-12">
                     {employerEls.length === 0
                         ?
-                            <div className="text-customGray-900 mt-28 mx-auto"><span className="font-medium">No employers found</span> for this organization type. Please try a different filter.</div>
+                        <div className="text-customGray-900 mt-28 mx-auto"><span className="font-medium">No employers found</span> for this organization type. Please try a different filter.</div>
                         :
                         employerEls}
+
+                    <PaginationLinks paginator={employers} />
+
                 </div>
             </div>
         </div>

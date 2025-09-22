@@ -17,21 +17,21 @@ class EmployerController extends Controller
      */
     public function index(Request $request)
     {
-        $type = strtolower($request->query('type', 'all')); //default to "all" on initial page load
-        $employersQuery = Employer::with(['detail', 'socialLink', 'contact', 'user']);
+        $type = strtolower($request->query('type', 'all'));
 
-        if ($type !== 'all') {
-            $employersQuery->whereHas('detail', function ($query) use ($type) {
-                $query->where('company_type', $type);
-            });
+        if (!$request->has('type')) {
+            return Inertia::location(url('/employers?type=all'));
         }
 
-        $employers = $employersQuery->get();
+        $employers = Employer::with(['detail', 'socialLink', 'contact', 'user'])
+            ->when($type !== 'all', function ($query) use ($type) {
+                $query->whereHas('detail', fn($q) => $q->where('company_type', $type));
+            })
+            ->paginate(5)->withQueryString();
 
-
-        return inertia::render('Candidate/FindEmployers', [
+        return Inertia::render('Candidate/FindEmployers', [
             'employers' => $employers,
-
+            'type' => $type,
         ]);
     }
 
@@ -71,7 +71,8 @@ class EmployerController extends Controller
         ]);
     }
 
-    public function dashboardOverview(Request $request) {
+    public function dashboardOverview(Request $request)
+    {
 
         // $employerId = Employer::where('user_id', $request->user()->id)->value('id');
         $employerId = $request->user()->employer->id;

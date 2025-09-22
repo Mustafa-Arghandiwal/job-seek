@@ -71,7 +71,7 @@ function Overview({ appliedJobsCount, savedJobsCount, applications }) {
             <div className="flex justify-between mt-8">
                 <h3 className="font-medium text-customGray-900">Recently Applied Jobs</h3>
                 {applications.length !== 0 &&
-                    <Link href="/employer/vacancies" className="flex items-center gap-1 cursor-pointer font-medium text-customGray-500 hover:text-primary-500 duration-100">
+                    <Link href="/candidate/applied-jobs" className="flex items-center gap-1 cursor-pointer font-medium text-customGray-500 hover:text-primary-500 duration-100">
                         <span>View all</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

@@ -2,17 +2,18 @@ import Layout from "../../Layouts/Layout"
 import Select from "../../Components/Select"
 import OpenPosition from "../../Components/OpenPosition"
 import { useState } from "react"
-import { router } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import { formatSalary } from "../../utils/formatSalary"
 import EmployerLayout from "../../Layouts/EmployerLayout"
+import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 
-function FindJob(props) {
+function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
 
 
     const [filterDate, setFilterDate] = useState("Latest")
-    const [filterCategory, setFilterCategory] = useState(props.filterCategory || "All Categories")
+    const [filterCategory, setFilterCategory] = useState(filterCategoryFromBackend || "All Categories")
 
     const handleDateChange = (option) => {
         if (option === filterDate) return //this is to prevent reduntant filter requests
@@ -28,7 +29,7 @@ function FindJob(props) {
         router.get('/vacancies', { filterDate: filterDate, filterCategory: option }, { preserveState: true, preserveScroll: true })
     }
 
-    const vacancies = props.vacancies.map(vacancy => {
+    const vacancyEls = vacancies.data.map(vacancy => {
         const logo = vacancy.employer.detail?.logo_path ? "/storage/" + vacancy.employer.detail.logo_path : null
         const compName = vacancy.employer.user.full_name
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
@@ -37,6 +38,7 @@ function FindJob(props) {
             < OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy.city} companyName={compName} jobType={vacancy.job_type} salary={salary} logo={logo} />
         )
     })
+
 
 
     return (
@@ -53,9 +55,9 @@ function FindJob(props) {
 
             </div>
 
-            {vacancies.length !== 0 ?
+            {vacancyEls.length !== 0 ?
                 <div className="min-h-[30dvh] mt-6 flex gap-6 flex-wrap justify-center">
-                    {vacancies}
+                    {vacancyEls}
                 </div>
                 :
 
@@ -63,12 +65,11 @@ function FindJob(props) {
                     No Results
                 </div>
 
-
             }
 
+            <PaginationLinks paginator={vacancies} />
 
-
-        </div>
+        </div >
     )
 }
 

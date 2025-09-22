@@ -28,7 +28,7 @@ export default function CandidateDashboardLayout({ children }) {
                 </svg>
             </button>
 
-            <nav className={`text-nowrap bg-white md:bg-transparent z-50 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
+            <nav className={`text-nowrap bg-white md:bg-transparent z-40 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
 
                 <div className="flex justify-center items-center gap-4 mb-3">
                     <h2 className={` text-customGray-400 font-medium  text-xs `}>CANDIDATE DASHBOARD</h2>
@@ -53,7 +53,7 @@ export default function CandidateDashboardLayout({ children }) {
                     {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Overview</span> */}
                 </Link>
 
-                <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/applied-jobs" className={` ${url === '/candidate/applied-jobs' ? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
+                <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/applied-jobs" className={` ${url.startsWith('/candidate/applied-jobs' )? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                         <path d="M20.2507 6.75H3.75073C3.33652 6.75 3.00073 7.08579 3.00073 7.5V19.5C3.00073 19.9142 3.33652 20.25 3.75073 20.25H20.2507C20.6649 20.25 21.0007 19.9142 21.0007 19.5V7.5C21.0007 7.08579 20.6649 6.75 20.2507 6.75Z"
@@ -71,7 +71,7 @@ export default function CandidateDashboardLayout({ children }) {
 
                 </Link>
 
-                <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/saved-jobs" className={` ${url === '/candidate/saved-jobs' ? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
+                <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/saved-jobs" className={` ${url.startsWith('/candidate/saved-jobs' ) ? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                         <path d="M18 21L11.9993 17.25L6 21V4.5C6 4.30109 6.07902 4.11032 6.21967 3.96967C6.36032 3.82902 6.55109 3.75 6.75 3.75H17.25C17.4489 3.75 17.6397 3.82902 17.7803 3.96967C17.921 4.11032 18 4.30109 18 4.5V21Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

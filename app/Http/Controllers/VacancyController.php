@@ -24,13 +24,14 @@ class VacancyController extends Controller
         $filterDate = $request->query('filterDate', 'Latest');
         $filterCategory = $request->query('filterCategory', 'All Categories');
 
-        if ( $filterDate === 'Expiring Today') {
+        if ($filterDate === 'Expiring Today') {
             if ($filterCategory === 'All Categories') {
                 $ExpiringTodayJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
                     ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
-                    ->get();
+                    ->paginate(11)
+                    ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $ExpiringTodayJobs
                 ]);
@@ -41,19 +42,21 @@ class VacancyController extends Controller
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
                     ->where('category', $filterCategory)
-                    ->get();
+                    ->paginate(11)
+                    ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $ExpiringTodayJobs
                 ]);
             }
-        } else if($filterDate === 'Latest') {
+        } else if ($filterDate === 'Latest') {
             if ($filterCategory === 'All Categories') {
                 $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
                     ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path', 'employer:id,user_id'])
                     ->where('manually_expired', false)
                     ->where('deadline', '>=', Carbon::today())
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->paginate(11)
+                    ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $latestJobs,
                     'filterCategory' => $filterCategory
@@ -65,7 +68,8 @@ class VacancyController extends Controller
                     ->where('deadline', '>=', Carbon::today())
                     ->where('category', $filterCategory)
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->paginate(11)
+                    ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $latestJobs,
                     'filterCategory' => $filterCategory
@@ -172,7 +176,7 @@ class VacancyController extends Controller
 
         $employerId = Employer::where('user_id', $request->user()->id)->value('id');
         //withCount is groupBy, it counts the number of applications for each vacancy as applications_count, vacancy model must have hasMany(Application::class)
-        $vacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->get();
+        $vacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->paginate(6);
         return Inertia::render('Employer/Dashboard/MyJobs', [
             'vacancies' => $vacancies,
         ]);

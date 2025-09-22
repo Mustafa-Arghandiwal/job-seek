@@ -80,7 +80,7 @@ class ApplicationController extends Controller
             ])
             ->where('candidate_id', $candidateId)
             ->orderBy('applied_at', 'desc')
-            ->get();
+            ->paginate(4);
 
         return Inertia::render('Candidate/Dashboard/AppliedJobs', [
             'applications' => $applications,

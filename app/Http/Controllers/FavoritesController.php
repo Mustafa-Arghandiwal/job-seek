@@ -34,7 +34,7 @@ class FavoritesController extends Controller
             ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
             ->where('candidate_id', $candidate->id)
             ->orderBy('candidate_saved_jobs.created_at', 'desc')
-            ->get();
+            ->paginate(4);
 
         return Inertia::render('Candidate/Dashboard/SavedJobs', [
             'savedVacancies' => $savedVacancies
@@ -119,7 +119,7 @@ class FavoritesController extends Controller
             ->leftJoin('users', 'candidates.user_id', '=', 'users.id')
             ->where('employer_id', $employer->id)
             ->orderBy('employer_saved_candidates.created_at', 'desc')
-            ->get();
+            ->paginate(6);
 
         return Inertia::render('Employer/Dashboard/SavedCandidates', [
             'savedCandidates' => $savedCandidates

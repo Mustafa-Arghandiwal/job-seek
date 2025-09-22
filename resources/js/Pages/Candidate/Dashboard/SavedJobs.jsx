@@ -4,13 +4,13 @@ import CandidateSavedJob from "../../../Components/CandidateSavedJob"
 import CandidateDashboardLayout from "../../../Layouts/CandidateDashboardLayout"
 import Layout from "../../../Layouts/Layout"
 import { formatSalary } from "../../../utils/formatSalary"
-
+import PaginationLinks from "../../../utils/getPaginationLinks"
 
 
 function SavedJobs({ savedVacancies }) {
 
 
-    const savedJobs = savedVacancies.map(vacancy => {
+    const savedJobs = savedVacancies.data.map(vacancy => {
         const logoPath = vacancy.logo_path ? "/storage/" + vacancy.logo_path : "/chess_pattern.png"
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
         const today = new Date()
@@ -29,12 +29,17 @@ function SavedJobs({ savedVacancies }) {
     return (
         <div className="">
             <h1 className="text-customGray-900 font-medium text-lg flex gap-1">Saved Jobs
-                <span className="font-normal text-customGray-400">({savedVacancies.length})</span>
+                <span className="font-normal text-customGray-400">({savedVacancies.data.length})</span>
             </h1>
 
             <div className="mt-2">
-                {savedVacancies.length !== 0 ?
-                savedJobs
+                {savedVacancies.data.length !== 0 ?
+                    <>
+                        {savedJobs}
+                        <PaginationLinks paginator={savedVacancies} />
+
+                    </>
+
                     :
                     <div className="h-[40dvh] grid place-items-center font-medium text-lg text-customGray-600 ">You have no saved jobs.</div>
                 }
