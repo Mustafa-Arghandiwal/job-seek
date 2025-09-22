@@ -68,7 +68,7 @@ function FindEmployers({ employers, type }) {
 
 
     return (
-        <div className="xl:px-[150px] 2xl:px-[230px] ">
+        <div className="xl:px-[150px] 2xl:px-[230px] pt-2">
             <div className=" mt-8 px-3 xs:px-10  lg:hidden relative ">
                 <button ref={filterBtn} onClick={() => setShowFilter(prev => !prev)} className="flex text-nowrap gap-3 px-4 py-2 text-white rounded-[3px] bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     <FilterIcon />
