@@ -23,7 +23,7 @@ function Home(props) {
     return (
 
         <>
-            <section className=" bg-customGray-50 flex flex-col items-center  px-4 md:px-14 lg:px-20 py-12 md:py-28">
+            <section className=" bg-customGray-50 flex flex-col items-center  px-4 md:px-14 lg:px-20 py-12 md:py-28 ">
 
                 <div className="flex flex-col lg:flex-row  sm:gap-10 justify-between items-center">
                         <div className=" max-w-[652px]">

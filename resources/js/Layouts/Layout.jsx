@@ -12,9 +12,6 @@ export default function Layout({ children }) {
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const menuBtnRef = useRef(null)
     const menuRef = useRef(null)
-    const [lastScrollY, setLastScrollY] = useState(0);
-    const [isVisible, setIsVisible] = useState(true);
-
     //Will be null if guest
     const user = props.auth.user
     const { post } = useForm()
@@ -27,42 +24,34 @@ export default function Layout({ children }) {
         '/candidate/saved-jobs',
         '/candidate/dashboard/settings',
     ]
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        post('/sign-out')
-    }
 
-    const handleScroll = () => {
-        const currentScrollY = window.scrollY
-        //138 is the header's height in pixels
-        if (dropdownVisible) {
-            setIsVisible(true)
-        } else {
-            if (currentScrollY <= 138) {
-                setIsVisible(true)
+
+    // ----------------------Header show and hide logic------------------
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY < 138) {
+                setIsVisible(true);
             } else {
-
-                if (window.scrollY > lastScrollY) {
+                if (currentScrollY > lastScrollY.current) {
                     setIsVisible(false);
                 } else {
                     setIsVisible(true);
                 }
-
             }
-        }
 
-
-        setLastScrollY(window.scrollY);
-    };
-
-    useEffect(() => {
+            lastScrollY.current = currentScrollY;
+        };
 
         window.addEventListener('scroll', handleScroll);
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [lastScrollY]);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
 
 
     useEffect(() => {
@@ -147,7 +136,7 @@ export default function Layout({ children }) {
 
     return (
         <div className="h-screen">
-            <header className={`sticky top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
+            <header className={`${!dashboardUrls.includes(url) ? "fixed" : ""} w-full top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
@@ -257,9 +246,9 @@ export default function Layout({ children }) {
             </div>
 
 
-            <main className="relative">
+            <main className={`relative  ${!dashboardUrls.includes(url) ? "mt-[138px]" : ""} `}>
                 <div className={`fixed inset-0 bg-[#18191C]/60 ${dropdownVisible ? 'opacity-100 z-40' : 'opacity-0 -z-50'}`}></div>
-                {children}
+                    {children}
             </main>
 
             {

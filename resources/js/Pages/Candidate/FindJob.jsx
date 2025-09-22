@@ -42,7 +42,7 @@ function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
 
 
     return (
-        <div className="px-4 xl:px-[120px] pb-16 md:pb-36">
+        <div className="px-4 xl:px-[120px] pb-16 md:pb-36 pt-2">
 
             <div className="  mt-5  flex flex-col sm:flex-row gap-1 sm:gap-5">
                 <div className="text-sm text-customGray-900 min-w-56">
