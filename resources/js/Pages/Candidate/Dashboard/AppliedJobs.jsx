@@ -1,6 +1,5 @@
 
 import CandidateAppliedJob from "../../../Components/CandidateAppliedJob"
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from "../../../Components/Pagination"
 import CandidateDashboardLayout from "../../../Layouts/CandidateDashboardLayout"
 import Layout from "../../../Layouts/Layout"
 import { formatSalary } from "../../../utils/formatSalary"
@@ -33,7 +32,7 @@ function AppliedJobs({ applications }) {
             </h1>
 
             {applications.data.length !== 0 ?
-                <div className="">
+                <div>
                     <table className="mt-5 w-full text-left overflow-x-auto min-w-[600px] ">
                         <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
                             <tr>

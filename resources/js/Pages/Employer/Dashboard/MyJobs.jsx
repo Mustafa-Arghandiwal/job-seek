@@ -3,21 +3,22 @@
 import EmployerJob from "../../../Components/EmployerJob"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout"
 import EmployerLayout from "../../../Layouts/EmployerLayout"
+import PaginationLinks from "../../../utils/getPaginationLinks"
 
 
 
 function MyJobs({ vacancies }) {
-    const vacancyEls = vacancies.map(vacancy => (
+    const vacancyEls = vacancies.data.map(vacancy => (
         <EmployerJob key={vacancy.id} vacancy={vacancy} />
     ))
     return (
         <>
             <h1 className="font-medium text-xl text-customGray-900 flex gap-1">My Jobs
-                <span className="font-normal text-customGray-400">({vacancies.length})</span>
+                <span className="font-normal text-customGray-400">({vacancies.data.length})</span>
             </h1>
-            {vacancies.length !== 0 ?
+            {vacancies.data.length !== 0 ?
 
-                <div className="overflow-x-auto scrollbar-custom">
+                <div className="overflow-x-auto scrollbar-custom pb-10">
                     <table className="mt-6 w-full text-left overflow-x-auto">
 
                         <thead className="text-customGray-700 text-xs bg-customGray-50 rounded-sm ">
@@ -34,6 +35,7 @@ function MyJobs({ vacancies }) {
                         </tbody>
 
                     </table>
+                    <PaginationLinks paginator={vacancies} />
                 </div>
                 :
 

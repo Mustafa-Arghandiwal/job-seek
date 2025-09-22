@@ -176,7 +176,7 @@ class VacancyController extends Controller
 
         $employerId = Employer::where('user_id', $request->user()->id)->value('id');
         //withCount is groupBy, it counts the number of applications for each vacancy as applications_count, vacancy model must have hasMany(Application::class)
-        $vacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->get();
+        $vacancies = Vacancy::withCount('applications')->where('employer_id', $employerId)->orderBy('created_at', 'desc')->paginate(6);
         return Inertia::render('Employer/Dashboard/MyJobs', [
             'vacancies' => $vacancies,
         ]);
