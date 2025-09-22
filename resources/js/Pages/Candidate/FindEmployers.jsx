@@ -4,6 +4,7 @@ import Employer from "../../Components/Employer"
 import { useEffect, useRef, useState } from "react"
 import { FilterIcon } from "../../utils/svgs"
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
+import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 
@@ -65,33 +66,6 @@ function FindEmployers({ employers, type }) {
 
 
 
-    // -------------------Pagination stuff-------------------
-
-    const activeLink = employers.links.find(link => link.active)
-    const activeLabel = activeLink ? Number(activeLink.label) : 1
-    const lastLabel = Number(employers.last_page)
-    const paginationLinks = employers.links.map((link, index) => {
-        if (isNaN(link.label)) return
-        const currLabel = Number(link.label)
-        let show = false
-        if (lastLabel <= 5) {
-            show = true
-        } else if (currLabel === activeLabel) {
-            show = true
-        } else if (activeLabel <= 2) {
-            show = currLabel <= 5
-        } else if (activeLabel >= lastLabel - 1) {
-            show = currLabel >= lastLabel - 4
-        } else {
-            show = currLabel >= (activeLabel - 2) && currLabel <= (activeLabel + 2)
-        }
-        if (!show) return
-        return (
-            <PaginationItem key={index}>
-                <PaginationLink href={link.url} isActive={link.active}>{link.label}</PaginationLink>
-            </PaginationItem>
-        )
-    })
 
     return (
         <div className="xl:px-[150px] 2xl:px-[230px] ">
@@ -126,34 +100,8 @@ function FindEmployers({ employers, type }) {
                         :
                         employerEls}
 
-                    {employers.total > 10 &&
-                        <Pagination className=" mt-10">
-                            <PaginationContent>
-                                <PaginationItem>
-                                    <PaginationPrevious href={employers.prev_page_url} />
-                                </PaginationItem>
+                    <PaginationLinks paginator={employers} />
 
-                                {(employers.last_page > 5 && employers.current_page > 3) &&
-                                    < PaginationItem >
-                                        <PaginationEllipsis />
-                                    </PaginationItem>
-                                }
-
-                                {paginationLinks}
-
-                                {(employers.last_page > 5 && (employers.current_page <= (employers.last_page - 3))) &&
-                                    < PaginationItem >
-                                        <PaginationEllipsis />
-                                    </PaginationItem>
-                                }
-
-                                <PaginationItem>
-                                    <PaginationNext href={employers.next_page_url} />
-                                </PaginationItem>
-
-                            </PaginationContent>
-                        </Pagination>
-                    }
                 </div>
             </div>
         </div>

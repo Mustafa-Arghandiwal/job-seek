@@ -146,7 +146,7 @@ function Home(props) {
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                     <div className="w-full flex justify-between px-4">
                         <h2 className="font-medium text-xl md:text-[25px] px-4 ">Latest Jobs</h2>
-                        <Link href="/vacancies?page=1" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">

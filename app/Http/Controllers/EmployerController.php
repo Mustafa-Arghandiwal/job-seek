@@ -27,7 +27,7 @@ class EmployerController extends Controller
             ->when($type !== 'all', function ($query) use ($type) {
                 $query->whereHas('detail', fn($q) => $q->where('company_type', $type));
             })
-            ->paginate(10)->withQueryString();
+            ->paginate(5)->withQueryString();
 
         return Inertia::render('Candidate/FindEmployers', [
             'employers' => $employers,

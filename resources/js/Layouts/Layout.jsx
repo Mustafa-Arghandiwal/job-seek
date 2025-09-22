@@ -151,7 +151,7 @@ export default function Layout({ children }) {
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
-                        <li><Link href="/vacancies?page=1" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
+                        <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/employers" className={`${url.startsWith('/employers') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
                         <li><Link href="/candidate/dashboard/overview" className={`${dashboardUrls.some(item => url.startsWith(item)) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
                         <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
@@ -225,7 +225,7 @@ export default function Layout({ children }) {
             <div ref={menuRef} className={`fixed z-50 shadow-lg bg-white w-full pb-6 px-6 rounded-b-2xl ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"} transition-all duration-300 ease-in-out`}>
                 <ul className="mt-1 text-sm text-customGray-600 w-full ">
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/">Home</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/vacancies?page=1">Find Job</Link></li>
+                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/vacancies">Find Job</Link></li>
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/employers">Find Employers</Link></li>
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/candidate/dashboard/overview">Dashboard</Link></li>
                     <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/support">Support</Link></li>
@@ -302,7 +302,7 @@ export default function Layout({ children }) {
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Candidate</h3>
                                     <ul className="flex flex-col gap-3 text-customGray-600 ">
-                                        <FooterLink href="/vacancies?page=1">Browse Jobs</FooterLink>
+                                        <FooterLink href="/vacancies">Browse Jobs</FooterLink>
                                         <FooterLink href="/employers">Browse Employers</FooterLink>
                                         <FooterLink href="/candidate/dashboard/overview">Candidate Dashboard</FooterLink>
                                         <FooterLink href="/candidate/dashboard/settings">Candidate Settings</FooterLink>

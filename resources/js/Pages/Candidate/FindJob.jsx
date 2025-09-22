@@ -5,7 +5,7 @@ import { useState } from "react"
 import { router, usePage } from "@inertiajs/react"
 import { formatSalary } from "../../utils/formatSalary"
 import EmployerLayout from "../../Layouts/EmployerLayout"
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
+import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 
@@ -39,31 +39,6 @@ function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
         )
     })
 
-    const activeLink = vacancies.links.find(link => link.active)
-    const activeLabel = activeLink ? Number(activeLink.label) : 1
-    const lastLabel = Number(vacancies.last_page)
-    const paginationLinks = vacancies.links.map((link, index) => {
-        if (isNaN(link.label)) return
-        const currLabel = Number(link.label)
-        let show = false
-        if (lastLabel <= 5) {
-            show = true
-        } else if (currLabel === activeLabel) {
-            show = true
-        } else if (activeLabel <= 2) {
-            show = currLabel <= 5
-        } else if (activeLabel >= lastLabel - 1) {
-            show = currLabel >= lastLabel - 4
-        } else {
-            show = currLabel >= (activeLabel - 2) && currLabel <= (activeLabel + 2)
-        }
-        if (!show) return
-        return (
-            <PaginationItem key={index}>
-                <PaginationLink href={link.url} isActive={link.active}>{link.label}</PaginationLink>
-            </PaginationItem>
-        )
-    })
 
 
     return (
@@ -90,39 +65,9 @@ function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
                     No Results
                 </div>
 
-
             }
 
-
-            {vacancies.total > 11 &&
-                <Pagination className=" mt-10">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious href={vacancies.prev_page_url} />
-                        </PaginationItem>
-
-                        {(vacancies.last_page > 5 && vacancies.current_page > 3) &&
-                            < PaginationItem >
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                        }
-
-                        {paginationLinks}
-
-                        {(vacancies.last_page > 5 && (vacancies.current_page <= (vacancies.last_page - 3))) &&
-                            < PaginationItem >
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                        }
-
-                        <PaginationItem>
-                            <PaginationNext href={vacancies.next_page_url} />
-                        </PaginationItem>
-
-                    </PaginationContent>
-                </Pagination>
-            }
-
+            <PaginationLinks paginator={vacancies} />
 
         </div >
     )
