@@ -129,7 +129,7 @@ export default function AccountTabContent() {
                     <button disabled={contactForm.processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer  transition-all duration-100">
                         Save Changes
                     </button>
-                    <span className={`text-success-500  h-6 w-52 text-sm ${contactSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                    <span className={`text-success-500  h-6 w-52 w-auto text-sm ${contactSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                         {contactSuccessMsg}
                     </span>
                 </div>
@@ -201,7 +201,7 @@ export default function AccountTabContent() {
                     <button disabled={changePassForm.processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer transition-all duration-100">
                         Save Changes
                     </button>
-                    <span className={`text-success-500  h-6 w-56  text-sm ${changePassSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                    <span className={`text-success-500  h-6 w-56 sm:w-auto  text-sm ${changePassSuccessMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                         {changePassSuccessMsg}
                     </span>
                 </div>

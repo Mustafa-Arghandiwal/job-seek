@@ -189,7 +189,7 @@ export default function EmployerLayout({ children }) {
 
                     {
                         user ?
-                            <div className="hidden sm:flex gap-2">
+                            <div className="hidden sm:flex gap-2 xl:gap-5">
                                 {user.user_type === "employer" &&
                                     <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50  px-2 py-3 duration-150 text-nowrap cursor-pointer">
                                         Post a Job

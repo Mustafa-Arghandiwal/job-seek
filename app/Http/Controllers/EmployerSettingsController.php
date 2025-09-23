@@ -68,6 +68,7 @@ class EmployerSettingsController extends Controller
         DB::transaction(function () use ($user, $employerDetail) {
             $user->save();
             $employerDetail->save();
+            return back()->with('compInfoSuccess', 'Your changes have been saved.');
         });
     }
 
