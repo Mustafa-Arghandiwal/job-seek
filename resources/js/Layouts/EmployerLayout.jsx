@@ -189,7 +189,13 @@ export default function EmployerLayout({ children }) {
 
                     {
                         user ?
-                            <div className="hidden sm:flex">
+                            <div className="hidden sm:flex gap-2">
+                                {user.user_type === "employer" &&
+                                    <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50  px-2 py-3 duration-150 text-nowrap cursor-pointer">
+                                        Post a Job
+                                    </Link>
+                                }
+
                                 <Link href="/employer/dashboard/settings" className="h-12 w-12 grid place-items-center group rounded-full border-2 overflow-hidden border-primary-500">
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
@@ -197,7 +203,6 @@ export default function EmployerLayout({ children }) {
                                         <UserIcon className="group-hover:scale-120  duration-100" />
                                     }
                                 </Link>
-
                                 {/* <form onSubmit={handleSubmit}> */}
                                 {/*     <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button> */}
                                 {/* </form> */}
@@ -234,6 +239,11 @@ export default function EmployerLayout({ children }) {
                                 <UserIcon className="group-hover:scale-120  duration-100" />
                             }
                         </Link>
+                        {user.user_type === "employer" &&
+                            <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 border border-primary-100  hover:bg-primary-50 px-2 py-3 duration-150 text-nowrap cursor-pointer">
+                                Post a Job
+                            </Link>
+                        }
 
                     </div>
 

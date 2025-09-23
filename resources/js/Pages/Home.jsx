@@ -1,10 +1,10 @@
-import { usePage, useForm, Link } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import Layout from "../Layouts/Layout"
 import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 import Tilt from "react-parallax-tilt"
 function Home(props) {
 
