@@ -213,11 +213,11 @@ export default function Layout({ children }) {
 
             <div ref={menuRef} className={`fixed z-50 shadow-lg bg-white w-full pb-6 px-6 rounded-b-2xl ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"} transition-all duration-300 ease-in-out`}>
                 <ul className="mt-1 text-sm text-customGray-600 w-full ">
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/">Home</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/vacancies">Find Job</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/employers">Find Employers</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/candidate/dashboard/overview">Dashboard</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/support">Support</Link></li>
+                    <li className=""><Link href="/" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Home</Link></li>
+                    <li className=""><Link href="/vacancies" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Find Job</Link></li>
+                    <li className=""><Link href="/employers" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Find Employers</Link></li>
+                    <li className=""><Link href="/candidate/dashboard/overview" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Dashboard</Link></li>
+                    <li className=""><Link href="/support" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Support</Link></li>
                 </ul>
                 {user ?
 

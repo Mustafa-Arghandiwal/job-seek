@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react"
-import { useForm, Link } from "@inertiajs/react"
+import { useForm, Link, usePage } from "@inertiajs/react"
 
 export default function SignUp({userType}) {
-    console.log(userType)
     const { data, setData, post, errors, processing } = useForm({
         full_name: '',
         email: '',
@@ -71,7 +70,7 @@ export default function SignUp({userType}) {
 
                         <div className=" flex flex-col gap-5 md:gap-2 mb-2 xs:mb-0 ">
                             <div className="h-16">
-                                <input type="text" placeholder="Full Name" value={data.full_name} onChange={(e) => setData('full_name', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100  px-3 outline-none focus:ring-1 focus:ring-primary-500" />
+                                <input type="text" placeholder={data.user_type === "candidate" ? "Full Name" : "Company Name"} value={data.full_name} onChange={(e) => setData('full_name', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100  px-3 outline-none focus:ring-1 focus:ring-primary-500" />
                                 {errors.full_name && <p className="text-sm text-danger-600">{errors.full_name}</p>}
                             </div>
                             <div className="h-16">
