@@ -235,7 +235,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
-                        This employer currently has no open positions.
+                        This employer has no open positions at the moment.
                     </div>
                 }
             </div>

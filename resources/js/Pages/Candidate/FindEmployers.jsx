@@ -9,12 +9,10 @@ import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 function FindEmployers({ employers, type }) {
-    // console.log(employers)
 
     const [showFilter, setShowFilter] = useState(false)
     const filterBtn = useRef(null)
     const filterDropDown = useRef(null)
-
 
 
     const [employerType, setEmployerType] = useState(type)
@@ -33,7 +31,7 @@ function FindEmployers({ employers, type }) {
 
 
     const employerEls = employers.data.map(emp => (
-        <Employer key={emp.user_id} id={emp.id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
+        <Employer key={emp.user_id} id={emp.id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} openPositions={emp.open_positions_count} />
     ))
 
 
