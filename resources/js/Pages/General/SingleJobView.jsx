@@ -200,7 +200,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
             <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
 
                 <div className="flex gap-6 items-center  flex-col xs:flex-row">
-                    <div className="h-24 min-w-24 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${logo})` }}></div>
+                    <Link href={`/employers/${employer.id}`} className="h-24 min-w-24 bg-cover bg-center rounded-full hover:scale-105 duration-150" style={{ backgroundImage: `url(${logo})` }}></Link>
                     <div className="flex flex-col gap-3 items-center xs:items-start">
                         <div className="flex gap-2 items-center flex-wrap justify-center xs:justify-start">
                             <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{jobTitle}</h2>
@@ -377,9 +377,9 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                     <div className="p-8 mt-6 border border-primary-200  rounded-lg  lg:min-w-[400px] max-w-[600px]">
                         <div className="flex gap-4  items-center">
-                            <div className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></div>
+                            <Link href={`/employers/${employer.id}`} className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></Link>
                             <div>
-                                <p className="text-customGray-900 font-medium text-xl">{companyName}</p>
+                                <Link  href={`/employers/${employer.id}`} className="text-customGray-900 hover:text-primary-700 font-medium text-xl">{companyName}</Link>
                                 <p className="text-sm text-customGray-500 mt-2">{companyIndustry}</p>
                             </div>
                         </div>
