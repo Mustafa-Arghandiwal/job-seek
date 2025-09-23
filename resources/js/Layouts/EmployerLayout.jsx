@@ -140,7 +140,7 @@ export default function EmployerLayout({ children }) {
 
     return (
         <div className="h-screen">
-            <header className={`${!dashboardUrls.includes(url) ? "fixed" : ""} w-full top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
+            <header className={`${!dashboardUrls.includes(url) ? "fixed" : "sticky"} w-full top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>

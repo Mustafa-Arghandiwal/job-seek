@@ -30,7 +30,7 @@ export default function EmployerDashboardLayout({ children }) {
                 </svg>
             </button>
 
-            <nav className={`text-nowrap bg-white md:bg-transparent z-50 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
+            <nav className={`text-nowrap bg-white md:bg-transparent z-30 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>
                 {/* <nav className={`text-nowrap relative flex flex-col pt-6  border-r border-r-customGray-100 w-[200px]  duration-300`}> */}
 
                 <div className="flex justify-center items-center gap-4 mb-3">
