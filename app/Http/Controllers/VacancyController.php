@@ -31,10 +31,12 @@ class VacancyController extends Controller
                     ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
-                    ->paginate(6)
+                    ->paginate(11)
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
-                    'vacancies' => $ExpiringTodayJobs
+                    'vacancies' => $ExpiringTodayJobs,
+                    'filterDate' => $filterDate,
+                    'filterCategory' => $filterCategory,
                 ]);
             } else {
 
@@ -43,10 +45,12 @@ class VacancyController extends Controller
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
                     ->where('category', $filterCategory)
-                    ->paginate(6)
+                    ->paginate(11)
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
-                    'vacancies' => $ExpiringTodayJobs
+                    'vacancies' => $ExpiringTodayJobs,
+                    'filterDate' => $filterDate,
+                    'filterCategory' => $filterCategory,
                 ]);
             }
         } else if ($filterDate === 'Latest') {
@@ -60,7 +64,8 @@ class VacancyController extends Controller
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $latestJobs,
-                    'filterCategory' => $filterCategory
+                    'filterCategory' => $filterCategory,
+                    'filterDate' => $filterDate,
                 ]);
             } else {
                 $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
@@ -73,7 +78,8 @@ class VacancyController extends Controller
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $latestJobs,
-                    'filterCategory' => $filterCategory
+                    'filterCategory' => $filterCategory,
+                    'filterDate' => $filterDate,
                 ]);
             }
         }

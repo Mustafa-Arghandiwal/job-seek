@@ -9,10 +9,10 @@ import PaginationLinks from "../../utils/getPaginationLinks"
 
 
 
-function FindJob({filterCategory: filterCategoryFromBackend, vacancies}) {
+function FindJob({filterCategory: filterCategoryFromBackend, filterDate: filterDateFromBackend, vacancies}) {
 
 
-    const [filterDate, setFilterDate] = useState("Latest")
+    const [filterDate, setFilterDate] = useState(filterDateFromBackend || "Latest")
     const [filterCategory, setFilterCategory] = useState(filterCategoryFromBackend || "All Categories")
 
     const handleDateChange = (option) => {
