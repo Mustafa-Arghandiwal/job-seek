@@ -31,7 +31,7 @@ class VacancyController extends Controller
                     ->with(['employer.user:id,full_name', 'employer.detail:employer_id,logo_path'])
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
-                    ->paginate(11)
+                    ->paginate(6)
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $ExpiringTodayJobs
@@ -43,7 +43,7 @@ class VacancyController extends Controller
                     ->where('manually_expired', false)
                     ->where('deadline', Carbon::today())
                     ->where('category', $filterCategory)
-                    ->paginate(11)
+                    ->paginate(6)
                     ->withQueryString();
                 return inertia::render('Candidate/FindJob', [
                     'vacancies' => $ExpiringTodayJobs

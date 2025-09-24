@@ -63,6 +63,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('candidate_resumes');
         Schema::dropIfExists('candidate_contacts');
         Schema::dropIfExists('candidate_social_links');
         Schema::dropIfExists('candidate_profiles');

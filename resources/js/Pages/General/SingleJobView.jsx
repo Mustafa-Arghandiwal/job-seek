@@ -159,17 +159,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
     }, [])
 
 
-
-
-    // const relatedJobs = vacancies.map(vacancy => {
-    //     const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-
-    //     return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
-    //         jobType={vacancy.job_type} salary={salary} logo={logo} />
-    // })
     const relatedJobs = []
-
-
     const showConfetti = () => {
         confetti({
             particleCount: 60,
