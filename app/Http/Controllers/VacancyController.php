@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateVacancyRequest;
 use App\Models\Application;
 use App\Models\Employer;
 use App\Models\Vacancy;
+use App\Rules\RichTextLength;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -128,8 +129,8 @@ class VacancyController extends Controller
                 'nullable'
             ],
             'deadline' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal: today', 'before_or_equal:' . now()->addMonths(6)->toDateString()],
-            'description' => ['required', 'min:10', 'max:65535', 'string'],
-            'responsibilities' => ['required', 'min:10', 'max:65535', 'string']
+            'description' => ['required', new RichTextLength(10, 65535), 'string'],
+            'responsibilities' => ['required', new RichTextLength(10, 65535), 'string']
 
         ]);
 
@@ -277,8 +278,8 @@ class VacancyController extends Controller
                 'nullable'
             ],
             'deadline' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:' . now()->addMonths(6)->toDateString()],
-            'description' => ['required', 'min:10', 'max:65535', 'string'],
-            'responsibilities' => ['required', 'min:10', 'max:65535', 'string']
+            'description' => ['required', new RichTextLength(10, 65535), 'string'],
+            'responsibilities' => ['required', new RichTextLength(10, 65535), 'string']
 
         ]);
 

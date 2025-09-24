@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\CandidateResume;
 use App\Models\Vacancy;
+use App\Rules\RichTextLength;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -144,7 +145,7 @@ class ApplicationController extends Controller
         }
         $validated = $request->validate([
             'resumeId' => ['required', 'integer', Rule::exists('candidate_resumes', 'id')->where('candidate_id', $request->user()->candidate->id)],
-            'coverLetter' =>  ['required', 'min:10', 'max:65535', 'string']
+            'coverLetter' =>  ['required', new RichTextLength(10, 65535), 'string']
 
         ]);
         $validated['coverLetter'] = trim($validated['coverLetter']);

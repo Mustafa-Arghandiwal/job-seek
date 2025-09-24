@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmployerContact;
 use App\Models\EmployerDetail;
 use App\Models\EmployerSocialLink;
+use App\Rules\RichTextLength;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +23,7 @@ class EmployerSettingsController extends Controller
             'teamSize' => ['required', 'in:1-10,11-50,51-100,101-500,501-1000,1001-5000,5000+'],
             'establishDate' => ['required', 'date_format:Y-m'],
             'companyWebsite' => ['nullable', 'regex:/^(https?:\/\/)?(www\.)?[a-z0-9-]+\.[a-z]{2,}(\/[a-z0-9-]*)*\/?$/'],
-            'aboutCompany' => ['required', 'min:10', 'max:65535', 'string'],
+            'aboutCompany' => ['required', new RichTextLength(10, 65535),'string'],
             'logo' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
             'banner' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
 

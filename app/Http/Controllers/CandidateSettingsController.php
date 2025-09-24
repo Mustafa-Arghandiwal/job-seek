@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
+use App\Rules\RichTextLength;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +68,7 @@ class CandidateSettingsController extends Controller
             'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
             'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
             'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
-            'biography' => ['required', 'min:10', 'max:65535', 'string']
+            'biography' => ['required', new RichTextLength(10, 65535), 'string']
         ]);
 
         $candidate = $request->user()->candidate;
