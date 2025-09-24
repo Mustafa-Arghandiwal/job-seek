@@ -234,7 +234,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Company Type</label>
-                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option) } />
+                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType}  onValueChange={(option) => handleSelectChange('companyType', option) } />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
                     </div>
