@@ -4,7 +4,7 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, RightArrowIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 import Tilt from "react-parallax-tilt"
 function Home(props) {
 
@@ -144,9 +144,9 @@ function Home(props) {
 
             <section className="mb-10 py-4">
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
-                    <div className="w-full flex justify-between px-4">
+                    <div className="w-full flex items-center justify-between px-4">
                         <h2 className="font-medium text-xl md:text-[25px] px-4 ">Latest Jobs</h2>
-                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 w-32 h-12 justify-center duration-150 text-nowrap">View All<RightArrowIcon /></Link>
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
@@ -158,9 +158,9 @@ function Home(props) {
 
 
             <section className="sm:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px] mx-auto   ">
-                <div className="w-full flex justify-between px-4">
+                <div className="w-full flex items-center justify-between px-4">
                     <h2 className="font-medium text-xl md:text-[25px] px-4 ">Active Companies</h2>
-                    <Link href="/employers" className="flex items-center  gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                    <Link href="/employers" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 w-32 h-12 justify-center duration-150 text-nowrap ">View All<RightArrowIcon /></Link>
                 </div>
                 <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
                     {activeCompanyEls}

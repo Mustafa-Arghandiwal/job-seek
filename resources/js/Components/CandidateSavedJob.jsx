@@ -28,7 +28,7 @@ export default function CandidateSavedJob(props) {
                     className="h-16 min-w-16 bg-cover bg-center rounded-sm"
                     style={{ backgroundImage: `url(${props.logo})` }}
                 ></div>
-                <div className=" flex flex-col gap-3.5">
+                <div className="flex flex-col gap-3.5">
                     <div className="flex gap-2 items-center flex-wrap ">
                         <h4 title={props.title} className=" text-customGray-900 font-medium  line-clamp-3">{props.title}</h4>
                         <span className="px-2 grid items-center text-sm bg-primary-50 text-primary-500 rounded-full cursor-default">{props.type}</span>

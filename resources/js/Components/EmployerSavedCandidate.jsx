@@ -38,16 +38,16 @@ export default function EmployerSavedCandidate(props) {
     }
 
     return (
-        <div className=" relative border-b border-customGray-100 border border-t-transparent border-x-transparent hover:rounded-lg  hover:border-primary-500 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap items-center p-4 duration-150 ">
+        <div className=" relative border-b border-customGray-100 border border-t-transparent border-x-transparent hover:rounded-lg  hover:border-primary-500 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-col sm:flex-row items-center p-4 duration-150 ">
             <div className="flex gap-5">
                 <div
-                    className="h-16 min-w-16 bg-cover bg-center  rounded-sm"
+                    className="h-16 min-w-16 bg-cover bg-center rounded-sm"
                     style={{ backgroundImage: `url(${props.profilePic})` }}
                 ></div>
                 <div className="  flex flex-col gap-3.5">
-                    <div className="flex gap-1 flex-col  w-32 sm:w-auto break-words">
-                        <h4 title={props.name} className="text-customGray-900 text-lg font-medium  line-clamp-3">{props.name}</h4>
-                        <span className="block text-customGray-500 text-sm">{props.title}</span>
+                    <div className="flex gap-1 flex-col break-words">
+                        <h4 title={props.name} className="text-center sm:text-left text-customGray-900 text-lg font-medium  line-clamp-3">{props.name}</h4>
+                        <span className="block text-customGray-500 text-sm text-center sm:text-left">{props.title}</span>
                     </div>
                 </div>
             </div>
