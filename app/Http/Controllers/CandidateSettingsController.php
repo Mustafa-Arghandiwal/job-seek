@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Mews\Purifier\Facades\Purifier;
 
 class CandidateSettingsController extends Controller
 {
@@ -69,6 +70,11 @@ class CandidateSettingsController extends Controller
             'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
             'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
             'biography' => ['required', new RichTextLength(10, 65535), 'string']
+        ]);
+
+        $validated['biography'] = trim($validated['biography']);
+        $validated['biography'] = Purifier::clean($validated['biography'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
         ]);
 
         $candidate = $request->user()->candidate;

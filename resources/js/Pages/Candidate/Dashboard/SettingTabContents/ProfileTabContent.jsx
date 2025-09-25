@@ -120,9 +120,9 @@ export default function ProfileTabContent() {
 
                 <h2 className="text-lg font-medium text-customGray-900">Basic Information</h2>
 
-                <div className="flex flex-col md:flex-row mt-5 gap-12 ">
+                <div className="flex flex-col md:flex-row mt-5 gap-12">
 
-                    <div className=" min-w-40 max-w-60 shrink-0 relative">
+                    <div className=" min-w-52 max-w-60 relative">
                         <span className="text-sm text-customGray-900 ">Profile Picture</span>
                         <label onDragOver={e => { e.preventDefault(); setDragging(true) }} onDrop={e => {
                             e.preventDefault()
@@ -183,9 +183,9 @@ export default function ProfileTabContent() {
                     </div>
 
 
-                    <div className="flex flex-col items-start gap-2  w-full">
+                    <div className="flex flex-col items-start gap-2">
 
-                        <div className="flex flex-col lg:flex-row gap-2 w-full max-w-[680px]">
+                        <div className="flex flex-col lg:flex-row gap-2 w-full max-w-full lg:max-w-[480px] 2xl:max-w-[800px]">
                             <div className="flex flex-col w-full lg:w-1/2  min-w-44 relative">
                                 <label htmlFor="fullName" className="text-sm text-customGray-900">Full name</label>
                                 <input type="text" placeholder="e.g. Eqbal Sharaf" id="fullName" value={basicForm.data.fullName} onChange={(e) => basicForm.setData('fullName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
@@ -204,7 +204,7 @@ export default function ProfileTabContent() {
                         </div>
 
 
-                        <div className="flex flex-col lg:flex-row gap-4 w-full max-w-[680px]">
+                        <div className="flex flex-col lg:flex-row gap-4 w-full max-w-full ">
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Experience</label>
                                 <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={(option) => handleSelectChange('experience', option) } />

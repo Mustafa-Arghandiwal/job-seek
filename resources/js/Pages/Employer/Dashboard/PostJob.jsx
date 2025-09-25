@@ -176,7 +176,7 @@ function PostJob() {
                             <div className="flex gap-2 xs:gap-5 flex-wrap xs:flex-nowrap mt-4">
                                 <div className="flex flex-col w-full min-w-32 max-w-64 ">
                                     <label htmlFor="minSalary" className="text-sm text-customGray-900">Min Salary</label>
-                                    <input type="number" placeholder="Min salary..." id="minSalary" value={data.minSalary} onChange={(e) => setData('minSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                                    <input type="number" min="0" placeholder="Min salary..." id="minSalary" value={data.minSalary} onChange={(e) => setData('minSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
                                         {errors.minSalary || ''}
                                     </div>
@@ -184,7 +184,7 @@ function PostJob() {
 
                                 <div className="flex flex-col w-full min-w-32 max-w-64 ">
                                     <label htmlFor="maxSalary" className="text-sm text-customGray-900">Max Salary</label>
-                                    <input type="number" placeholder="Max salary..." id="maxSalary" value={data.maxSalary} onChange={(e) => setData('maxSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                                    <input type="number" min="0" placeholder="Max salary..." id="maxSalary" value={data.maxSalary} onChange={(e) => setData('maxSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
                                         {errors.maxSalary || ''}
                                     </div>

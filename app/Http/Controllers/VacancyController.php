@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Mews\Purifier\Facades\Purifier;
 
 class VacancyController extends Controller
 {
@@ -138,6 +139,15 @@ class VacancyController extends Controller
             'description' => ['required', new RichTextLength(10, 65535), 'string'],
             'responsibilities' => ['required', new RichTextLength(10, 65535), 'string']
 
+        ]);
+
+        $validated['description'] = trim($validated['description']);
+        $validated['description'] = Purifier::clean($validated['description'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+        ]);
+        $validated['responsibilities'] = trim($validated['responsibilities']);
+        $validated['responsibilities'] = Purifier::clean($validated['responsibilities'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
         ]);
 
         $employer = $request->user()->employer;
@@ -288,6 +298,16 @@ class VacancyController extends Controller
             'responsibilities' => ['required', new RichTextLength(10, 65535), 'string']
 
         ]);
+
+        $validated['description'] = trim($validated['description']);
+        $validated['description'] = Purifier::clean($validated['description'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+        ]);
+        $validated['responsibilities'] = trim($validated['responsibilities']);
+        $validated['responsibilities'] = Purifier::clean($validated['responsibilities'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+        ]);
+
 
         $vacancy = Vacancy::findOrFail($id);
         $vacancy->job_title = $validated['jobTitle'];

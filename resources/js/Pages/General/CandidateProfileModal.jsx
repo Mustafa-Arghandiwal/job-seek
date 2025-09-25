@@ -100,10 +100,10 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
         createPortal(
             <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
 
-                <div ref={modalRef} className="relative w-[80vw] h-[80dvh] z-40  overflow-y-scroll scrollbar-custom rounded-xl p-12 bg-white  ">
+                <div ref={modalRef} className="relative w-[80vw] h-[80dvh] z-40  overflow-y-scroll scrollbar-custom rounded-xl p-6 sm:p-12 bg-white  ">
 
 
-                    <div className="sticky  z-10 flex justify-end -mt-6  -mr-6 -top-7">
+                    <div className="sticky  z-10 flex justify-end -mt-4 -mr-4 sm:-mt-6 sm:-mr-6 -top-7">
                         <button type="button" onClick={() => setShowModal(false)} className="bg-white text-customGray-900 border border-customGray-100 rounded-full  p-2  cursor-pointer active:scale-95">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.75 5.25L5.25 18.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
