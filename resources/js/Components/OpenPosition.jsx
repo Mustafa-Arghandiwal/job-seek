@@ -11,7 +11,7 @@ export default function OpenPosition(props) {
             <div className="flex  gap-5 ">
                 <div className="h-14 min-w-14 bg-cover bg-center rounded-sm" style={{ backgroundImage: `url(${props.logo || "/chess_pattern.png"})` }}></div>
                 <div className="flex gap-1.5 flex-col w-32 sm:w-auto break-words">
-                    <h4 title={"title"} className="text-[#191F33] font-medium  line-clamp-3  text-xl">{props.companyName}</h4>
+                    <h4 className="text-[#191F33] font-medium  line-clamp-3  text-xl">{props.companyName}</h4>
                     <div className="flex items-center gap-1.5 text-[#5E6670] text-sm "><img src="/map-pin.png" className="h-5" />{props.city || "Remote"}</div>
                 </div>
             </div>

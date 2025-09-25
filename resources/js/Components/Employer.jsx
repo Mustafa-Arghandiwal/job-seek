@@ -11,29 +11,36 @@ export default function Employer(props) {
     }
 
     return (
-        <div onClick={goToEmployerPage}  className=" relative border border-customGray-50 flex flex-wrap flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3  sm:items-center p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
+        <div onClick={goToEmployerPage} className="relative border border-customGray-50 flex flex-wrap items-center sm:items-stretch flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3 p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
                 <div
                     className="h-16 min-w-16 bg-cover bg-center rounded-md"
-                    style={{backgroundImage: `url(${logoPath})`}}
+                    style={{ backgroundImage: `url(${logoPath})` }}
                 ></div>
                 <div className="flex flex-col gap-3.5 ">
                     <div className="flex gap-2 flex-wrap items-center  break-words h-12 md:h-14   overflow-hidden">
                         <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-2  md:text-xl  ">{props.companyName}</h4>
-
                     </div>
-                    <div className="flex gap-1 sm:gap-4 flex-wrap">
+
+                    <div className="hidden sm:flex gap-2.5 flex-wrap">
                         <div className="flex items-center gap-1 text-customGray-600 text-sm">
-                            <LocationIcon className="w-5 h-5 text-customGray-300"/>
+                            <LocationIcon className="w-5 h-5 text-customGray-300" />
                             {location}</div>
                         <div className="flex items-center gap-1 text-customGray-600 text-sm">
-                            <BriefCaseIcon className="w-5 h-5 text-customGray-300"/>
+                            <BriefCaseIcon className="w-5 h-5 text-customGray-300" />
                             {props.openPositions || "No"} open position{props.openPositions === 1 ? "" : "s"}
                         </div>
-
-
-
                     </div>
+                </div>
+            </div>
+
+            <div className="flex sm:hidden gap-1 sm:gap-4 flex-col">
+                <div className="flex items-center gap-1 text-customGray-600 text-sm">
+                    <LocationIcon className="w-5 h-5 text-customGray-300" />
+                    {location}</div>
+                <div className="flex items-center gap-1 text-customGray-600 text-sm">
+                    <BriefCaseIcon className="w-5 h-5 text-customGray-300" />
+                    {props.openPositions || "No"} open position{props.openPositions === 1 ? "" : "s"}
                 </div>
             </div>
 

@@ -50,7 +50,6 @@ export default function CandidateDashboardLayout({ children }) {
                     </svg>
 
                     <span>Overview</span>
-                    {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Overview</span> */}
                 </Link>
 
                 <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/applied-jobs" className={` ${url.startsWith('/candidate/applied-jobs' )? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
@@ -67,8 +66,6 @@ export default function CandidateDashboardLayout({ children }) {
                     </svg>
 
                     <span>Applied Jobs</span>
-                    {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Applied Jobs</span> */}
-
                 </Link>
 
                 <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/saved-jobs" className={` ${url.startsWith('/candidate/saved-jobs' ) ? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
@@ -77,8 +74,6 @@ export default function CandidateDashboardLayout({ children }) {
                     </svg>
 
                     <span>Saved Jobs</span>
-                    {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Favorite Jobs</span> */}
-
                 </Link>
 
                 <Link onClick={() => setTimeout(() => !isMd && setIsOpen(false), 150)} href="/candidate/dashboard/settings" className={` ${url === '/candidate/dashboard/settings' ? 'before:h-full bg-primary-50 text-primary-500 hover:bg-primary-50 hover:text-primary-500 ' : 'before:h-0'} relative group before:absolute before:bg-primary-500 before:left-0 before:w-1 before:top-0   flex gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:text-customGray-900 hover:bg-customGray-50 before:rounded-4xl before:duration-150 before:ease-in-out `}>
@@ -88,21 +83,17 @@ export default function CandidateDashboardLayout({ children }) {
                     </svg>
 
                     <span>Settings</span>
-                    {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-primary-400 text-white px-2 py-1 duration-200`}>Settings</span> */}
-
                 </Link>
 
 
                 <button onClick={() => router.post('/sign-out')}
-                    className="group flex mt-auto gap-4 items-center px-5 py-3 text-customGray-500 text-sm font-medium hover:bg-primary-50 hover:text-primary-500 cursor-pointer">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-                        <path d="M16.3135 8.0625L20.2499 12L16.3135 15.9375" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M9.75 12H20.2472" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M9.75 20.25H4.5C4.30109 20.25 4.11032 20.171 3.96967 20.0303C3.82902 19.8897 3.75 19.6989 3.75 19.5V4.5C3.75 4.30109 3.82902 4.11032 3.96967 3.96967C4.11032 3.82902 4.30109 3.75 4.5 3.75H9.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    className="group flex mt-auto gap-4 items-center px-5 py-3 text-white text-sm font-medium bg-danger-400 hover:bg-danger-500 rounded-sm duration-150 cursor-pointer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 overflow-x-visible w-9 ">
+                        <path className="group-hover:translate-x-2 duration-200" d="M16.3135 8.0625L20.2499 12L16.3135 15.9375" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path className="group-hover:translate-x-2 duration-200" d="M9.75 12H20.2472" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path  d="M9.75 20.25H4.5C4.30109 20.25 4.11032 20.171 3.96967 20.0303C3.82902 19.8897 3.75 19.6989 3.75 19.5V4.5C3.75 4.30109 3.82902 4.11032 3.96967 3.96967C4.11032 3.82902 4.30109 3.75 4.5 3.75H9.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <span>Logout</span>
-                    {/* <span className={`${isOpen && 'hidden'} pointer-events-none absolute z-10 font-normal opacity-0 group-hover:opacity-100 group-hover:translate-x-12 rounded-md bg-danger-400 text-white px-2 py-1 duration-200`}>Logout</span> */}
-
                 </button>
 
             </nav>
