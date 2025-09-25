@@ -18,7 +18,7 @@ export default function Job(props) {
     return (
         <Link href={`/vacancies/${props.id}`} className=" relative border border-primary-50 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-wrap sm:flex-nowrap items-center p-8  rounded-xl
             hover:shadow-xl peer duration-150 snap-center hover:border-primary-500 ">
-            <div className="border ">
+            <div className=" ">
 
                 <div className=" flex gap-5 min-h-20 ">
                     <div
