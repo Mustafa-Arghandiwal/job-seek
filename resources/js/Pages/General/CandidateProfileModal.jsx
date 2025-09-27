@@ -2,6 +2,7 @@ import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
 import { router, usePage } from "@inertiajs/react"
+import { CloseXIcon } from "../../utils/svgs"
 
 
 export default function CandidateProfileModal({ showModal, setShowModal, candidate, savedCandidates }) {
@@ -104,12 +105,8 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
 
                     <div className="sticky  z-10 flex justify-end -mt-4 -mr-4 sm:-mt-6 sm:-mr-6 -top-7">
-                        <button type="button" onClick={() => setShowModal(false)} className="bg-white text-customGray-900 border border-customGray-100 rounded-full  p-2  cursor-pointer active:scale-95">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18.75 5.25L5.25 18.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M18.75 18.75L5.25 5.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
+                        <button type="button" onClick={() => setShowModal(false)} className="bg-primary-50 rounded-full grid place-items-center w-7 sm:w-10 h-7 sm:h-10  cursor-pointer active:scale-95">
+                        <CloseXIcon className="text-primary-500 w-4 sm:w-6" />                        </button>
                     </div>
                     {/* header */}
                     <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">

@@ -40,7 +40,8 @@ export default function DeleteModal(props) {
 
                 <div>
                     <p className="font-bold text-lg text-customGray-900 ">Delete Account</p>
-                    <p className="text-customGray-900">You are going to delete this account. Are you sure?</p>
+                    <p className="text-customGray-900">{props.msg}</p>
+                    <p className="text-customGray-900">This action cannot be undone.</p>
                 </div>
 
                 <div className="flex gap-3">

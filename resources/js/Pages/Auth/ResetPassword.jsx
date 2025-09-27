@@ -1,9 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState } from "react"
+import { EyeIcon, EyeClosedIcon} from "../../utils/svgs"
 
 
 export default function ResetPassword() {
-    const {props} = usePage()
+    const { props } = usePage()
     const { data, setData, errors, processing, post } = useForm({
         token: props.token,
         email: '',
@@ -51,8 +52,9 @@ export default function ResetPassword() {
                         <div className="relative">
                             <input type={passVis ? 'text' : 'password'} placeholder="New Password" value={data.password} onChange={(e) => setData('password', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100  px-3 outline-none focus:ring-1 focus:ring-primary-500" />
                             <button tabIndex="-1" type="button" onClick={() => setPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
-                                <img src="../fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-0" : "opacity-100"}`} />
-                                <img src="../fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-100" : "opacity-0"}`} />
+                                <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-0" : "opacity-100"}`} />
+                                <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-100" : "opacity-0"}`} />
+
                             </button>
                         </div>
                         {errors.password && <p className="text-sm text-danger-600">{errors.password}</p>}
@@ -63,8 +65,8 @@ export default function ResetPassword() {
                         <div className="relative">
                             <input type={confirmPassVis ? 'text' : 'password'} placeholder="Confirm Password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100  px-3 outline-none focus:ring-1 focus:ring-primary-500" />
                             <button tabIndex="-1" type="button" onClick={() => setConfirmPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer">
-                                <img src="../fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confirmPassVis ? "opacity-0" : "opacity-100"}`} />
-                                <img src="../fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confirmPassVis ? "opacity-100" : "opacity-0"}`} />
+                                <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${confirmPassVis ? "opacity-0" : "opacity-100"}`} />
+                                <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${confirmPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
                         {errors.password && <p className="text-sm text-danger-600">{errors.password}</p>}

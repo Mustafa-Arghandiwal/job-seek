@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link } from "@inertiajs/react"
+import { EyeIcon, EyeClosedIcon} from "../../utils/svgs"
 
 export default function SignIn() {
     const {data, setData, post, errors, processing} = useForm({
@@ -46,8 +47,8 @@ export default function SignIn() {
                             <div className="relative">
                                 <input type={passVis ? 'text' : 'password'} placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100 px-3 outline-none focus:ring-1 focus:ring-primary-500" />
                                 <button tabIndex="-1" type="button" onClick={() => setPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
-                                    <img src="fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-0" : "opacity-100"}`} />
-                                    <img src="fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${passVis ? "opacity-100" : "opacity-0"}`} />
+                                    <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-0" : "opacity-100"}`}/>
+                                    <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-100" : "opacity-0"}`}/>
                                 </button>
                             </div>
                             {errors.password && <p className="text-sm text-danger-600">{errors.password}</p>}

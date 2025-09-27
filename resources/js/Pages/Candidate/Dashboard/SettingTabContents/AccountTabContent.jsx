@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
 import DeleteModal from "../../../../Components/DeleteModal"
+import { EyeIcon, EyeClosedIcon } from "../../../../utils/svgs"
 
 
 export default function AccountTabContent() {
@@ -75,7 +76,7 @@ export default function AccountTabContent() {
         changePassForm.post('/candidate/settings/change-password', {
             onSuccess: () => {
                 setChangePassSuccessMsg(props.flash.changePassSuccess);
-                    changePassForm.reset()
+                changePassForm.reset()
             }
         })
     }
@@ -99,16 +100,16 @@ export default function AccountTabContent() {
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="phone" className="text-sm text-customGray-900">Phone</label>
                         <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500 " />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.phone || ''}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.phone || ''}
+                        </div>
                     </div>
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
                         <label htmlFor="email" className="text-sm text-customGray-900">Email</label>
                         <input type="text" id="email" value={contactForm.data.email} onChange={(e) => contactForm.setData('email', e.target.value)} placeholder="example@email.com" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.email}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.email}
+                        </div>
                     </div>
 
                 </div>
@@ -118,9 +119,9 @@ export default function AccountTabContent() {
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 mt-2 relative">
                         <label htmlFor="city" className="text-sm text-customGray-900">City</label>
                         <input type="text" id="city" value={contactForm.data.city} onChange={(e) => contactForm.setData('city', e.target.value)} placeholder="e.g. Kabul, Afghanistan" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {contactForm.errors.city}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {contactForm.errors.city}
+                        </div>
                     </div>
                 </div>
 
@@ -150,15 +151,15 @@ export default function AccountTabContent() {
                         <label htmlFor="currentPassword" className="text-sm text-customGray-900">Current Password</label>
                         <div className="relative mt-2">
                             <input type={currPassVis ? 'text' : 'password'} id="currentPassword" placeholder="Enter current password" value={changePassForm.data.currentPassword} onChange={(e) => changePassForm.setData('currentPassword', e.target.value)}
-                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400 placeholder:text-sm sm:placeholder:text-base text-customGray-900 focus:ring-1 focus:ring-primary-500" />
+                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400 placeholder:text-sm  text-customGray-900 focus:ring-1 focus:ring-primary-500" />
                             <button tabIndex={-1} type="button" onClick={() => setCurrPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
-                                <img src="/fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${currPassVis ? "opacity-0" : "opacity-100"}`} />
-                                <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${currPassVis ? "opacity-100" : "opacity-0"}`} />
+                                <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${currPassVis ? "opacity-0" : "opacity-100"}`} />
+                                <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${currPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.currentPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.currentPassword}
+                        </div>
 
                     </div>
 
@@ -167,15 +168,15 @@ export default function AccountTabContent() {
                         <label htmlFor="newPass" className="text-sm text-customGray-900">New Password</label>
                         <div className="relative mt-2">
                             <input type={newPassVis ? 'text' : 'password'} id="newPass" placeholder="Create a new password" value={changePassForm.data.newPassword} onChange={(e) => changePassForm.setData('newPassword', e.target.value)}
-                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400 placeholder:text-sm sm:placeholder:text-base text-customGray-900 focus:ring-1 focus:ring-primary-500" />
+                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400 placeholder:text-sm  text-customGray-900 focus:ring-1 focus:ring-primary-500" />
                             <button tabIndex={-1} type="button" onClick={() => setNewPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
-                                <img src="/fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${newPassVis ? "opacity-0" : "opacity-100"}`} />
-                                <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${newPassVis ? "opacity-100" : "opacity-0"}`} />
+                                <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${newPassVis ? "opacity-0" : "opacity-100"}`} />
+                                <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${newPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.newPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.newPassword}
+                        </div>
                     </div>
 
 
@@ -183,15 +184,15 @@ export default function AccountTabContent() {
                         <label htmlFor="confirmPass" className="text-sm text-customGray-900">Confirm Password</label>
                         <div className="relative mt-2">
                             <input type={confPassVis ? 'text' : 'password'} id="confirmPass" placeholder="Re-enter new password" value={changePassForm.data.confirmPassword} onChange={(e) => changePassForm.setData('confirmPassword', e.target.value)}
-                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400  placeholder:text-sm sm:placeholder:text-base text-customGray-900 focus:ring-1 focus:ring-primary-500" />
+                                className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400  placeholder:text-sm  text-customGray-900 focus:ring-1 focus:ring-primary-500" />
                             <button tabIndex={-1} type="button" onClick={() => setConfPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
-                                <img src="/fi_eye.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confPassVis ? "opacity-0" : "opacity-100"}`} />
-                                <img src="/fi_eye-off.png" className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 ${confPassVis ? "opacity-100" : "opacity-0"}`} />
+                                <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${confPassVis ? "opacity-0" : "opacity-100"}`} />
+                                <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${confPassVis ? "opacity-100" : "opacity-0"}`} />
                             </button>
                         </div>
-                            <div className="text-sm w-full text-danger-600 min-h-5">
-                                {changePassForm.errors.confirmPassword}
-                            </div>
+                        <div className="text-sm w-full text-danger-600 min-h-5">
+                            {changePassForm.errors.confirmPassword}
+                        </div>
 
                     </div>
 
@@ -239,6 +240,7 @@ export default function AccountTabContent() {
                     setShowDeleteModal={setShowDeleteModal}
                     deleteAccountBtnRef={deleteAccountBtnRef}
                     handleDeleteAccountSubmit={handleDeleteAccountSubmit}
+                    msg="This will permanently remove your profile, job applications, saved jobs, resumes and all related data."
                 />
             </form>
 
