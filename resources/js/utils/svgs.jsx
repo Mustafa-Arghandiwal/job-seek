@@ -236,6 +236,17 @@ export const CloseXIcon = ({ className = "" }) => (
     </svg>
 )
 
+export const LinkIcon = ({ className = "" }) => (
+    <svg className={className} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_7140_13034)">
+            <path d="M7.5 9.75095C7.82209 10.1815 8.23302 10.5378 8.70491 10.7957C9.17681 11.0535 9.69863 11.2068 10.235 11.2452C10.7713 11.2836 11.3097 11.2062 11.8135 11.0183C12.3173 10.8303 12.7748 10.5363 13.155 10.156L15.405 7.90595C16.0881 7.19869 16.4661 6.25143 16.4575 5.2682C16.449 4.28496 16.0546 3.34441 15.3593 2.64913C14.664 1.95385 13.7235 1.55947 12.7403 1.55092C11.757 1.54238 10.8098 1.92036 10.1025 2.60345L8.8125 3.88595" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10.4997 8.24992C10.1776 7.81933 9.76664 7.46304 9.29475 7.20522C8.82285 6.9474 8.30103 6.79409 7.76467 6.75567C7.22832 6.71726 6.68997 6.79465 6.18615 6.98259C5.68233 7.17053 5.22483 7.46462 4.84466 7.84492L2.59466 10.0949C1.91157 10.8022 1.53359 11.7494 1.54213 12.7327C1.55068 13.7159 1.94506 14.6565 2.64034 15.3517C3.33562 16.047 4.27617 16.4414 5.25941 16.45C6.24264 16.4585 7.1899 16.0805 7.89716 15.3974L9.17966 14.1149" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <defs>
+            <clipPath id="clip0_7140_13034"><rect width="18" height="18" fill="white" /></clipPath>
+        </defs>
+    </svg>
+);
 
 export const HomePageCover = ({ className = "" }) => (
     <svg className={className} width="492" height="382" viewBox="0 0 492 382" fill="none" xmlns="http://www.w3.org/2000/svg">

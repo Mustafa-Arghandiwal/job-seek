@@ -98,7 +98,7 @@ export default function EmployerDashboardLayout({ children }) {
 
 
                 <button onClick={() => router.post('/sign-out')}
-                    className="group flex mt-auto gap-4 group items-center px-5 py-3 text-white text-sm font-medium  bg-danger-400 hover:bg-danger-500 rounded-sm duration-150  cursor-pointer">
+                    className="group flex mt-auto gap-4 group items-center px-5 py-3 text-white text-sm font-medium shadow bg-danger-500/70 hover:bg-danger-500/90 rounded-xs duration-150  cursor-pointer">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 overflow-x-visible w-9 ">
                         <path className="group-hover:translate-x-2 duration-200" d="M16.3135 8.0625L20.2499 12L16.3135 15.9375" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path className="group-hover:translate-x-2 duration-200" d="M9.75 12H20.2472" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

@@ -256,7 +256,7 @@ export default function Layout({ children }) {
                 dashboardUrls.some(dashUrl => url.startsWith(dashUrl))
                     ?
                     <footer className=" col-span-2 px-8  h-10 flex justify-center items-center border-t border-customGray-100  ">
-                        <p className="text-xs text-center  text-customGray-500 ">&copy; 2025 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
+                        <p className="text-xs text-center text-customGray-500 ">&copy; 2025 JobSeek – Eqbal and Mustafa. All rights reserved. Not that anyone cares.</p>
                     </footer>
 
                     :

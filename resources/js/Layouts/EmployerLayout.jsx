@@ -5,6 +5,7 @@ import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserI
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
+import ToolTip from "../Components/ToolTip";
 
 
 export default function EmployerLayout({ children }) {

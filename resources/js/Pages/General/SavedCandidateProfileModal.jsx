@@ -132,7 +132,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
                                 ? <div className="mt-4 min-h-[200px] sm:min-h-[365px] space-y-4 min-h- [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
                                     dangerouslySetInnerHTML={{ __html: biography }} />
                                 : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
 

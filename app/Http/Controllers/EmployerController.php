@@ -69,7 +69,7 @@ class EmployerController extends Controller
             ->where('manually_expired', false)
             ->where('deadline', '>=', Carbon::today())
             ->orderBy('deadline', 'asc')
-            ->get();
+            ->paginate(9)->withQueryString();
 
         return Inertia::render('Candidate/SingleEmployerPage', [
             'employerDetails' => $employerDetails,

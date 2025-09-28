@@ -274,7 +274,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline"
                             dangerouslySetInnerHTML={{ __html: description }} />
                         : <p className="text-customGray-400 mt-4">Not Provided</p>}
 
@@ -284,7 +284,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900  [&_a]:text-primary-500 [&_a]:underline"
                             dangerouslySetInnerHTML={{ __html: responsibilities }} />
                         : <p className="text-customGray-400 mt-4">Not Provided</p>}
 
@@ -476,7 +476,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 <label className="text-sm text-customGray-900">Choose Resume/CV</label>
                                 {dropdownResumes.length === 0 &&
                                     <span className="text-danger-700 text-sm block">You haven't added any CVs yet.
-                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings#your-resumes"> Go to your dashboard</Link> to upload one.</span>
+                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings"> Go to your dashboard</Link> to upload one.</span>
 
                                 }
                                 <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />

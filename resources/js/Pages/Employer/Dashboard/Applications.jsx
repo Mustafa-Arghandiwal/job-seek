@@ -124,12 +124,6 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
                 {/* <DashboardApplication key={activeApp.id} id={activeApp.id} name={activeApp.full_name} title={activeApp.title} /> */}
             </DndContext >
 
-
-
-
-
-
-
         </div >
 
 

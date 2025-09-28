@@ -1,6 +1,7 @@
 import OpenPosition from "../../Components/OpenPosition"
 import Layout from "../../Layouts/Layout"
 import { formatSalary } from "../../utils/formatSalary"
+import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
 
 
@@ -19,7 +20,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     const email = ed.contact?.email
     const socialLinks = ed.social_link
 
-    const openPositions = vacancies.map(vacancy => {
+    const openPositions = vacancies.data.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
             return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
@@ -98,7 +99,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
                                 dangerouslySetInnerHTML={{ __html: about }} />
                             : <p className="text-customGray-400 mt-4">Not Provided</p>}
                     </div>
@@ -230,8 +231,9 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
             <div className="mt-20 " id="open-positions-section">
                 <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Open Positions</h3>
                 {openPositions.length !== 0 ?
-                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap   scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
                         {openPositions}
+                        <PaginationLinks paginator={vacancies}/>
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
