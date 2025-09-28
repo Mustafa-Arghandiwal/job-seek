@@ -5,8 +5,7 @@ import { router, usePage } from "@inertiajs/react"
 import { CloseXIcon } from "../../utils/svgs"
 
 
-export default function CandidateProfileModal({ showModal, setShowModal, candidate, savedCandidates }) {
-
+export default function CandidateProfileModal({ showModal, setShowModal, candidate, coverLetter, savedCandidates }) {
 
     const root = document.getElementById("react-portal-root")
 
@@ -104,9 +103,10 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                 <div ref={modalRef} className="relative w-[80vw] h-[80dvh] z-40  overflow-y-scroll scrollbar-custom rounded-xl p-6 sm:p-12 bg-white  ">
 
 
-                    <div className="sticky  z-10 flex justify-end -mt-4 -mr-4 sm:-mt-6 sm:-mr-6 -top-7">
+                    <div className="sticky z-10 flex justify-end -mt-2 sm:-mt-6 -mr-6 sm:-mr-9 -top-5 sm:-top-7">
                         <button type="button" onClick={() => setShowModal(false)} className="bg-primary-50 rounded-full grid place-items-center w-7 sm:w-10 h-7 sm:h-10  cursor-pointer active:scale-95">
-                        <CloseXIcon className="text-primary-500 w-4 sm:w-6" />                        </button>
+                            <CloseXIcon className="text-primary-500 w-4 sm:w-6" />
+                        </button>
                     </div>
                     {/* header */}
                     <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
@@ -159,16 +159,33 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                     <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between ">
 
                         <div className="lg:max-w-[600px]  w-full ">
-                            <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
-                            {biography
-                                ? <div className="mt-4 min-h-[200px] sm:min-h-[365px] space-y-4 min-h- [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
+                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
+                                <h2 className="text-customGray-900 text-xl font-medium">Cover Letter</h2>
+                                {coverLetter
+                                    ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
                                 [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
-                                    dangerouslySetInnerHTML={{ __html: biography }} />
-                                : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+                                        dangerouslySetInnerHTML={{ __html: coverLetter }} />
+                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+
+                            </div>
 
                             <hr className="mt-8 text-customGray-200"></hr>
+
+                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
+                                <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
+                                {biography
+                                    ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
+                                [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
+                                [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                        dangerouslySetInnerHTML={{ __html: biography }} />
+                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+
+                            </div>
+
+                            <hr className="mt-4 sm:mt-8 text-customGray-200"></hr>
 
                             <span className="text-customGray-700 text-sm  mt-8 block">Follow me on Social Media</span>
 
@@ -184,71 +201,57 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
                         <div className="">
 
-                            <div className="  max-w-[340px] w-full flex  flex-col sm:flex-row flex-wrap gap-4  p-8 border border-primary-200  rounded-lg">
+                            <div className="space-y-3 sm:space-y-0  max-w-[340px] w-full flex  flex-col sm:flex-row flex-wrap gap-4  p-4 sm:p-8 border border-primary-200  rounded-lg">
 
-                                {/* <div className=" flex flex-col gap-6 "> */}
                                 <div className=" min-w-32 ">
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/cake.png" />
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/cake.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">DATE OF BIRTH</p>
                                     </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500 max-w-32">DATE OF BIRTH</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${dob ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
-                                    </div>
-                                </div>
-                                <div className=" min-w-32">
-
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/location.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">CITY</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{city || "Not provided"}</p>
-                                    </div>
-                                </div>
-                                {/* </div> */}
-
-
-                                {/* <div className=" flex flex-col gap-6 "> */}
-                                <div className=" min-w-32">
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/marital-status.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">MARITAL STATUS</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${maritalStatus ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{maritalStatus || "Not provided"}</p>
-                                    </div>
-                                </div>
-                                <div className=" min-w-32">
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/gender.png" />
-                                    </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">GENDER</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${gender ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{gender || "Not provided"}</p>
-                                    </div>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${dob ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
                                 </div>
 
-                                {/* </div> */}
-
-                                <div className=" min-w-32">
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/experience.png" />
+                                <div className=" min-w-32 ">
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/location.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">CITY</p>
                                     </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${experience ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{experience || "Not provided"}</p>
-                                    </div>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
                                 </div>
 
-                                <div className=" min-w-32">
-                                    <div className="w-6 h-6">
-                                        <img src="/candidate-profile-icons/grad-cap.png" />
+
+
+                                <div className=" min-w-32 ">
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/marital-status.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">MARITAL STATUS</p>
                                     </div>
-                                    <div className="mt-4">
-                                        <p className="text-xs text-customGray-500  max-w-32">EDUCATIONS</p>
-                                        <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${educations ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{educations || "Not provided"}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${maritalStatus ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{maritalStatus || "Not provided"}</p>
+                                </div>
+
+                                <div className=" min-w-32 ">
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/gender.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">GENDER</p>
                                     </div>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${gender ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{gender || "Not provided"}</p>
+                                </div>
+
+                                <div className=" min-w-32 ">
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/experience.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">EXPERIENCE</p>
+                                    </div>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${experience ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{experience || "Not provided"}</p>
+                                </div>
+
+
+                                <div className=" min-w-32 ">
+                                    <div className="flex sm:flex-col items-center sm:items-start gap-2">
+                                        <img className="w-6 h-6" src="/candidate-profile-icons/grad-cap.png" />
+                                        <p className="text-xs mt-2 text-customGray-500 max-w-32">EDUCATIONS</p>
+                                    </div>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${educations ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{educations || "Not provided"}</p>
                                 </div>
 
                             </div>

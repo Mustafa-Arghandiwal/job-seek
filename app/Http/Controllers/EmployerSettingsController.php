@@ -24,17 +24,17 @@ class EmployerSettingsController extends Controller
             'teamSize' => ['required', 'in:1-10,11-50,51-100,101-500,501-1000,1001-5000,5000+'],
             'establishDate' => ['required', 'date_format:Y-m'],
             'companyWebsite' => ['nullable', 'regex:/^(https?:\/\/)?(www\.)?[a-z0-9-]+\.[a-z]{2,}(\/[a-z0-9-]*)*\/?$/'],
-            'aboutCompany' => ['required', new RichTextLength(10, 65535),'string'],
+            'aboutCompany' => ['required', new RichTextLength(10, 65535), 'string'],
             'logo' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
             'banner' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
 
         ]);
-                $validated = $request->validate([
-            'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
-            'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
-            'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
-            'biography' => ['required', new RichTextLength(10, 65535), 'string']
-        ]);
+        // $validated = $request->validate([
+        //     'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
+        //     'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
+        //     'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
+        //     'biography' => ['required', new RichTextLength(10, 65535), 'string']
+        // ]);
 
         $validated['aboutCompany'] = trim($validated['aboutCompany']);
         $validated['aboutCompany'] = Purifier::clean($validated['aboutCompany'], [

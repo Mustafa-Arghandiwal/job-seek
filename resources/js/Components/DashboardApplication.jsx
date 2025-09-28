@@ -27,7 +27,7 @@ export default function DashboardApplication(props) {
             fetch(`/employer/vacancies/${props.vacancyId}/applications/${appDetails.id}/candidate`)
                 .then(res => res.json())
                 .then(data => setCandidate(data))
-                .then(err => console.log(err))
+                // .then(err => console.log(err))
         }
 
     }, [showModal])
@@ -125,8 +125,8 @@ export default function DashboardApplication(props) {
             </ul>
 
 
-            <div className="flex flex-col gap-2 sm:gap-3 mt-3 flex-wrap w-fit">
-                <a href={`/applications/${appDetails.id}/resume/download`} className="flex gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500">
+            <div className="flex flex-col gap-2 sm:gap-3 mt-3 flex-wrap">
+                <a href={`/applications/${appDetails.id}/resume/download`} className="flex w-fit gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500">
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.71875 8.59375L10 11.8741L13.2812 8.59375" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M10 3.125V11.8727" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -135,7 +135,7 @@ export default function DashboardApplication(props) {
                     <span className="font-medium text-xs">Download CV</span>
                 </a>
 
-                <button onClick={() => window.open(`/applications/${appDetails.id}/resume`, '_blank')} className="flex gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500">
+                <button onClick={() => window.open(`/applications/${appDetails.id}/resume`, '_blank')} className="w-fit flex gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500">
                     {/* <button onClick={() => router.get(`/applications/${appDetails.id}/resume`)}  className="flex gap-1 items-center mt-4 cursor-pointer text-primary-500"> */}
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -148,7 +148,7 @@ export default function DashboardApplication(props) {
                 <button
                     onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
                     // onClick={() => {router.get(`/employer/vacancies/${props.vacancyId}/applications/${appDetails.id}/candidate`)}}
-                    className="flex gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500">
+                    className="flex gap-1 items-center cursor-pointer text-primary-600 hover:text-primary-500 w-fit">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
                         <path d="M2.90527 20.2491C3.82736 18.6531 5.15322 17.3278 6.74966 16.4064C8.34611 15.485 10.1569 15 12.0002 15C13.8434 15 15.6542 15.4851 17.2506 16.4065C18.8471 17.3279 20.1729 18.6533 21.0949 20.2493" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -159,7 +159,7 @@ export default function DashboardApplication(props) {
 
 
 
-            <CandidateProfileModal showModal={showModal} setShowModal={setShowModal} candidate={candidate} savedCandidates={props.savedCandidates}/>
+            <CandidateProfileModal showModal={showModal} setShowModal={setShowModal} candidate={candidate} coverLetter={appDetails.cover_letter} savedCandidates={props.savedCandidates}/>
 
 
         </div>
