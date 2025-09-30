@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link } from "@inertiajs/react"
-import { EyeIcon, EyeClosedIcon, UserIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
 
 export default function SignIn({ liveJobsCount, companiesCount, candidatesCount }) {
     console.log(liveJobsCount, companiesCount, candidatesCount)
@@ -105,7 +105,7 @@ export default function SignIn({ liveJobsCount, companiesCount, candidatesCount 
 
                         <div>
                             <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
-                                <UserIcon className="text-white w-8 h-8 " />
+                                <UsersIcon className="text-white w-8 h-8 " />
                             </div>
                             <div className="mt-3">
                                 <p className="text-xl text-white">{candidatesCount}</p>

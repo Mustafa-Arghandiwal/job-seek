@@ -1,6 +1,6 @@
 import { useForm, Link, usePage } from "@inertiajs/react"
 import { useEffect, useState } from "react"
-import { EyeIcon, EyeClosedIcon, UserIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
+import { UsersIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
 
 
 export default function ForgotPassword({ liveJobsCount, companiesCount, candidatesCount }) {
@@ -105,7 +105,7 @@ export default function ForgotPassword({ liveJobsCount, companiesCount, candidat
 
                         <div>
                             <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
-                                <UserIcon className="text-white w-8 h-8 " />
+                                <UsersIcon className="text-white w-8 h-8 " />
                             </div>
                             <div className="mt-3">
                                 <p className="text-xl text-white">{candidatesCount}</p>
