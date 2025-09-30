@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link, usePage } from "@inertiajs/react"
-import { EyeIcon, EyeClosedIcon } from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, UserIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
 
-export default function SignUp({ userType }) {
+export default function SignUp({ userType, liveJobsCount, companiesCount, candidatesCount }) {
     const { data, setData, post, errors, processing } = useForm({
         full_name: '',
         email: '',
@@ -126,29 +126,39 @@ export default function SignUp({ userType }) {
                         Over 300 companies waiting for good employees
                     </h2>
                     <div className="flex justify-between gap-5 w-3/4">
-                        <div className="flex flex-col gap-8">
-                            <img src="/briefcase-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">2,000</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <BriefCaseIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{liveJobsCount}</p>
                                 <p className="text-sm text-customGray-400">Live Jobs</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-8">
-                            <img src="/company-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">300+</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <BuildingIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{companiesCount}</p>
                                 <p className="text-sm text-customGray-400">Companies</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-8">
-                            <img src="/briefcase-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">56</p>
-                                <p className="text-sm text-customGray-400">New Jobs Today</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <UserIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{candidatesCount}</p>
+                                <p className="text-sm text-customGray-400">Candidates</p>
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>

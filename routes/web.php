@@ -31,7 +31,7 @@ Route::get('/sign-up', [AuthController::class, 'signUpForm']);
 
 Route::post('/sign-up', [AuthController::class, 'signUp']);
 
-Route::inertia('/sign-in', 'Auth/SignIn')->name('login');
+Route::get('/sign-in', [AuthController::class, 'signInForm']);
 Route::post('/sign-in', [AuthController::class, 'signIn']);
 
 Route::post('/sign-out', [AuthController::class, 'signOut']);
@@ -42,7 +42,7 @@ Route::get('/email/verify', [AuthController::class, 'showVerifyNotice'])->middle
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
 Route::post('/email/verification-notification', [AuthController::class, 'resendVerification'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::inertia('/forgot-password', 'Auth/ForgotPassword')->middleware('guest')->name('password.request');
+Route::get('/forgot-password', [AuthController::class, 'forgotPassForm'])->middleware('guest')->name('password.request');
 Route::post('forgot-password', [PasswordResetController::class, 'sendPassResetLink']);
 
 Route::get('/reset-password', function () {
