@@ -1,5 +1,6 @@
 import OpenPosition from "../../Components/OpenPosition"
 import Layout from "../../Layouts/Layout"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 import { formatSalary } from "../../utils/formatSalary"
 import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
@@ -247,5 +248,15 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
 
 
-SingleEmployerPage.layout = page => <Layout children={page} />
+// SingleEmployerPage.layout = page => <Layout children={page} />
+
+SingleEmployerPage.layout = page => {
+    const userType = page.props?.auth?.user?.user_type
+    console.log(userType)
+    if (userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+}
+
 export default SingleEmployerPage

@@ -20,8 +20,6 @@ export default function AccountTabContent() {
         confirmPassword: ''
     })
 
-    const deleteAccountForm = useForm({})
-
     const [currPassVis, setCurrPassVis] = useState(false)
     const [newPassVis, setNewPassVis] = useState(false)
     const [confPassVis, setConfPassVis] = useState(false)
@@ -79,12 +77,6 @@ export default function AccountTabContent() {
                 changePassForm.reset()
             }
         })
-    }
-
-    const handleDeleteAccountSubmit = (e) => {
-        e.preventDefault()
-        deleteAccountForm.post('/employer/settings/delete-account')
-
     }
     // ________________________________________________________________________
 
@@ -216,14 +208,14 @@ export default function AccountTabContent() {
 
 
 
-            <form onSubmit={handleDeleteAccountSubmit}>
+            <div>
                 <h2 className="font-medium text-customGray-900 text-lg" >Delete Your Account</h2>
                 <p className="text-sm text-customGray-500 max-w-lg mt-3">
                     Deleting your account is permanent. You’ll lose access to your account and data. This action cannot be undone.
                 </p>
                 <button
                     ref={deleteAccountBtnRef}
-                    disabled={deleteAccountForm.processing} type="button" onClick={() => setShowDeleteModal(prev => !prev)}
+                    type="button" onClick={() => setShowDeleteModal(prev => !prev)}
                     className={` group cursor-pointer relative flex items-center gap-1 hover: mt-5 text-danger-500 font-medium text-sm px-4 py-4 rounded-md active:scale-95 duration-150 hover:shadow-2xl `} >
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
                         <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.3" strokeMiterlimit="10" />
@@ -242,10 +234,9 @@ export default function AccountTabContent() {
                     showDeleteModal={showDeleteModal}
                     setShowDeleteModal={setShowDeleteModal}
                     deleteAccountBtnRef={deleteAccountBtnRef}
-                    handleDeleteAccountSubmit={handleDeleteAccountSubmit}
                     msg="This will permanently remove your profile, posted jobs, applicants and all related data."
                 />
-            </form>
+            </div>
 
 
         </div>

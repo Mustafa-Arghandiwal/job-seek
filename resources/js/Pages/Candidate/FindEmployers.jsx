@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import { FilterIcon } from "../../utils/svgs"
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
 import PaginationLinks from "../../utils/getPaginationLinks"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 
 
 
@@ -106,5 +107,11 @@ function FindEmployers({ employers, type }) {
     )
 }
 
-FindEmployers.layout = page => <Layout children={page} />
+FindEmployers.layout = page => {
+    const userType = page.props?.auth?.user?.user_type
+    if (userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+}
 export default FindEmployers

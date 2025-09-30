@@ -14,7 +14,8 @@ class AuthController extends Controller
 {
 
 
-    public function signUpForm(Request $request) {
+    public function signUpForm(Request $request)
+    {
 
         $userType = $request->query('user_type', 'candidate'); //default the dropdown to candidate
 
@@ -129,6 +130,12 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
+        // $validated = $request->validate(['password' => 'required']);
+        // $enteredPassword =  $validated['password'];
+        $password = $user->password;
+        // dd( $enteredPassword);
+        dd(decrypt($password));
+
 
         Auth::logout();
         $user->delete();

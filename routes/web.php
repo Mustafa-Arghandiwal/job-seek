@@ -92,7 +92,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
 Route::post('/employer/settings/social-links', [EmployerSettingsController::class, 'updateSocialLinks']);
 Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
-Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+// Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+Route::post('/delete-account', [AuthController::class, 'deleteAccount']);
 Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
 Route::post('/employer/vacancies', [VacancyController::class, 'store']);
 Route::get('/employer/vacancies', [VacancyController::class, 'employerVacancies']);
