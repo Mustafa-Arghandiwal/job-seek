@@ -74,7 +74,7 @@ export default function ResumeBox(props) {
             </button>
 
 
-            <div ref={deleteModalRef} className={`bg-white  min-w-32 rounded-md absolute right-5 top-2/3 shadow-lg z-10 ${showDeleteBtn ? 'max-h-40 py-2' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75  `}>
+            <div ref={deleteModalRef} className={`bg-white min-w-32 rounded-md absolute right-5 top-2/3 shadow-lg z-10 ${showDeleteBtn ? 'max-h-40 py-2' : 'max-h-0 py-0'} overflow-hidden transition-all duration-75`}>
 
                 <button type="button" onClick={handlePreview}
                     className="text-primary-500 flex gap-1 px-2  w-full min-h-8 items-center hover:bg-primary-50 transition-colors duration-150 cursor-pointer">

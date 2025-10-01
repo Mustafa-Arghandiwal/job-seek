@@ -64,7 +64,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     return (
         <div className="lg:px-24 xl:px-48 pb-30">
 
-            <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative ${banner && "hover:z-40 hover:h-[45dvh] hover:border-none hover:rounded-b-sm"} duration-200 bg-cover bg-center `}
+            <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative duration-200 bg-cover bg-center `}
                 style={{ backgroundImage: `url(${banner || "/chess_pattern_cover.png"})` }}
             >
                 {/* <img src="/chess_pattern_cover.png" alt="cover photo" className="w-full h-full object-cover bg-repeat-x" /> */}

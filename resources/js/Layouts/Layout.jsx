@@ -1,9 +1,10 @@
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
+import { BriefCaseIcon, MenuIcon, SearchIcon, SpinnerIcon, UserIcon, GearIcon, EyeIconThin, LogoutIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
+import CandidateProfileView from "../Components/CandidateProfileView";
 
 
 export default function Layout({ children }) {
@@ -25,6 +26,34 @@ export default function Layout({ children }) {
         '/candidate/dashboard/settings',
     ]
 
+    // ----------------------Profile icon dropdown------------------
+    const [profileDropdown, setProfileDropdown] = useState(false)
+    const profileRef = useRef(null)
+    const profileDropdownRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
+                setProfileDropdown(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+    }, [])
+    // -------------------------------------------------------------
+
+    // ----------------------Profile icon dropdown------------------
+    const [showModal, setShowModal] = useState(false)
+    const [candidate, setCandidate] = useState(null)
+    useEffect(() => {
+        if (showModal) {
+            fetch(`/employer/saved-candidates/${2}`)
+                .then(res => res.json())
+                .then(data => setCandidate(data))
+        }
+
+    }, [showModal])
+    // -------------------------------------------------------------
 
     // ----------------------Header show and hide logic------------------
     const [isVisible, setIsVisible] = useState(true);
@@ -70,7 +99,6 @@ export default function Layout({ children }) {
     }, [])
 
     useEffect(() => {
-
         return router.on('finish', () => {
             setDropdownVisible(false)
         })
@@ -183,18 +211,26 @@ export default function Layout({ children }) {
 
                     {
                         user ?
-                            <div className="hidden sm:flex ">
-                                <Link href="/candidate/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500 group">
+                            <div className="hidden sm:flex relative">
+                                <div ref={profileRef} onClick={() => setProfileDropdown(prev => !prev)} className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500 group">
                                     {headerProfilePic ?
-                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
+                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
                                         :
-                                        <UserIcon className="group-hover:scale-120  duration-100" />
+                                        <UserIcon className="group-hover:scale-120 active:scale-110 cursor-pointer duration-100" />
                                     }
-                                </Link>
-
-                                {/* <form onSubmit={handleSubmit}> */}
-                                {/*     <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button> */}
-                                {/* </form> */}
+                                </div>
+                                <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-35 top-13 right-0 text-sm absolute rounded-md border overflow-hidden border-customGray-50
+                                    ${profileDropdown ? "opacity-100" : "opacity-0 pointer-events-none"} duration-150`}>
+                                    <button onClick={() => setShowModal(true)} className="flex items-center gap-1.5 px-1 py-2 w-full hover:text-primary-500 hover:bg-[#E8F1FF] duration-150 cursor-pointer">
+                                        <EyeIconThin className="w-5 h-5" />View my profile
+                                    </button>
+                                    <Link className="flex items-center gap-1.5 px-1 py-2 w-full hover:text-primary-500 hover:bg-[#E8F1FF] duration-150 cursor-pointer" href="/candidate/dashboard/settings">
+                                        <GearIcon className="w-5 h-5" />Settings
+                                    </Link>
+                                    <button onClick={() => router.post('/sign-out')} className="group flex items-center gap-1.5 py-2 px-1 hover:text-white hover:bg-danger-400 duration-150 w-full cursor-pointer">
+                                        <LogoutIcon className="w-5 h-5" /> Logout
+                                    </button>
+                                </div>
                             </div>
 
                             :
@@ -248,7 +284,7 @@ export default function Layout({ children }) {
 
             <main className={`relative  ${!dashboardUrls.includes(url) ? "mt-[138px]" : ""} `}>
                 <div className={`fixed inset-0 bg-[#18191C]/60 ${dropdownVisible ? 'opacity-100 z-40' : 'opacity-0 -z-50'}`}></div>
-                    {children}
+                {children}
             </main>
 
             {
@@ -331,6 +367,8 @@ export default function Layout({ children }) {
 
             }
 
+            <CandidateProfileView profileDropdownRef={profileDropdownRef} showModal={showModal} setShowModal={setShowModal} candidateData={candidate}
+            />
         </div>
     )
 }
