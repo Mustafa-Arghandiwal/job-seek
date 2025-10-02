@@ -103,19 +103,19 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                 <div ref={modalRef} className="relative w-[80vw] h-[80dvh] z-40  overflow-y-scroll scrollbar-custom rounded-xl p-6 sm:p-12 bg-white  ">
 
 
-                    <div className="sticky z-10 flex justify-end -mt-2 sm:-mt-6 -mr-6 sm:-mr-9 -top-5 sm:-top-7">
+                    <div className="sticky z-10 flex justify-end -mt-2 sm:-mt-6 -mr-5 sm:-mr-9 -top-5 sm:-top-7">
                         <button type="button" onClick={() => setShowModal(false)} className="bg-primary-50 rounded-full grid place-items-center w-7 sm:w-10 h-7 sm:h-10  cursor-pointer active:scale-95">
                             <CloseXIcon className="text-primary-500 w-4 sm:w-6" />
                         </button>
                     </div>
                     {/* header */}
-                    <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
+                    <div className="py-8  flex items-center flex-col lg:flex-row gap-4 justify-center lg:justify-between ">
 
                         <div className="flex gap-6 items-center flex-col xs:flex-row">
                             <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${profilePicture})` }}></div>
-                            <div className=" flex flex-col gap-[10px] ">
+                            <div className=" flex flex-col gap-[10px] text-sm text-center">
                                 <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{candidateDetails?.full_name}</h2>
-                                {title && <span className="block text-customGray-600 text-sm sm:text-base line-clamp-1">{title}</span>}
+                                {title && <span className="block text-customGray-600  xs:text-left sm:text-base line-clamp-1">{title}</span>}
 
                             </div>
                         </div>

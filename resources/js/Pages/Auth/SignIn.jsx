@@ -3,7 +3,6 @@ import { useForm, Link } from "@inertiajs/react"
 import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
 
 export default function SignIn({ liveJobsCount, companiesCount, candidatesCount }) {
-    console.log(liveJobsCount, companiesCount, candidatesCount)
     const { data, setData, post, errors, processing } = useForm({
         email: '',
         password: '',

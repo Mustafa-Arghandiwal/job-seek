@@ -1,7 +1,7 @@
 
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
+import { BriefCaseIcon, GearIcon, LogoutIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
@@ -30,6 +30,23 @@ export default function EmployerLayout({ children }) {
         '/employer/vacancies'
     ]
 
+
+
+    // ----------------------Profile icon dropdown------------------
+    const [profileDropdown, setProfileDropdown] = useState(false)
+    const profileRef = useRef(null)
+    const profileDropdownRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
+                setProfileDropdown(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+    }, [])
+    // -------------------------------------------------------------
 
     // ----------------------Header show and hide logic------------------
     const [isVisible, setIsVisible] = useState(true);
@@ -190,23 +207,29 @@ export default function EmployerLayout({ children }) {
 
                     {
                         user ?
-                            <div className="hidden sm:flex gap-2 xl:gap-5">
+                            <div className="hidden sm:flex gap-2 xl:gap-5 relative">
                                 {user.user_type === "employer" &&
                                     <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50  px-2 py-3 duration-150 text-nowrap cursor-pointer">
                                         Post a Job
                                     </Link>
                                 }
 
-                                <Link href="/employer/dashboard/settings" className="h-12 w-12 grid place-items-center group rounded-full border-2 overflow-hidden border-primary-500">
+                                <div ref={profileRef} onClick={() => setProfileDropdown(prev => !prev)} className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500 group">
                                     {headerProfilePic ?
-                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
+                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
                                         :
-                                        <UserIcon className="group-hover:scale-120  duration-100" />
+                                        <UserIcon className="group-hover:scale-120 active:scale-110 cursor-pointer duration-100" />
                                     }
-                                </Link>
-                                {/* <form onSubmit={handleSubmit}> */}
-                                {/*     <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button> */}
-                                {/* </form> */}
+                                </div>
+                                <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-38  shadow-lg top-13  text-sm absolute rounded-md border overflow-hidden border-customGray-50
+                                    ${profileDropdown ? "opacity-100" : "opacity-0 pointer-events-none"} duration-150`}>
+                                    <Link className="flex items-center gap-1.5 px-2 py-2 w-full hover:text-primary-500 hover:bg-[#E8F1FF] duration-150 cursor-pointer" href="/employer/dashboard/settings">
+                                        <GearIcon className="w-5 h-5" />Settings
+                                    </Link>
+                                    <button onClick={() => router.post('/sign-out')} className="group flex items-center gap-1.5 py-2 px-2 hover:text-white hover:bg-danger-400 duration-150 w-full cursor-pointer">
+                                        <LogoutIcon className="w-5 h-5" /> Logout
+                                    </button>
+                                </div>
                             </div>
 
                             :

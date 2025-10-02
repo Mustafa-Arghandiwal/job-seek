@@ -1,18 +1,17 @@
 import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Pages/Candidate/socialMediaSvgs"
-import { CloseXIcon } from "../utils/svgs"
+import { CloseXIcon, RightArrowIcon } from "../utils/svgs"
+import { Link } from "@inertiajs/react"
 
 
-export default function CandidateProfileView({candidateData, showModal, setShowModal, profileDropdownRef}) {
+export default function CandidateProfileView({ candidateData, showModal, setShowModal, profileDropdownRef }) {
 
     const root = document.getElementById("react-portal-root")
 
-    const candidateId = candidateData?.candidate.id ? candidateData.candidate.id : null
-
     const modalRef = useRef(null)
     const handleOutsideClick = (e) => {
-        if (modalRef.current && !modalRef.current.contains(e.target) && profileDropdownRef.current && profileDropdownRef.current.contains(e.target)) {
+        if (modalRef.current && !modalRef.current.contains(e.target) && profileDropdownRef && !profileDropdownRef.contains(e.target)) {
             setShowModal(false)
         }
     }
@@ -81,39 +80,29 @@ export default function CandidateProfileView({candidateData, showModal, setShowM
                 <div ref={modalRef} className="relative w-[80vw] h-[80dvh] z-40  overflow-y-scroll scrollbar-custom rounded-xl p-6 sm:p-12 bg-white  ">
 
 
-                    <div className="sticky z-10 flex justify-end -mt-2 sm:-mt-6 -mr-6 sm:-mr-9 -top-5 sm:-top-7">
+                    <div className="sticky z-10 flex justify-end -mt-2 sm:-mt-6 -mr-5 sm:-mr-9 -top-5 sm:-top-7">
                         <button type="button" onClick={() => setShowModal(false)} className="bg-primary-50 rounded-full grid place-items-center w-7 sm:w-10 h-7 sm:h-10  cursor-pointer active:scale-95">
                             <CloseXIcon className="text-primary-500 w-4 sm:w-6" />
                         </button>
                     </div>
                     {/* header */}
-                    <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
+                    <div className="py-8  flex items-center flex-col lg:flex-row gap-4 justify-center lg:justify-between ">
 
-                        <div className="flex gap-6 items-center flex-col xs:flex-row">
+                        <div className="flex gap-6 items-center flex-col xs:flex-row ">
                             <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${profilePicture})` }}></div>
-                            <div className=" flex flex-col gap-[10px] ">
-                                <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{candidateDetails?.full_name}</h2>
+                            <div className=" flex flex-col gap-[10px] text-center xs:text-left">
+                                <h2 className="text-2xl font-medium text-customGray-900  ">{candidateDetails?.full_name}</h2>
                                 {title && <span className="block text-customGray-600 text-sm sm:text-base line-clamp-1">{title}</span>}
 
                             </div>
                         </div>
 
-                        <div className="">
-                            <div className="flex  flex-col items-center relative">
-                                <a href={email ? `mailto:${email}` : undefined}
-                                    className={`${email ? "bg-primary-500 hover:bg-primary-600 cursor-pointer" : "bg-primary-200 cursor-default"} group flex gap-2 rounded-sm font-semibold text-white px-6 py-3 duration-150 text-nowrap`}>
-                                    <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M21 5.25L12 13.5L3 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M3 5.25H21V18C21 18.1989 20.921 18.3897 20.7803 18.5303C20.6397 18.671 20.4489 18.75 20.25 18.75H3.75C3.55109 18.75 3.36032 18.671 3.21967 18.5303C3.07902 18.3897 3 18.1989 3 18V5.25Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.3628 12L3.23047 18.538" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M20.7692 18.5381L13.6367 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                    Send Email
-                                </a>
-                                {!email &&
-                                    <span className="text-center absolute -bottom-9 text-xs max-w-40 mt-1 block text-customGray-700 ">No email provided by candidate</span>
-                                }
-                            </div>
+                        <div className="flex flex-col gap-2 max-w-72 text-center items-center">
+                            <p className="text-sm text-customGray-600">
+                                This is how employers will see your profile when you apply for a job.
+                            </p>
+                            <Link onClick={() => setShowModal(false)} href="/candidate/dashboard/settings"
+                            className="flex items-center gap-1 text-white rounded-sm text-sm bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-2 duration-150 text-nowrap">Edit Profile<RightArrowIcon /></Link>
                         </div>
                     </div>
 
