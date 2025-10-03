@@ -46,7 +46,7 @@ export default function Layout({ children }) {
     const [showModal, setShowModal] = useState(false)
     const [candidate, setCandidate] = useState(null)
 
-    const userId = usePage().props.auth.user.id
+    const userId = props.auth.user?.id
     useEffect(() => {
         if (showModal) {
             fetch(`/candidates/${userId}`)

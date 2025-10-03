@@ -216,7 +216,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                                         <img className="w-6 h-6" src="/candidate-profile-icons/location.png" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">CITY</p>
                                     </div>
-                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
+                                    <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{city || "Not provided"}</p>
                                 </div>
 
 

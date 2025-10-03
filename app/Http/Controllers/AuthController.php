@@ -168,12 +168,14 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
-        // $validated = $request->validate(['password' => 'required']);
-        // $enteredPassword =  $validated['password'];
-        $password = $user->password;
-        // dd( $enteredPassword);
-        dd(decrypt($password));
+        $validated = $request->validate(['password' => 'required']);
+        $enteredPassword =  $validated['password'];
+        if(!Hash::check($enteredPassword, $user->password)) {
+            return back()->withErrors([
+                'password' => 'Password is incorrect'
+            ]);
 
+        }
 
         Auth::logout();
         $user->delete();
