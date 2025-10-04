@@ -94,7 +94,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
                 Applications for <span className="italic">{jobTitle}</span>
             </h1>
             <div className="sm:flex gap-1 items-center mt-6 text-customGray-700">
-                <p>Drag applications to shortlist them</p>
+                <p>Drag applications to the right column to shortlist</p>
                 <RiDragDropFill className="w-8 h-8 " />
             </div>
 
