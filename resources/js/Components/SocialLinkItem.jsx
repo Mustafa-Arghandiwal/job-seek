@@ -1,5 +1,6 @@
 
 import { useState, useRef, useEffect } from "react"
+import { CircleXIcon } from "../utils/svgs"
 
 
 
@@ -75,11 +76,7 @@ export default function SocialLinksItem(props) {
                 <button type="button" onClick={() => props.handleRemoveLink(props.linkNumber)}
                     className=" rounded-md bg-customGray-50 absolute right-0 top-0 xs:static   w-12 h-12 grid place-items-center cursor-pointer group hover:text-danger-500 duration-100 ">
                     {/* <img src="/Xcircle.png" /> */}
-                    <svg className=" group-hover:scale-125 group-active:scale-95 duration-100" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                        <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.3" strokeMiterlimit="10" />
-                        <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <CircleXIcon className="group-hover:scale-125 group-active:scale-95 duration-100" />
                 </button>
 
             </div>

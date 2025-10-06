@@ -1,6 +1,6 @@
 import { Link, router, usePage } from "@inertiajs/react";
 import { formatSalary } from "../utils/formatSalary";
-import { CalendarIcon, DollarIcon, LocationIcon } from "../utils/svgs";
+import { CalendarIcon, DollarIcon, LocationIcon, RightArrowIcon } from "../utils/svgs";
 
 
 export default function Job(props) {
@@ -56,11 +56,7 @@ export default function Job(props) {
                 <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); router.get(`/vacancies/${props.id}`) }}
                     className="group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     {userType === "candidate" ? "Apply Now" : "View Job"}
-                    <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-
+                    <RightArrowIcon className="w-6 h-6 text-primary-500 group-hover:text-white duration-150"/>
 
                 </button>
 

@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
 import DeleteModal from "../../../../Components/DeleteModal"
-import { EyeIcon, EyeClosedIcon } from "../../../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, CircleXIcon } from "../../../../utils/svgs"
 
 
 export default function AccountTabContent() {
@@ -217,11 +217,7 @@ export default function AccountTabContent() {
                     ref={deleteAccountBtnRef}
                     type="button" onClick={() => setShowDeleteModal(prev => !prev)}
                     className={` group cursor-pointer relative flex items-center gap-1 hover: mt-5 text-danger-500 font-medium text-sm px-4 py-4 rounded-md active:scale-95 duration-150 hover:shadow-2xl `} >
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                        <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.3" strokeMiterlimit="10" />
-                        <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <CircleXIcon />
                     <span className="absolute rounded-full top-0 left-0 w-0 h-[1px] bg-danger-500 group-hover:w-full transition-all duration-150"></span>
                     <span className="absolute rounded-full top-0 right-0 w-[1px] h-0 bg-danger-500 group-hover:h-full transition-all duration-150"></span>
                     <span className="absolute rounded-full bottom-0 right-0 w-0 h-[1px] bg-danger-500 group-hover:w-full transition-all duration-200"></span>

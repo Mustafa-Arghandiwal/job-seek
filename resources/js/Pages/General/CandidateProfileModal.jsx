@@ -2,7 +2,7 @@ import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
 import { router, usePage } from "@inertiajs/react"
-import { CloseXIcon } from "../../utils/svgs"
+import { CloseXIcon, BookmarkIcon, MailIcon } from "../../utils/svgs"
 
 
 export default function CandidateProfileModal({ showModal, setShowModal, candidate, coverLetter, savedCandidates }) {
@@ -125,23 +125,13 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                                 <button
                                     onClick={handleBookmark}
                                     title={bookmarked ? "Remove from Saved Candidates" : "Add to Saved Candidates"} className="p-4 rounded-sm cursor-pointer hover:bg-primary-50">
-                                    <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
-                                            stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                        />
-                                    </svg>
+                                    <BookmarkIcon bookmarked={bookmarked} className="text-primary-500"/>
                                 </button>
 
                                 <div className="flex  flex-col items-center relative">
                                     <a href={email ? `mailto:${email}` : undefined}
                                         className={`${email ? "bg-primary-500 hover:bg-primary-600 cursor-pointer" : "bg-primary-200 cursor-default"} group flex gap-2 rounded-sm font-semibold text-white px-6 py-3 duration-150 text-nowrap`}>
-                                        <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M21 5.25L12 13.5L3 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M3 5.25H21V18C21 18.1989 20.921 18.3897 20.7803 18.5303C20.6397 18.671 20.4489 18.75 20.25 18.75H3.75C3.55109 18.75 3.36032 18.671 3.21967 18.5303C3.07902 18.3897 3 18.1989 3 18V5.25Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M10.3628 12L3.23047 18.538" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M20.7692 18.5381L13.6367 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
+                                        <MailIcon className="text-white duration-150"/>
                                         Send Email
                                     </a>
                                     {!email &&

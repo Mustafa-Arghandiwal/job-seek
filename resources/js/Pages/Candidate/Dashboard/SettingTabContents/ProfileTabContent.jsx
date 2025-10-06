@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
 import { shortenFilename } from "../../../../utils/shortenFilename";
+import { CircleAddIcon, SmallSpinnerIcon, UploadDriveIcon } from "../../../../utils/svgs";
 
 
 
@@ -158,20 +159,7 @@ export default function ProfileTabContent() {
                             </p>
 
                             {(basicForm.progress && basicForm.data.profilePicture !== null) &&
-                                <svg viewBox="0 0 24 24" className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" >
-                                    <path
-                                        className="text-primary-200"
-                                        fill="currentColor"
-                                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
-                                        opacity=".25"
-                                    />
-                                    <path
-                                        className="text-primary-500"
-                                        fill="currentColor"
-                                        d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-                                    />
-                                </svg>
-
+                                <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
                             }
                         </label>
 
@@ -295,11 +283,7 @@ export default function ProfileTabContent() {
                             }} />
 
                             <div>
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.9961 28C22.6235 28 27.9961 22.6274 27.9961 16C27.9961 9.37258 22.6235 4 15.9961 4C9.36868 4 3.99609 9.37258 3.99609 16C3.99609 22.6274 9.36868 28 15.9961 28Z" stroke="#0A65CC" strokeWidth="2" strokeMiterlimit="10" />
-                                    <path d="M11.0039 16H21.0039" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M15.9961 11V21" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CircleAddIcon />
                             </div>
 
                             <div>
@@ -327,12 +311,7 @@ export default function ProfileTabContent() {
                                     }
                                 }}>
                                     <button className="absolute  flex -bottom-[33px] right-0 text-sm p-1 bg-primary-500 text-white font-medium justify-center gap-1 items-center rounded-md hover:bg-primary-600 cursor-pointer shadow-lg active:scale-95 duration-75">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.75 10H17.5C17.6658 10 17.8247 10.0658 17.9419 10.1831C18.0592 10.3003 18.125 10.4592 18.125 10.625V15.625C18.125 15.7908 18.0592 15.9497 17.9419 16.0669C17.8247 16.1842 17.6658 16.25 17.5 16.25H2.5C2.33424 16.25 2.17527 16.1842 2.05806 16.0669C1.94085 15.9497 1.875 15.7908 1.875 15.625V10.625C1.875 10.4592 1.94085 10.3003 2.05806 10.1831C2.17527 10.0658 2.33424 10 2.5 10H6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M10 10V1.875" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M6.25 5.625L10 1.875L13.75 5.625" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path d="M14.6875 14.0625C15.2053 14.0625 15.625 13.6428 15.625 13.125C15.625 12.6072 15.2053 12.1875 14.6875 12.1875C14.1697 12.1875 13.75 12.6072 13.75 13.125C13.75 13.6428 14.1697 14.0625 14.6875 14.0625Z" fill="currentColor" />
-                                        </svg>
+                                        <UploadDriveIcon />
                                         <span>Upload</span>
                                     </button>
                                 </form>

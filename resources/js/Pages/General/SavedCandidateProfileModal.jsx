@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
-import { CloseXIcon } from "../../utils/svgs"
+import { CloseXIcon, MailIcon } from "../../utils/svgs"
 
 
 export default function SavedCandidateProfileModal({ showModal, setShowModal, candidateData }) {
@@ -105,12 +105,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
                             <div className="flex  flex-col items-center relative">
                                 <a href={email ? `mailto:${email}` : undefined}
                                     className={`${email ? "bg-primary-500 hover:bg-primary-600 cursor-pointer" : "bg-primary-200 cursor-default"} group flex gap-2 rounded-sm font-semibold text-white px-6 py-3 duration-150 text-nowrap`}>
-                                    <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M21 5.25L12 13.5L3 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M3 5.25H21V18C21 18.1989 20.921 18.3897 20.7803 18.5303C20.6397 18.671 20.4489 18.75 20.25 18.75H3.75C3.55109 18.75 3.36032 18.671 3.21967 18.5303C3.07902 18.3897 3 18.1989 3 18V5.25Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.3628 12L3.23047 18.538" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M20.7692 18.5381L13.6367 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
+                                    <MailIcon className="text-white duration-150" />
                                     Send Email
                                 </a>
                                 {!email &&

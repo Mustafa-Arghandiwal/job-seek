@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
+import { BookmarkIcon, CloseXIcon, RightArrowIcon } from '../../utils/svgs'
 
 
 
@@ -231,12 +232,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                     {userType === "candidate" &&
                         <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
                             <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
-                                <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
-                                        stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                    />
-                                </svg>
+                                <BookmarkIcon className="text-primary-500" bookmarked={bookmarked}/>
                             </button>
 
                             <button
@@ -244,10 +240,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
                                 className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                                 Apply Now
-                                <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <RightArrowIcon className="w-6 h-6"/>
                             </button>
                         </div>
                     }
@@ -369,7 +362,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         <div className="flex gap-4  items-center">
                             <Link href={`/employers/${employer.id}`} className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></Link>
                             <div>
-                                <Link  href={`/employers/${employer.id}`} className="text-customGray-900 hover:text-primary-700 font-medium text-xl">{companyName}</Link>
+                                <Link href={`/employers/${employer.id}`} className="text-customGray-900 hover:text-primary-700 font-medium text-xl">{companyName}</Link>
                                 <p className="text-sm text-customGray-500 mt-2">{companyIndustry}</p>
                             </div>
                         </div>
@@ -461,10 +454,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             {flash.applySuccess}
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CloseXIcon className="text-primary-500"/>
                             </button>
                         </div>
                         :
@@ -502,10 +492,6 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
                                 <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">
                                     Apply
-                                    {/* <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
-                                    {/*     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
-                                    {/*     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
-                                    {/* </svg> */}
                                 </button>
 
                             </div>
@@ -517,10 +503,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CloseXIcon className="text-primary-500"/>
                             </button>
                         </form>
                     }
@@ -538,7 +521,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 SingleJobView.layout = page => {
     const userType = page.props?.auth?.user?.user_type
-    if(userType === "employer") {
+    if (userType === "employer") {
         return <EmployerLayout>{page}</EmployerLayout>
     }
     return <Layout>{page}</Layout>

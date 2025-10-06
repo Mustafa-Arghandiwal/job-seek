@@ -1,5 +1,5 @@
 import { Link, router } from "@inertiajs/react"
-import { BriefCaseIcon, LocationIcon } from "../utils/svgs"
+import { BriefCaseIcon, LocationIcon, RightArrowIcon } from "../utils/svgs"
 
 
 export default function Employer(props) {
@@ -48,11 +48,8 @@ export default function Employer(props) {
                 <Link href={`/employers/${props.id}#open-positions-section`} onClick={(e) => e.stopPropagation()}
                     className="group flex gap-3 text-sm sm:text-base rounded-sm font-semibold text-primary-500 hover:text-white bg-primary-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                     Open Positions
-                    <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
 
+                    <RightArrowIcon className="text-primary-500 w-6 h-6 group-hover:text-white duration-150" />
 
                 </Link>
 

@@ -4,6 +4,7 @@ import EmployerLayout from "../../Layouts/EmployerLayout"
 import { formatSalary } from "../../utils/formatSalary"
 import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
+import { RightArrowIcon } from "../../utils/svgs"
 
 
 function SingleEmployerPage({ employerDetails, vacancies }) {
@@ -84,10 +85,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                     <a href="#open-positions-section" className="flex gap-3 justify-center rounded-sm font-semibold  text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                         View Open Positions
-                        <svg className="rotate-90 duration-150  " width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <RightArrowIcon className="w-6 h-6 rotate-90" />
                     </a>
                 </div>
 
@@ -252,7 +250,6 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
 SingleEmployerPage.layout = page => {
     const userType = page.props?.auth?.user?.user_type
-    console.log(userType)
     if (userType === "employer") {
         return <EmployerLayout>{page}</EmployerLayout>
     }

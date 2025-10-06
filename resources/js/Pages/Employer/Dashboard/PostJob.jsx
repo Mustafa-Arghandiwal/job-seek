@@ -9,7 +9,7 @@ import RichTextEditor from "../../../Components/RichTextEditor"
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import confetti from "canvas-confetti"
-import { RightArrowIcon } from "../../../utils/svgs"
+import { CloseXIcon, RightArrowIcon } from "../../../utils/svgs"
 
 
 
@@ -317,10 +317,7 @@ function PostJob() {
                             <p>Candidates can now apply for your job.</p>
                             <Link href="/vacancies" className="flex gap-1 items-center rounded-sm text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 mt-3 px-4 py-2 duration-150 text-nowrap">View Jobs<RightArrowIcon className="w-5 text-primary-500" /></Link>
                             <button type="button" onClick={() => setSuccessModalVisible(false)} className="cursor-pointer p-2 rounded-full bg-primary-50 absolute -right-4 -top-4">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CloseXIcon className="text-primary-500" />
                             </button>
                         </div>
                     </div>

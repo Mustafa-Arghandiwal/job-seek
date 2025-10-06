@@ -179,10 +179,7 @@ function Home(props) {
                         <h4 className="text-[32px] font-medium">Become a Candidate</h4>
                         <p className="text-sm max-w-[312px] text-customGray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=candidate" className="max-w-48 mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
-                            <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <RightArrowIcon className="w-6 h-6" />
                         </Link>
 
                     </div>
@@ -194,10 +191,7 @@ function Home(props) {
                         <h4 className="text-[32px] text-white   font-medium" style={{ transform: "translateZ(40px)" }}>Become an Employer</h4>
                         <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=employer" className="max-w-48   mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <RightArrowIcon className="w-6 h-6" />
                         </Link>
 
                     </div>

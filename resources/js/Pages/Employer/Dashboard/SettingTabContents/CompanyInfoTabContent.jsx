@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
-import { SpinnerIcon } from "../../../../utils/svgs";
+import { SmallSpinnerIcon } from "../../../../utils/svgs";
 
 
 
@@ -20,7 +20,7 @@ export default function CompanyInfoTabContent() {
         companyType: employer.company_type || '',
         industryType: employer.industry_type || '',
         teamSize: employer.team_size || '',
-        establishDate: (employer.establish_date)?.slice(0, -3)  || '',
+        establishDate: (employer.establish_date)?.slice(0, -3) || '',
         companyWebsite: employer.company_website || '',
         aboutCompany: employer.about || '',
     })
@@ -138,9 +138,8 @@ export default function CompanyInfoTabContent() {
                         </p>
 
                         {(progress && data.logo !== null) &&
-                            <SpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75"/>
+                            <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
                         }
-
                     </label>
 
                     <div className="text-sm w-full min-h-5 text-danger-600" >
@@ -187,21 +186,8 @@ export default function CompanyInfoTabContent() {
                             </p>
 
                             {(progress && data.banner !== null) &&
-                                <svg viewBox="0 0 24 24" className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" >
-                                    <path
-                                        className="text-primary-200"
-                                        fill="currentColor"
-                                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
-                                        opacity=".25"
-                                    />
-                                    <path
-                                        className="text-primary-500"
-                                        fill="currentColor"
-                                        d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-                                    />
-                                </svg>
+                                <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
                             }
-
                         </label>
 
                         <div className="text-sm  w-full text-danger-600" >
@@ -234,7 +220,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Company Type</label>
-                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType}  onValueChange={(option) => handleSelectChange('companyType', option) } />
+                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
                     </div>
@@ -242,7 +228,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Industry Type</label>
-                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option) } />
+                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.industryType || ''}
                     </div>
@@ -250,7 +236,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Team Size</label>
-                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option) } />
+                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.teamSize || ''}
                     </div>
@@ -258,7 +244,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="  relative w-full ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
-                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'}/>
+                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.establishDate || ''}
                     </div>
