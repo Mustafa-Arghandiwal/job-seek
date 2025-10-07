@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
-import { SmallSpinnerIcon } from "../../../../utils/svgs";
+import { LinkIcon, SmallSpinnerIcon, UploadIcon2 } from "../../../../utils/svgs";
 
 
 
@@ -130,7 +130,7 @@ export default function CompanyInfoTabContent() {
                             }
                         }} accept="image/*" />
 
-                        <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="logo upload" />
+                        <UploadIcon2 className="text-customGray-300" />
                         <p className="text-sm text-customGray-700 mt-3">Browse photos or drop here</p>
                         <p className="text-xs text-customGray-500">Max photo size is 5 MB</p>
                         <p className={`text-xs  mt-4 max-w-40  text-wrap ${logoName ? 'text-primary-600' : 'text-custumGray-500'}`}>
@@ -178,7 +178,7 @@ export default function CompanyInfoTabContent() {
                                 }
                             }} accept="image/*" />
 
-                            <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="logo upload" />
+                            <UploadIcon2 className="text-customGray-300" />
                             <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
                             <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
                             <p className={`text-xs  mt-4 max-w-40  text-wrap ${bannerName ? 'text-primary-600' : 'text-gray-500'}`}>
@@ -253,7 +253,7 @@ export default function CompanyInfoTabContent() {
                 <div className="w-full md:max-w-1/2  relative sm:col-span-2">
                     <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
                     <div className="flex items-center gap-3 border mt-2 rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
-                        <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
+                        <LinkIcon className="h-6 w-6 text-primary-500" />
                         <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                     </div>
                     <div className="text-sm w-full text-danger-600 min-h-5" >

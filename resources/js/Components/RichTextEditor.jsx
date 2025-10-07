@@ -7,7 +7,7 @@ import Link from '@tiptap/extension-link'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect, useState } from 'react'
-import { LinkIcon } from "../utils/svgs"
+import { LinkIcon, BoldIcon, ItalicIcon, UnderlineIcon, StrikethroughIcon, ListIcon, NumberedListIcon, HorizontalLineIcon } from "../utils/svgs"
 import ToolTip from './ToolTip'
 
 const MenuBar = (props) => {
@@ -27,47 +27,47 @@ const MenuBar = (props) => {
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 className={`flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50 ${editor.isActive('bold') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/bold.png' />
+                <BoldIcon className='text-customGray-500'/>
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 className={`flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50${editor.isActive('italic') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/italic.png' />
+                <ItalicIcon className='text-customGray-500' />
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
                 className={`flex-none snap-center  p-2 cursor-pointer rounded-sm hover:bg-customGray-50${editor.isActive('underline') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/underline.png' />
+                <UnderlineIcon className='text-customGray-500' />
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleStrike().run()}
                 className={`flex-none  snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50${editor.isActive('strike') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/strikethrough.png' />
+                <StrikethroughIcon className='text-customGray-500'/>
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-400 hover:bg-customGray-50${editor.isActive('heading', { level: 1 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
+                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-500 hover:bg-customGray-50${editor.isActive('heading', { level: 1 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
                 H<sub>1</sub>
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-400 hover:bg-customGray-50${editor.isActive('heading', { level: 2 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
+                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-500 hover:bg-customGray-50${editor.isActive('heading', { level: 2 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
                 H<sub>2</sub>
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-400 hover:bg-customGray-50${editor.isActive('heading', { level: 3 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
+                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm  text-customGray-500 hover:bg-customGray-50${editor.isActive('heading', { level: 3 }) ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
                 H<sub>3</sub>
             </button>
@@ -86,7 +86,7 @@ const MenuBar = (props) => {
                 onMouseLeave={() => setLinkHovered(false)}
                 className={`relative flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50 ${editor.isActive('link') ? 'bg-customGray-100' : ''}`}
             >
-                <LinkIcon className='text-customGray-400' />
+                <LinkIcon className='text-customGray-500' />
                     <ToolTip text="Select the text you want, then click here to add a link"
                     className={`${linkHovered ? "opacity-100" : "opacity-0 pointer-events-none"} -top-18 duration-200 bg-customGray-900/90 rounded-sm text-xs font-light text-white p-2 w-30`} />
             </button>
@@ -95,22 +95,22 @@ const MenuBar = (props) => {
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={`flex-none  snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50${editor.isActive('bulletList') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/ListDashes.png' />
+                <ListIcon className='text-customGray-500' />
             </button>
 
             <button type='button'
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                 className={`flex-none  snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50${editor.isActive('orderedList') ? 'hover:bg-customGray-100 bg-customGray-100' : ''}`}
             >
-                <img src='/ListNumbers.png' />
+                <NumberedListIcon className='text-customGray-500' />
             </button>
 
 
             <button type='button'
                 onClick={() => editor.chain().focus().setHorizontalRule().run()}
-                className={`flex-none  snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50`}
+                className={`flex-none snap-center p-2 cursor-pointer rounded-sm hover:bg-customGray-50`}
             >
-                <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill='#767F8C' fillRule="evenodd" d="M2 12.75a.75.75 0 01.75-.75h18.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" /></svg>
+                <HorizontalLineIcon className='text-customGray-500' />
             </button>
 
         </div>

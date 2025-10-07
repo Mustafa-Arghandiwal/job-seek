@@ -4,7 +4,7 @@ import EmployerLayout from "../../Layouts/EmployerLayout"
 import { formatSalary } from "../../utils/formatSalary"
 import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
-import { RightArrowIcon } from "../../utils/svgs"
+import { RightArrowIcon, CalendarIcon, UserIcon, BuildingIcon2, GlobeIcon, SimpleBriefCaseIcon, MailIcon, PhoneIcon } from "../../utils/svgs"
 
 
 function SingleEmployerPage({ employerDetails, vacancies }) {
@@ -68,7 +68,6 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
             <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative duration-200 bg-cover bg-center `}
                 style={{ backgroundImage: `url(${banner || "/chess_pattern_cover.png"})` }}
             >
-                {/* <img src="/chess_pattern_cover.png" alt="cover photo" className="w-full h-full object-cover bg-repeat-x" /> */}
             </div>
 
             <div className=" mx-4 sm:mx-24 -mt-9 sm:-mt-[60px]  ">
@@ -110,7 +109,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             <div className=" flex flex-col gap-6 ">
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/founded-in.png" />
+                                        <CalendarIcon className="w-8 h-8 text-primary-500" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500 max-w-32">FOUNDED IN:</p>
@@ -120,7 +119,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                                 <div className=" min-w-40">
 
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/org-type.png" />
+                                        <BuildingIcon2 className="text-primary-500 w-8 h-8" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">ORGANIZATION TYPE</p>
@@ -133,7 +132,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             <div className=" flex flex-col gap-6 ">
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/user.png" />
+                                        <UserIcon className="w-8 h-8 text-primary-500"/>
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">TEAM SIZE</p>
@@ -142,7 +141,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                                 </div>
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/industry-type.png" />
+                                        <SimpleBriefCaseIcon className="w-8 h-8 text-primary-500" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">INDUSTRY TYPE</p>
@@ -168,7 +167,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                 <div className="w-8 h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/website.png" className="-0" />
+                                    <GlobeIcon className="text-primary-500"/>
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">WEBSITE</p>
@@ -178,7 +177,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                 <div className="w-8 h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/phone.png" className="" />
+                                    <PhoneIcon />
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">PHONE</p>
@@ -188,7 +187,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 pt-6 ">
                                 <div className="w-8-h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/envelope.png" className="shrink-0" />
+                                    <MailIcon className="w-8 h-8 text-primary-500"/>
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">EMAIL ADDRESS</p>

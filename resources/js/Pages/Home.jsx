@@ -4,7 +4,7 @@ import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, RightArrowIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, DashedArrowIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, RightArrowIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 import Tilt from "react-parallax-tilt"
 function Home(props) {
 
@@ -32,7 +32,6 @@ function Home(props) {
                         </div>
 
 
-                    {/* <img src="/Illustration.png" className="max-w-[492px] w-full" /> */}
                     <HomePageCover className="text-primary-500 hue-animation max-w-[492px] w-full " />
                 </div>
 
@@ -102,9 +101,9 @@ function Home(props) {
 
                     <div className="grid  grid-cols-2 lg:grid-cols-4 gap-4 mt-[50px] px-4  relative ">
 
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%] pointer-events-none" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%] pointer-events-none" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%] pointer-events-none" />
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-2 lg:left-[19%] pointer-events-none text-primary-500"/>
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-14 lg:rotate-180 lg:-scale-x-100 lg:left-[44%] pointer-events-none text-primary-500"/>
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-2 lg:right-[19%] pointer-events-none text-primary-500"/>
 
                         <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
                             <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">

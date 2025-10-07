@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link, usePage } from "@inertiajs/react"
-import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon, CaretIcon } from "../../utils/svgs"
 
 export default function SignUp({ userType, liveJobsCount, companiesCount, candidatesCount }) {
     const { data, setData, post, errors, processing } = useForm({
@@ -39,8 +39,8 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
 
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
                 <div className="absolute top-2 left-8 flex items-center gap-1">
-                    <img src="/briefcase.svg" />
-                    <span className="font-semibold text-2xl">JobSeek</span>
+                    <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
+                    <span className="font-semibold text-2xl text-customGray-900">JobSeek</span>
                 </div>
 
                 <div className="flex flex-col items-center  max-w-[536px] w-full">
@@ -58,7 +58,7 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                             <button ref={dropDownBtn} className="text-[14px] text-customGray-600 h-12 flex justify-between px-7 items-center border border-gray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                                 onClick={() => setDropdownVisible(prev => !prev)}>
                                 {(data.user_type).charAt(0).toUpperCase() + (data.user_type).slice(1)}
-                                <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="CaretDown.svg" />
+                                <CaretIcon ref={caret} className={`transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} />
                             </button>
                             <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-customGray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
                                 <span onClick={() => setData("user_type", "candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-primary-50 cursor-pointer">Candidate</span>
@@ -113,7 +113,8 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                         </div>
 
                         <button disabled={processing} className="border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold  cursor-pointer mt-2">
-                            Create Account <img src="/arrow-right.svg" />
+                            Create Account
+                            <RightArrowIcon className="w-6 h-6" />
                         </button>
                     </form>
                 </div>

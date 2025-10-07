@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState } from "react"
-import { EyeIcon, EyeClosedIcon} from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, SimpleBriefCaseIcon, RightArrowIcon } from "../../utils/svgs"
 
 
 export default function ResetPassword() {
@@ -28,8 +28,8 @@ export default function ResetPassword() {
         <div className="h-[100svh] border relative grid place-items-center px-5 ">
 
             <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
-                <img src="../briefcase.svg" />
-                <span className="font-semibold text-2xl">JobSeek</span>
+                <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
+                <span className="font-semibold text-customGray-900 text-2xl">JobSeek</span>
             </div>
 
 
@@ -73,7 +73,8 @@ export default function ResetPassword() {
                     </div>
 
                     <button disabled={processing} className="w-full border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
-                        Reset Password <img src="../arrow-right.svg" />
+                        Reset Password
+                        <RightArrowIcon className="w-6 h-6" />
                     </button>
 
                 </form>

@@ -1,7 +1,7 @@
 import { router } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
 import { shortenFilename } from "../utils/shortenFilename"
-import { DocumentIcon, EyeIcon, TrashIcon } from "../utils/svgs"
+import { DocumentIcon, EyeIcon, ThreeDotsIcon, TrashIcon } from "../utils/svgs"
 
 
 export default function ResumeBox(props) {
@@ -64,7 +64,7 @@ export default function ResumeBox(props) {
 
 
             <button type="button" ref={threeDotsBtnRef} onClick={() => setShowDeleteBtn(prev => !prev)} className="shrink-0 cursor-pointer active:scale-110">
-                <img src="/three_dots.png" />
+                <ThreeDotsIcon className="rotate-90 text-customGray-600 w-5 h-5" />
             </button>
 
 

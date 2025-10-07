@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
 import { shortenFilename } from "../../../../utils/shortenFilename";
-import { CircleAddIcon, SmallSpinnerIcon, UploadDriveIcon } from "../../../../utils/svgs";
+import { CircleAddIcon, LinkIcon, SmallSpinnerIcon, UploadDriveIcon, UploadIcon2 } from "../../../../utils/svgs";
 
 
 
@@ -150,8 +150,7 @@ export default function ProfileTabContent() {
                                     setProfileSizeTooBig(false)
                                 }
                             }} accept="image/*" />
-
-                            <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="file upload" />
+                            <UploadIcon2 className="text-customGray-300" />
                             <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
                             <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
                             <p className={`text-xs  mt-4 max-w-40  text-wrap ${fileName ? 'text-primary-600' : 'text-gray-500'}`}>
@@ -213,7 +212,7 @@ export default function ProfileTabContent() {
                         <div className="w-full max-w-[680px] relative">
                             <label htmlFor="personalWebsite" className="text-sm text-customGray-900">Personal Website</label>
                             <div className="flex items-center gap-3 mt-2 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
-                                <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
+                                <LinkIcon className="h-6 w-6 text-primary-500" />
                                 <input type="text" placeholder="Website url..." id="personalWebsite" value={basicForm.data.personalWebsite} onChange={(e) => basicForm.setData('personalWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                             </div>
                             <div className="text-sm w-full text-danger-600 min-h-5 " >
@@ -283,7 +282,7 @@ export default function ProfileTabContent() {
                             }} />
 
                             <div>
-                                <CircleAddIcon />
+                                <CircleAddIcon className="text-primary-500" />
                             </div>
 
                             <div>

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link } from "@inertiajs/react"
-import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon } from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon } from "../../utils/svgs"
 
 export default function SignIn({ liveJobsCount, companiesCount, candidatesCount }) {
     const { data, setData, post, errors, processing } = useForm({
@@ -21,8 +21,8 @@ export default function SignIn({ liveJobsCount, companiesCount, candidatesCount 
             <div className="flex flex-col justify-center items-center w-full px-4 py-2 ">
 
                 <div className="absolute top-2 left-8 flex items-center gap-1">
-                    <img src="briefcase.svg" />
-                    <span className="font-semibold text-2xl">JobSeek</span>
+                    <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
+                    <span className="font-semibold text-customGray-900 text-2xl">JobSeek</span>
                 </div>
 
                 <div className="flex flex-col  gap-7 px-4 py-2 max-w-[536px] w-full">
@@ -69,7 +69,8 @@ export default function SignIn({ liveJobsCount, companiesCount, candidatesCount 
                             </div>
 
                             <button disabled={processing} className="w-full border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer">
-                                Sign In <img src="arrow-right.svg" />
+                                Sign In
+                                <RightArrowIcon className="w-6 h-6" />
                             </button>
                         </div>
                     </form>
