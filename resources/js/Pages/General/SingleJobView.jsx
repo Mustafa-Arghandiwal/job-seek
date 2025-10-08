@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
-import { BookmarkIcon, CloseXIcon, RightArrowIcon } from '../../utils/svgs'
+import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon } from '../../utils/svgs'
 
 
 
@@ -203,20 +203,20 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             <div className="flex flex-wrap gap-2 text-customGray-700 justify-center xs:justify-start">
                                 {companyWebsite &&
                                     <div className="flex gap-1 items-center ">
-                                        <img src="/link_blue.png" className="h-5 w-5" />
+                                        <LinkIcon className="w-5 h-5 text-primary-500"/>
                                         <p className="break-all">{companyWebsite}</p>
                                     </div>
                                 }
                                 {companyPhone &&
                                     <div className="flex gap-1 items-center">
-                                        <img src="/phone_blue.png" className="h-5 w-5" />
+                                        <PhoneIcon className="w-5 h-5 text-primary-500"/>
                                         <p>{companyPhone}</p>
                                     </div>
 
                                 }
                                 {companyEmail &&
                                     <div className="flex gap-1 items-center">
-                                        <img src="/envelope_blue.png" className="h-5 w-5" />
+                                        <MailIcon className="w-5 h-5 text-primary-500" />
                                         <p className="break-all">{companyEmail}</p>
                                     </div>
                                 }
