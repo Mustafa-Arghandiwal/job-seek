@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
 import { shortenFilename } from "../../../../utils/shortenFilename";
-import { CircleAddIcon, LinkIcon, SmallSpinnerIcon, UploadDriveIcon, UploadIcon2 } from "../../../../utils/svgs";
+import { CircleAddIcon, TrashIcon, LinkIcon, SmallSpinnerIcon, UploadDriveIcon, UploadIcon2 } from "../../../../utils/svgs";
 
 
 
@@ -13,6 +13,7 @@ export default function ProfileTabContent() {
     const dbResumes = props.auth.user.resumes
 
 
+    const profilePic = props.auth.user?.profile_picture ? "/storage/" + props.auth.user.profile_picture : null
     const basicForm = useForm({
         fullName: props.auth.user.full_name,
         profilePicture: null,
@@ -123,14 +124,13 @@ export default function ProfileTabContent() {
 
                 <div className="flex flex-col md:flex-row mt-5 gap-12">
 
-                    <div className=" min-w-52 max-w-60 relative">
+                    <div className="min-w-52 max-w-60 relative">
                         <span className="text-sm text-customGray-900 ">Profile Picture</span>
                         <label onDragOver={e => { e.preventDefault(); setDragging(true) }} onDrop={e => {
                             e.preventDefault()
                             setDragging(false)
                             basicForm.setData('profilePicture', e.dataTransfer.files[0])
                             setFileName(shortenFilename(e.dataTransfer.files[0].name))
-                            // setResumeName(shortenFilename(e.dataTransfer.files[0].name))
                             if (e.dataTransfer.files[0].size > 5 * 1024 * 1024) {
                                 setProfileSizeTooBig(true)
                             } else {
@@ -138,34 +138,51 @@ export default function ProfileTabContent() {
                             }
 
                         }}
-                            htmlFor="profilePic" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center  text-gray-900 cursor-pointer hover:shadow-lg active:shadow-none
-                                                    border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${dragging && 'scale-110 drop-shadow-2xl'} `}>
-
-                            <input type="file" id="profilePic" className="hidden" onChange={e => {
-                                basicForm.setData('profilePicture', e.target.files[0])
-                                setFileName(shortenFilename(e.target.files[0].name))
-                                if (e.target.files[0].size > 5 * 1024 * 1024) {
-                                    setProfileSizeTooBig(true)
-                                } else {
-                                    setProfileSizeTooBig(false)
-                                }
-                            }} accept="image/*" />
-                            <UploadIcon2 className="text-customGray-300" />
-                            <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
-                            <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
-                            <p className={`text-xs  mt-4 max-w-40  text-wrap ${fileName ? 'text-primary-600' : 'text-gray-500'}`}>
-                                {fileName ? `Selected: ${fileName}` : 'No photo selected yet'}
-                            </p>
-
-                            {(basicForm.progress && basicForm.data.profilePicture !== null) &&
-                                <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
+                            htmlFor="profilePic"
+                            className={`relative text-center text-nowrap  min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center cursor-pointer hover:shadow-lg active:shadow-none
+                                        border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${dragging && 'scale-110 drop-shadow-2xl'}`}
+                        >
+                            <div className="absolute inset-0 bg-center bg-cover rounded-md "
+                                style={{ backgroundImage: `url(${profilePic})` }}>
+                            </div>
+                            {profilePic &&
+                                <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
                             }
+                            <div className="z-10 break-all rounded-md flex flex-col items-center">
+                                <input type="file" id="profilePic" className="hidden" onChange={e => {
+                                    basicForm.setData('profilePicture', e.target.files[0])
+                                    setFileName(shortenFilename(e.target.files[0].name))
+                                    if (e.target.files[0].size > 5 * 1024 * 1024) {
+                                        setProfileSizeTooBig(true)
+                                    } else {
+                                        setProfileSizeTooBig(false)
+                                    }
+                                }} accept="image/*" />
+                                <UploadIcon2 className="text-customGray-300" />
+                                <p className={`text-sm mt-3 ${profilePic ? "text-customGray-200" : "text-customGray-700"}`}>Browse photos or drop here</p>
+                                <p className={`text-xs ${profilePic ? "text-customGray-200" : "text-customGray-500"}`}>Max photo size is 5 MB</p>
+                                {fileName ? <p className={`text-xs mt-4 max-w-40 text-wrap ${profilePic ? "text-primary-300" : "text-primary-600"}`}>Selected: {fileName}</p> :
+                                    <p className={`text-xs mt-4 max-w-40 text-wrap ${profilePic ? "text-customGray-200" : "text-customGray-500"}`}>No photo selected yet</p>
+                                }
+
+                                {(basicForm.progress && basicForm.data.profilePicture !== null) &&
+                                    <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
+                                }
+
+                            </div>
+
                         </label>
 
-                        <div className="text-sm block w-full  absolute  text-danger-600" >
+                        <div className="text-sm w-full  text-danger-600" >
                             {(profileSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.profilePicture}
                         </div>
 
+                        {profilePic &&
+                            <button type="button" onClick={() => router.delete(`/candidate/delete-profile-picture`)}
+                                className="group flex items-center gap-1 bg-danger-400 text-white mt-1 cursor-pointer px-2 py-1 hover:bg-danger-500 duration-150 rounded-md border text-sm">
+                                <TrashIcon />
+                                Delete Image</button>
+                        }
 
                     </div>
 
@@ -194,14 +211,14 @@ export default function ProfileTabContent() {
                         <div className="flex flex-col lg:flex-row gap-4 w-full max-w-full ">
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Experience</label>
-                                <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={(option) => handleSelectChange('experience', option) } />
+                                <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={(option) => handleSelectChange('experience', option)} />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.experience}
                                 </div>
                             </div>
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
                                 <label className="text-sm text-customGray-900 mb-2">Educations</label>
-                                <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={(option) => handleSelectChange('educations', option) } />
+                                <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={(option) => handleSelectChange('educations', option)} />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.educations}
                                 </div>

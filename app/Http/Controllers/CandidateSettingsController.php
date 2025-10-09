@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
@@ -58,6 +59,23 @@ class CandidateSettingsController extends Controller
         $candidateProfile->save();
 
         return back()->with('profileSuccess', 'Your changes have been saved.');
+    }
+
+    public function deleteProfilePicture(Request $request)
+    {
+
+        $userId = $request->user()->id;
+        $profilePicture = Candidate::where('user_id', $userId)->value('profile_picture');
+
+        if (!$profilePicture) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($profilePicture)) {
+            Storage::disk('public')->delete($profilePicture);
+        }
+
+        Candidate::where('user_id', $userId)->update(['profile_picture' => null]);
     }
 
 
@@ -144,7 +162,4 @@ class CandidateSettingsController extends Controller
 
         return back()->with('contactSuccess', 'Your changes have been saved.');
     }
-
-
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\EmployerContact;
 use App\Models\EmployerDetail;
 use App\Models\EmployerSocialLink;
@@ -86,7 +87,38 @@ class EmployerSettingsController extends Controller
         });
     }
 
+    public function deleteProfilePicture(Request $request)
+    {
+        $employerId = $request->user()->employer->id;
+        $profilePicture = EmployerDetail::where('employer_id', $employerId)->value('logo_path');
 
+        if (!$profilePicture) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($profilePicture)) {
+            Storage::disk('public')->delete($profilePicture);
+        }
+
+        EmployerDetail::where('employer_id', $employerId)->update(['logo_path' => null]);
+    }
+
+
+    public function deleteBanner(Request $request)
+    {
+        $employerId = $request->user()->employer->id;
+        $banner = EmployerDetail::where('employer_id', $employerId)->value('banner_path');
+
+        if (!$banner) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($banner)) {
+            Storage::disk('public')->delete($banner);
+        }
+
+        EmployerDetail::where('employer_id', $employerId)->update(['banner_path' => null]);
+    }
 
     public function updateSocialLinks(Request $request)
     {

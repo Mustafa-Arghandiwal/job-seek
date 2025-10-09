@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
 
 
 Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
+Route::delete('/candidate/delete-profile-picture', [CandidateSettingsController::class, 'deleteProfilePicture']);
 Route::post('/candidate/settings/profile/resumes', [ResumeController::class, 'store']);
 Route::get('/candidate/settings/profile/resume/{resume_id}', [ResumeController::class, 'show']);
 Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeController::class, 'destroy']);
@@ -90,6 +91,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
+Route::delete('/employer/delete-profile-picture', [EmployerSettingsController::class, 'deleteProfilePicture']);
+Route::delete('/employer/delete-banner', [EmployerSettingsController::class, 'deleteBanner']);
 Route::post('/employer/settings/social-links', [EmployerSettingsController::class, 'updateSocialLinks']);
 Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
 // Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);

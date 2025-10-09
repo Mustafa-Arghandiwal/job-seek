@@ -55,12 +55,12 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                         </div>
 
                         <div className="relative ml-auto">
-                            <button ref={dropDownBtn} className="text-[14px] text-customGray-600 h-12 flex justify-between px-7 items-center border border-gray-100 rounded-md w-[150px] gap-2 cursor-pointer"
+                            <button ref={dropDownBtn} className="text-[14px] text-customGray-600 h-12 flex justify-between px-7 items-center border border-customGray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                                 onClick={() => setDropdownVisible(prev => !prev)}>
                                 {(data.user_type).charAt(0).toUpperCase() + (data.user_type).slice(1)}
                                 <CaretIcon ref={caret} className={`transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} />
                             </button>
-                            <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-customGray-100 rounded-md p-3 text-sm text-gray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
+                            <div className={`absolute bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-[150px] border border-customGray-100 rounded-md p-3 text-sm text-customGray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
                                 <span onClick={() => setData("user_type", "candidate")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-primary-50 cursor-pointer">Candidate</span>
                                 <span onClick={() => setData("user_type", "employer")} className="w-full rounded-xs flex px-2 py-1 hover:text-primary-500 hover:bg-primary-50 cursor-pointer">Employer</span>
                             </div>
