@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
-import { CloseXIcon, MailIcon } from "../../utils/svgs"
+import { CloseXIcon, RightArrowIcon, CakeIcon, LocationUnderlinedIcon, UsersIcon, CircleUserIcon, SimpleBriefCaseIcon, GradCapIcon, PhoneIcon, GlobeIcon, MailIcon } from "../../utils/svgs"
 
 
 export default function SavedCandidateProfileModal({ showModal, setShowModal, candidateData }) {
@@ -151,7 +151,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/cake.png" />
+                                        <CakeIcon className="text-primary-500"/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">DATE OF BIRTH</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${dob ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
@@ -159,7 +159,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/location.png" />
+                                        <LocationUnderlinedIcon className="w-6 h-6"/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">CITY</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{city || "Not provided"}</p>
@@ -169,7 +169,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/marital-status.png" />
+                                        <UsersIcon className="text-primary-500 w-6 h-6 "/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">MARITAL STATUS</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${maritalStatus ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{maritalStatus || "Not provided"}</p>
@@ -177,7 +177,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/gender.png" />
+                                        <CircleUserIcon className="text-primary-500"/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">GENDER</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${gender ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{gender || "Not provided"}</p>
@@ -185,7 +185,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/experience.png" />
+                                        <SimpleBriefCaseIcon className="text-primary-500"/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">EXPERIENCE</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${experience ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{experience || "Not provided"}</p>
@@ -194,7 +194,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <img className="w-6 h-6" src="/candidate-profile-icons/grad-cap.png" />
+                                        <GradCapIcon className="w-6 h-6 text-primary-500"/>
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">EDUCATIONS</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${educations ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{educations || "Not provided"}</p>
@@ -211,7 +211,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                     <div className="w-8 h-8 shrink-0">
-                                        <img src="/single-employer-view-icons/website.png" className="-0" />
+                                        <GlobeIcon className="text-primary-500" />
                                     </div>
                                     <div className="">
                                         <p className="text-xs text-customGray-500">WEBSITE</p>
@@ -221,7 +221,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                     <div className="w-8 h-8 shrink-0">
-                                        <img src="/single-employer-view-icons/phone.png" className="" />
+                                        <PhoneIcon className="w-7 h-7"/>
                                     </div>
                                     <div className="">
                                         <p className="text-xs text-customGray-500">PHONE</p>
@@ -231,7 +231,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className="flex items-center gap-4 pt-6 ">
                                     <div className="w-8-h-8 shrink-0">
-                                        <img src="/single-employer-view-icons/envelope.png" className="shrink-0" />
+                                        <MailIcon className="text-primary-500 w-8 h-8"/>
                                     </div>
                                     <div className="">
                                         <p className="text-xs text-customGray-500">EMAIL ADDRESS</p>

@@ -92,6 +92,34 @@ export const WalletIcon = ({ className = "" }) => (
     </svg>
 );
 
+export const GradCapIcon = ({ className = "" }) => (
+    <svg className={className} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 12L16 4L31 12L16 20L1 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M23.5 30V16L16 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M27.5 13.8662V20.6813C27.5004 20.897 27.4307 21.107 27.3013 21.2797C26.4592 22.4002 22.9066 26.4995 16 26.4995C9.09339 26.4995 5.54077 22.4002 4.69869 21.2797C4.56932 21.107 4.49959 20.897 4.5 20.6813V13.8662" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
+export const CakeIcon = ({ className = "" }) => (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clipPath="url(#clip0_7010_16856)">
+            <path d="M12 8.25V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 6C16.3312 4.5 12 0.75 12 0.75C12 0.75 7.5 4.5 12 6Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M15.1875 11.8125C15.1875 12.6579 14.8517 13.4686 14.2539 14.0664C13.6561 14.6642 12.8454 15 12 15C11.1546 15 10.3439 14.6642 9.7461 14.0664C9.14832 13.4686 8.8125 12.6579 8.8125 11.8125" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8.81252 11.8125C8.8127 12.6466 8.4859 13.4476 7.90224 14.0435C7.31859 14.6395 6.5246 14.9828 5.69064 15C3.90002 15.0375 2.43752 13.5375 2.43752 11.7469V10.5C2.43628 10.2042 2.49363 9.91106 2.60626 9.63752C2.7189 9.36397 2.88458 9.11544 3.09376 8.90626C3.30294 8.69708 3.55147 8.5314 3.82502 8.41876C4.09856 8.30613 4.3917 8.24878 4.68752 8.25002H19.3125C19.6083 8.24878 19.9015 8.30613 20.175 8.41876C20.4486 8.5314 20.6971 8.69708 20.9063 8.90626C21.1155 9.11544 21.2811 9.36397 21.3938 9.63752C21.5064 9.91106 21.5638 10.2042 21.5625 10.5V11.7469C21.5625 13.5375 20.1 15.0375 18.3094 15C17.4754 14.9828 16.6814 14.6395 16.0978 14.0435C15.5141 13.4476 15.1873 12.6466 15.1875 11.8125" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M20.25 14.3721V19.5002C20.25 19.6991 20.171 19.8899 20.0303 20.0305C19.8897 20.1712 19.6989 20.2502 19.5 20.2502H4.5C4.30109 20.2502 4.11032 20.1712 3.96967 20.0305C3.82902 19.8899 3.75 19.6991 3.75 19.5002V14.3721" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <defs><clipPath id="clip0_7010_16856"><rect width="24" height="24" fill="white" /></clipPath></defs>
+    </svg>
+);
+
+export const CircleUserIcon = ({ className = "" }) => (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
+        <path d="M12 15C14.0711 15 15.75 13.3211 15.75 11.25C15.75 9.17893 14.0711 7.5 12 7.5C9.92893 7.5 8.25 9.17893 8.25 11.25C8.25 13.3211 9.92893 15 12 15Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" />
+        <path d="M5.98047 18.6913C6.54542 17.5806 7.40671 16.6478 8.469 15.9963C9.53128 15.3448 10.7531 15 11.9993 15C13.2455 15 14.4673 15.3448 15.5296 15.9963C16.5919 16.6478 17.4532 17.5806 18.0181 18.6913" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
 // ---------------------------Categories-----------------------------------
 export const ProcessorIcon = ({ className = "" }) => (
     <svg className={className} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

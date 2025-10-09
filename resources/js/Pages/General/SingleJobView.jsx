@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
-import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon } from '../../utils/svgs'
+import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon, CalendarIcon, TimerIcon, WalletIcon, LocationUnderlinedIcon, SimpleBriefCaseIcon, GradCapIcon } from '../../utils/svgs'
 
 
 
@@ -291,7 +291,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         <div className="mt-6 flex flex-wrap  gap-8 sm:gap-2">
                             <div className=" min-w-40 ">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/founded-in.png" />
+                                    <CalendarIcon className="w-8 h-8 text-primary-500"/>
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
@@ -300,7 +300,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             </div>
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/timer.png" />
+                                    <TimerIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
@@ -311,7 +311,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/grad_cap.png" />
+                                    <GradCapIcon className="text-primary-500"/>
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
@@ -323,7 +323,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/wallet.png" />
+                                    <WalletIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
@@ -332,7 +332,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             </div>
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/location.png" />
+                                    <LocationUnderlinedIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
@@ -342,7 +342,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/industry-type.png" />
+                                    <SimpleBriefCaseIcon className="w-8 h-8 text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
