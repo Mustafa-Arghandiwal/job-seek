@@ -38,7 +38,7 @@ class EmployerSettingsController extends Controller
 
         $validated['aboutCompany'] = trim($validated['aboutCompany']);
         $validated['aboutCompany'] = Purifier::clean($validated['aboutCompany'], [
-            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
 
 

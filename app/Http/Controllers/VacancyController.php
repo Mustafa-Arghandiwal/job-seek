@@ -143,11 +143,11 @@ class VacancyController extends Controller
 
         $validated['description'] = trim($validated['description']);
         $validated['description'] = Purifier::clean($validated['description'], [
-            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
         $validated['responsibilities'] = trim($validated['responsibilities']);
         $validated['responsibilities'] = Purifier::clean($validated['responsibilities'], [
-            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
 
         $employer = $request->user()->employer;
@@ -301,11 +301,11 @@ class VacancyController extends Controller
 
         $validated['description'] = trim($validated['description']);
         $validated['description'] = Purifier::clean($validated['description'], [
-            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
         $validated['responsibilities'] = trim($validated['responsibilities']);
         $validated['responsibilities'] = Purifier::clean($validated['responsibilities'], [
-            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike'
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
 
 
