@@ -89,9 +89,9 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                 </div>
 
 
-                <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-around">
+                <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between">
 
-                    <div className="max-w-[600px] ">
+                    <div className="max-w-[600px] w-full">
                         <h2 className="text-customGray-900 text-xl font-medium">About Company</h2>
                         {about
                             ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900

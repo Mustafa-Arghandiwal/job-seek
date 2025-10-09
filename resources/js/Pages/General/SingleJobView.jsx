@@ -261,7 +261,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
             {/* middle section */}
             <div className="flex flex-col lg:flex-row gap-10 mt-8  justify-between">
 
-                <div className=" max-w-[700px]  ">
+                <div className=" max-w-[700px] w-full ">
                     <h2 className="text-customGray-900 text-xl font-medium">Job Description</h2>
                     {(description && description.trim() !== "")
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
