@@ -306,6 +306,10 @@ function PostJob() {
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
+                {Object.keys(errors).length !== 0 &&
+                    <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                }
+
             </div>
 
             {createPortal(

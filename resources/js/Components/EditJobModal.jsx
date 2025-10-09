@@ -283,9 +283,12 @@ export default function EditJobModal({ close, showModal, vacancy }) {
                         <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                             Save Changes
                         </button>
-                        <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                        <span className={`text-success-500 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                             {successMsg}
                         </span>
+                        {Object.keys(errors).length !== 0 &&
+                            <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                        }
                     </div>
                 </form>
 

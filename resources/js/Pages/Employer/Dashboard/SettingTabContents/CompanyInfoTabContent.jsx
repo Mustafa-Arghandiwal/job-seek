@@ -14,9 +14,8 @@ export default function CompanyInfoTabContent() {
     const { props } = usePage({})
     const profilePic = props.auth.user?.emp_profile_picture ? "/storage/" + props.auth.user.emp_profile_picture : null
     const coverPhoto = props.auth.user?.emp_cover_photo ? "/storage/" + props.auth.user.emp_cover_photo : null
-    console.log(props.auth.user)
     const employer = props.auth.user
-    const { data, setData, processing, progress, post } = useForm({
+    const { data, setData, processing, errors, progress, post } = useForm({
         logo: null,
         banner: null,
         companyName: employer.full_name || '',
@@ -315,9 +314,12 @@ export default function CompanyInfoTabContent() {
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
-                <span className={`text-success-500 h-6 w-52 sm:w-auto text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                <span className={`text-success-500 w-52 sm:w-auto text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                     {successMsg}
                 </span>
+                {Object.keys(errors).length !== 0 &&
+                    <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                }
             </div>
 
 

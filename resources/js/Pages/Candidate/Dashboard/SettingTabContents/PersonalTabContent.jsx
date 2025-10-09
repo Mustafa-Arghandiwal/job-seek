@@ -8,7 +8,7 @@ import RichTextEditor from "../../../../Components/RichTextEditor"
 export default function PersonalTabContent() {
 
     const { props } = usePage()
-    const { data, setData, processing, post } = useForm({
+    const { data, setData, errors, processing, post } = useForm({
         gender: props.auth.user.gender || '',
         maritalStatus: props.auth.user.marital_status || '',
         birthDate: props.auth.user.dob || '',
@@ -71,7 +71,7 @@ export default function PersonalTabContent() {
                 <div className="w-full  flex gap-2 flex-col sm:flex-row">
                     <div className="relative w-full sm:w-1/2 max-w-96 ">
                         <label className="text-sm text-customGray-900">Gender</label>
-                        <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={(option) => handleSelectChange('gender', option) } />
+                        <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={(option) => handleSelectChange('gender', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.gender || ''}
                         </div>
@@ -79,7 +79,7 @@ export default function PersonalTabContent() {
 
                     <div className="relative w-full sm:w-1/2 max-w-96">
                         <label className="text-sm text-customGray-900">Marital Status</label>
-                        <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={(option) => handleSelectChange('maritalStatus', option) } />
+                        <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={(option) => handleSelectChange('maritalStatus', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.maritalStatus || ''}
                         </div>
@@ -89,7 +89,7 @@ export default function PersonalTabContent() {
 
                 <div className=" flex flex-col relative w-full sm:w-[calc(50%-8px)] max-w-96 ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Date of Birth</label>
-                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} dateRange={'past'}/>
+                    <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} dateRange={'past'} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.birthDate || ''}
                     </div>
@@ -116,6 +116,9 @@ export default function PersonalTabContent() {
                 <div className={`text-success-500  h-6 w-52 sm:w-auto text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                     {successMsg}
                 </div>
+                {Object.keys(errors).length !== 0 &&
+                    <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                }
             </div>
         </form>
 

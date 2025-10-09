@@ -75,7 +75,7 @@ function Home(props) {
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <span className="text-customGray-900 text-xl sm:text-2xl">{props.jobsLastSevenDaysCount}</span>
-                            <span className="text-customGray-500 text-sm sm:text-base">New Jobs (Last 7 Days)</span>
+                            <span className="text-customGray-500 text-sm sm:text-base">New Job{props.jobsLastSevenDaysCount === 1 ? "" : "s"} (Last 7 Days)</span>
                         </div>
                     </div>
 
@@ -83,7 +83,6 @@ function Home(props) {
 
 
             </section>
-
 
             <section className="  xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                 <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
