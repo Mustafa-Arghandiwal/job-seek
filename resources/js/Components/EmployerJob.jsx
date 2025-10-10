@@ -63,13 +63,13 @@ export default function EmployerJob({ vacancy }) {
 
     return (
         <tr className="border-b border-b-customGray-100">
-            <td scope="row" className="p-5 whitespace-nowrap">
-                <h3 className="text-customGray-900 font-medium ">{vacancy.job_title}</h3>
+            <td scope="row" className="px-2 py-5 whitespace-nowrap">
+                <h3 className="text-customGray-900 font-medium text-wrap line-clamp-1 ">{vacancy.job_title}</h3>
                 <p className="text-sm text-customGray-500">{vacancy.job_type} &bull; {remainingMsg}</p>
 
             </td>
 
-            <td className={`${remainingDays >= 0 && !vacancy.manually_expired ? "text-success-500" : "text-danger-500"} text-sm p-5 whitespace-nowrap`}>
+            <td className={`${remainingDays >= 0 && !vacancy.manually_expired ? "text-success-500" : "text-danger-500"} text-sm px-2 py-5 whitespace-nowrap`}>
                 <div className="flex items-center gap-1">
                     {remainingDays >= 0 && !vacancy.manually_expired ?
                         <>
@@ -87,7 +87,7 @@ export default function EmployerJob({ vacancy }) {
             </td>
 
 
-            <td className="text-customGray-600 text-sm p-5 whitespace-nowrap">
+            <td className="text-customGray-600 text-sm px-2 py-5 whitespace-nowrap">
                 <div className="flex items-center gap-1">
                     <UsersIcon className="w-6 h-6"/>
                     {vacancy.applications_count} Applicant{vacancy.applications_count !== 1 && 's'}
@@ -96,7 +96,7 @@ export default function EmployerJob({ vacancy }) {
             </td>
 
 
-            <td className="p-5 whitespace-nowrap">
+            <td className="px-2 py-5 whitespace-nowrap">
                 <div className="flex items-center gap-2 ">
                     <Link href={`/employer/vacancies/${vacancy.id}/applications`} type="button" className="flex gap-3  font-semibold text-primary-500 hover:text-white bg-customGray-50 hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap rounded-sm">View Applications</Link>
                     <div className="relative">

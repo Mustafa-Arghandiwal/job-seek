@@ -47,9 +47,7 @@ function AppliedJobs({ applications }) {
                         </tbody>
                     </table>
 
-                    {applications.total > 3 &&
-                        <PaginationLinks paginator={applications} />
-                    }
+                    <PaginationLinks paginator={applications} />
 
                 </div>
 
