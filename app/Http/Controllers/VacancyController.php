@@ -251,6 +251,7 @@ class VacancyController extends Controller
 
         return inertia::render('General/SingleJobView', [
             'vacancy' => $vacancy,
+            'relatedVacancies' => $relatedVacancies,
             'employer' => $employer,
         ]);
     }
