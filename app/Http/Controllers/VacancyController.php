@@ -222,6 +222,15 @@ class VacancyController extends Controller
     public function show(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
+        $vacancyCategory = $vacancy->category;
+        $relatedVacancies = Vacancy::where('category', $vacancyCategory)
+            ->where('id', '!=', $id)
+            ->where('manually_expired', false)
+            ->where('deadline', '>=', Carbon::today())
+            ->orderBy('deadline', 'asc')
+            ->limit(5)
+            ->get();
+
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
         if (Auth::user()->user_type == 'candidate') {
             $resumes = $request->user()?->candidate->resumes;
@@ -230,8 +239,10 @@ class VacancyController extends Controller
                 $isBookmarked = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->where('vacancy_id', $id)->exists();
             }
 
+
             return inertia::render('General/SingleJobView', [
                 'vacancy' => $vacancy,
+                'relatedVacancies' => $relatedVacancies,
                 'employer' => $employer,
                 'resumes' => $resumes,
                 'isBookmarked' => $isBookmarked,

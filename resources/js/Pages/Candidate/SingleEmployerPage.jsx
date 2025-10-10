@@ -229,7 +229,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
             <div className="mt-20 " id="open-positions-section">
                 <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Open Positions</h3>
                 {openPositions.length !== 0 ?
-                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap sm:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]  overflow-x-auto  sm:overflow-visible">
                         {openPositions}
                         <PaginationLinks paginator={vacancies}/>
                     </div>

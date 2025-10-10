@@ -9,10 +9,11 @@ import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
 import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon, CalendarIcon, TimerIcon, WalletIcon, LocationUnderlinedIcon, SimpleBriefCaseIcon, GradCapIcon } from '../../utils/svgs'
+import OpenPosition from "../../Components/OpenPosition"
 
 
 
-function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
+function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmarked }) {
 
     const userType = usePage().props.auth.user.user_type
 
@@ -141,6 +142,12 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
 
+    const relatedJobEls = relatedVacancies.map(vacancy => {
+        const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
+        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
+            jobType={vacancy.job_type} salary={salary} logo={logo} />
+    })
+
 
 
     const root = document.getElementById("react-portal-root")
@@ -160,7 +167,6 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
     }, [])
 
 
-    const relatedJobs = []
     const showConfetti = () => {
         confetti({
             particleCount: 60,
@@ -186,6 +192,8 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
 
+
+
     return (
         <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30  ">
             <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
@@ -203,13 +211,13 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             <div className="flex flex-wrap gap-2 text-customGray-700 justify-center xs:justify-start">
                                 {companyWebsite &&
                                     <div className="flex gap-1 items-center ">
-                                        <LinkIcon className="w-5 h-5 text-primary-500"/>
+                                        <LinkIcon className="w-5 h-5 text-primary-500" />
                                         <p className="break-all">{companyWebsite}</p>
                                     </div>
                                 }
                                 {companyPhone &&
                                     <div className="flex gap-1 items-center">
-                                        <PhoneIcon className="w-5 h-5 text-primary-500"/>
+                                        <PhoneIcon className="w-5 h-5 text-primary-500" />
                                         <p>{companyPhone}</p>
                                     </div>
 
@@ -232,7 +240,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                     {userType === "candidate" &&
                         <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
                             <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
-                                <BookmarkIcon className="text-primary-500" bookmarked={bookmarked}/>
+                                <BookmarkIcon className="text-primary-500" bookmarked={bookmarked} />
                             </button>
 
                             <button
@@ -240,7 +248,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
                                 className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                                 Apply Now
-                                <RightArrowIcon className="w-6 h-6"/>
+                                <RightArrowIcon className="w-6 h-6" />
                             </button>
                         </div>
                     }
@@ -291,7 +299,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         <div className="mt-6 flex flex-wrap  gap-8 sm:gap-2">
                             <div className=" min-w-40 ">
                                 <div className="w-8 h-8">
-                                    <CalendarIcon className="w-8 h-8 text-primary-500"/>
+                                    <CalendarIcon className="w-8 h-8 text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
@@ -311,7 +319,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <GradCapIcon className="text-primary-500"/>
+                                    <GradCapIcon className="text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
@@ -433,9 +441,9 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
             <div className="mt-20">
                 <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Related Jobs</h3>
-                {relatedJobs.length !== 0 ?
-                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap   scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
-                        {relatedJobs}
+                {relatedJobEls.length !== 0 ?
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap sm:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                        {relatedJobEls}
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
@@ -454,7 +462,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             {flash.applySuccess}
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <CloseXIcon className="text-primary-500"/>
+                                <CloseXIcon className="text-primary-500" />
                             </button>
                         </div>
                         :
@@ -503,7 +511,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <CloseXIcon className="text-primary-500"/>
+                                <CloseXIcon className="text-primary-500" />
                             </button>
                         </form>
                     }
