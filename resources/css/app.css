@@ -145,7 +145,7 @@ body {
 }
 
 .animate-spin-fast {
-    animation: fast-spin 0.3s linear infinite;
+    animation: fast-spin 0.5s linear infinite;
 }
 
 

@@ -5,6 +5,7 @@ import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
 import CandidateProfileView from "../Components/CandidateProfileView";
+import TextAvatar from "../Components/TextAvatar";
 
 
 export default function Layout({ children }) {
@@ -145,7 +146,7 @@ export default function Layout({ children }) {
     }
 
     const searchItems = searchResults.map(res => (
-        <SearchItem key={res.id} id={res.id} logo={res.employer.detail?.logo_path} title={res.job_title} location={res.city} setIsTyping={setIsTyping} />
+        <SearchItem key={res.id} id={res.id} companyName={res.employer.user.full_name} logo={res.employer.detail?.logo_path} title={res.job_title} location={res.city} setIsTyping={setIsTyping} />
 
     ))
 
@@ -218,7 +219,7 @@ export default function Layout({ children }) {
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
                                         :
-                                        <UserIcon className="group-hover:scale-120 active:scale-110 cursor-pointer duration-100" />
+                                        <TextAvatar name={props.auth.user.full_name} className="h-full w-full hover:scale-110 active:scale-100" />
                                     }
                                 </div>
                                 <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-38  shadow-lg top-13 right-0 text-sm absolute rounded-md border overflow-hidden border-customGray-50
@@ -264,7 +265,7 @@ export default function Layout({ children }) {
                             {headerProfilePic ?
                                 <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
                                 :
-                                <UserIcon className="group-hover:scale-120  duration-100" />
+                                <TextAvatar name={props.auth.user.full_name} className="h-full w-full" />
                             }
                         </Link>
 

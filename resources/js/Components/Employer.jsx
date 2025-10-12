@@ -1,9 +1,9 @@
 import { Link, router } from "@inertiajs/react"
 import { BriefCaseIcon, LocationIcon, RightArrowIcon } from "../utils/svgs"
+import TextAvatar from "./TextAvatar"
 
 
 export default function Employer(props) {
-    const logoPath = props.logo ? "/storage/" + props.logo : "/chess_pattern.png"
     const location = props.location || "Not provided"
 
     const goToEmployerPage = () => {
@@ -13,10 +13,12 @@ export default function Employer(props) {
     return (
         <div onClick={goToEmployerPage} className="relative border border-customGray-50 flex flex-wrap items-center sm:items-stretch flex-col sm:flex-row sm:flex-nowrap min-w-[260px]  sm:w-full justify-between gap-3 p-5 sm:p-8  rounded-xl peer duration-150 hover:border-primary-500 cursor-pointer ">
             <div className="flex gap-5">
-                <div
-                    className="h-16 min-w-16 bg-cover bg-center rounded-md"
-                    style={{ backgroundImage: `url(${logoPath})` }}
-                ></div>
+                {props.logo ?
+                    <div style={{ backgroundImage: `url(${"/storage/" + props.logo})` }} className="h-16 min-w-16 bg-cover bg-center rounded-md"></div>
+                    :
+                    <TextAvatar name={props.companyName} className="h-16 min-w-16 rounded-sm text-2xl" />
+                }
+
                 <div className="flex flex-col gap-3.5 ">
                     <div className="flex gap-2 flex-wrap items-center  break-words h-12 md:h-14   overflow-hidden">
                         <h4 title={props.companyName} className="text-customGray-900 font-medium text-base line-clamp-2  md:text-xl  ">{props.companyName}</h4>

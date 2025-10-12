@@ -5,12 +5,14 @@ import { formatSalary } from "../../utils/formatSalary"
 import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
 import { RightArrowIcon, CalendarIcon, UserIcon, BuildingIcon2, GlobeIcon, SimpleBriefCaseIcon, MailIcon, PhoneIcon } from "../../utils/svgs"
+import TextAvatar from "../../Components/TextAvatar"
+import TextAvatarBanner from "../../Components/TextAvatarBanner"
 
 
 function SingleEmployerPage({ employerDetails, vacancies }) {
     const ed = employerDetails[0]
-    const logo = ed.detail?.logo_path ? "/storage/" + ed.detail.logo_path : null
-    const banner = ed.detail?.banner_path ? "/storage/" + ed.detail.banner_path : null
+    const logo = ed.detail.logo_path
+    const banner = ed.detail.banner_path
     const companyName = ed.user.full_name
     const industryType = ed.detail?.industry_type
     const orgType = ed.detail?.company_type
@@ -25,8 +27,8 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     const openPositions = vacancies.data.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
-            return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
-                jobType={vacancy.job_type} salary={salary} logo={logo} />
+        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
+            jobType={vacancy.job_type} salary={salary} logo={logo} />
     })
 
 
@@ -65,16 +67,22 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     return (
         <div className="lg:px-24 xl:px-48 pb-30">
 
-            <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative duration-200 bg-cover bg-center `}
-                style={{ backgroundImage: `url(${banner || "/chess_pattern_cover.png"})` }}
-            >
-            </div>
+            {banner ?
+                <div style={{ backgroundImage: `url(${"/storage/" + banner})` }} className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative bg-cover bg-center `} ></div>
+                :
+                <TextAvatarBanner name={companyName} className="h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative text-center text-3xl px-3 md:text-4xl" />
+            }
 
             <div className=" mx-4 sm:mx-24 -mt-9 sm:-mt-[60px]  ">
 
                 <div className="rounded-xl z-10 border bg-white shadow-lg border-customGray-100 relative px-4 sm:px-10 py-3 sm:py-6 flex gap-3 flex-col lg:flex-row justify-between sm:items-center">
                     <div className="flex gap-6">
-                        <div className="h-16 min-w-16 bg-cover bg-center rounded-md" style={{ backgroundImage: `url(${logo || "/chess_pattern.png"})` }}></div>
+                        {logo ?
+                            <div style={{ backgroundImage: `url(${"/storage/" + logo})` }} className="h-16 min-w-16 bg-cover bg-center rounded-md" ></div>
+                            :
+                            <TextAvatar name={companyName} className="h-16 min-w-16 rounded-sm text-2xl" />
+                        }
+
                         <div className=" flex flex-col gap-[10px] ">
                             <p className="text-customGray-900 font-medium text-xl sm:text-2xl">{companyName}</p>
                             <p className="text-customGray-600 text-sm sm:text-base line-clamp-1">{industryType}</p>
@@ -132,7 +140,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             <div className=" flex flex-col gap-6 ">
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <UserIcon className="w-8 h-8 text-primary-500"/>
+                                        <UserIcon className="w-8 h-8 text-primary-500" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">TEAM SIZE</p>
@@ -167,7 +175,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                 <div className="w-8 h-8 shrink-0">
-                                    <GlobeIcon className="text-primary-500"/>
+                                    <GlobeIcon className="text-primary-500" />
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">WEBSITE</p>
@@ -187,7 +195,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 pt-6 ">
                                 <div className="w-8-h-8 shrink-0">
-                                    <MailIcon className="w-8 h-8 text-primary-500"/>
+                                    <MailIcon className="w-8 h-8 text-primary-500" />
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">EMAIL ADDRESS</p>
@@ -231,7 +239,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                 {openPositions.length !== 0 ?
                     <div className="pb-5 px-4 flex gap-6 sm:flex-wrap sm:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]  overflow-x-auto  sm:overflow-visible">
                         {openPositions}
-                        <PaginationLinks paginator={vacancies}/>
+                        <PaginationLinks paginator={vacancies} />
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">

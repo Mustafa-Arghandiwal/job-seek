@@ -3,6 +3,7 @@ import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candida
 import { useEffect, useRef, useState } from "react"
 import { router, usePage } from "@inertiajs/react"
 import { CloseXIcon, RightArrowIcon, CakeIcon, LocationUnderlinedIcon, UsersIcon, CircleUserIcon, SimpleBriefCaseIcon, GradCapIcon, PhoneIcon, GlobeIcon, MailIcon, BookmarkIcon  } from "../../utils/svgs"
+import TextAvatar from "../../Components/TextAvatar"
 
 
 export default function CandidateProfileModal({ showModal, setShowModal, candidate, coverLetter, savedCandidates }) {
@@ -46,7 +47,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
     const candidateDetails = candidate?.candidate[0]
     const title = candidateDetails?.title
-    const profilePicture = candidateDetails?.profile_picture ? "/storage/" + candidateDetails.profile_picture : "/chess_pattern.png"
+    const profilePicture = candidateDetails?.profile_picture
     const biography = candidateDetails?.biography
     const dob = candidateDetails?.dob ? new Date(candidateDetails.dob).toLocaleDateString("en-US", {
         day: "numeric",
@@ -112,7 +113,11 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                     <div className="py-8  flex items-center flex-col lg:flex-row gap-4 justify-center lg:justify-between ">
 
                         <div className="flex gap-6 items-center flex-col xs:flex-row">
-                            <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${profilePicture})` }}></div>
+                            {profilePicture ?
+                                <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${"/storage/" + profilePicture})` }}></div>
+                                :
+                                <TextAvatar name={candidateDetails?.full_name || ""} className="h-20 min-w-20 rounded-full text-3xl" />
+                            }
                             <div className=" flex flex-col gap-[10px] text-sm text-center">
                                 <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{candidateDetails?.full_name}</h2>
                                 {title && <span className="block text-customGray-600  xs:text-left sm:text-base line-clamp-1">{title}</span>}

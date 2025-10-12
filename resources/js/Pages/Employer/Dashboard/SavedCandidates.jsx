@@ -10,7 +10,7 @@ import PaginationLinks from "../../../utils/getPaginationLinks"
 function SavedCandidates({ savedCandidates }) {
 
     const savedCandidateEls = savedCandidates.data.map(candidate => {
-        const profilePic = candidate?.profile_picture ? "/storage/" + candidate.profile_picture : "/chess_pattern.png"
+        const profilePic = candidate.profile_picture
         return <EmployerSavedCandidate key={candidate.id} candidateId={candidate.candidate_id} profilePic={profilePic} name={candidate.full_name} title={candidate.title} />
     })
 

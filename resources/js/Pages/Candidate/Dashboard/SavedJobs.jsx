@@ -11,7 +11,7 @@ function SavedJobs({ savedVacancies }) {
 
 
     const savedJobs = savedVacancies.data.map(vacancy => {
-        const logoPath = vacancy.logo_path ? "/storage/" + vacancy.logo_path : "/chess_pattern.png"
+        const logoPath = vacancy.logo_path
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
         const today = new Date()
         const endDate = new Date(vacancy.deadline)
@@ -21,7 +21,7 @@ function SavedJobs({ savedVacancies }) {
             remainingMsg = `${remainingDays} ${remainingDays === 1 ? 'day' : 'days'} remaining`
         }
 
-        return <CandidateSavedJob key={vacancy.id} vacancyId={vacancy.vacancy_id} logo={logoPath} title={vacancy.job_title}
+        return <CandidateSavedJob key={vacancy.id} vacancyId={vacancy.vacancy_id} companyName={vacancy.full_name} logo={logoPath} title={vacancy.job_title}
             type={vacancy.job_type} location={vacancy.city} salary={salary} deadline={remainingMsg} />
 
     })

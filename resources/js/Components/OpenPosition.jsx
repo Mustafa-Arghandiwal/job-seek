@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { LocationIcon } from "../utils/svgs";
+import TextAvatar from "./TextAvatar";
 
 export default function OpenPosition(props) {
 
@@ -9,8 +10,12 @@ export default function OpenPosition(props) {
              xs:h-[242px] w-[400px]   justify-between  p-8  rounded-xl  hover:shadow-xl
              duration-150 snap-center cursor-pointer">
 
-            <div className="flex  gap-5 ">
-                <div className="h-14 min-w-14 bg-cover bg-center rounded-sm" style={{ backgroundImage: `url(${props.logo || "/chess_pattern.png"})` }}></div>
+            <div className="flex gap-5">
+                {props.logo ?
+                    <div style={{ backgroundImage: `url(${"/storage/" + props.logo})` }} className="h-14 min-w-14 bg-cover bg-center rounded-sm" ></div>
+                    :
+                    <TextAvatar name={props.companyName} className="h-14 min-w-14 rounded-sm text-2xl" />
+                }
                 <div className="flex gap-1.5 flex-col w-32 sm:w-auto break-words">
                     <h4 className="text-[#191F33] font-medium  line-clamp-3  text-xl">{props.companyName}</h4>
                     <div className="flex items-center gap-1.5 text-[#5E6670] text-sm ">

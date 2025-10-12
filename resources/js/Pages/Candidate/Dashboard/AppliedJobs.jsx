@@ -8,9 +8,10 @@ import PaginationLinks from "../../../utils/getPaginationLinks"
 function AppliedJobs({ applications }) {
 
 
+    console.log(applications.data)
     const applicationEls = applications.data.map(app => {
-        const logo = app.vacancy.employer.detail?.logo_path ? "/storage/" + app.vacancy.employer.detail.logo_path : "/chess_patter.png"
-        const salary = formatSalary(app.vacancy.salary_type, app.vacancy.fixed_salary, app.vacancy.min_salary, app.vacancy.max_salary)
+        const logo = app.logo_path
+        const salary = formatSalary(app.salary_type, app.fixed_salary, app.min_salary, app.max_salary)
         const appliedAt = new Date(app.applied_at).toLocaleString("en-US", {
             day: "numeric",
             month: "long",
@@ -19,8 +20,8 @@ function AppliedJobs({ applications }) {
             minute: "2-digit",
             hour12: false,
         });
-        return <CandidateAppliedJob key={app.id} vacancyId={app.vacancy_id} logo={logo} title={app.vacancy.job_title}
-            type={app.vacancy.job_type} city={app.vacancy.city} salary={salary} appliedAt={appliedAt} />
+        return <CandidateAppliedJob key={app.id} vacancyId={app.vacancy_id} companyName={app.full_name} logo={logo} title={app.job_title}
+            type={app.job_type} city={app.city} salary={salary} appliedAt={appliedAt} />
 
     })
 

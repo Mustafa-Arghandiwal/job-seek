@@ -1,6 +1,7 @@
 import { router } from "@inertiajs/react"
 import { useState } from "react"
 import { DollarIcon, LocationIcon, CalendarIcon, ExpiredIcon, BookmarkIcon, RightArrowIcon } from "../utils/svgs"
+import TextAvatar from "./TextAvatar"
 
 
 export default function CandidateSavedJob(props) {
@@ -24,10 +25,11 @@ export default function CandidateSavedJob(props) {
     return (
         <div className="relative border-b border-customGray-100 border border-t-transparent border-x-transparent hover:rounded-lg  hover:border-primary-500 flex flex-col lg:flex-row min-w-[260px] sm:w-full justify-between gap-3 items-center p-4 duration-150 ">
             <div className="flex gap-5">
-                <div
-                    className="h-16 min-w-16 bg-cover bg-center rounded-sm"
-                    style={{ backgroundImage: `url(${props.logo})` }}
-                ></div>
+                {props.logo ?
+                    <div style={{ backgroundImage: `url(${"/storage/" + props.logo})` }} className="h-16 min-w-16 bg-cover bg-center rounded-sm"></div>
+                    :
+                    <TextAvatar name={props.companyName} className="h-16 min-w-16 rounded-sm text-2xl" />
+                }
                 <div className="flex flex-col gap-3.5">
                     <div className="flex gap-2 items-center flex-wrap ">
                         <h4 title={props.title} className=" text-customGray-900 font-medium  line-clamp-3">{props.title}</h4>

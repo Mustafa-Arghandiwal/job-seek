@@ -28,10 +28,13 @@ class FavoritesController extends Controller
                 'vacancies.salary_type',
                 'vacancies.min_salary',
                 'vacancies.max_salary',
-                'vacancies.fixed_salary'
+                'vacancies.fixed_salary',
+                'full_name'
             ])
             ->leftJoin('vacancies', 'vacancies.id', '=', 'candidate_saved_jobs.vacancy_id')
             ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
+            ->leftJoin('employers', 'employers.id', '=', 'vacancies.employer_id')
+            ->leftJoin('users', 'users.id', '=', 'employers.user_id')
             ->where('candidate_id', $candidate->id)
             ->orderBy('candidate_saved_jobs.created_at', 'desc')
             ->paginate(4);

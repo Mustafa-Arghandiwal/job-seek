@@ -3,7 +3,8 @@ import { router } from "@inertiajs/react"
 import { useEffect, useState } from "react"
 import CandidateProfileModal from "../Pages/General/CandidateProfileModal"
 import SavedCandidateProfileModal from "../Pages/General/SavedCandidateProfileModal"
-import { BookmarkIcon, RightArrowIcon} from "../utils/svgs"
+import { BookmarkIcon, RightArrowIcon } from "../utils/svgs"
+import TextAvatar from "./TextAvatar"
 
 
 export default function EmployerSavedCandidate(props) {
@@ -41,10 +42,12 @@ export default function EmployerSavedCandidate(props) {
     return (
         <div className=" relative border-b border-customGray-100 border border-t-transparent border-x-transparent hover:rounded-lg  hover:border-primary-500 flex min-w-[260px]  sm:w-full justify-between gap-3 flex-col sm:flex-row items-center p-4 duration-150 ">
             <div className="flex gap-5">
-                <div
-                    className="h-16 min-w-16 bg-cover bg-center rounded-sm"
-                    style={{ backgroundImage: `url(${props.profilePic})` }}
-                ></div>
+                {props.profilePic ?
+                    <div style={{ backgroundImage: `url(${"/storage/" + props.profilePic})` }} className="h-16 min-w-16 bg-cover bg-center rounded-sm"></div>
+                    :
+
+                    <TextAvatar name={props.name} className="h-16 min-w-16 rounded-sm text-2xl" />
+                }
                 <div className="  flex flex-col gap-3.5">
                     <div className="flex gap-1 flex-col break-words">
                         <h4 title={props.name} className="text-center sm:text-left text-customGray-900 text-lg font-medium  line-clamp-3">{props.name}</h4>
@@ -71,7 +74,7 @@ export default function EmployerSavedCandidate(props) {
 
             <SavedCandidateProfileModal showModal={showModal} setShowModal={setShowModal}
                 candidateData={candidate}
-                // savedCandidates={props.savedCandidates}
+            // savedCandidates={props.savedCandidates}
             />
         </div>
     )
