@@ -23,7 +23,6 @@ export default function CandidateProfileView({ candidateData, showModal, setShow
     }, [])
 
     const candidateDetails = candidateData?.candidate
-    console.log(candidateDetails)
     const title = candidateDetails?.title
     const profilePicture = candidateDetails?.profile_picture
     const biography = candidateDetails?.biography

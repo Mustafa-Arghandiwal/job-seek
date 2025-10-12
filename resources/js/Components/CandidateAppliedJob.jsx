@@ -5,7 +5,6 @@ import TextAvatar from "./TextAvatar";
 
 export default function CandidateAppliedJob(props) {
 
-    console.log(props)
     return (
 
         <tr className=" border-b border-b-customGray-100">

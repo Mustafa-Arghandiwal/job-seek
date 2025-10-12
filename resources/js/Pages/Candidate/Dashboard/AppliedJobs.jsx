@@ -8,7 +8,6 @@ import PaginationLinks from "../../../utils/getPaginationLinks"
 function AppliedJobs({ applications }) {
 
 
-    console.log(applications.data)
     const applicationEls = applications.data.map(app => {
         const logo = app.logo_path
         const salary = formatSalary(app.salary_type, app.fixed_salary, app.min_salary, app.max_salary)

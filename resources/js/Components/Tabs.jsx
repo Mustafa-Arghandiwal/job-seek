@@ -2,7 +2,6 @@ import { Children, useState } from "react"
 
 
 export default function Tabs(props) {
-    // console.log(Children.toArray(props.children))
     const [activeIndex, setActiveIndex] = useState(0)
     const tabsArr = Children.toArray(props.children)
 

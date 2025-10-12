@@ -11,7 +11,7 @@ export default function Company(props) {
             min-w-[220px] sm:min-w-[290px]  hover:shadow-2xl hover:border-primary-500 duration-150 snap-center bg-white">
             <div className="flex gap-4 ">
                 {props.logo ?
-                    <div style={{ backgroundImage: `url(${"/storage/" + props.logo})` }} className="h-10 sm:h-16 min-w-10 sm:min-w-16 bg-cover bg-center"></div>
+                    <div style={{ backgroundImage: `url(${"/storage/" + props.logo})` }} className="h-10 sm:h-16 min-w-10 sm:min-w-16 bg-cover bg-center rounded-sm"></div>
                     :
                     <TextAvatar name={props.name} className="h-10 sm:h-16 min-w-10 sm:min-w-16 rounded-sm text-2xl" />
                 }
