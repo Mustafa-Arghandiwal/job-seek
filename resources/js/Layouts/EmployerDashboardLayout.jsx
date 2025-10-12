@@ -2,6 +2,7 @@
 import { Link, router, usePage } from "@inertiajs/react"
 import { useEffect, useState } from "react"
 import { DashboardIcon, CloseXIcon, OverviewIcon, CircleAddIcon, SimpleBriefCaseIcon, BookmarkIcon, GearIcon, AnimatedLogoutIcon } from "../utils/svgs"
+import { SidebarOpen } from "lucide-react"
 
 export default function EmployerDashboardLayout({ children }) {
     const { url } = usePage()
@@ -20,12 +21,12 @@ export default function EmployerDashboardLayout({ children }) {
     }, [])
 
     return (
-        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-3 xl:px-[150px] 2xl:px-[180px] ">
+        <div className="relative grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]  h-[calc(100dvh-138px-40px)] overflow-hidden px-2.5 xl:px-[150px] 2xl:px-[180px] ">
 
 
             {/* open sidebar */}
             <button onClick={() => setIsOpen(true)} className={` absolute block md:hidden top-1 left-1 ${isOpen && 'hidden'} cursor-pointer`}>
-                <DashboardIcon className="text-customGray-700" />
+                <SidebarOpen className="text-customGray-700 w-5.5 h-5.5" />
             </button>
 
             <nav className={`text-nowrap bg-white md:bg-transparent z-30 h-[calc(100%-178px)] md:h-auto fixed md:static flex w-[200px] transition-transform flex-col pt-6  border-r border-r-customGray-100 ${isOpen ? '-translate-x-0' : '-translate-x-full overflow-hidden border-r-0'} duration-300`}>

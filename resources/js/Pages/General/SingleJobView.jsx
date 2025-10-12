@@ -280,7 +280,7 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
                         : <p className="text-customGray-400 mt-4">Not Provided</p>}
 
 
-                    <h2 className="text-black text-lg font-medium mt-8">Responsibilities</h2>
+                    <h2 className="text-customGray-900 text-lg font-medium mt-8">Responsibilities</h2>
                     {(responsibilities && responsibilities.trim() !== "")
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
