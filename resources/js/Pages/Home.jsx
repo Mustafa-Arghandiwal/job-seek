@@ -1,10 +1,10 @@
-import { usePage, useForm, Link } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import Layout from "../Layouts/Layout"
 import Category from "../Components/Category"
 import Job from "../Components/Job"
 import Company from "../Components/Company"
 import EmployerLayout from "../Layouts/EmployerLayout"
-import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, SearchIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
+import { AddAccountIcon, BarChartIcon, BriefCaseIcon, BuildingIcon, CameraIcon, CheckmarkIcon, DashedArrowIcon, FindPlusIcon, HomePageCover, LineChartIcon, ProcessorIcon, RightArrowIcon, UploadIcon, UsersIcon } from "../utils/svgs.jsx"
 import Tilt from "react-parallax-tilt"
 function Home(props) {
 
@@ -32,7 +32,6 @@ function Home(props) {
                         </div>
 
 
-                    {/* <img src="/Illustration.png" className="max-w-[492px] w-full" /> */}
                     <HomePageCover className="text-primary-500 hue-animation max-w-[492px] w-full " />
                 </div>
 
@@ -76,7 +75,7 @@ function Home(props) {
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <span className="text-customGray-900 text-xl sm:text-2xl">{props.jobsLastSevenDaysCount}</span>
-                            <span className="text-customGray-500 text-sm sm:text-base">New Jobs (Last 7 Days)</span>
+                            <span className="text-customGray-500 text-sm sm:text-base">New Job{props.jobsLastSevenDaysCount === 1 ? "" : "s"} (Last 7 Days)</span>
                         </div>
                     </div>
 
@@ -84,7 +83,6 @@ function Home(props) {
 
 
             </section>
-
 
             <section className="  xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
                 <h2 className="font-medium text-[25px] px-4 ">Popular Categories</h2>
@@ -102,9 +100,9 @@ function Home(props) {
 
                     <div className="grid  grid-cols-2 lg:grid-cols-4 gap-4 mt-[50px] px-4  relative ">
 
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:left-[19%] pointer-events-none" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-16 lg:rotate-180 lg:-scale-x-100 lg:left-[44%] pointer-events-none" />
-                        <img src="extra/arrow.png" className="absolute invisible w-[150px] lg:visible  lg:top-4 lg:right-[19%] pointer-events-none" />
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-2 lg:left-[19%] pointer-events-none text-primary-500"/>
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-14 lg:rotate-180 lg:-scale-x-100 lg:left-[44%] pointer-events-none text-primary-500"/>
+                        <DashedArrowIcon  className="absolute invisible w-[150px] lg:visible  lg:top-2 lg:right-[19%] pointer-events-none text-primary-500"/>
 
                         <div className="flex flex-col max-w-[312px]  justify-center items-center gap-3  p-6 pb-10 rounded-xl hover:bg-white group duration-150">
                             <div className="w-18 h-18 rounded-full bg-white group-hover:bg-primary-500 grid place-items-center duration-150">
@@ -144,9 +142,9 @@ function Home(props) {
 
             <section className="mb-10 py-4">
                 <div className="xl:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px]  mx-auto">
-                    <div className="w-full flex justify-between px-4">
+                    <div className="w-full flex items-center justify-between px-4">
                         <h2 className="font-medium text-xl md:text-[25px] px-4 ">Latest Jobs</h2>
-                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                        <Link href="/vacancies" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 w-32 h-12 justify-center duration-150 text-nowrap">View All<RightArrowIcon /></Link>
                     </div>
 
                     <div className="pb-5 px-4 flex gap-4 mt-12 overflow-x-auto sm:flex-col sm:overflow-visible  scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
@@ -158,9 +156,9 @@ function Home(props) {
 
 
             <section className="sm:px-4 py-10 md:py-16 lg:py-24 max-w-[1320px] mx-auto   ">
-                <div className="w-full flex justify-between px-4">
+                <div className="w-full flex items-center justify-between px-4">
                     <h2 className="font-medium text-xl md:text-[25px] px-4 ">Active Companies</h2>
-                    <Link href="/employers" className="flex items-center  gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 px-2 sm:px-6 py-1 sm:py-3 duration-150 text-nowrap">View All <img className="w-6" src="arrow.svg" /></Link>
+                    <Link href="/employers" className="flex items-center gap-1 rounded-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 w-32 h-12 justify-center duration-150 text-nowrap ">View All<RightArrowIcon /></Link>
                 </div>
                 <div className=" px-4 sm:px-0 pt-2 pb-5 mt-12 flex gap-5 overflow-x-auto lg:overflow-visible md:flex md:flex-wrap md:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]">
                     {activeCompanyEls}
@@ -179,10 +177,7 @@ function Home(props) {
                         <h4 className="text-[32px] font-medium">Become a Candidate</h4>
                         <p className="text-sm max-w-[312px] text-customGray-600 mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=candidate" className="max-w-48 mt-[26px] group flex gap-3 rounded-sm font-semibold text-primary-500 hover:text-white bg-white hover:bg-primary-500 cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
-                            <svg className="text-primary-500 group-hover:text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <RightArrowIcon className="w-6 h-6" />
                         </Link>
 
                     </div>
@@ -194,10 +189,7 @@ function Home(props) {
                         <h4 className="text-[32px] text-white   font-medium" style={{ transform: "translateZ(40px)" }}>Become an Employer</h4>
                         <p className="text-sm max-w-[312px] text-white mt-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad perferendis adipisci odit saepe! Non.</p>
                         <Link href="/sign-up?user_type=employer" className="max-w-48   mt-[26px] group flex gap-3 rounded-sm font-semibold  text-white hover:text-primary-600  bg-primary-500 hover:bg-white cursor-pointer px-6 py-3 duration-150 text-nowrap">Register Now
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <RightArrowIcon className="w-6 h-6" />
                         </Link>
 
                     </div>

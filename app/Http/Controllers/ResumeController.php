@@ -89,7 +89,9 @@ class ResumeController extends Controller
                 // dd($application->resume_path);
                 return response()->download(storage_path('app/private/' . $application->resume_path), $candidateName . "." . $extension);
             } catch (\Throwable $th) {
-                abort(404);
+                return response()->json([
+                    'File not found' => 'The CV has been deleted by the applicant.'
+                ], 404);
             }
         } else {
             abort(403);
@@ -107,7 +109,9 @@ class ResumeController extends Controller
             try {
                 return response()->file(storage_path('app/private/' . $application->resume_path));
             } catch (\Throwable $th) {
-                abort(404);
+                return response()->json([
+                    'File not found' => 'The CV has been deleted by the applicant.'
+                ], 404);
             }
         } else {
             abort(403);

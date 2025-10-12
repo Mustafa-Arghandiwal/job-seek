@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\EmployerContact;
 use App\Models\EmployerDetail;
 use App\Models\EmployerSocialLink;
+use App\Rules\RichTextLength;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Mews\Purifier\Facades\Purifier;
 
 class EmployerSettingsController extends Controller
 {
@@ -22,11 +25,23 @@ class EmployerSettingsController extends Controller
             'teamSize' => ['required', 'in:1-10,11-50,51-100,101-500,501-1000,1001-5000,5000+'],
             'establishDate' => ['required', 'date_format:Y-m'],
             'companyWebsite' => ['nullable', 'regex:/^(https?:\/\/)?(www\.)?[a-z0-9-]+\.[a-z]{2,}(\/[a-z0-9-]*)*\/?$/'],
-            'aboutCompany' => ['required', 'min:10', 'max:65535', 'string'],
+            'aboutCompany' => ['required', new RichTextLength(10, 65535), 'string'],
             'logo' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
             'banner' => ['nullable', 'file', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
 
         ]);
+        // $validated = $request->validate([
+        //     'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
+        //     'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
+        //     'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
+        //     'biography' => ['required', new RichTextLength(10, 65535), 'string']
+        // ]);
+
+        $validated['aboutCompany'] = trim($validated['aboutCompany']);
+        $validated['aboutCompany'] = Purifier::clean($validated['aboutCompany'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
+        ]);
+
 
         $user = $request->user();
         $employer = $request->user()->employer;
@@ -68,10 +83,42 @@ class EmployerSettingsController extends Controller
         DB::transaction(function () use ($user, $employerDetail) {
             $user->save();
             $employerDetail->save();
+            return back()->with('compInfoSuccess', 'Your changes have been saved.');
         });
     }
 
+    public function deleteProfilePicture(Request $request)
+    {
+        $employerId = $request->user()->employer->id;
+        $profilePicture = EmployerDetail::where('employer_id', $employerId)->value('logo_path');
 
+        if (!$profilePicture) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($profilePicture)) {
+            Storage::disk('public')->delete($profilePicture);
+        }
+
+        EmployerDetail::where('employer_id', $employerId)->update(['logo_path' => null]);
+    }
+
+
+    public function deleteBanner(Request $request)
+    {
+        $employerId = $request->user()->employer->id;
+        $banner = EmployerDetail::where('employer_id', $employerId)->value('banner_path');
+
+        if (!$banner) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($banner)) {
+            Storage::disk('public')->delete($banner);
+        }
+
+        EmployerDetail::where('employer_id', $employerId)->update(['banner_path' => null]);
+    }
 
     public function updateSocialLinks(Request $request)
     {

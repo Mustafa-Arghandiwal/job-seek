@@ -8,10 +8,12 @@ import { useEffect, useRef, useState } from "react"
 import Select from "../../Components/Select"
 import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
+import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon, CalendarIcon, TimerIcon, WalletIcon, LocationUnderlinedIcon, SimpleBriefCaseIcon, GradCapIcon } from '../../utils/svgs'
+import OpenPosition from "../../Components/OpenPosition"
 
 
 
-function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
+function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmarked }) {
 
     const userType = usePage().props.auth.user.user_type
 
@@ -140,6 +142,12 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
 
+    const relatedJobEls = relatedVacancies.map(vacancy => {
+        const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
+        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
+            jobType={vacancy.job_type} salary={salary} logo={logo} />
+    })
+
 
 
     const root = document.getElementById("react-portal-root")
@@ -157,17 +165,6 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
         return () => document.removeEventListener('click', handleOutsideClick)
 
     }, [])
-
-
-
-
-    // const relatedJobs = vacancies.map(vacancy => {
-    //     const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-
-    //     return <OpenPosition key={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
-    //         jobType={vacancy.job_type} salary={salary} logo={logo} />
-    // })
-    const relatedJobs = []
 
 
     const showConfetti = () => {
@@ -195,12 +192,14 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
 
+
+
     return (
         <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30  ">
             <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
 
                 <div className="flex gap-6 items-center  flex-col xs:flex-row">
-                    <div className="h-24 min-w-24 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${logo})` }}></div>
+                    <Link href={`/employers/${employer.id}`} className="h-24 min-w-24 bg-cover bg-center rounded-full hover:scale-105 duration-150" style={{ backgroundImage: `url(${logo})` }}></Link>
                     <div className="flex flex-col gap-3 items-center xs:items-start">
                         <div className="flex gap-2 items-center flex-wrap justify-center xs:justify-start">
                             <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{jobTitle}</h2>
@@ -212,20 +211,20 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             <div className="flex flex-wrap gap-2 text-customGray-700 justify-center xs:justify-start">
                                 {companyWebsite &&
                                     <div className="flex gap-1 items-center ">
-                                        <img src="/link_blue.png" className="h-5 w-5" />
+                                        <LinkIcon className="w-5 h-5 text-primary-500" />
                                         <p className="break-all">{companyWebsite}</p>
                                     </div>
                                 }
                                 {companyPhone &&
                                     <div className="flex gap-1 items-center">
-                                        <img src="/phone_blue.png" className="h-5 w-5" />
+                                        <PhoneIcon className="w-5 h-5 text-primary-500" />
                                         <p>{companyPhone}</p>
                                     </div>
 
                                 }
                                 {companyEmail &&
                                     <div className="flex gap-1 items-center">
-                                        <img src="/envelope_blue.png" className="h-5 w-5" />
+                                        <MailIcon className="w-5 h-5 text-primary-500" />
                                         <p className="break-all">{companyEmail}</p>
                                     </div>
                                 }
@@ -241,12 +240,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                     {userType === "candidate" &&
                         <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
                             <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
-                                <svg width="18" height="18" viewBox="0 0 14 19" fill={`${bookmarked ? "#0A65CC" : "none"}`} xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13 18L6.99931 14.25L1 18V1.5C1 1.30109 1.07902 1.11032 1.21967 0.96967C1.36032 0.829018 1.55109 0.75 1.75 0.75H12.25C12.4489 0.75 12.6397 0.829018 12.7803 0.96967C12.921 1.11032 13 1.30109 13 1.5V18Z"
-                                        stroke="#0A65CC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                    />
-                                </svg>
+                                <BookmarkIcon className="text-primary-500" bookmarked={bookmarked} />
                             </button>
 
                             <button
@@ -254,10 +248,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 onClick={(e) => { e.stopPropagation(); setShowModal(true) }}
                                 className="group flex gap-3 disabled:bg-primary-200 disabled:cursor-default rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                                 Apply Now
-                                <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <RightArrowIcon className="w-6 h-6" />
                             </button>
                         </div>
                     }
@@ -278,23 +269,23 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
             {/* middle section */}
             <div className="flex flex-col lg:flex-row gap-10 mt-8  justify-between">
 
-                <div className=" max-w-[700px]  ">
+                <div className=" max-w-[700px] w-full ">
                     <h2 className="text-customGray-900 text-xl font-medium">Job Description</h2>
                     {(description && description.trim() !== "")
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline"
                             dangerouslySetInnerHTML={{ __html: description }} />
                         : <p className="text-customGray-400 mt-4">Not Provided</p>}
 
 
-                    <h2 className="text-black text-lg font-medium mt-8">Responsibilities</h2>
+                    <h2 className="text-customGray-900 text-lg font-medium mt-8">Responsibilities</h2>
                     {(responsibilities && responsibilities.trim() !== "")
                         ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900  [&_a]:text-primary-500 [&_a]:underline"
                             dangerouslySetInnerHTML={{ __html: responsibilities }} />
                         : <p className="text-customGray-400 mt-4">Not Provided</p>}
 
@@ -308,7 +299,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                         <div className="mt-6 flex flex-wrap  gap-8 sm:gap-2">
                             <div className=" min-w-40 ">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/founded-in.png" />
+                                    <CalendarIcon className="w-8 h-8 text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500 max-w-32">JOB POSTED:</p>
@@ -317,7 +308,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             </div>
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/timer.png" />
+                                    <TimerIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">JOB EXPIRE ON:</p>
@@ -328,7 +319,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/grad_cap.png" />
+                                    <GradCapIcon className="text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EDUCATION:</p>
@@ -340,7 +331,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/wallet.png" />
+                                    <WalletIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">SALARY:</p>
@@ -349,7 +340,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             </div>
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/location.png" />
+                                    <LocationUnderlinedIcon />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">LOCATION:</p>
@@ -359,7 +350,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                             <div className=" min-w-40">
                                 <div className="w-8 h-8">
-                                    <img src="/single-employer-view-icons/industry-type.png" />
+                                    <SimpleBriefCaseIcon className="w-8 h-8 text-primary-500" />
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-xs text-customGray-500  max-w-32">EXPERIENCE</p>
@@ -377,9 +368,9 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
                     <div className="p-8 mt-6 border border-primary-200  rounded-lg  lg:min-w-[400px] max-w-[600px]">
                         <div className="flex gap-4  items-center">
-                            <div className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></div>
+                            <Link href={`/employers/${employer.id}`} className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></Link>
                             <div>
-                                <p className="text-customGray-900 font-medium text-xl">{companyName}</p>
+                                <Link href={`/employers/${employer.id}`} className="text-customGray-900 hover:text-primary-700 font-medium text-xl">{companyName}</Link>
                                 <p className="text-sm text-customGray-500 mt-2">{companyIndustry}</p>
                             </div>
                         </div>
@@ -450,9 +441,9 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
             <div className="mt-20">
                 <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Related Jobs</h3>
-                {relatedJobs.length !== 0 ?
-                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap   scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
-                        {relatedJobs}
+                {relatedJobEls.length !== 0 ?
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap sm:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                        {relatedJobEls}
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
@@ -471,10 +462,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                             {flash.applySuccess}
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CloseXIcon className="text-primary-500" />
                             </button>
                         </div>
                         :
@@ -486,7 +474,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                 <label className="text-sm text-customGray-900">Choose Resume/CV</label>
                                 {dropdownResumes.length === 0 &&
                                     <span className="text-danger-700 text-sm block">You haven't added any CVs yet.
-                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings#your-resumes"> Go to your dashboard</Link> to upload one.</span>
+                                        <Link className="text-primary-500 underline" href="/candidate/dashboard/settings"> Go to your dashboard</Link> to upload one.</span>
 
                                 }
                                 <Select options={dropdownResumes} placeholder={resumeName} onValueChange={handleSelectChange} indexNeeded={true} />
@@ -512,10 +500,6 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
                                hover:bg-primary-100 hover:text-primary-600 ">Cancel</button>
                                 <button disabled={processing} className="disabled:bg-primary-100 order-1 sm:order-2 group flex gap-3 justify-center rounded-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 w-full sm:w-44 cursor-pointer px-1 py-3 duration-150 text-nowrap">
                                     Apply
-                                    {/* <svg className="text-white duration-150" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
-                                    {/*     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
-                                    {/*     <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> */}
-                                    {/* </svg> */}
                                 </button>
 
                             </div>
@@ -527,10 +511,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 
                             <button type="button" onClick={() => setShowModal(false)} className="cursor-pointer p-3 rounded-full bg-primary-50 absolute -right-6 -top-6">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18.75 5.25L5.25 18.75" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M18.75 18.75L5.25 5.25" stroke="#0A65CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
+                                <CloseXIcon className="text-primary-500" />
                             </button>
                         </form>
                     }
@@ -548,7 +529,7 @@ function SingleJobView({ employer, vacancy, resumes, isBookmarked }) {
 
 SingleJobView.layout = page => {
     const userType = page.props?.auth?.user?.user_type
-    if(userType === "employer") {
+    if (userType === "employer") {
         return <EmployerLayout>{page}</EmployerLayout>
     }
     return <Layout>{page}</Layout>

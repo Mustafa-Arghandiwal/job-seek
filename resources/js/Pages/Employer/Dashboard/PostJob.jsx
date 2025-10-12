@@ -1,18 +1,24 @@
 
 
-import { useForm, usePage } from "@inertiajs/react"
+import { Link, useForm, usePage } from "@inertiajs/react"
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout"
 import EmployerLayout from "../../../Layouts/EmployerLayout"
 import Select from "../../../Components/Select"
 import DatePicker from "../../../Components/DatePicker"
 import RichTextEditor from "../../../Components/RichTextEditor"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
+import confetti from "canvas-confetti"
+import { CloseXIcon, RightArrowIcon } from "../../../utils/svgs"
+
 
 
 
 function PostJob() {
 
     const { props } = usePage({})
+
+
     const { data, setData, reset, errors, processing, post } = useForm({
         jobTitle: '',
         salaryType: '',
@@ -48,19 +54,21 @@ function PostJob() {
     }
 
 
-    const [successMsg, setSuccessMsg] = useState('')
-    useEffect(() => {
-        if (props.flash.postJobSuccess) {
-            setSuccessMsg(props.flash.postJobSuccess)
-        }
-    }, [props.flash.postJobSuccess])
+
+    const root = document.getElementById("react-portal-root")
+    const [successModalVisible, setSuccessModalVisible] = useState(true)
+    const successModalRef = useRef(null)
 
     useEffect(() => {
-        if (successMsg) {
-            const timer = setTimeout(() => setSuccessMsg(''), 5000)
-            return () => clearTimeout(timer)
+        const handleClickOutside = (e) => {
+            if (successModalRef.current && !successModalRef.current.contains(e.target)) {
+                setSuccessModalVisible(false)
+            }
         }
-    }, [successMsg])
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+    }, [])
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -72,6 +80,28 @@ function PostJob() {
 
     }
 
+    const showConfetti = () => {
+        confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: [
+                "#E7F0FA",
+                "#CEE0F5",
+                "#9DC1EB",
+                "#6CA3E0",
+                "#3B84D6",
+                "#0A65CC",
+                "#0851A3",
+                "#063D7A",
+                "#042852",
+                "#021429",
+            ],
+        });
+    };
+    useEffect(() => {
+        if (props.flash.postJobSuccess) showConfetti()
+    }, [props.flash.postJobSuccess])
 
 
     return (
@@ -146,7 +176,7 @@ function PostJob() {
                             <div className="flex gap-2 xs:gap-5 flex-wrap xs:flex-nowrap mt-4">
                                 <div className="flex flex-col w-full min-w-32 max-w-64 ">
                                     <label htmlFor="minSalary" className="text-sm text-customGray-900">Min Salary</label>
-                                    <input type="number" placeholder="Min salary..." id="minSalary" value={data.minSalary} onChange={(e) => setData('minSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                                    <input type="number" min="0" placeholder="Min salary..." id="minSalary" value={data.minSalary} onChange={(e) => setData('minSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
                                         {errors.minSalary || ''}
                                     </div>
@@ -154,7 +184,7 @@ function PostJob() {
 
                                 <div className="flex flex-col w-full min-w-32 max-w-64 ">
                                     <label htmlFor="maxSalary" className="text-sm text-customGray-900">Max Salary</label>
-                                    <input type="number" placeholder="Max salary..." id="maxSalary" value={data.maxSalary} onChange={(e) => setData('maxSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
+                                    <input type="number" min="0" placeholder="Max salary..." id="maxSalary" value={data.maxSalary} onChange={(e) => setData('maxSalary', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                                     <div className="text-sm w-full text-danger-600 min-h-5" >
                                         {errors.maxSalary || ''}
                                     </div>
@@ -276,10 +306,29 @@ function PostJob() {
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
-                <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
-                    {successMsg}
-                </span>
+                {Object.keys(errors).length !== 0 &&
+                    <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                }
+
             </div>
+
+            {createPortal(
+                (
+                    props.flash.postJobSuccess &&
+                    <div className={`inset-0 bg-black/60  z-50  fixed flex justify-center items-center transition-opacity duration-200 ${successModalVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                        <div ref={successModalRef} className="grid place-items-center text-center text-success-500  max-w-[260px] sm:max-w-[360px] w-full rounded-xl p-8 absolute top-[30dvh] sm:top-[40dvh] left-1/2 -translate-x-1/2  bg-white ">
+                            <p>Job Posted Successfully!</p>
+                            <p>Candidates can now apply for your job.</p>
+                            <Link href="/vacancies" className="flex gap-1 items-center rounded-sm text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50 mt-3 px-4 py-2 duration-150 text-nowrap">View Jobs<RightArrowIcon className="w-5 text-primary-500" /></Link>
+                            <button type="button" onClick={() => setSuccessModalVisible(false)} className="cursor-pointer p-2 rounded-full bg-primary-50 absolute -right-4 -top-4">
+                                <CloseXIcon className="text-primary-500" />
+                            </button>
+                        </div>
+                    </div>
+                ),
+                root
+            )}
+
         </form>
     )
 }

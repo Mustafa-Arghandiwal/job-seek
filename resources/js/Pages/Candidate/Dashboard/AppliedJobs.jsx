@@ -28,7 +28,7 @@ function AppliedJobs({ applications }) {
     return (
         <>
             <h1 className="text-lg text-customGray-900 font-medium flex gap-1">Applied Jobs
-                <span className="text-customGray-400 font-normal">({applications.data.length})</span>
+                <span className="text-customGray-400 font-normal">({applications.total})</span>
             </h1>
 
             {applications.data.length !== 0 ?
@@ -47,9 +47,7 @@ function AppliedJobs({ applications }) {
                         </tbody>
                     </table>
 
-                    {applications.total > 3 &&
-                        <PaginationLinks paginator={applications} />
-                    }
+                    <PaginationLinks paginator={applications} />
 
                 </div>
 

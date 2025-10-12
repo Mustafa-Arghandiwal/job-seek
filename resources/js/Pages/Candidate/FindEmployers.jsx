@@ -5,16 +5,15 @@ import { useEffect, useRef, useState } from "react"
 import { FilterIcon } from "../../utils/svgs"
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
 import PaginationLinks from "../../utils/getPaginationLinks"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 
 
 
 function FindEmployers({ employers, type }) {
-    // console.log(employers)
 
     const [showFilter, setShowFilter] = useState(false)
     const filterBtn = useRef(null)
     const filterDropDown = useRef(null)
-
 
 
     const [employerType, setEmployerType] = useState(type)
@@ -33,7 +32,7 @@ function FindEmployers({ employers, type }) {
 
 
     const employerEls = employers.data.map(emp => (
-        <Employer key={emp.user_id} id={emp.id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} />
+        <Employer key={emp.user_id} id={emp.id} companyName={emp.user.full_name} logo={emp.detail?.logo_path} location={emp.contact?.city} openPositions={emp.open_positions_count} />
     ))
 
 
@@ -96,7 +95,7 @@ function FindEmployers({ employers, type }) {
                 <div className="w-full px-3 xs:px-10 py-6 flex flex-col gap-6 mb-12">
                     {employerEls.length === 0
                         ?
-                        <div className="text-customGray-900 mt-28 mx-auto"><span className="font-medium">No employers found</span> for this organization type. Please try a different filter.</div>
+                        <div className="text-customGray-900 mt-28 mx-auto text-center"><span className="font-semibold">No employers found</span> for this organization type. Please try a different filter.</div>
                         :
                         employerEls}
 
@@ -108,5 +107,11 @@ function FindEmployers({ employers, type }) {
     )
 }
 
-FindEmployers.layout = page => <Layout children={page} />
+FindEmployers.layout = page => {
+    const userType = page.props?.auth?.user?.user_type
+    if (userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+}
 export default FindEmployers

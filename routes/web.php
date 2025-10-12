@@ -31,7 +31,7 @@ Route::get('/sign-up', [AuthController::class, 'signUpForm']);
 
 Route::post('/sign-up', [AuthController::class, 'signUp']);
 
-Route::inertia('/sign-in', 'Auth/SignIn')->name('login');
+Route::get('/sign-in', [AuthController::class, 'signInForm']);
 Route::post('/sign-in', [AuthController::class, 'signIn']);
 
 Route::post('/sign-out', [AuthController::class, 'signOut']);
@@ -42,7 +42,7 @@ Route::get('/email/verify', [AuthController::class, 'showVerifyNotice'])->middle
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
 Route::post('/email/verification-notification', [AuthController::class, 'resendVerification'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::inertia('/forgot-password', 'Auth/ForgotPassword')->middleware('guest')->name('password.request');
+Route::get('/forgot-password', [AuthController::class, 'forgotPassForm'])->middleware('guest')->name('password.request');
 Route::post('forgot-password', [PasswordResetController::class, 'sendPassResetLink']);
 
 Route::get('/reset-password', function () {
@@ -57,7 +57,7 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
     Route::inertia('/candidate/dashboard', 'Candidate/Dashboard')->name('candidate.dashboard');
     Route::inertia('/candidate/dashboard/overview', 'Candidate/Dashboard/Overview');
     Route::inertia('/candidate/dashboard/applied-jobs', 'Candidate/Dashboard/AppliedJobs');
-    Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
+    // Route::inertia('/candidate/dashboard/favorite-jobs', 'Candidate/Dashboard/FavoriteJobs');
     Route::inertia('/candidate/dashboard/settings', 'Candidate/Dashboard/Settings');
 
 });
@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
 
 
 Route::post('/candidate/settings/profile/basic', [CandidateSettingsController::class, 'updateProfileBasic']);
+Route::delete('/candidate/delete-profile-picture', [CandidateSettingsController::class, 'deleteProfilePicture']);
 Route::post('/candidate/settings/profile/resumes', [ResumeController::class, 'store']);
 Route::get('/candidate/settings/profile/resume/{resume_id}', [ResumeController::class, 'show']);
 Route::delete('/candidate/settings/profile/resumes/{resume_id}', [ResumeController::class, 'destroy']);
@@ -90,9 +91,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 Route::post('/employer/settings/company-info', [EmployerSettingsController::class, 'updateCompanyInfo']);
+Route::delete('/employer/delete-profile-picture', [EmployerSettingsController::class, 'deleteProfilePicture']);
+Route::delete('/employer/delete-banner', [EmployerSettingsController::class, 'deleteBanner']);
 Route::post('/employer/settings/social-links', [EmployerSettingsController::class, 'updateSocialLinks']);
 Route::post('/employer/settings/contact', [EmployerSettingsController::class, 'updateContact']);
-Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+// Route::post('/employer/settings/delete-account', [AuthController::class, 'deleteAccount']);
+Route::post('/delete-account', [AuthController::class, 'deleteAccount']);
 Route::post('/employer/settings/change-password', [AuthController::class, 'updatePassword']);
 Route::post('/employer/vacancies', [VacancyController::class, 'store']);
 Route::get('/employer/vacancies', [VacancyController::class, 'employerVacancies']);
@@ -128,9 +132,11 @@ Route::get('/employer/saved-candidates/{candidate}', [FavoritesController::class
 Route::get('/candidate/applied-jobs', [ApplicationController::class, 'indexForCandidate']);
 
 
-
 Route::get('/employer/dashboard/overview', [EmployerController::class, 'dashboardOverview']);
 Route::get('/candidate/dashboard/overview', [CandidateController::class, 'dashboardOverview']);
 
-
 Route::get('/search', [SearchController::class, 'search']);
+
+
+Route::get('/candidates/{id}', [CandidateController::class, 'show']);
+

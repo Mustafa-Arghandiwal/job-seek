@@ -29,7 +29,7 @@ function SavedJobs({ savedVacancies }) {
     return (
         <div className="">
             <h1 className="text-customGray-900 font-medium text-lg flex gap-1">Saved Jobs
-                <span className="font-normal text-customGray-400">({savedVacancies.data.length})</span>
+                <span className="font-normal text-customGray-400">({savedVacancies.total})</span>
             </h1>
 
             <div className="mt-2">

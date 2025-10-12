@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import {CalendarIcon} from '../utils/svgs'
 
 
 
@@ -86,8 +87,8 @@ export default function DatePicker(props) {
                 {props.currentDate || (props.type === 'date' && 'yyyy-mm-dd' || 'yyyy-mm')}
             </div>
 
-            <div className="absolute right-4 -z-10 top-1/2 -translate-y-1/2">
-                <img src="/calendar.png" />
+            <div className="absolute right-4 -z-10 top-[55%] -translate-y-1/2">
+                <CalendarIcon className="text-customGray-600"/>
             </div>
         </div>
     )

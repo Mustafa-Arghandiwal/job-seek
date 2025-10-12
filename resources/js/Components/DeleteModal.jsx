@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react"
+import { useForm } from "@inertiajs/react"
+import { DangerIcon, EyeClosedIcon, EyeIcon } from "../utils/svgs"
+import { useEffect, useRef, useState } from "react"
 
 
 
@@ -16,6 +18,16 @@ export default function DeleteModal(props) {
         return () => document.removeEventListener('click', handleClickOutside)
     }, [])
 
+    const { data, setData, post, errors, processing } = useForm({
+        password: ''
+    })
+
+    const [passVis, setPassVis] = useState(false)
+
+    const handleDeleteAccount = (e) => {
+        e.preventDefault()
+        post('/delete-account')
+    }
 
 
     return (
@@ -24,23 +36,35 @@ export default function DeleteModal(props) {
         <div className={`fixed inset-0 z-[100] flex items-center justify-center ${props.showDeleteModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}>
 
             {/* overlay */}
-            <div  className={`absolute inset-0 bg-black/70  backdrop:blur-sm  `}>
+            <div className={`absolute inset-0 bg-black/70  backdrop:blur-sm  `}>
             </div>
 
 
-            <div ref={modalRef} role="dialog" aria-modal="true" className="shadow-2xl z-50 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex flex-col gap-4 justify-center items-center max-w-80 min-w-60  text-center
+            <form onSubmit={handleDeleteAccount} ref={modalRef} role="dialog" aria-modal="true" className="shadow-2xl z-50 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex flex-col gap-4 justify-center items-center max-w-80 min-w-60  text-center
            bg-white rounded-md px-4 py-5 ">
 
-                <svg className="w-16 h-16" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.2888 3.85999L1.8188 18C1.64417 18.3024 1.55177 18.6453 1.55079 18.9945C1.54981 19.3437 1.64029 19.6871 1.81323 19.9905C1.98616 20.2939 2.23553 20.5467 2.53651 20.7238C2.83749 20.9009 3.1796 20.9962 3.5288 21H20.4688C20.818 20.9962 21.1601 20.9009 21.4611 20.7238C21.7621 20.5467 22.0114 20.2939 22.1844 19.9905C22.3573 19.6871 22.4478 19.3437 22.4468 18.9945C22.4458 18.6453 22.3534 18.3024 22.1788 18L13.7088 3.85999C13.5305 3.5661 13.2795 3.32311 12.98 3.15447C12.6805 2.98584 12.3425 2.89725 11.9988 2.89725C11.6551 2.89725 11.3171 2.98584 11.0176 3.15447C10.7181 3.32311 10.4671 3.5661 10.2888 3.85999Z" fill="#E05151" />
-                    <path d="M12 9V13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M12 17H12.01" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
 
+                <DangerIcon className="w-16 h-16" />
 
                 <div>
                     <p className="font-bold text-lg text-customGray-900 ">Delete Account</p>
-                    <p className="text-customGray-900">You are going to delete this account. Are you sure?</p>
+                    <p className="text-customGray-900">{props.msg}</p>
+                    <p className="text-customGray-900">This action cannot be undone.</p>
+                </div>
+
+                <div className=" flex flex-col w-full">
+                    <div className="relative">
+                        <input type={passVis ? 'text' : 'password'} placeholder="Password" value={data.password} onChange={(e) => setData('password', e.target.value)}
+                            className=" h-12 w-full rounded-md border border-customGray-100  px-3 outline-none placeholder:text-customGray-400 placeholder:text-sm  text-customGray-900 focus:ring-1 focus:ring-primary-500" />
+                        <button tabIndex={-1} type="button" onClick={() => setPassVis(prev => !prev)} className="w-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer ">
+                            <EyeIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-0" : "opacity-100"}`} />
+                            <EyeClosedIcon className={`absolute top-1/2 -translate-y-1/2 transition-opacity duration-300 text-customGray-900 ${passVis ? "opacity-100" : "opacity-0"}`} />
+                        </button>
+                    </div>
+                    <div className="text-sm text-left text-danger-600 min-h-5">
+                        {errors.password}
+                    </div>
+
                 </div>
 
                 <div className="flex gap-3">
@@ -54,7 +78,7 @@ export default function DeleteModal(props) {
                         Yes, Delete!
                     </button>
                 </div>
-            </div>
+            </form>
 
 
 

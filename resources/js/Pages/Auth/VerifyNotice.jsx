@@ -1,5 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useEffect, useState } from "react"
+import { SimpleBriefCaseIcon } from "../../utils/svgs"
 
 
 
@@ -30,8 +31,8 @@ export default function VerifyNotice() {
         <div className="h-[100svh] border relative grid place-items-center px-5 ">
 
             <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
-                    <img src="../briefcase.svg" alt="logo" />
-                    <span className="font-semibold text-2xl">JobSeek</span>
+                    <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
+                    <span className="text-customGray-900 font-semibold text-2xl">JobSeek</span>
             </div>
 
 

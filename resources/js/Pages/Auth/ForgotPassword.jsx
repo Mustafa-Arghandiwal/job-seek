@@ -1,25 +1,26 @@
 import { useForm, Link, usePage } from "@inertiajs/react"
 import { useEffect, useState } from "react"
+import { UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon } from "../../utils/svgs"
 
 
-export default function ForgotPassword() {
+export default function ForgotPassword({ liveJobsCount, companiesCount, candidatesCount }) {
 
-    const {data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         email: ''
     })
-    const {flash} = usePage().props
+    const { flash } = usePage().props
 
     const [flashVisible, setFlashVisible] = useState(!flash.status)
 
-        useEffect(() => {
-            if(flash.status) {
-                setFlashVisible(true)
-                const timer = setTimeout(() => {
-                    setFlashVisible(false)
-                }, 5000);
-                return () => clearTimeout(timer)
-            }
-        }, [flash.status])
+    useEffect(() => {
+        if (flash.status) {
+            setFlashVisible(true)
+            const timer = setTimeout(() => {
+                setFlashVisible(false)
+            }, 5000);
+            return () => clearTimeout(timer)
+        }
+    }, [flash.status])
 
 
     const handleSubmit = (e) => {
@@ -33,8 +34,8 @@ export default function ForgotPassword() {
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
 
                 <div className="absolute top-2 left-8 flex items-center gap-1">
-                    <img src="briefcase.svg" />
-                    <span className="font-semibold text-2xl">JobSeek</span>
+                    <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
+                    <span className="font-semibold text-customGray-900 text-2xl">JobSeek</span>
                 </div>
 
                 <div className="flex flex-col  gap-7 px-4 py-2 max-w-[536px] w-full">
@@ -59,15 +60,16 @@ export default function ForgotPassword() {
 
                     <form onSubmit={handleSubmit}>
                         <div className="h-20 xs:h-16">
-                                    <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100 px-3 outline-none focus:ring-1 focus:ring-primary-500" />
-                                    {errors.email && <p className="text-sm text-danger-600">{errors.email}</p>}
+                            <input type="text" placeholder="Email Address" value={data.email} onChange={(e) => setData('email', e.target.value)} className="h-12 w-full rounded-md border border-customGray-100 px-3 outline-none focus:ring-1 focus:ring-primary-500" />
+                            {errors.email && <p className="text-sm text-danger-600">{errors.email}</p>}
                         </div>
 
-                        <button disabled={processing} className="w-full mt-3 border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
-                            Send Reset Link <img src="arrow-right.svg" />
+                        <button disabled={processing} className="w-full  border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
+                            Send Reset Link
+                            <RightArrowIcon className="w-6 h-6"/>
                         </button>
 
-                        <p className={`font-medium text-center text-success-600 opacity-0 transition-opacity h-10 mt-1 duration-500 ease-in-out ${flashVisible ? "opacity-100": "opacity-0"} `} >
+                        <p className={`font-medium text-center text-success-600 opacity-0 transition-opacity h-10 mt-1 duration-500 ease-in-out ${flashVisible ? "opacity-100" : "opacity-0"} `} >
                             {flash.status}
                         </p>
                     </form>
@@ -82,27 +84,33 @@ export default function ForgotPassword() {
                         Over 300 companies waiting for good employees
                     </h2>
                     <div className="flex justify-between gap-5 w-3/4">
-                        <div className="flex flex-col gap-8">
-                            <img src="briefcase-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">2,000</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <BriefCaseIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{liveJobsCount}</p>
                                 <p className="text-sm text-customGray-400">Live Jobs</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-8">
-                            <img src="company-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">300+</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <BuildingIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{companiesCount}</p>
                                 <p className="text-sm text-customGray-400">Companies</p>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-8">
-                            <img src="briefcase-bg.svg" className="w-16 h-16" />
-                            <div>
-                                <p className="text-xl text-white">56</p>
-                                <p className="text-sm text-customGray-400">New Jobs Today</p>
+                        <div>
+                            <div className="grid place-items-center w-16 h-16 rounded-md bg-customGray-600/20">
+                                <UsersIcon className="text-white w-8 h-8 " />
+                            </div>
+                            <div className="mt-3">
+                                <p className="text-xl text-white">{candidatesCount}</p>
+                                <p className="text-sm text-customGray-400">Candidates</p>
                             </div>
                         </div>
 

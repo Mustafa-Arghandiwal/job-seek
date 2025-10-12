@@ -1,7 +1,10 @@
 import OpenPosition from "../../Components/OpenPosition"
 import Layout from "../../Layouts/Layout"
+import EmployerLayout from "../../Layouts/EmployerLayout"
 import { formatSalary } from "../../utils/formatSalary"
+import PaginationLinks from "../../utils/getPaginationLinks"
 import { TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, YouTubeIcon, GitHubIcon } from "./socialMediaSvgs"
+import { RightArrowIcon, CalendarIcon, UserIcon, BuildingIcon2, GlobeIcon, SimpleBriefCaseIcon, MailIcon, PhoneIcon } from "../../utils/svgs"
 
 
 function SingleEmployerPage({ employerDetails, vacancies }) {
@@ -19,7 +22,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     const email = ed.contact?.email
     const socialLinks = ed.social_link
 
-    const openPositions = vacancies.map(vacancy => {
+    const openPositions = vacancies.data.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 
             return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
@@ -62,10 +65,9 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
     return (
         <div className="lg:px-24 xl:px-48 pb-30">
 
-            <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative ${banner && "hover:z-40 hover:h-[45dvh] hover:border-none hover:rounded-b-sm"} duration-200 bg-cover bg-center `}
+            <div className={`h-[30dvh] sm:h-[40dvh] border border-customGray-100 overflow-hidden rounded-b-lg z-10 relative duration-200 bg-cover bg-center `}
                 style={{ backgroundImage: `url(${banner || "/chess_pattern_cover.png"})` }}
             >
-                {/* <img src="/chess_pattern_cover.png" alt="cover photo" className="w-full h-full object-cover bg-repeat-x" /> */}
             </div>
 
             <div className=" mx-4 sm:mx-24 -mt-9 sm:-mt-[60px]  ">
@@ -82,23 +84,20 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                     <a href="#open-positions-section" className="flex gap-3 justify-center rounded-sm font-semibold  text-white bg-primary-500 hover:bg-primary-600 cursor-pointer px-6 py-3 duration-150 text-nowrap">
                         View Open Positions
-                        <svg className="rotate-90 duration-150  " width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <RightArrowIcon className="w-6 h-6 rotate-90" />
                     </a>
                 </div>
 
 
-                <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-around">
+                <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between">
 
-                    <div className="max-w-[600px] ">
+                    <div className="max-w-[600px] w-full">
                         <h2 className="text-customGray-900 text-xl font-medium">About Company</h2>
                         {about
                             ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900"
+                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
                                 dangerouslySetInnerHTML={{ __html: about }} />
                             : <p className="text-customGray-400 mt-4">Not Provided</p>}
                     </div>
@@ -110,7 +109,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             <div className=" flex flex-col gap-6 ">
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/founded-in.png" />
+                                        <CalendarIcon className="w-8 h-8 text-primary-500" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500 max-w-32">FOUNDED IN:</p>
@@ -120,7 +119,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                                 <div className=" min-w-40">
 
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/org-type.png" />
+                                        <BuildingIcon2 className="text-primary-500 w-8 h-8" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">ORGANIZATION TYPE</p>
@@ -133,7 +132,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                             <div className=" flex flex-col gap-6 ">
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/user.png" />
+                                        <UserIcon className="w-8 h-8 text-primary-500"/>
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">TEAM SIZE</p>
@@ -142,7 +141,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
                                 </div>
                                 <div className=" min-w-40">
                                     <div className="w-8 h-8">
-                                        <img src="/single-employer-view-icons/industry-type.png" />
+                                        <SimpleBriefCaseIcon className="w-8 h-8 text-primary-500" />
                                     </div>
                                     <div className="mt-4">
                                         <p className="text-xs text-customGray-500  max-w-32">INDUSTRY TYPE</p>
@@ -168,7 +167,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                 <div className="w-8 h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/website.png" className="-0" />
+                                    <GlobeIcon className="text-primary-500"/>
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">WEBSITE</p>
@@ -178,7 +177,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                 <div className="w-8 h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/phone.png" className="" />
+                                    <PhoneIcon />
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">PHONE</p>
@@ -188,7 +187,7 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
                             <div className="flex items-center gap-4 pt-6 ">
                                 <div className="w-8-h-8 shrink-0">
-                                    <img src="/single-employer-view-icons/envelope.png" className="shrink-0" />
+                                    <MailIcon className="w-8 h-8 text-primary-500"/>
                                 </div>
                                 <div className="">
                                     <p className="text-xs text-customGray-500">EMAIL ADDRESS</p>
@@ -230,12 +229,13 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
             <div className="mt-20 " id="open-positions-section">
                 <h3 className="text-customGray-900 mb-12 ml-4 font-medium text-4xl">Open Positions</h3>
                 {openPositions.length !== 0 ?
-                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap   scroll-smooth snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto  sm:overflow-visible">
+                    <div className="pb-5 px-4 flex gap-6 sm:flex-wrap sm:justify-center scroll-smooth snap-x snap-mandatory [scrollbar-width:none]  overflow-x-auto  sm:overflow-visible">
                         {openPositions}
+                        <PaginationLinks paginator={vacancies}/>
                     </div>
                     :
                     <div className="grid px-4 place-items-center h-[10dvh] text-customGray-500 text-lg text-center sm:text-xl">
-                        This employer currently has no open positions.
+                        This employer has no open positions at the moment.
                     </div>
                 }
             </div>
@@ -245,5 +245,14 @@ function SingleEmployerPage({ employerDetails, vacancies }) {
 
 
 
-SingleEmployerPage.layout = page => <Layout children={page} />
+// SingleEmployerPage.layout = page => <Layout children={page} />
+
+SingleEmployerPage.layout = page => {
+    const userType = page.props?.auth?.user?.user_type
+    if (userType === "employer") {
+        return <EmployerLayout>{page}</EmployerLayout>
+    }
+    return <Layout>{page}</Layout>
+}
+
 export default SingleEmployerPage

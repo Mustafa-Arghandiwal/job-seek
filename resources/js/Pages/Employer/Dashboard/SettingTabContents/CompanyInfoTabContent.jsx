@@ -1,10 +1,10 @@
 
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
-import { SpinnerIcon } from "../../../../utils/svgs";
+import { LinkIcon, SmallSpinnerIcon, UploadIcon2, TrashIcon } from "../../../../utils/svgs";
 
 
 
@@ -12,15 +12,17 @@ export default function CompanyInfoTabContent() {
 
 
     const { props } = usePage({})
+    const profilePic = props.auth.user?.emp_profile_picture ? "/storage/" + props.auth.user.emp_profile_picture : null
+    const coverPhoto = props.auth.user?.emp_cover_photo ? "/storage/" + props.auth.user.emp_cover_photo : null
     const employer = props.auth.user
-    const { data, setData, processing, progress, errors, post } = useForm({
+    const { data, setData, processing, errors, progress, post } = useForm({
         logo: null,
         banner: null,
         companyName: employer.full_name || '',
         companyType: employer.company_type || '',
         industryType: employer.industry_type || '',
         teamSize: employer.team_size || '',
-        establishDate: (employer.establish_date)?.slice(0, -3)  || '',
+        establishDate: (employer.establish_date)?.slice(0, -3) || '',
         companyWebsite: employer.company_website || '',
         aboutCompany: employer.about || '',
     })
@@ -54,9 +56,9 @@ export default function CompanyInfoTabContent() {
     const [successMsg, setSuccessMsg] = useState('')
     useEffect(() => {
         if (props.flash.compInfoSuccess) {
-            setSuccessMsg(props.flash.compInfoSucess)
+            setSuccessMsg(props.flash.compInfoSuccess)
         }
-    }, [props.flash.compInfoSucess])
+    }, [props.flash.compInfoSuccess])
 
     useEffect(() => {
         if (successMsg) {
@@ -84,7 +86,14 @@ export default function CompanyInfoTabContent() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post('/employer/settings/company-info')
+        post('/employer/settings/company-info', {
+            onSuccess: () => {
+                setSuccessMsg(props.flash.compInfoSuccess)
+                setLogoName('')
+                setBannerName('')
+            }
+
+        })
     }
 
 
@@ -112,36 +121,50 @@ export default function CompanyInfoTabContent() {
                         }
 
                     }}
-                        htmlFor="logo" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center  text-gray-900 cursor-pointer hover:shadow-lg active:shadow-none
+                        htmlFor="logo" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center cursor-pointer hover:shadow-lg active:shadow-none
                                                     border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${logoDragging && 'scale-110 drop-shadow-2xl'} `}>
 
-                        <input type="file" id="logo" className="hidden" onChange={e => {
-                            setData('logo', e.target.files[0])
-                            setLogoName(shortenFilename(e.target.files[0].name))
-                            if (e.target.files[0].size > 5 * 1024 * 1024) {
-                                setLogoSizeTooBig(true)
-                            } else {
-                                setLogoSizeTooBig(false)
-                            }
-                        }} accept="image/*" />
-
-                        <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="logo upload" />
-                        <p className="text-sm text-customGray-700 mt-3">Browse photos or drop here</p>
-                        <p className="text-xs text-customGray-500">Max photo size is 5 MB</p>
-                        <p className={`text-xs  mt-4 max-w-40  text-wrap ${logoName ? 'text-primary-600' : 'text-custumGray-500'}`}>
-                            {logoName ? `Selected: ${logoName}` : 'No photo selected yet'}
-                        </p>
-
-                        {(progress && data.logo !== null) &&
-                            <SpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75"/>
+                        <div className="absolute inset-0 bg-center bg-cover rounded-md "
+                            style={{ backgroundImage: `url(${profilePic})` }}>
+                        </div>
+                        {profilePic &&
+                            <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
                         }
 
+                        <div className="z-10 break-all rounded-md flex flex-col items-center">
+                            <input type="file" id="logo" className="hidden" onChange={e => {
+                                setData('logo', e.target.files[0])
+                                setLogoName(shortenFilename(e.target.files[0].name))
+                                if (e.target.files[0].size > 5 * 1024 * 1024) {
+                                    setLogoSizeTooBig(true)
+                                } else {
+                                    setLogoSizeTooBig(false)
+                                }
+                            }} accept="image/*" />
+
+                            <UploadIcon2 className="text-customGray-300" />
+                            <p className={`text-sm mt-3 ${profilePic ? "text-customGray-200" : "text-customGray-700"}`}>Browse photos or drop here</p>
+                            <p className={`text-xs ${profilePic ? "text-customGray-200" : "text-customGray-500"}`}>Max photo size is 5 MB</p>
+                            {logoName ? <p className={`text-xs mt-4 max-w-40 text-wrap ${profilePic ? "text-primary-300" : "text-primary-600"}`}>Selected: {logoName}</p> :
+                                <p className={`text-xs mt-4 max-w-40 text-wrap ${profilePic ? "text-customGray-200" : "text-customGray-500"}`}>No photo selected yet</p>
+                            }
+
+                            {(progress && data.logo !== null) &&
+                                <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
+                            }
+                        </div>
                     </label>
 
-                    <div className="text-sm w-full min-h-5 text-danger-600" >
+                    <div className="text-sm w-full text-danger-600" >
                         {(logoSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.logo}
                     </div>
 
+                    {profilePic &&
+                        <button type="button" onClick={() => router.delete(`/employer/delete-profile-picture`)}
+                            className="group flex items-center gap-1 bg-danger-400 text-white mt-1 cursor-pointer px-2 py-1 hover:bg-danger-500 duration-150 rounded-md border text-sm">
+                            <TrashIcon />
+                            Delete Image</button>
+                    }
 
                 </div>
 
@@ -161,47 +184,51 @@ export default function CompanyInfoTabContent() {
                             }
 
                         }}
-                            htmlFor="banner" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center  text-gray-900 cursor-pointer hover:shadow-lg active:shadow-none
+                            htmlFor="banner" className={`relative text-center text-nowrap min-h-60 mt-2 px-[20px] py-[47px] flex flex-col items-center justify-center cursor-pointer hover:shadow-lg active:shadow-none
                                                     border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${bannerDragging && 'scale-110 drop-shadow-2xl'} `}>
 
-                            <input type="file" id="banner" className="hidden" onChange={e => {
-                                setData('banner', e.target.files[0])
-                                setBannerName(shortenFilename(e.target.files[0].name))
-                                if (e.target.files[0].size > 5 * 1024 * 1024) {
-                                    setBannerSizeTooBig(true)
-                                } else {
-                                    setBannerSizeTooBig(false)
-                                }
-                            }} accept="image/*" />
-
-                            <img src="/dashboard/upload-cloud.png" className="pointer-events-none w-12 h-12" alt="logo upload" />
-                            <p className="text-sm text-gray-700 mt-3">Browse photos or drop here</p>
-                            <p className="text-xs text-gray-500">Max photo size is 5 MB</p>
-                            <p className={`text-xs  mt-4 max-w-40  text-wrap ${bannerName ? 'text-primary-600' : 'text-gray-500'}`}>
-                                {bannerName ? `Selected: ${bannerName}` : 'No photo selected yet'}
-                            </p>
-
-                            {(progress && data.banner !== null) &&
-                                <svg viewBox="0 0 24 24" className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" >
-                                    <path
-                                        className="text-primary-200"
-                                        fill="currentColor"
-                                        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
-                                        opacity=".25"
-                                    />
-                                    <path
-                                        className="text-primary-500"
-                                        fill="currentColor"
-                                        d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-                                    />
-                                </svg>
+                            <div className="absolute inset-0 bg-center bg-cover rounded-md "
+                                style={{ backgroundImage: `url(${coverPhoto})` }}>
+                            </div>
+                            {coverPhoto &&
+                                <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
                             }
 
+                            <div className="z-10 break-all rounded-md flex flex-col items-center">
+                                <input type="file" id="banner" className="hidden" onChange={e => {
+                                    setData('banner', e.target.files[0])
+                                    setBannerName(shortenFilename(e.target.files[0].name))
+                                    if (e.target.files[0].size > 5 * 1024 * 1024) {
+                                        setBannerSizeTooBig(true)
+                                    } else {
+                                        setBannerSizeTooBig(false)
+                                    }
+                                }} accept="image/*" />
+
+                                <UploadIcon2 className="text-customGray-300" />
+                                <p className={`text-sm mt-3 ${coverPhoto ? "text-customGray-200" : "text-customGray-700"}`}>Browse photos or drop here</p>
+                                <p className={`text-xs ${coverPhoto ? "text-customGray-200" : "text-customGray-500"}`}>Max photo size is 5 MB</p>
+                                {bannerName ? <p className={`text-xs mt-4 max-w-40 text-wrap ${coverPhoto ? "text-primary-300" : "text-primary-600"}`}>Selected: {bannerName}</p> :
+                                    <p className={`text-xs mt-4 max-w-40 text-wrap ${coverPhoto ? "text-customGray-200" : "text-customGray-500"}`}>No photo selected yet</p>
+                                }
+
+                                {(progress && data.banner !== null) &&
+                                    <SmallSpinnerIcon className="absolute bottom-2 right-2 size-5 animate-spin-fast duration-75" />
+                                }
+                            </div>
                         </label>
 
                         <div className="text-sm  w-full text-danger-600" >
                             {(bannerSizeTooBig && 'File size is too big. Max file size is 5 MB.') || props.errors.banner}
                         </div>
+
+                        {coverPhoto &&
+                            <button type="button" onClick={() => router.delete(`/employer/delete-banner`)}
+                                className="group flex items-center gap-1 bg-danger-400 text-white mt-1 cursor-pointer px-2 py-1 hover:bg-danger-500 duration-150 rounded-md border text-sm">
+                                <TrashIcon />
+                                Delete Image</button>
+                        }
+
                     </div>
 
                 </div>
@@ -229,7 +256,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Company Type</label>
-                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option) } />
+                    <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
                     </div>
@@ -237,7 +264,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Industry Type</label>
-                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option) } />
+                    <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.industryType || ''}
                     </div>
@@ -245,7 +272,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="relative w-full ">
                     <label className="text-sm text-customGray-900">Team Size</label>
-                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option) } />
+                    <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.teamSize || ''}
                     </div>
@@ -253,7 +280,7 @@ export default function CompanyInfoTabContent() {
 
                 <div className="  relative w-full ">
                     <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
-                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'}/>
+                    <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.establishDate || ''}
                     </div>
@@ -262,7 +289,7 @@ export default function CompanyInfoTabContent() {
                 <div className="w-full md:max-w-1/2  relative sm:col-span-2">
                     <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
                     <div className="flex items-center gap-3 border mt-2 rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
-                        <img src="/dashboard/url.png" alt="link icon" className="h-6 w-6" />
+                        <LinkIcon className="h-6 w-6 text-primary-500" />
                         <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
                     </div>
                     <div className="text-sm w-full text-danger-600 min-h-5" >
@@ -287,9 +314,12 @@ export default function CompanyInfoTabContent() {
                 <button disabled={processing} className="text-nowrap px-8 py-4 text-white rounded-sm bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 font-semibold cursor-pointer">
                     Save Changes
                 </button>
-                <span className={`text-success-500 h-6 w-52 text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
+                <span className={`text-success-500 w-52 sm:w-auto text-sm ${successMsg ? 'opacity-100' : 'opacity-0'}  transition-all duration-300 `}>
                     {successMsg}
                 </span>
+                {Object.keys(errors).length !== 0 &&
+                    <span className="text-sm text-danger-600">Form contains errors, please review and try again.</span>
+                }
             </div>
 
 

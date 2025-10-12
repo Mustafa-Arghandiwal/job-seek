@@ -1,10 +1,11 @@
 
 import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
-import { BriefCaseIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
+import { BriefCaseIcon, GearIcon, LogoutIcon, MenuIcon, RightArrowIcon, SearchIcon, SpinnerIcon, UserIcon } from "../utils/svgs";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, YouTubeIcon } from "../Pages/Candidate/socialMediaSvgs";
 import FooterLink from "../Components/FooterLink";
 import SearchItem from "../Components/SearchItem";
+import ToolTip from "../Components/ToolTip";
 
 
 export default function EmployerLayout({ children }) {
@@ -16,7 +17,6 @@ export default function EmployerLayout({ children }) {
 
     //Will be null if guest
     const user = props.auth.user
-    const { post } = useForm()
     const profilePicPath = props.auth.user?.emp_profile_picture
     //if no profile pic, use placeholder
     const headerProfilePic = profilePicPath ? `/storage/${profilePicPath}` : null
@@ -30,6 +30,23 @@ export default function EmployerLayout({ children }) {
         '/employer/vacancies'
     ]
 
+
+
+    // ----------------------Profile icon dropdown------------------
+    const [profileDropdown, setProfileDropdown] = useState(false)
+    const profileRef = useRef(null)
+    const profileDropdownRef = useRef(null)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
+                setProfileDropdown(false)
+            }
+        }
+        document.addEventListener('click', handleClickOutside)
+        return () => document.removeEventListener('click', handleClickOutside)
+    }, [])
+    // -------------------------------------------------------------
 
     // ----------------------Header show and hide logic------------------
     const [isVisible, setIsVisible] = useState(true);
@@ -140,11 +157,12 @@ export default function EmployerLayout({ children }) {
 
     return (
         <div className="h-screen">
-            <header className={`${!dashboardUrls.includes(url) ? "fixed" : ""} w-full top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
+            <header className={`${!dashboardUrls.includes(url) ? "fixed" : "sticky"} w-full top-0 bg-white shadow-lg  z-50 transition-transform duration-300 ${isVisible || dashboardUrls.includes(url) ? 'transform-none' : '-translate-y-full'}`}>
                 <nav className="h-12 border-b border-b-customGray-50 flex items-center px-3 xl:px-24">
                     <ul className="text-customGray-600 text-sm gap-4 hidden sm:flex ">
                         <li><Link href="/" className={`${url === '/' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`}>Home</Link></li>
                         <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Jobs</Link></li>
+                        <li><Link href="/employers" className={`${url.startsWith('/employers') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Employers</Link></li>
                         <li><Link href="/employer/dashboard/overview" className={`${(dashboardUrls.includes(url) || url.startsWith('/employer/vacancies')) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
                         <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
                     </ul>
@@ -189,18 +207,29 @@ export default function EmployerLayout({ children }) {
 
                     {
                         user ?
-                            <div className="hidden sm:flex">
-                                <Link href="/employer/dashboard/settings" className="h-12 w-12 grid place-items-center group rounded-full border-2 overflow-hidden border-primary-500">
-                                    {headerProfilePic ?
-                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
-                                        :
-                                        <UserIcon className="group-hover:scale-120  duration-100" />
-                                    }
-                                </Link>
+                            <div className="hidden sm:flex gap-2 xl:gap-5 relative">
+                                {user.user_type === "employer" &&
+                                    <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 hover:text-primary-600 border border-primary-50 hover:border-primary-600 hover:bg-primary-50  px-2 py-3 duration-150 text-nowrap cursor-pointer">
+                                        Post a Job
+                                    </Link>
+                                }
 
-                                {/* <form onSubmit={handleSubmit}> */}
-                                {/*     <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button> */}
-                                {/* </form> */}
+                                <div ref={profileRef} onClick={() => setProfileDropdown(prev => !prev)} className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500 group">
+                                    {headerProfilePic ?
+                                        <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
+                                        :
+                                        <UserIcon className="group-hover:scale-120 active:scale-110 cursor-pointer duration-100" />
+                                    }
+                                </div>
+                                <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-38  shadow-lg top-13  text-sm absolute rounded-md border overflow-hidden border-customGray-50
+                                    ${profileDropdown ? "opacity-100" : "opacity-0 pointer-events-none"} duration-150`}>
+                                    <Link className="flex items-center gap-1.5 px-2 py-2 w-full hover:text-primary-500 hover:bg-[#E8F1FF] duration-150 cursor-pointer" href="/employer/dashboard/settings">
+                                        <GearIcon className="w-5 h-5" />Settings
+                                    </Link>
+                                    <button onClick={() => router.post('/sign-out')} className="group flex items-center gap-1.5 py-2 px-2 hover:text-white hover:bg-danger-400 duration-150 w-full cursor-pointer">
+                                        <LogoutIcon className="w-5 h-5" /> Logout
+                                    </button>
+                                </div>
                             </div>
 
                             :
@@ -219,10 +248,10 @@ export default function EmployerLayout({ children }) {
 
             <div ref={menuRef} className={`fixed z-50 shadow-lg bg-white w-full pb-6 px-6 rounded-b-2xl ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"} transition-all duration-300 ease-in-out`}>
                 <ul className="mt-1 text-sm text-customGray-600 w-full ">
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/">Home</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/vacancies">Jobs</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/employer/dashboard/overview">Dashboard</Link></li>
-                    <li className="py-4 border-b border-b-customGray-100 hover:text-primary-500 duration-75"><Link href="/support">Support</Link></li>
+                    <li className=""><Link href="/" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Home</Link></li>
+                    <li className=""><Link href="/vacancies" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Jobs</Link></li>
+                    <li className=""><Link href="/employer/dashboard/overview" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Dashboard</Link></li>
+                    <li className=""><Link href="/support" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Support</Link></li>
                 </ul>
                 {user ?
 
@@ -234,6 +263,11 @@ export default function EmployerLayout({ children }) {
                                 <UserIcon className="group-hover:scale-120  duration-100" />
                             }
                         </Link>
+                        {user.user_type === "employer" &&
+                            <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 border border-primary-100  hover:bg-primary-50 px-2 py-3 duration-150 text-nowrap cursor-pointer">
+                                Post a Job
+                            </Link>
+                        }
 
                     </div>
 

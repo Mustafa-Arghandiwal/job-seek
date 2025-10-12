@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
 use App\Models\CandidateSocialLink;
+use App\Rules\RichTextLength;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Mews\Purifier\Facades\Purifier;
 
 class CandidateSettingsController extends Controller
 {
@@ -58,6 +61,23 @@ class CandidateSettingsController extends Controller
         return back()->with('profileSuccess', 'Your changes have been saved.');
     }
 
+    public function deleteProfilePicture(Request $request)
+    {
+
+        $userId = $request->user()->id;
+        $profilePicture = Candidate::where('user_id', $userId)->value('profile_picture');
+
+        if (!$profilePicture) {
+            abort(404);
+        }
+
+        if (Storage::disk('public')->exists($profilePicture)) {
+            Storage::disk('public')->delete($profilePicture);
+        }
+
+        Candidate::where('user_id', $userId)->update(['profile_picture' => null]);
+    }
+
 
 
     public function updatePersonalBasic(Request $request)
@@ -67,7 +87,12 @@ class CandidateSettingsController extends Controller
             'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
             'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
             'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
-            'biography' => ['required', 'min:10', 'max:65535', 'string']
+            'biography' => ['required', new RichTextLength(10, 65535), 'string']
+        ]);
+
+        $validated['biography'] = trim($validated['biography']);
+        $validated['biography'] = Purifier::clean($validated['biography'], [
+            'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,p,strong,em,ul,ol,li,a[href],br,span,b,i,u,s,strike,hr'
         ]);
 
         $candidate = $request->user()->candidate;
@@ -137,7 +162,4 @@ class CandidateSettingsController extends Controller
 
         return back()->with('contactSuccess', 'Your changes have been saved.');
     }
-
-
-
 }

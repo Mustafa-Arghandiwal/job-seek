@@ -1,5 +1,6 @@
 
 import { useState, useRef, useEffect } from "react"
+import { CaretIcon, CircleXIcon } from "../utils/svgs"
 
 
 
@@ -39,7 +40,7 @@ export default function SocialLinksItem(props) {
                         <button type="button" ref={dropdownBtn} className={`w-full h-full  ${placeholder === 'Select...' ? 'text-customGray-400' : 'text-customGray-900'} ${dropdownVisible ? "ring-1 ring-primary-500" : "xs:rounded-none"}  flex justify-between px-3 items-center rounded-md  border xs:border-l-transparent xs:border-t-transparent xs:border-b-transparent xs:border-r border-customGray-100  gap-2 cursor-pointer`}
                             onClick={() => setDropdownVisible(prev => !prev)}>
                             {placeholder}
-                            <img ref={caret} className={`w-3.5 transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} src="/CaretDown.svg" />
+                            <CaretIcon ref={caret} className={`transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} />
                         </button>
                         <div className={`absolute mt-0.5 bg-white shadow-[0px_12px_32px_rgba(25,31,51,0.08)] z-10 top-full flex flex-col w-full border border-customGray-100 rounded-md p-3 text-sm text-customGray-700 ${dropdownVisible ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-3 invisible"}  transition-all duration-300 ease-in-out`}>
                             {props.linkObjects.map((linkObj, index) => {
@@ -74,12 +75,7 @@ export default function SocialLinksItem(props) {
 
                 <button type="button" onClick={() => props.handleRemoveLink(props.linkNumber)}
                     className=" rounded-md bg-customGray-50 absolute right-0 top-0 xs:static   w-12 h-12 grid place-items-center cursor-pointer group hover:text-danger-500 duration-100 ">
-                    {/* <img src="/Xcircle.png" /> */}
-                    <svg className=" group-hover:scale-125 group-active:scale-95 duration-100" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                        <path d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z" stroke="currentColor" strokeWidth="1.3" strokeMiterlimit="10" />
-                        <path d="M12.5 7.5L7.5 12.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12.5 12.5L7.5 7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <CircleXIcon className="group-hover:scale-125 group-active:scale-95 duration-100" />
                 </button>
 
             </div>
@@ -88,7 +84,7 @@ export default function SocialLinksItem(props) {
 
             {errorMsg &&
 
-            <span className="min-h-5  text-sm text-danger-500">
+            <span className="min-h-5  text-sm text-danger-600">
                 {errorMsg}
             </span>
             }

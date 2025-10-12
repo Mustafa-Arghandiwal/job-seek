@@ -48,7 +48,8 @@ class HandleInertiaRequests extends Middleware
                         ? $request->user()->candidate->profile_picture . '?v=' . now()->timestamp : null,
                     'emp_profile_picture' => $request->user()->employer?->detail?->logo_path
                         ? $request->user()->employer->detail->logo_path . '?v=' . now()->timestamp : null,
-
+                    'emp_cover_photo' => $request->user()->employer?->detail?->banner_path
+                        ? $request->user()->employer->detail->banner_path . '?v=' . now()->timestamp : null,
                     'title' => $request->user()->candidate?->title,
                     'website' => $request->user()->candidate?->website,
 
@@ -112,6 +113,7 @@ class HandleInertiaRequests extends Middleware
                 'contactSuccess' => session('contactSuccess'),
                 'changePassSuccess' => session('changePassSuccess'),
                 'accountDeleted' => session('accountDeleted'),
+                'compInfoSuccess' => session('compInfoSuccess'),
                 'postJobSuccess' => session('postJobSuccess'),
                 'editJobSuccess' => session('editJobSuccess'),
                 'jobExpireSuccess' => session('jobExpireSuccess'),

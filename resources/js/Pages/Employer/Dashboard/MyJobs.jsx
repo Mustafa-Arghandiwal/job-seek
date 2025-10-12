@@ -14,7 +14,7 @@ function MyJobs({ vacancies }) {
     return (
         <>
             <h1 className="font-medium text-xl text-customGray-900 flex gap-1">My Jobs
-                <span className="font-normal text-customGray-400">({vacancies.data.length})</span>
+                <span className="font-normal text-customGray-400">({vacancies.total})</span>
             </h1>
             {vacancies.data.length !== 0 ?
 

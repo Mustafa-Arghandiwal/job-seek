@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
+use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Vacancy;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +18,19 @@ class AuthController extends Controller
 {
 
 
-    public function signUpForm(Request $request) {
-
+    public function signUpForm(Request $request)
+    {
+        $liveJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->count();
+        $companiesCount = Employer::count();
+        $candidatesCount = Candidate::count();
         $userType = $request->query('user_type', 'candidate'); //default the dropdown to candidate
 
-        return Inertia::render('Auth/SignUp', ['userType' => $userType]);
+        return Inertia::render('Auth/SignUp', [
+            'userType' => $userType,
+            'liveJobsCount' => $liveJobsCount,
+            'companiesCount' => $companiesCount,
+            'candidatesCount' => $candidatesCount
+        ]);
     }
 
     public function signUp(Request $req)
@@ -81,6 +93,19 @@ class AuthController extends Controller
     }
 
 
+    public function signInForm()
+    {
+        $liveJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->count();
+        $companiesCount = Employer::count();
+        $candidatesCount = Candidate::count();
+
+        return Inertia::render('Auth/SignIn', [
+            'liveJobsCount' => $liveJobsCount,
+            'companiesCount' => $companiesCount,
+            'candidatesCount' => $candidatesCount
+        ]);
+    }
+
     public function signIn(Request $req)
     {
 
@@ -116,6 +141,20 @@ class AuthController extends Controller
         return back()->with('changePassSuccess', 'Your password has been changed.');
     }
 
+    public function forgotPassForm()
+    {
+
+        $liveJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->count();
+        $companiesCount = Employer::count();
+        $candidatesCount = Candidate::count();
+
+        return Inertia::render('Auth/ForgotPassword', [
+            'liveJobsCount' => $liveJobsCount,
+            'companiesCount' => $companiesCount,
+            'candidatesCount' => $candidatesCount
+        ]);
+    }
+
     public function signOut(Request $req)
     {
         Auth::logout();
@@ -129,6 +168,14 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
+        $validated = $request->validate(['password' => 'required']);
+        $enteredPassword =  $validated['password'];
+        if(!Hash::check($enteredPassword, $user->password)) {
+            return back()->withErrors([
+                'password' => 'Password is incorrect'
+            ]);
+
+        }
 
         Auth::logout();
         $user->delete();

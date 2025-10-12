@@ -27,6 +27,12 @@ class EmployerController extends Controller
             ->when($type !== 'all', function ($query) use ($type) {
                 $query->whereHas('detail', fn($q) => $q->where('company_type', $type));
             })
+            ->withCount([
+                'vacancy as open_positions_count' => function ($query) {
+                    $query->where('manually_expired', false)
+                    ->where('deadline', '>=', Carbon::today());
+                }
+            ])
             ->paginate(5)->withQueryString();
 
         return Inertia::render('Candidate/FindEmployers', [
@@ -63,7 +69,7 @@ class EmployerController extends Controller
             ->where('manually_expired', false)
             ->where('deadline', '>=', Carbon::today())
             ->orderBy('deadline', 'asc')
-            ->get();
+            ->paginate(9)->withQueryString();
 
         return Inertia::render('Candidate/SingleEmployerPage', [
             'employerDetails' => $employerDetails,

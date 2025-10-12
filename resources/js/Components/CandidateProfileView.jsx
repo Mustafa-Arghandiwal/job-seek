@@ -1,40 +1,17 @@
+import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
-import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candidate/socialMediaSvgs"
-import { useEffect, useRef, useState } from "react"
-import { router, usePage } from "@inertiajs/react"
-import { CloseXIcon, RightArrowIcon, CakeIcon, LocationUnderlinedIcon, UsersIcon, CircleUserIcon, SimpleBriefCaseIcon, GradCapIcon, PhoneIcon, GlobeIcon, MailIcon, BookmarkIcon  } from "../../utils/svgs"
+import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Pages/Candidate/socialMediaSvgs"
+import { CloseXIcon, RightArrowIcon, CakeIcon, LocationUnderlinedIcon, UsersIcon, CircleUserIcon, SimpleBriefCaseIcon, GradCapIcon, PhoneIcon, GlobeIcon, MailIcon  } from "../utils/svgs"
+import { Link } from "@inertiajs/react"
 
 
-export default function CandidateProfileModal({ showModal, setShowModal, candidate, coverLetter, savedCandidates }) {
+export default function CandidateProfileView({ candidateData, showModal, setShowModal, profileDropdownRef }) {
 
     const root = document.getElementById("react-portal-root")
 
-    const candidateId = candidate?.candidate[0].id ? candidate.candidate[0].id : null
-    const [bookmarked, setBookmarked] = useState(false)
-    useEffect(() => {
-        if (candidateId) {
-            setBookmarked(savedCandidates.includes(candidateId))
-        }
-    }, [candidateId, savedCandidates])
-
-    const handleBookmark = () => {
-        setBookmarked(prev => !prev)
-
-        router.post(`/employer/saved-candidates/${candidateId}`, {}, {
-            onSuccess: (page) => {
-                if (page.props?.bookmarked !== undefined) {
-                    setBookmarked(page.props.bookmarked)
-                }
-            },
-            onError: () => {
-                setBookmarked(prev => !prev)
-            }
-        })
-    }
-
     const modalRef = useRef(null)
     const handleOutsideClick = (e) => {
-        if (modalRef.current && !modalRef.current.contains(e.target)) {
+        if (modalRef.current && !modalRef.current.contains(e.target) && profileDropdownRef && !profileDropdownRef.contains(e.target)) {
             setShowModal(false)
         }
     }
@@ -44,7 +21,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
     }, [])
 
-    const candidateDetails = candidate?.candidate[0]
+    const candidateDetails = candidateData?.candidate
     const title = candidateDetails?.title
     const profilePicture = candidateDetails?.profile_picture ? "/storage/" + candidateDetails.profile_picture : "/chess_pattern.png"
     const biography = candidateDetails?.biography
@@ -62,7 +39,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
     const phone = candidateDetails?.phone
     const email = candidateDetails?.email
 
-    const socialLinks = candidate?.socialLinks ? candidate.socialLinks : []
+    const socialLinks = candidateData?.socialLinks ? candidateData.socialLinks : []
     const socialIcons = socialLinks.map(link => {
         if (link.social_type === "LinkedIn") {
             return (
@@ -111,34 +88,21 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                     {/* header */}
                     <div className="py-8  flex items-center flex-col lg:flex-row gap-4 justify-center lg:justify-between ">
 
-                        <div className="flex gap-6 items-center flex-col xs:flex-row">
+                        <div className="flex gap-6 items-center flex-col xs:flex-row ">
                             <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${profilePicture})` }}></div>
-                            <div className=" flex flex-col gap-[10px] text-sm text-center">
-                                <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{candidateDetails?.full_name}</h2>
-                                {title && <span className="block text-customGray-600  xs:text-left sm:text-base line-clamp-1">{title}</span>}
+                            <div className=" flex flex-col gap-[10px] text-center xs:text-left">
+                                <h2 className="text-2xl font-medium text-customGray-900  ">{candidateDetails?.full_name}</h2>
+                                {title && <span className="block text-customGray-600 text-sm sm:text-base line-clamp-1">{title}</span>}
 
                             </div>
                         </div>
 
-                        <div className="">
-                            <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
-                                <button
-                                    onClick={handleBookmark}
-                                    title={bookmarked ? "Remove from Saved Candidates" : "Add to Saved Candidates"} className="p-4 rounded-sm cursor-pointer hover:bg-primary-50">
-                                    <BookmarkIcon bookmarked={bookmarked} className="text-primary-500"/>
-                                </button>
-
-                                <div className="flex  flex-col items-center relative">
-                                    <a href={email ? `mailto:${email}` : undefined}
-                                        className={`${email ? "bg-primary-500 hover:bg-primary-600 cursor-pointer" : "bg-primary-200 cursor-default"} group flex gap-2 rounded-sm font-semibold text-white px-6 py-3 duration-150 text-nowrap`}>
-                                        <MailIcon className="text-white duration-150"/>
-                                        Send Email
-                                    </a>
-                                    {!email &&
-                                        <span className="text-center absolute -bottom-9 text-xs max-w-40 mt-1 block text-customGray-700 ">No email provided by candidate</span>
-                                    }
-                                </div>
-                            </div>
+                        <div className="flex flex-col gap-2 max-w-72 text-center items-center">
+                            <p className="text-sm text-customGray-600">
+                                This is how employers will see your profile when you apply for a job.
+                            </p>
+                            <Link onClick={() => setShowModal(false)} href="/candidate/dashboard/settings"
+                            className="flex items-center gap-1 text-white rounded-sm text-sm bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-2 duration-150 text-nowrap">Edit Profile<RightArrowIcon /></Link>
                         </div>
                     </div>
 
@@ -149,33 +113,16 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                     <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between ">
 
                         <div className="lg:max-w-[600px]  w-full ">
-                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
-                                <h2 className="text-customGray-900 text-xl font-medium">Cover Letter</h2>
-                                {coverLetter
-                                    ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
-                                [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
-                                [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
-                                [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline"
-                                        dangerouslySetInnerHTML={{ __html: coverLetter }} />
-                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
-
-                            </div>
-
-                            <hr className="mt-8 text-customGray-200"></hr>
-
-                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
-                                <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
-                                {biography
-                                    ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
+                            <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
+                            {biography
+                                ? <div className="mt-4 min-h-[200px] sm:min-h-[365px] space-y-4 min-h- [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
                                 [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
-                                        dangerouslySetInnerHTML={{ __html: biography }} />
-                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+                                    dangerouslySetInnerHTML={{ __html: biography }} />
+                                : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
 
-                            </div>
-
-                            <hr className="mt-4 sm:mt-8 text-customGray-200"></hr>
+                            <hr className="mt-8 text-customGray-200"></hr>
 
                             <span className="text-customGray-700 text-sm  mt-8 block">Follow me on Social Media</span>
 
