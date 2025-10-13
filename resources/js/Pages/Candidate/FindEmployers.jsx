@@ -3,7 +3,6 @@ import Layout from "../../Layouts/Layout"
 import Employer from "../../Components/Employer"
 import { useEffect, useRef, useState } from "react"
 import { FilterIcon } from "../../utils/svgs"
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../Components/Pagination"
 import PaginationLinks from "../../utils/getPaginationLinks"
 import EmployerLayout from "../../Layouts/EmployerLayout"
 
