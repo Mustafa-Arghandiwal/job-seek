@@ -145,8 +145,8 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
 
     const relatedJobEls = relatedVacancies.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
-            jobType={vacancy.job_type} salary={salary} logo={logo} />
+        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={vacancy.employer.user.full_name}
+            jobType={vacancy.job_type} salary={salary} logo={vacancy.employer.detail.logo_path} />
     })
 
 
