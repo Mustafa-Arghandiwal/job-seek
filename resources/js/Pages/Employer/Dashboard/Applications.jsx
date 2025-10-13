@@ -21,7 +21,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
         return () => {
             const shortlistedIDs = apps.filter(app => app.column_id === "shortlisted").map(app => app.id)
             // if (shortlistedIDs.length > 0) {
-                router.post('/employer/vacancies/applications/updateShortlistStatus', { shortlistedIDs })
+                router.post(`/employer/vacancies/${vacancyId}/applications/updateShortlistStatus`, { shortlistedIDs })
             // }
         }
         //see if I can do apps.some column instead of all the apps

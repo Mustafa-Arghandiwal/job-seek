@@ -213,16 +213,17 @@ class ApplicationController extends Controller
     {
         //
     }
-    public function shortlist(Request $request)
+    public function shortlist(Request $request, $vacancyId)
     {
-        Application::where('column_id', 'shortlisted')->update(['column_id' => 'all']);
+        Application::where('vacancy_id', $vacancyId)
+            ->where('column_id', 'shortlisted')
+            ->update(['column_id' => 'all']);
         $shortlistedIDs = $request->input('shortlistedIDs', []);
         if (!empty($shortlistedIDs)) {
-            Application::whereIn('id', $shortlistedIDs)->update(['column_id' => 'shortlisted']);
+            Application::where('vacancy_id', $vacancyId)
+                ->whereIn('id', $shortlistedIDs)
+                ->update(['column_id' => 'shortlisted']);
         }
-        // $application = Application::findOrFail($id);
-        // $application->column_id = $application->column_id === 'all' ? 'shortlisted' : 'all';
-        // $application->save();
     }
 
     /**
