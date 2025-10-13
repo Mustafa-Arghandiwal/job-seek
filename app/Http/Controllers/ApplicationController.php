@@ -73,12 +73,30 @@ class ApplicationController extends Controller
         }
 
         $candidateId = Auth::user()->candidate->id;
-        $applications = Application::select(['id', 'vacancy_id', 'applied_at'])
-            ->with([
-                'vacancy:id,employer_id,job_title,job_type,city,salary_type,fixed_salary,min_salary,max_salary',
-                'vacancy.employer:id',
-                'vacancy.employer.detail:employer_id,logo_path'
-            ])
+        $applications = Application::select([
+            'job_applications.id',
+            'job_applications.vacancy_id',
+            'job_applications.applied_at',
+            'vacancies.employer_id',
+            'vacancies.job_title',
+            'vacancies.job_type',
+            'vacancies.city',
+            'vacancies.salary_type',
+            'vacancies.fixed_salary',
+            'vacancies.min_salary',
+            'vacancies.max_salary',
+            'employer_details.logo_path',
+            'users.full_name'
+        ])
+            ->leftJoin('vacancies', 'vacancies.id', '=', 'job_applications.vacancy_id')
+            ->leftJoin('employers', 'employers.id', '=', 'vacancies.employer_id')
+            ->leftJoin('users', 'users.id', '=', 'employers.user_id')
+            ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
+            // ->with([
+            //     'vacancy:id,employer_id,job_title,job_type,city,salary_type,fixed_salary,min_salary,max_salary',
+            //     'vacancy.employer:id',
+            //     'vacancy.employer.detail:employer_id,logo_path'
+            // ])
             ->where('candidate_id', $candidateId)
             ->orderBy('applied_at', 'desc')
             ->paginate(4);

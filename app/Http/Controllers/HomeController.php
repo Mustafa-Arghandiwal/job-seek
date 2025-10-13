@@ -26,11 +26,26 @@ class HomeController extends Controller
         $techJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Technology & Engineering')->count();
         $managementJobsCount = Vacancy::where('manually_expired', false)->where('deadline', '>=', Carbon::today())->where('category', 'Management & Operations')->count();
 
-        $latestJobs = Vacancy::select(['id', 'employer_id', 'job_title', 'deadline', 'city', 'job_type', 'salary_type', 'fixed_salary', 'min_salary', 'max_salary'])
-            ->with(['employer.detail:employer_id,logo_path'])
-            ->where('manually_expired', false)
-            ->where('deadline', '>=', Carbon::today())
-            ->orderBy('created_at', 'desc')
+        $latestJobs = Vacancy::select([
+            'vacancies.id',
+            'vacancies.employer_id',
+            'vacancies.job_title',
+            'vacancies.deadline',
+            'vacancies.city',
+            'vacancies.job_type',
+            'vacancies.salary_type',
+            'vacancies.fixed_salary',
+            'vacancies.min_salary',
+            'vacancies.max_salary',
+            'users.full_name',
+            'employer_details.logo_path'
+        ])
+            ->join('employers', 'employers.id', '=', 'vacancies.employer_id')
+            ->join('users', 'users.id', '=', 'employers.user_id')
+            ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
+            ->where('vacancies.manually_expired', false)
+            ->where('vacancies.deadline', '>=', Carbon::today())
+            ->orderBy('vacancies.created_at', 'desc')
             ->limit(6)
             ->get();
 

@@ -224,6 +224,8 @@ class VacancyController extends Controller
         $vacancy = Vacancy::findOrFail($id);
         $vacancyCategory = $vacancy->category;
         $relatedVacancies = Vacancy::where('category', $vacancyCategory)
+            ->with(['employer.user:id,full_name'])
+            ->with(['employer.detail:employer_id,logo_path'])
             ->where('id', '!=', $id)
             ->where('manually_expired', false)
             ->where('deadline', '>=', Carbon::today())

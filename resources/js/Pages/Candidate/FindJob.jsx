@@ -30,7 +30,7 @@ function FindJob({filterCategory: filterCategoryFromBackend, filterDate: filterD
     }
 
     const vacancyEls = vacancies.data.map(vacancy => {
-        const logo = vacancy.employer.detail?.logo_path ? "/storage/" + vacancy.employer.detail.logo_path : null
+        const logo = vacancy.employer.detail.logo_path
         const compName = vacancy.employer.user.full_name
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
 

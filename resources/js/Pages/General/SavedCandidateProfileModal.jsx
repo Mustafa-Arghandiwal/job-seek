@@ -4,14 +4,13 @@ import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "../Candida
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
 import { CloseXIcon, RightArrowIcon, CakeIcon, LocationUnderlinedIcon, UsersIcon, CircleUserIcon, SimpleBriefCaseIcon, GradCapIcon, PhoneIcon, GlobeIcon, MailIcon } from "../../utils/svgs"
+import TextAvatar from "../../Components/TextAvatar"
 
 
 export default function SavedCandidateProfileModal({ showModal, setShowModal, candidateData }) {
 
 
     const root = document.getElementById("react-portal-root")
-
-    const candidateId = candidateData?.candidate.id ? candidateData.candidate.id : null
 
     const modalRef = useRef(null)
     const handleOutsideClick = (e) => {
@@ -27,7 +26,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
     const candidateDetails = candidateData?.candidate
     const title = candidateDetails?.title
-    const profilePicture = candidateDetails?.profile_picture ? "/storage/" + candidateDetails.profile_picture : "/chess_pattern.png"
+    const profilePicture = candidateDetails?.profile_picture
     const biography = candidateDetails?.biography
     const dob = candidateDetails?.dob ? new Date(candidateDetails.dob).toLocaleDateString("en-US", {
         day: "numeric",
@@ -93,7 +92,11 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
                     <div className="py-8  flex items-center flex-col lg:flex-row gap-4 justify-center lg:justify-between ">
 
                         <div className="flex gap-6 items-center flex-col xs:flex-row">
-                            <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${profilePicture})` }}></div>
+                            {profilePicture ?
+                                <div className="h-20 min-w-20 bg-cover bg-center rounded-full " style={{ backgroundImage: `url(${"/storage/" + profilePicture})` }}></div>
+                                :
+                                <TextAvatar name={candidateDetails?.full_name || ""} className="h-20 min-w-20 rounded-full text-3xl" />
+                            }
                             <div className=" flex flex-col gap-[10px] text-center xs:text-left">
                                 <h2 className="text-2xl font-medium text-customGray-900 ">{candidateDetails?.full_name}</h2>
                                 {title && <span className="block text-customGray-600 text-sm sm:text-base line-clamp-1">{title}</span>}
@@ -151,7 +154,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <CakeIcon className="text-primary-500"/>
+                                        <CakeIcon className="text-primary-500" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">DATE OF BIRTH</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${dob ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{dob || "Not provided"}</p>
@@ -159,7 +162,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <LocationUnderlinedIcon className="w-6 h-6"/>
+                                        <LocationUnderlinedIcon className="w-6 h-6" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">CITY</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${city ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{city || "Not provided"}</p>
@@ -169,7 +172,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <UsersIcon className="text-primary-500 w-6 h-6 "/>
+                                        <UsersIcon className="text-primary-500 w-6 h-6 " />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">MARITAL STATUS</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${maritalStatus ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{maritalStatus || "Not provided"}</p>
@@ -177,7 +180,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <CircleUserIcon className="text-primary-500"/>
+                                        <CircleUserIcon className="text-primary-500" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">GENDER</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${gender ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{gender || "Not provided"}</p>
@@ -185,7 +188,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <SimpleBriefCaseIcon className="text-primary-500"/>
+                                        <SimpleBriefCaseIcon className="text-primary-500" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">EXPERIENCE</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${experience ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{experience || "Not provided"}</p>
@@ -194,7 +197,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className=" min-w-32 ">
                                     <div className="flex sm:flex-col items-center sm:items-start gap-2">
-                                        <GradCapIcon className="w-6 h-6 text-primary-500"/>
+                                        <GradCapIcon className="w-6 h-6 text-primary-500" />
                                         <p className="text-xs mt-2 text-customGray-500 max-w-32">EDUCATIONS</p>
                                     </div>
                                     <p className={`mt-2 text-sm  sm:h-10 sm:max-w-32 ${educations ? "font-medium text-customGray-900" : "text-customGray-400"}`}>{educations || "Not provided"}</p>
@@ -221,7 +224,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className="flex items-center gap-4 py-6 border-b border-b-customGray-100">
                                     <div className="w-8 h-8 shrink-0">
-                                        <PhoneIcon className="w-7 h-7"/>
+                                        <PhoneIcon className="w-7 h-7" />
                                     </div>
                                     <div className="">
                                         <p className="text-xs text-customGray-500">PHONE</p>
@@ -231,7 +234,7 @@ export default function SavedCandidateProfileModal({ showModal, setShowModal, ca
 
                                 <div className="flex items-center gap-4 pt-6 ">
                                     <div className="w-8-h-8 shrink-0">
-                                        <MailIcon className="text-primary-500 w-8 h-8"/>
+                                        <MailIcon className="text-primary-500 w-8 h-8" />
                                     </div>
                                     <div className="">
                                         <p className="text-xs text-customGray-500">EMAIL ADDRESS</p>

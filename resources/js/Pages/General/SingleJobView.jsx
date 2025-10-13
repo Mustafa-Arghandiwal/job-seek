@@ -10,6 +10,7 @@ import RichTextEditor from "../../Components/RichTextEditor"
 import confetti from "canvas-confetti"
 import { BookmarkIcon, CloseXIcon, RightArrowIcon, LinkIcon, PhoneIcon, MailIcon, CalendarIcon, TimerIcon, WalletIcon, LocationUnderlinedIcon, SimpleBriefCaseIcon, GradCapIcon } from '../../utils/svgs'
 import OpenPosition from "../../Components/OpenPosition"
+import TextAvatar from "../../Components/TextAvatar"
 
 
 
@@ -63,7 +64,7 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
         post(`/vacancies/${vacancy.id}/applications`)
     }
 
-    const logo = employer.detail?.logo_path ? "/storage/" + employer.detail.logo_path : "/chess_pattern.png"
+    const logo = employer.detail.logo_path
     const jobTitle = vacancy.job_title
     const companyWebsite = employer.detail?.company_website
     const companyPhone = employer.contact?.phone
@@ -144,8 +145,8 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
 
     const relatedJobEls = relatedVacancies.map(vacancy => {
         const salary = formatSalary(vacancy.salary_type, vacancy.fixed_salary, vacancy.min_salary, vacancy.max_salary)
-        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={companyName}
-            jobType={vacancy.job_type} salary={salary} logo={logo} />
+        return <OpenPosition key={vacancy.id} id={vacancy.id} title={vacancy.job_title} city={vacancy?.city} companyName={vacancy.employer.user.full_name}
+            jobType={vacancy.job_type} salary={salary} logo={vacancy.employer.detail.logo_path} />
     })
 
 
@@ -199,7 +200,13 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
             <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
 
                 <div className="flex gap-6 items-center  flex-col xs:flex-row">
-                    <Link href={`/employers/${employer.id}`} className="h-24 min-w-24 bg-cover bg-center rounded-full hover:scale-105 duration-150" style={{ backgroundImage: `url(${logo})` }}></Link>
+                    {logo ?
+                        <Link href={`/employers/${employer.id}`} style={{ backgroundImage: `url(${"/storage/" + logo})` }} className="h-24 min-w-24 bg-cover bg-center rounded-full hover:scale-105 duration-150" ></Link>
+                        :
+                        <Link href={`/employers/${employer.id}`}>
+                            <TextAvatar name={companyName} className="h-24 min-w-24 rounded-full text-4xl hover:scale-105 active:scale-95 duration-150" />
+                        </Link>
+                    }
                     <div className="flex flex-col gap-3 items-center xs:items-start">
                         <div className="flex gap-2 items-center flex-wrap justify-center xs:justify-start">
                             <h2 className="text-2xl font-medium text-customGray-900 text-center xs:text-left">{jobTitle}</h2>
@@ -368,7 +375,13 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
 
                     <div className="p-8 mt-6 border border-primary-200  rounded-lg  lg:min-w-[400px] max-w-[600px]">
                         <div className="flex gap-4  items-center">
-                            <Link href={`/employers/${employer.id}`} className="h-16 min-w-16 bg-cover bg-center rounded-md " style={{ backgroundImage: `url(${logo})` }}></Link>
+                            {logo ?
+                                <Link href={`/employers/${employer.id}`} style={{ backgroundImage: `url(${"/storage/" + logo})` }} className="h-16 min-w-16 bg-cover bg-center rounded-md " ></Link>
+                                :
+                                <Link href={`/employers/${employer.id}`}>
+                                    <TextAvatar name={companyName} className="h-16 border min-w-16 rounded-md text-2xl" />
+                                </Link>
+                            }
                             <div>
                                 <Link href={`/employers/${employer.id}`} className="text-customGray-900 hover:text-primary-700 font-medium text-xl">{companyName}</Link>
                                 <p className="text-sm text-customGray-500 mt-2">{companyIndustry}</p>

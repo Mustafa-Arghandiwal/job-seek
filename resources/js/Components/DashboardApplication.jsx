@@ -3,13 +3,14 @@ import { CSS } from "@dnd-kit/utilities"
 import { useEffect, useState } from "react"
 import { DownloadIcon, EyeIcon, UserIcon } from "../utils/svgs"
 import CandidateProfileModal from "../Pages/General/CandidateProfileModal"
+import TextAvatar from "./TextAvatar"
 
 
 
 export default function DashboardApplication(props) {
 
     const appDetails = props.appDetails
-    const profilePic = appDetails?.profile_picture ? "/storage/" + appDetails.profile_picture : "/chess_pattern.png"
+    const profilePic = appDetails.profile_picture
     const appliedAt = new Date(appDetails?.applied_at).toLocaleDateString("en-US", {
         day: "numeric",
         month: "long",
@@ -50,9 +51,11 @@ export default function DashboardApplication(props) {
             <div ref={setNodeRef} style={style} className={` border bg-white opacity-50 rounded-sm p-4 mt-3
                 ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}>
                 <div className="flex gap-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden">
-                        <img src={profilePic} className=" w-full h-full object-cover" />
-                    </div>
+                    {profilePic ?
+                        <div style={{ backgroundImage: `url(${"/storage/" + profilePic})` }} className="w-12 h-12 bg-cover bg-center rounded-full"></div>
+                        :
+                        <TextAvatar name={appDetails.full_name} className="h-12 min-w-12 rounded-full text-lg" />
+                    }
                     <div>
                         <span className="block text-customGray-900 text-sm font-medium">{appDetails?.full_name || "Not provided"}</span>
                         <span className="mt-1 block text-sm text-customGray-500">{appDetails?.title || "Title not provided"}</span>
@@ -94,9 +97,11 @@ export default function DashboardApplication(props) {
             ${props.columnId === "all" ? "border-customGray-200" : "border-success-400"}`}
         >
             <div className="flex gap-3">
-                <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <img src={profilePic} className=" w-full h-full object-cover" />
-                </div>
+                {profilePic ?
+                    <div style={{ backgroundImage: `url(${"/storage/" + profilePic})` }} className="w-12 h-12 bg-cover bg-center rounded-full"></div>
+                    :
+                    <TextAvatar name={appDetails.full_name} className="h-12 min-w-12 rounded-full text-lg" />
+                }
                 <div>
                     <span className="block text-customGray-900 text-sm font-medium">{appDetails?.full_name || "Not provided"}</span>
                     <span className="mt-1 block text-sm text-customGray-500">{appDetails?.title || "Title not provided"}</span>

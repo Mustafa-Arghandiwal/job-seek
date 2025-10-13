@@ -9,7 +9,7 @@ import Tilt from "react-parallax-tilt"
 function Home(props) {
 
     const latestJobEls = props.latestJobs.map(job => (
-        <Job key={job.id} id={job.id} logo={job.employer?.detail?.logo_path} title={job.job_title} type={job.job_type} location={job.city} deadline={job.deadline}
+        <Job key={job.id} id={job.id} logo={job.logo_path} employerName={job.full_name} title={job.job_title} type={job.job_type} location={job.city} deadline={job.deadline}
             salaryType={job.salary_type} fixedSalary={job.fixed_salary} minSalary={job.min_salary} maxSalary={job.max_salary} />
     ))
 

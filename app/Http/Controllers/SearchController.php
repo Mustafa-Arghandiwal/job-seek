@@ -18,6 +18,7 @@ class SearchController extends Controller
         // $term = $request->query('term');
         $term = $validated['term'] ?? null;
         $results = Vacancy::select(['id', 'employer_id', 'job_title', 'city'])
+            ->with(['employer.user:id,full_name'])
             ->with(['employer.detail:employer_id,logo_path'])
             ->where('manually_expired', false)
             ->where('deadline', '>=', Carbon::today());
