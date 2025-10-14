@@ -126,7 +126,7 @@ export default function CompanyInfoTabContent() {
                                                     border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${logoDragging && 'scale-110 drop-shadow-2xl'} `}>
 
                         <div className="absolute inset-0 bg-center bg-cover rounded-md "
-                            style={{ backgroundImage: `url(${profilePic})` }}>
+                            style={{ backgroundImage: `url(${profilePic || ""})` }}>
                         </div>
                         {profilePic &&
                             <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
@@ -189,7 +189,7 @@ export default function CompanyInfoTabContent() {
                                                     border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${bannerDragging && 'scale-110 drop-shadow-2xl'} `}>
 
                             <div className="absolute inset-0 bg-center bg-cover rounded-md "
-                                style={{ backgroundImage: `url(${coverPhoto})` }}>
+                                style={{ backgroundImage: `url(${coverPhoto || ""})` }}>
                             </div>
                             {coverPhoto &&
                                 <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
