@@ -1,4 +1,4 @@
-import { closestCorners, DndContext, DragOverlay, PointerSensor, pointerWithin, rectIntersection, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, DragOverlay, PointerSensor, pointerWithin, rectIntersection, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import DashboardApplication from "../../../Components/DashboardApplication";
 import EmployerDashboardLayout from "../../../Layouts/EmployerDashboardLayout";
@@ -7,9 +7,9 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import ColumnContainer from "../../../Components/ColumnContainer";
 import { RiDragDropFill } from "react-icons/ri";
 import { createPortal } from "react-dom";
-import { router, useForm } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
-function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates}) {
+function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates }) {
 
     const [columns, setColumns] = useState([{ id: "all", title: "All Applications" }, { id: "shortlisted", title: "Shortlisted" }])
 
@@ -21,7 +21,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
         return () => {
             const shortlistedIDs = apps.filter(app => app.column_id === "shortlisted").map(app => app.id)
             // if (shortlistedIDs.length > 0) {
-                router.post(`/employer/vacancies/${vacancyId}/applications/updateShortlistStatus`, { shortlistedIDs })
+            router.post(`/employer/vacancies/${vacancyId}/applications/updateShortlistStatus`, { shortlistedIDs })
             // }
         }
         //see if I can do apps.some column instead of all the apps
@@ -98,7 +98,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
                 <RiDragDropFill className="w-8 h-8 " />
             </div>
 
-            <DndContext onDragOver={onDragOver} onDragStart={onDragStart}  sensors={sensors} collisionDetection={pointerWithin}>
+            <DndContext onDragOver={onDragOver} onDragStart={onDragStart} sensors={sensors} collisionDetection={pointerWithin}>
 
                 <div className="flex xs:grid xs:grid-cols-[1fr_1fr] gap-6 mt-3">
                     <SortableContext items={["all", "shortlisted"]}>
@@ -115,7 +115,7 @@ function Applications({ jobTitle, applicationDetails, vacancyId, savedCandidates
                     <DragOverlay>
                         {activeApp && (
                             <DashboardApplication key={activeApp.id} id={activeApp.id}
-                                columnId={activeApp.details.column_id} appDetails={activeApp.details}  />
+                                columnId={activeApp.details.column_id} appDetails={activeApp.details} />
                         )}
 
                     </DragOverlay>, document.body

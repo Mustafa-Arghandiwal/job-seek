@@ -168,6 +168,9 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
+        if(!$user) {
+            abort(403);
+        }
         $validated = $request->validate(['password' => 'required']);
         $enteredPassword =  $validated['password'];
         if(!Hash::check($enteredPassword, $user->password)) {

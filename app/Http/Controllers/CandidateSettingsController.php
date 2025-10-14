@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\CandidateContact;
 use App\Models\CandidateProfile;
@@ -9,13 +10,55 @@ use App\Models\CandidateSocialLink;
 use App\Rules\RichTextLength;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 use Mews\Purifier\Facades\Purifier;
 
 class CandidateSettingsController extends Controller
 {
     //
+
+
+    public function dashboardOverview(Request $request)
+    {
+
+        $candidateId = $request->user()->candidate->id;
+        $appliedJobsCount = Application::where('candidate_id', $candidateId)->count();
+        $savedJobsCount = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->count();
+
+        $applications = Application::select([
+            'job_applications.id',
+            'job_applications.vacancy_id',
+            'job_applications.applied_at',
+            'vacancies.employer_id',
+            'vacancies.job_title',
+            'vacancies.job_type',
+            'vacancies.city',
+            'vacancies.salary_type',
+            'vacancies.fixed_salary',
+            'vacancies.min_salary',
+            'vacancies.max_salary',
+            'employer_details.logo_path',
+            'users.full_name'
+        ])
+            ->leftJoin('vacancies', 'vacancies.id', '=', 'job_applications.vacancy_id')
+            ->leftJoin('employers', 'employers.id', '=', 'vacancies.employer_id')
+            ->leftJoin('users', 'users.id', '=', 'employers.user_id')
+            ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
+            ->where('candidate_id', $candidateId)
+            ->orderBy('applied_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        return Inertia::render('Candidate/Dashboard/Overview', [
+            'appliedJobsCount' => $appliedJobsCount,
+            'savedJobsCount' => $savedJobsCount,
+            'applications' => $applications
+        ]);
+    }
+
 
     public function updateProfileBasic(Request $request)
     {
@@ -84,7 +127,7 @@ class CandidateSettingsController extends Controller
     {
 
         $validated = $request->validate([
-            'gender' => ['required', 'in:Male,Female,Other,Pefer not to say'],
+            'gender' => ['required', 'in:Male,Female,Other,Prefer not to say'],
             'maritalStatus' => ['required', 'in:Single,Married,Separated,Prefer not to say'],
             'birthDate' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:1900-01-01'],
             'biography' => ['required', new RichTextLength(10, 65535), 'string']

@@ -23,6 +23,7 @@ export default function DashboardApplication(props) {
 
     useEffect(() => {
         if (showModal) {
+            console.log(props.vacancyId, appDetails.id)
             fetch(`/employer/vacancies/${props.vacancyId}/applications/${appDetails.id}/candidate`)
                 .then(res => res.json())
                 .then(data => setCandidate(data))

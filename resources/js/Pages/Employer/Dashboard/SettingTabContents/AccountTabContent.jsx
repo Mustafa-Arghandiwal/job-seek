@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
 import DeleteModal from "../../../../Components/DeleteModal"
-import { EyeIcon, EyeClosedIcon, CircleXIcon } from "../../../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, TrashIcon } from "../../../../utils/svgs"
 
 
 export default function AccountTabContent() {
@@ -216,8 +216,8 @@ export default function AccountTabContent() {
                 <button
                     ref={deleteAccountBtnRef}
                     type="button" onClick={() => setShowDeleteModal(prev => !prev)}
-                    className={` group cursor-pointer relative flex items-center gap-1 hover: mt-5 text-danger-500 font-medium text-sm px-4 py-4 rounded-md active:scale-95 duration-150 hover:shadow-2xl `} >
-                    <CircleXIcon />
+                    className={` group cursor-pointer relative flex items-center gap-2 hover: mt-5 text-danger-500 font-medium text-sm px-4 py-4 rounded-md active:scale-95 duration-150 hover:shadow-2xl `} >
+                    <TrashIcon />
                     <span className="absolute rounded-full top-0 left-0 w-0 h-[1px] bg-danger-500 group-hover:w-full transition-all duration-150"></span>
                     <span className="absolute rounded-full top-0 right-0 w-[1px] h-0 bg-danger-500 group-hover:h-full transition-all duration-150"></span>
                     <span className="absolute rounded-full bottom-0 right-0 w-0 h-[1px] bg-danger-500 group-hover:w-full transition-all duration-200"></span>

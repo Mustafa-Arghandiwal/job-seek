@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vacancy_id')->constrained()->cascadeOnDelete();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete();
+            $table->unique(['candidate_id', 'vacancy_id']);
             $table->uuid('app_id')->unique();
             $table->enum('column_id', ['all', 'shortlisted'])->default('all');
             $table->timestamp('applied_at')->useCurrent();

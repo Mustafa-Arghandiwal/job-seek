@@ -10,7 +10,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
     const root = document.getElementById("react-portal-root")
 
-    const candidateId = candidate?.candidate[0].id ? candidate.candidate[0].id : null
+    const candidateId = candidate?.candidate.id ? candidate.candidate.id : null
     const [bookmarked, setBookmarked] = useState(false)
     useEffect(() => {
         if (candidateId) {
@@ -45,7 +45,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
 
     }, [])
 
-    const candidateDetails = candidate?.candidate[0]
+    const candidateDetails = candidate?.candidate
     const title = candidateDetails?.title
     const profilePicture = candidateDetails?.profile_picture
     const biography = candidateDetails?.biography

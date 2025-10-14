@@ -82,7 +82,7 @@ function FindEmployers({ employers, type }) {
 
             </div>
 
-            <div className="min-h-[512px] flex ">
+            <div className="min-h-[70dvh] flex ">
                 <div className=" max-w-96 w-full  py-6 px-8  hidden lg:block  ">
                     <div className=" flex flex-col gap-4 border rounded-xl sticky top-4 pl-8 pb-8 pt-6 border-customGray-50">
                         <p className="font-medium text-customGray-900 text-lg">Organization Type</p>
