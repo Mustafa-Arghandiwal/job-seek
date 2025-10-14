@@ -329,8 +329,8 @@ export default function EmployerLayout({ children }) {
                                     <ul className="flex flex-col gap-3 text-customGray-600 ">
                                         <FooterLink href="/vacancies">Browse Jobs</FooterLink>
                                         <FooterLink href="/employers">Browse Employers</FooterLink>
-                                        <FooterLink href="/candidate/dashboard/overview">Candidate Dashboard</FooterLink>
-                                        <FooterLink href="/candidate/dashboard/settings">Candidate Settings</FooterLink>
+                                        <FooterLink href="/sign-up">Candidate Dashboard</FooterLink>
+                                        <FooterLink href="/sign-up">Candidate Settings</FooterLink>
                                     </ul>
                                 </div>
 
