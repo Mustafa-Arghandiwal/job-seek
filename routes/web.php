@@ -35,7 +35,7 @@ Route::get('/reset-password', function () {
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetPassword'])->middleware('guest')->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->middleware('guest')->name('password.update');
 
-Route::post('/delete-account', [AuthController::class, 'deleteAccount']);
+Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->middleware('auth');
 
 
 

@@ -5,6 +5,7 @@ import RichTextEditor from "../../../../Components/RichTextEditor";
 import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
 import { LinkIcon, SmallSpinnerIcon, UploadIcon2, TrashIcon } from "../../../../utils/svgs";
+import { Asterisk } from "lucide-react";
 
 
 
@@ -245,7 +246,7 @@ export default function CompanyInfoTabContent() {
             <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-2 ">
 
                 <div className="flex flex-col w-full  min-w-44 relative sm:col-span-2">
-                    <label htmlFor="comapnyName" className="text-sm text-customGray-900">Company Name</label>
+                    <label htmlFor="comapnyName" className="text-sm text-customGray-900 flex">Company Name <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <input type="text" placeholder="e.g. Acme Inc." id="companyName" value={data.companyName} onChange={(e) => setData('companyName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-[11px] px-[18px]" />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyName}
@@ -255,7 +256,7 @@ export default function CompanyInfoTabContent() {
 
 
                 <div className="relative w-full ">
-                    <label className="text-sm text-customGray-900">Company Type</label>
+                    <label className="text-sm text-customGray-900 flex">Company Type <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <Select options={['Agency', 'Government', 'NGO', 'Private', 'Startup', 'UN']} placeholder={data.companyType} onValueChange={(option) => handleSelectChange('companyType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.companyType || ''}
@@ -263,7 +264,7 @@ export default function CompanyInfoTabContent() {
                 </div>
 
                 <div className="relative w-full ">
-                    <label className="text-sm text-customGray-900">Industry Type</label>
+                    <label className="text-sm text-customGray-900 flex">Industry Type <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <Select options={['Agriculture', 'Construction', 'Education', 'Energy', 'Finance', 'Government', 'Healthcare', 'Legal', 'Manufacturing', 'Media', 'Real Estate', 'Retail', 'Technology', 'Transportation']} placeholder={data.industryType} onValueChange={(option) => handleSelectChange('industryType', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.industryType || ''}
@@ -271,7 +272,7 @@ export default function CompanyInfoTabContent() {
                 </div>
 
                 <div className="relative w-full ">
-                    <label className="text-sm text-customGray-900">Team Size</label>
+                    <label className="text-sm text-customGray-900 flex">Team Size <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <Select options={['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+']} placeholder={data.teamSize} onValueChange={(option) => handleSelectChange('teamSize', option)} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.teamSize || ''}
@@ -279,7 +280,7 @@ export default function CompanyInfoTabContent() {
                 </div>
 
                 <div className="  relative w-full ">
-                    <label className="text-sm text-customGray-900" htmlFor="dob">Year of Establishment</label>
+                    <label className="text-sm text-customGray-900 flex" htmlFor="dob">Year of Establishment <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <DatePicker handleChange={handleYearEstablishedChange} currentDate={data.establishDate} type={'month'} dateRange={'past'} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.establishDate || ''}
@@ -287,7 +288,7 @@ export default function CompanyInfoTabContent() {
                 </div>
 
                 <div className="w-full md:max-w-1/2  relative sm:col-span-2">
-                    <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website</label>
+                    <label htmlFor="companyWebsite" className="text-sm text-customGray-900">Company Website (optional)</label>
                     <div className="flex items-center gap-3 border mt-2 rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
                         <LinkIcon className="h-6 w-6 text-primary-500" />
                         <input type="text" placeholder="Website url..." id="companyWebsite" value={data.companyWebsite} onChange={(e) => setData('companyWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />
@@ -300,7 +301,7 @@ export default function CompanyInfoTabContent() {
 
 
             <div className="relative mt-6">
-                <label className="text-sm text-customGray-900">About Company</label>
+                <label className="text-sm text-customGray-900 flex">About Company <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                 <RichTextEditor content={data.aboutCompany} onChange={newContent => setData('aboutCompany', newContent)}
                     placeholder="Write down about your company here. Let the candidate know who you are..." />
                 <div className="text-sm w-full text-danger-600 min-h-5" >

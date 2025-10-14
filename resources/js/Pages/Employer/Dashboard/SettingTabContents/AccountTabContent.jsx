@@ -2,6 +2,7 @@ import { useForm, usePage } from "@inertiajs/react"
 import { useState, useEffect, useRef } from "react"
 import DeleteModal from "../../../../Components/DeleteModal"
 import { EyeIcon, EyeClosedIcon, TrashIcon } from "../../../../utils/svgs"
+import { Asterisk } from "lucide-react"
 
 
 export default function AccountTabContent() {
@@ -90,14 +91,14 @@ export default function AccountTabContent() {
                 <div className="flex flex-col md:flex-row gap-2 md:gap-6  mt-5">
 
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
-                        <label htmlFor="phone" className="text-sm text-customGray-900">Phone</label>
+                        <label htmlFor="phone" className="text-sm text-customGray-900 flex">Phone <Asterisk className="w-3 h-3 text-danger-500 "/> </label>
                         <input type="tel" id="phone" value={contactForm.data.phone} onChange={(e) => contactForm.setData('phone', e.target.value)} placeholder="+93 xxx xxx xxx" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500 " />
                         <div className="text-sm w-full text-danger-600 min-h-5">
                             {contactForm.errors.phone || ''}
                         </div>
                     </div>
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 relative">
-                        <label htmlFor="email" className="text-sm text-customGray-900">Email</label>
+                        <label htmlFor="email" className="text-sm text-customGray-900 flex">Email <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                         <input type="text" id="email" value={contactForm.data.email} onChange={(e) => contactForm.setData('email', e.target.value)} placeholder="example@email.com" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
                         <div className="text-sm w-full text-danger-600 min-h-5">
                             {contactForm.errors.email}
@@ -109,7 +110,7 @@ export default function AccountTabContent() {
 
                 <div>
                     <div className="flex flex-col gap-2  max-w-96 w-full md:w-1/2 mt-2 relative">
-                        <label htmlFor="city" className="text-sm text-customGray-900">City</label>
+                        <label htmlFor="city" className="text-sm text-customGray-900 flex">City <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                         <input type="text" id="city" value={contactForm.data.city} onChange={(e) => contactForm.setData('city', e.target.value)} placeholder="e.g. Kabul, Afghanistan" className="border h-12 border-customGray-100 rounded-md px-[20px] outline-none  placeholder:text-customGray-400 text-customGray-900 focus:ring-1 focus:ring-primary-500" />
                         <div className="text-sm w-full text-danger-600 min-h-5">
                             {contactForm.errors.city}
