@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CandidateSettingsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\EmployerSettingsController;
 use App\Http\Controllers\FavoritesController;
@@ -45,6 +46,8 @@ Route::get('/vacancies/{id}', [VacancyController::class, 'show']);
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact/send', [ContactController::class, 'send']);
 
 
 // --------------------CANDIDATE

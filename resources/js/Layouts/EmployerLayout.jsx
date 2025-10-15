@@ -219,7 +219,7 @@ export default function EmployerLayout({ children }) {
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
                                         :
-                                        <TextAvatar name={props.auth.user.full_name} className="h-full w-full hover:scale-110 active:scale-100" />
+                                        <TextAvatar name={props.auth.user.full_name} className="h-full w-full hover:scale-110 active:scale-100 cursor-pointer" />
                                     }
                                 </div>
                                 <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-38  shadow-lg top-13  text-sm absolute rounded-md border overflow-hidden border-customGray-50
@@ -251,21 +251,25 @@ export default function EmployerLayout({ children }) {
                 <ul className="mt-1 text-sm text-customGray-600 w-full ">
                     <li className=""><Link href="/" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Home</Link></li>
                     <li className=""><Link href="/vacancies" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Jobs</Link></li>
+                    <li className=""><Link href="/employers" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Employers</Link></li>
                     <li className=""><Link href="/employer/dashboard/overview" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Dashboard</Link></li>
                     <li className=""><Link href="/support" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Support</Link></li>
                 </ul>
                 {user ?
 
                     <div className="flex gap-2 mt-6 items-center">
-                        <Link href="/employer/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500">
-                            {headerProfilePic ?
-                                <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
-                                :
-                                <TextAvatar name={props.auth.user.full_name} className="h-full w-full" />
-                            }
+                        {/* <Link href="/employer/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500"> */}
+                        {/*     {headerProfilePic ? */}
+                        {/*         <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" /> */}
+                        {/*         : */}
+                        {/*         <TextAvatar name={props.auth.user.full_name} className="h-full w-full" /> */}
+                        {/*     } */}
+                        {/* </Link> */}
+                        <Link href="/employer/dashboard/settings" className="text-primary-600 bg-primary-50  justify-center w-40  text-sm flex items-center p-2 gap-1 rounded-sm">
+                            Settings
                         </Link>
                         {user.user_type === "employer" &&
-                            <Link href="/employer/dashboard/post-job" className="grid place-items-center rounded-sm text-sm font-semibold text-primary-500 border border-primary-100  hover:bg-primary-50 px-2 py-3 duration-150 text-nowrap cursor-pointer">
+                            <Link href="/employer/dashboard/post-job" className="text-primary-600 bg-primary-50  text-sm w-40 justify-center  rounded-sm   flex items-center gap-1 px-2 py-2">
                                 Post a Job
                             </Link>
                         }
