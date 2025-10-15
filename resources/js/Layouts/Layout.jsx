@@ -174,7 +174,7 @@ export default function Layout({ children }) {
                         <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Job</Link></li>
                         <li><Link href="/employers" className={`${url.startsWith('/employers') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Find Employers</Link></li>
                         <li><Link href="/candidate/dashboard/overview" className={`${dashboardUrls.some(item => url.startsWith(item)) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
-                        <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
+                        <li><Link href="/contact" className={`${url === '/contact' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Contact Us</Link></li>
                     </ul>
 
 
@@ -186,7 +186,7 @@ export default function Layout({ children }) {
                         <span className="text-customGray-900 font-semibold text-lg ">JobSeek</span>
                     </Link>
                     <button ref={menuBtnRef} onClick={() => setDropdownVisible(prev => !prev)} className="cursor-pointer sm:hidden w-6 h-6 relative ml-auto">
-                        <MenuIcon className="absolute top-1/2 -translate-y-1/2 active:scale-95" />
+                        <MenuIcon className="text-customGray-900 absolute top-1/2 -translate-y-1/2 active:scale-95" />
                     </button>
                 </nav>
 
@@ -219,7 +219,7 @@ export default function Layout({ children }) {
                                     {headerProfilePic ?
                                         <img src={headerProfilePic} alt="profile picture" className="h-full w-full cursor-pointer active:scale-100  hover:scale-110 duration-100" />
                                         :
-                                        <TextAvatar name={props.auth.user.full_name} className="h-full w-full hover:scale-110 active:scale-100" />
+                                        <TextAvatar name={props.auth.user.full_name} className="h-full w-full hover:scale-110 active:scale-100 cursor-pointer" />
                                     }
                                 </div>
                                 <div ref={profileDropdownRef} className={`text-customGray-600  bg-white  w-38  shadow-lg top-13 right-0 text-sm absolute rounded-md border overflow-hidden border-customGray-50
@@ -260,14 +260,20 @@ export default function Layout({ children }) {
                 </ul>
                 {user ?
 
-                    <div className="flex gap-2 mt-6 items-center">
-                        <Link href="/candidate/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500">
-                            {headerProfilePic ?
-                                <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" />
-                                :
-                                <TextAvatar name={props.auth.user.full_name} className="h-full w-full" />
-                            }
+                    <div className="flex gap-2 mt-6 items-center flex-wrap xs:flex-nowrap">
+                        {/* <Link href="/candidate/dashboard/settings" className="h-12 w-12 grid place-items-center rounded-full border-2 overflow-hidden border-primary-500"> */}
+                        {/*     {headerProfilePic ? */}
+                        {/*         <img src={headerProfilePic} alt="profile picture" className="h-full w-full  hover:scale-110 duration-100" /> */}
+                        {/*         : */}
+                        {/*         <TextAvatar name={props.auth.user.full_name} className="h-full w-full" /> */}
+                        {/*     } */}
+                        {/* </Link> */}
+                        <Link href="/candidate/dashboard/settings" className="text-primary-600 bg-primary-50  justify-center w-40  text-sm flex items-center p-2 gap-1 rounded-sm">
+                            <GearIcon className="w-5 h-5" />Settings
                         </Link>
+                        <button type="button" onClick={() => {setShowModal(true); setDropdownVisible(false) }} className="text-primary-600 bg-primary-50  text-sm w-40 justify-center  rounded-sm   flex items-center gap-1 px-2 py-2">
+                            <EyeIconThin className="w-5 h-5" />View my profile
+                        </button>
 
                         {/* <form onSubmit={handleSubmit}> */}
                         {/*     <button type="submit" className="bg-danger-500 text-white px-2 py-1 text-sm rounded-[3px] cursor-pointer hover:bg-danger-600 duration-100">Logout</button> */}
@@ -340,9 +346,9 @@ export default function Layout({ children }) {
                                 <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
                                     <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
-                                        <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
-                                        <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
-                                        <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
+                                        <FooterLink href="sign-up?user_type=employer">Post a Job</FooterLink>
+                                        <FooterLink href="sign-up?user_type=employer">Employer Dashboard</FooterLink>
+                                        <FooterLink href="sign-up?user_type=employer">Employer Settings</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">

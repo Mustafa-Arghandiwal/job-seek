@@ -4,6 +4,7 @@ import Select from "../../../../Components/Select";
 import ResumeBox from "../../../../Components/ResumeBox";
 import { shortenFilename } from "../../../../utils/shortenFilename";
 import { CircleAddIcon, TrashIcon, LinkIcon, SmallSpinnerIcon, UploadDriveIcon, UploadIcon2 } from "../../../../utils/svgs";
+import { Asterisk } from "lucide-react";
 
 
 
@@ -143,7 +144,7 @@ export default function ProfileTabContent() {
                                         border rounded-md border-dashed border-customGray-200/70 bg-customGray-50/40 hover:bg-customGray-50 duration-150 ${dragging && 'scale-110 drop-shadow-2xl'}`}
                         >
                             <div className="absolute inset-0 bg-center bg-cover rounded-md "
-                                style={{ backgroundImage: `url(${profilePic})` }}>
+                                style={{ backgroundImage: `url(${profilePic || ""})` }}>
                             </div>
                             {profilePic &&
                                 <div className="absolute inset-0 bg-black opacity-50 rounded-md"></div>
@@ -191,7 +192,7 @@ export default function ProfileTabContent() {
 
                         <div className="flex flex-col lg:flex-row gap-2 w-full max-w-full lg:max-w-[480px] 2xl:max-w-[800px]">
                             <div className="flex flex-col w-full lg:w-1/2  min-w-44 relative">
-                                <label htmlFor="fullName" className="text-sm text-customGray-900">Full name</label>
+                                <label htmlFor="fullName" className="text-sm text-customGray-900 flex">Full name <Asterisk className="w-3 h-3 text-danger-500 "/> </label>
                                 <input type="text" placeholder="e.g. Eqbal Sharaf" id="fullName" value={basicForm.data.fullName} onChange={(e) => basicForm.setData('fullName', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.fullName}
@@ -199,7 +200,7 @@ export default function ProfileTabContent() {
                             </div>
 
                             <div className="flex flex-col w-full lg:w-1/2 min-w-44  relative">
-                                <label htmlFor="title" className="text-sm text-customGray-900">Title</label>
+                                <label htmlFor="title" className="text-sm text-customGray-900 flex">Title <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                                 <input type="text" placeholder="e.g. Web Developer" id="title" value={basicForm.data.title} onChange={(e) => basicForm.setData('title', e.target.value)} className="mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.title}
@@ -210,14 +211,14 @@ export default function ProfileTabContent() {
 
                         <div className="flex flex-col lg:flex-row gap-4 w-full max-w-full ">
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
-                                <label className="text-sm text-customGray-900 mb-2">Experience</label>
+                                <label className="text-sm text-customGray-900 mb-2 flex">Experience <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                                 <Select options={["No Experience", "0-2", "2-4", "4+"]} placeholder={basicForm.data.experience} onValueChange={(option) => handleSelectChange('experience', option)} />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.experience}
                                 </div>
                             </div>
                             <div className="relative flex flex-col w-full lg:w-1/2 min-w-44">
-                                <label className="text-sm text-customGray-900 mb-2">Educations</label>
+                                <label className="text-sm text-customGray-900 mb-2 flex">Educations <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                                 <Select options={["School Graduate", "Bachelor", "Master"]} placeholder={basicForm.data.educations} onValueChange={(option) => handleSelectChange('educations', option)} />
                                 <div className="text-sm w-full text-danger-600 min-h-5" >
                                     {props.errors.educations}
@@ -227,7 +228,7 @@ export default function ProfileTabContent() {
 
 
                         <div className="w-full max-w-[680px] relative">
-                            <label htmlFor="personalWebsite" className="text-sm text-customGray-900">Personal Website</label>
+                            <label htmlFor="personalWebsite" className="text-sm text-customGray-900">Personal Website (optional)</label>
                             <div className="flex items-center gap-3 mt-2 border rounded-md border-customGray-100 placeholder:text-customGray-400 outline-none focus-within:ring-1 focus-within:ring-primary-500 pl-3 pr-[18px]">
                                 <LinkIcon className="h-6 w-6 text-primary-500" />
                                 <input type="text" placeholder="Website url..." id="personalWebsite" value={basicForm.data.personalWebsite} onChange={(e) => basicForm.setData('personalWebsite', e.target.value)} className="w-full outline-none placeholder:text-customGray-400 text-customGray-900 py-3" />

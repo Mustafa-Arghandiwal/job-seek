@@ -20,43 +20,6 @@ class CandidateController extends Controller
         //
     }
 
-    public function dashboardOverview(Request $request)
-    {
-
-        $candidateId = $request->user()->candidate->id;
-        $appliedJobsCount = Application::where('candidate_id', $candidateId)->count();
-        $savedJobsCount = DB::table('candidate_saved_jobs')->where('candidate_id', $candidateId)->count();
-
-        $applications = Application::select([
-            'job_applications.id',
-            'job_applications.vacancy_id',
-            'job_applications.applied_at',
-            'vacancies.employer_id',
-            'vacancies.job_title',
-            'vacancies.job_type',
-            'vacancies.city',
-            'vacancies.salary_type',
-            'vacancies.fixed_salary',
-            'vacancies.min_salary',
-            'vacancies.max_salary',
-            'employer_details.logo_path',
-            'users.full_name'
-        ])
-            ->leftJoin('vacancies', 'vacancies.id', '=', 'job_applications.vacancy_id')
-            ->leftJoin('employers', 'employers.id', '=', 'vacancies.employer_id')
-            ->leftJoin('users', 'users.id', '=', 'employers.user_id')
-            ->leftJoin('employer_details', 'employer_details.employer_id', '=', 'vacancies.employer_id')
-            ->where('candidate_id', $candidateId)
-            ->orderBy('applied_at', 'desc')
-            ->limit(3)
-            ->get();
-
-        return Inertia::render('Candidate/Dashboard/Overview', [
-            'appliedJobsCount' => $appliedJobsCount,
-            'savedJobsCount' => $savedJobsCount,
-            'applications' => $applications
-        ]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -77,11 +40,14 @@ class CandidateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
 
-        // dd($request);
-        $candidateId = Candidate::where('user_id', $request->id)->value('id');
+        if ($request->user()->id !== (int) $id) {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
+        $candidateId = Candidate::where('user_id', $id)->value('id');
         $candidateData = Candidate::select(
             'candidates.id',
             'users.full_name',

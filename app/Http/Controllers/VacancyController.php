@@ -206,8 +206,7 @@ class VacancyController extends Controller
     {
 
         $vacancy = Vacancy::findOrFail($id);
-        // dd($request->user()->employer->id);
-        if ($request->user()->employer->id == $vacancy->employer_id) {
+        if ($request->user()->employer->id === $vacancy->employer_id) {
             $vacancy->manually_expired = true;
             $vacancy->save();
             return back()->with('jobExpireSuccess', 'Job expired. It will no longer be visible to candidates.');
@@ -234,7 +233,7 @@ class VacancyController extends Controller
             ->get();
 
         $employer = Employer::with(['detail', 'socialLink', 'contact', 'user:id,full_name'])->findOrFail($vacancy->employer_id);
-        if (Auth::user()->user_type == 'candidate') {
+        if (Auth::user()?->user_type == 'candidate') {
             $resumes = $request->user()?->candidate->resumes;
             if (true) {
                 $candidateId = Auth::user()->candidate->id;
@@ -268,6 +267,13 @@ class VacancyController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $employer = $request->user()->employer;
+        $vacancy = Vacancy::findOrFail($id);
+        if ($employer->id !== $vacancy->employer_id) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'jobTitle' => ['required', 'max:255'],
             'salaryType' => ['required', 'in:Hourly,Daily,Weekly,Monthly,Commission-based,Negotiable'],
@@ -323,7 +329,6 @@ class VacancyController extends Controller
         ]);
 
 
-        $vacancy = Vacancy::findOrFail($id);
         $vacancy->job_title = $validated['jobTitle'];
         $vacancy->salary_type = $validated['salaryType'];
         if (in_array($validated['salaryType'], ['Commission-based', 'Negotiable'])) {
@@ -352,13 +357,8 @@ class VacancyController extends Controller
         $vacancy->description = $validated['description'];
         $vacancy->responsibilities = $validated['responsibilities'];
 
-        $employer = $request->user()->employer;
-        if ($employer->id == $vacancy->employer_id) {
-            $vacancy->save();
-            return back()->with('editJobSuccess', 'Job updated successfully.');
-        } else {
-            abort(403);
-        }
+        $vacancy->save();
+        return back()->with('editJobSuccess', 'Job updated successfully.');
     }
 
     /**

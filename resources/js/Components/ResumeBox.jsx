@@ -45,7 +45,7 @@ export default function ResumeBox(props) {
         // const pdfUrl = `${import.meta.env.VITE_STORAGE_URL}/${props.path}`
         // window.open(pdfUrl, '_blank').focus()
 
-        window.open(`/candidate/settings/profile/resume/${props.id}`, '_blank')
+        window.open(`/candidate/settings/profile/resumes/${props.id}`, '_blank')
 
 
     }

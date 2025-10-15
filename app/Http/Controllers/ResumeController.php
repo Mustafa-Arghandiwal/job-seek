@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Candidate;
 use App\Models\CandidateResume;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
@@ -64,15 +65,15 @@ class ResumeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $resume_id)
     {
-        $resume = CandidateResume::findOrFail($id);
+        $resume = CandidateResume::findOrFail($resume_id);
         $candidate = $request->user()->candidate;
-        if ($resume->candidate_id == $candidate->id) {
-            return response()->file(storage_path('app/private/' . $resume->resume));
-        } else {
+        if ($resume->candidate_id !== $candidate->id) {
             abort(403);
         }
+
+        return response()->file(storage_path('app/private/' . $resume->resume));
     }
 
     public function employerDownloadCv($id)
@@ -105,7 +106,7 @@ class ResumeController extends Controller
         //checking if logged-in employer is the owner of the job or not
         $loggedInEmpId = Auth::user()->employer->id;
         $applicationEmpId = $application->vacancy->employer_id;
-        if ($loggedInEmpId == $applicationEmpId) {
+        if ($loggedInEmpId === $applicationEmpId) {
             try {
                 return response()->file(storage_path('app/private/' . $application->resume_path));
             } catch (\Throwable $th) {
@@ -140,6 +141,10 @@ class ResumeController extends Controller
     public function destroy(Request $request, $resume_id)
     {
         $resume = CandidateResume::findOrFail($resume_id);
+        $candidateId = Candidate::where('user_id', $request->user()->id)->value('id');
+        if ($resume->candidate_id !== $candidateId) {
+            abort(404);
+        }
 
         Storage::disk('local')->delete($resume->resume);
         $resume->delete();

@@ -20,7 +20,7 @@ class EmployerController extends Controller
         $type = strtolower($request->query('type', 'all'));
 
         if (!$request->has('type')) {
-            return Inertia::location(url('/employers?type=all'));
+            return redirect('/employers?type=all');
         }
 
         $employers = Employer::with(['detail', 'socialLink', 'contact', 'user'])
@@ -30,7 +30,7 @@ class EmployerController extends Controller
             ->withCount([
                 'vacancy as open_positions_count' => function ($query) {
                     $query->where('manually_expired', false)
-                    ->where('deadline', '>=', Carbon::today());
+                        ->where('deadline', '>=', Carbon::today());
                 }
             ])
             ->paginate(5)->withQueryString();

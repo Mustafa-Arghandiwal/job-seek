@@ -13,7 +13,8 @@ use Inertia\Inertia;
 
 class PasswordResetController extends Controller
 {
-    public function sendPassResetLink(Request $request) {
+    public function sendPassResetLink(Request $request)
+    {
 
         $request->validate(['email' => ['required', 'email']]);
 
@@ -22,20 +23,22 @@ class PasswordResetController extends Controller
         );
 
         return $status === Password::ResetLinkSent
-        ? back()->with(['status' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
     }
 
-    public function showResetPassword(string $token) {
+    public function showResetPassword(string $token)
+    {
         return Inertia::render('Auth/ResetPassword', ['token' => $token]);
     }
 
-    public function resetPassword(Request $request) {
+    public function resetPassword(Request $request)
+    {
 
         $request->validate([
             'token' => 'required',
             'email' => ['required', 'email'],
-            'password' => ['required','min:6', 'confirmed'],
+            'password' => ['required', 'min:6', 'confirmed'],
         ]);
 
         $status = Password::reset(
@@ -54,10 +57,7 @@ class PasswordResetController extends Controller
 
 
         return $status === Password::PasswordReset
-            ? redirect()->route('login')->with('status', __($status))
+            ? redirect('/sign-in')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
-
-
-
     }
 }

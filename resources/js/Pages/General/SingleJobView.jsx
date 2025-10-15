@@ -16,7 +16,8 @@ import TextAvatar from "../../Components/TextAvatar"
 
 function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmarked }) {
 
-    const userType = usePage().props.auth.user.user_type
+    // console.log(usePage().props.auth.user)
+    const userType = usePage().props.auth.user?.user_type
 
     const dropdownResumes = resumes ? resumes.map(resume => resume.file_name) : []
 
@@ -197,7 +198,7 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
 
     return (
         <div className="px-4 sm:px-12 lg:px-24 xl:px-48 pb-30  ">
-            <div className="py-8  flex items-center flex-wrap gap-4 justify-center xs:justify-between ">
+            <div className="py-8  flex items-center flex-wrap gap-4 justify-center sm:justify-between ">
 
                 <div className="flex gap-6 items-center  flex-col xs:flex-row">
                     {logo ?
@@ -243,9 +244,9 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
 
                 </div>
 
-                <div className=" ">
+                <div className="  text-center">
                     {userType === "candidate" &&
-                        <div className="flex gap-1 xs:gap-3 flex-col items-center xs:flex-row">
+                        <div className="flex gap-1 xs:gap-3  items-center ">
                             <button onClick={handleBookmark} title={bookmarked ? "Remove from Saved Jobs" : "Add to Saved Jobs"} className="p-4  rounded-sm cursor-pointer hover:bg-primary-50">
                                 <BookmarkIcon className="text-primary-500" bookmarked={bookmarked} />
                             </button>
@@ -261,7 +262,13 @@ function SingleJobView({ employer, vacancy, relatedVacancies, resumes, isBookmar
                     }
 
 
-                    <p className={` ${vacancy.manually_expired ? "text-danger-400" : "text-customGray-500"} text-xs text-right mt-2`}>
+                    {userType === "employer" &&
+                        <Link href="/sign-in" className="text-primary-500 hover:text-primary-600 hover:underline">Sign in as a candidate to apply</Link>
+                    }
+                    {!userType &&
+                        <Link href="/sign-in" className="text-primary-500 hover:text-primary-600 hover:underline">Sign in to apply</Link>
+                    }
+                    <p className={` ${vacancy.manually_expired ? "text-danger-400" : "text-customGray-500"} text-xs text-center sm:text-right mt-2`}>
                         {expireMsg}
                         {!vacancy.manually_expired &&
                             <span className="text-danger-500">{deadline}</span>

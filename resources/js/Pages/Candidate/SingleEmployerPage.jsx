@@ -11,8 +11,8 @@ import TextAvatarBanner from "../../Components/TextAvatarBanner"
 
 function SingleEmployerPage({ employerDetails, vacancies }) {
     const ed = employerDetails[0]
-    const logo = ed.detail.logo_path
-    const banner = ed.detail.banner_path
+    const logo = ed.detail?.logo_path
+    const banner = ed.detail?.banner_path
     const companyName = ed.user.full_name
     const industryType = ed.detail?.industry_type
     const orgType = ed.detail?.company_type

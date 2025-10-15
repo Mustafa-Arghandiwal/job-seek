@@ -10,18 +10,6 @@ export default function ForgotPassword({ liveJobsCount, companiesCount, candidat
     })
     const { flash } = usePage().props
 
-    const [flashVisible, setFlashVisible] = useState(!flash.status)
-
-    useEffect(() => {
-        if (flash.status) {
-            setFlashVisible(true)
-            const timer = setTimeout(() => {
-                setFlashVisible(false)
-            }, 5000);
-            return () => clearTimeout(timer)
-        }
-    }, [flash.status])
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -64,14 +52,16 @@ export default function ForgotPassword({ liveJobsCount, companiesCount, candidat
                             {errors.email && <p className="text-sm text-danger-600">{errors.email}</p>}
                         </div>
 
-                        <button disabled={processing} className="w-full  border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
+                        <button disabled={processing} className="w-full mt-2 border rounded-sm flex justify-center items-center gap-3 h-14 bg-primary-500 hover:bg-primary-600 disabled:bg-primary-100 text-white font-semibold cursor-pointer select-none">
                             Send Reset Link
-                            <RightArrowIcon className="w-6 h-6"/>
+                            <RightArrowIcon className="w-6 h-6" />
                         </button>
 
-                        <p className={`font-medium text-center text-success-600 opacity-0 transition-opacity h-10 mt-1 duration-500 ease-in-out ${flashVisible ? "opacity-100" : "opacity-0"} `} >
-                            {flash.status}
-                        </p>
+                        {flash.status &&
+                            <p className={`font-medium text-center text-success-600 h-10 mt-1 `} >
+                                {flash.status}
+                            </p>
+                        }
                     </form>
 
                 </div>

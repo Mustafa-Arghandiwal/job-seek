@@ -48,10 +48,6 @@ class FavoritesController extends Controller
     public function addVacancy(Vacancy $vacancy)
     {
 
-        if (Auth::user()->user_type != "candidate") {
-            abort(403);
-        }
-
         $currCandidate = Auth::user()->candidate;
         $isAlreadyBookmarked = DB::table('candidate_saved_jobs')
             ->where('candidate_id', $currCandidate->id)
@@ -81,11 +77,20 @@ class FavoritesController extends Controller
     public function addCandidate(Candidate $candidate)
     {
 
-        if (Auth::user()->user_type != "employer") {
+
+        $employer = Auth::user()->employer;
+
+        $hasApplied = DB::table('job_applications')
+            ->join('vacancies', 'job_applications.vacancy_id', '=', 'vacancies.id')
+            ->where('job_applications.candidate_id', $candidate->id)
+            ->where('vacancies.employer_id', $employer->id)
+            ->exists();
+
+        if (!$hasApplied) {
             abort(403);
         }
 
-        $employer = Auth::user()->employer;
+
         $isAlreadyBookmarked = DB::table('employer_saved_candidates')
             ->where('employer_id', $employer->id)
             ->where('candidate_id', $candidate->id)->exists();
@@ -129,7 +134,18 @@ class FavoritesController extends Controller
         ]);
     }
 
-    public function viewCandidate(Candidate $candidate) {
+    public function viewCandidate(Candidate $candidate)
+    {
+
+        $employer = Auth::user()->employer;
+        $candidateIsInBookmarkedList = DB::table('employer_saved_candidates')
+            ->where('employer_id', $employer->id)
+            ->where('candidate_id', $candidate->id)
+            ->exists();
+
+        if(!$candidateIsInBookmarkedList) {
+            abort(404);
+        }
 
         $candidateData = Candidate::select(
             'candidates.id',
@@ -162,8 +178,4 @@ class FavoritesController extends Controller
             'socialLinks' => $candidateSocialLinks
         ]);
     }
-
-
-
-
 }

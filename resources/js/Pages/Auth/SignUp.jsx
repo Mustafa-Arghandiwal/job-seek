@@ -55,7 +55,7 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                         </div>
 
                         <div className="relative ml-auto">
-                            <button ref={dropDownBtn} className="text-[14px] text-customGray-600 h-12 flex justify-between px-7 items-center border border-customGray-100 rounded-md w-[150px] gap-2 cursor-pointer"
+                            <button ref={dropDownBtn} className="mt-5 text-sm text-customGray-600 h-12 flex justify-between px-7 items-center border border-customGray-100 rounded-md w-[150px] gap-2 cursor-pointer"
                                 onClick={() => setDropdownVisible(prev => !prev)}>
                                 {(data.user_type).charAt(0).toUpperCase() + (data.user_type).slice(1)}
                                 <CaretIcon ref={caret} className={`transition-all duration-200 ${dropdownVisible ? "rotate-180" : ""}`} />

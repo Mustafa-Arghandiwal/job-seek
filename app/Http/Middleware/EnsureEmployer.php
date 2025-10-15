@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureCandidate
+class EnsureEmployer
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,8 @@ class EnsureCandidate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->user_type === 'candidate') {
+        if (Auth::user()->user_type === 'employer') {
             return $next($request);
-
         }
         abort(403);
     }

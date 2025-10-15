@@ -28,6 +28,10 @@ class ApplicationController extends Controller
     public function indexForEmployer(Vacancy $vacancy)
     {
 
+        if($vacancy->employer_id !== Auth::user()->employer->id){
+            abort(403);
+        }
+
         $applications = Application::select(
             'job_applications.id',
             'job_applications.candidate_id',
@@ -112,6 +116,13 @@ class ApplicationController extends Controller
     public function candidate(Vacancy $vacancy, Application $application)
     {
 
+        $employer = Auth::user()->employer;
+        if($application->vacancy_id !== $vacancy->id) {
+            abort(404);
+        }
+        if($employer->id !== $vacancy->employer_id) {
+            abort(403);
+        }
 
         $candidate = Candidate::select(
             'candidates.id',
@@ -133,7 +144,7 @@ class ApplicationController extends Controller
             ->leftJoin('candidate_contacts', 'candidate_contacts.candidate_id', '=', 'candidates.id')
             ->leftJoin('users', 'users.id', '=', 'candidates.user_id')
             ->where('candidates.id', $application->candidate_id)
-            ->get();
+            ->firstOrFail();
 
         $candidateSocialLinks = DB::table('candidate_social_links')->where('candidate_id', $application->candidate_id)
             ->select('id', 'social_type', 'url')
@@ -213,16 +224,22 @@ class ApplicationController extends Controller
     {
         //
     }
-    public function shortlist(Request $request)
+    public function shortlist(Request $request, $vacancyId)
     {
-        Application::where('column_id', 'shortlisted')->update(['column_id' => 'all']);
+        $vacancy = Vacancy::findOrFail($vacancyId);
+        if($request->user()->employer->id !== $vacancy->employer_id){
+            abort(403);
+        }
+
+        Application::where('vacancy_id', $vacancyId)
+            ->where('column_id', 'shortlisted')
+            ->update(['column_id' => 'all']);
         $shortlistedIDs = $request->input('shortlistedIDs', []);
         if (!empty($shortlistedIDs)) {
-            Application::whereIn('id', $shortlistedIDs)->update(['column_id' => 'shortlisted']);
+            Application::where('vacancy_id', $vacancyId)
+                ->whereIn('id', $shortlistedIDs)
+                ->update(['column_id' => 'shortlisted']);
         }
-        // $application = Application::findOrFail($id);
-        // $application->column_id = $application->column_id === 'all' ? 'shortlisted' : 'all';
-        // $application->save();
     }
 
     /**

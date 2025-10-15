@@ -3,6 +3,7 @@ import Select from "../../../../Components/Select";
 import DatePicker from "../../../../Components/DatePicker";
 import { useEffect, useRef, useState } from "react";
 import RichTextEditor from "../../../../Components/RichTextEditor"
+import { Asterisk } from "lucide-react";
 
 
 export default function PersonalTabContent() {
@@ -70,7 +71,7 @@ export default function PersonalTabContent() {
 
                 <div className="w-full  flex gap-2 flex-col sm:flex-row">
                     <div className="relative w-full sm:w-1/2 max-w-96 ">
-                        <label className="text-sm text-customGray-900">Gender</label>
+                        <label className="text-sm text-customGray-900 flex">Gender <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                         <Select options={['Male', 'Female', 'Other', 'Prefer not to say']} placeholder={data.gender} onValueChange={(option) => handleSelectChange('gender', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.gender || ''}
@@ -78,7 +79,7 @@ export default function PersonalTabContent() {
                     </div>
 
                     <div className="relative w-full sm:w-1/2 max-w-96">
-                        <label className="text-sm text-customGray-900">Marital Status</label>
+                        <label className="text-sm text-customGray-900 flex">Marital Status <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                         <Select options={['Single', 'Married', 'Separated', 'Prefer not to say']} placeholder={data.maritalStatus} onValueChange={(option) => handleSelectChange('maritalStatus', option)} />
                         <div className="text-sm w-full text-danger-600 min-h-5" >
                             {props.errors.maritalStatus || ''}
@@ -88,7 +89,7 @@ export default function PersonalTabContent() {
 
 
                 <div className=" flex flex-col relative w-full sm:w-[calc(50%-8px)] max-w-96 ">
-                    <label className="text-sm text-customGray-900" htmlFor="dob">Date of Birth</label>
+                    <label className="text-sm text-customGray-900 flex" htmlFor="dob">Date of Birth <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                     <DatePicker handleChange={handleBirthDateChange} currentDate={data.birthDate} type={'date'} dateRange={'past'} />
                     <div className="text-sm w-full text-danger-600 min-h-5" >
                         {props.errors.birthDate || ''}
@@ -99,7 +100,7 @@ export default function PersonalTabContent() {
 
 
             <div className="relative">
-                <label className="text-sm text-customGray-900">Biography</label>
+                <label className="text-sm text-customGray-900 flex">Biography <Asterisk className="w-3 h-3 text-danger-500 "/></label>
                 <RichTextEditor content={data.biography} onChange={newContent => setData('biography', newContent)}
                     placeholder="Write down your biography here. Let the employers know who you are..." />
                 <div className="text-sm w-full text-danger-600 min-h-5  " >
