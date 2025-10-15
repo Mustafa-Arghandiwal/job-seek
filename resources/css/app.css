@@ -226,26 +226,28 @@ body {
     background-color: #ffffff;
 }
 
-.animated-gradient-card::after,
-.animated-gradient-card::before {
-    content: " ";
-    position: absolute;
-    z-index: -1;
-    inset: -0.25rem;
-    background: conic-gradient(from var(--gradient-angle),
-            var(--clr-card),
-            var(--clr-1),
-            var(--clr-2),
-            var(--clr-3),
-            var(--clr-2),
-            var(--clr-1),
-            var(--clr-card));
-    border-radius: inherit;
-    animation: rotate 3s linear infinite;
-}
+@media(min-width: 640px) {
+    .animated-gradient-card::after,
+    .animated-gradient-card::before {
+        content: " ";
+        position: absolute;
+        z-index: -1;
+        inset: -0.25rem;
+        background: conic-gradient(from var(--gradient-angle),
+                var(--clr-card),
+                var(--clr-1),
+                var(--clr-2),
+                var(--clr-3),
+                var(--clr-2),
+                var(--clr-1),
+                var(--clr-card));
+        border-radius: inherit;
+        animation: rotate 3s linear infinite;
+    }
 
-.animated-gradient-card::after {
-    filter: blur(1rem);
+    .animated-gradient-card::after {
+        filter: blur(1rem);
+    }
 }
 
 @keyframes rotate {
