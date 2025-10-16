@@ -165,7 +165,7 @@ export default function EmployerLayout({ children }) {
                         <li><Link href="/vacancies" className={`${url.startsWith('/vacancies') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Jobs</Link></li>
                         <li><Link href="/employers" className={`${url.startsWith('/employers') ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Employers</Link></li>
                         <li><Link href="/employer/dashboard/overview" className={`${(dashboardUrls.includes(url) || url.startsWith('/employer/vacancies')) ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Dashboard</Link></li>
-                        <li><Link href="/support" className={`${url === '/support' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Support</Link></li>
+                        <li><Link href="/contact" className={`${url === '/contact' ? 'after:w-full text-primary-500' : 'after:w-0'} relative after:absolute after:bg-primary-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-0.5 pb-4 transition-all after:duration-200 after:ease-in-out`} >Contact Us</Link></li>
                     </ul>
 
 
@@ -253,7 +253,7 @@ export default function EmployerLayout({ children }) {
                     <li className=""><Link href="/vacancies" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Jobs</Link></li>
                     <li className=""><Link href="/employers" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Employers</Link></li>
                     <li className=""><Link href="/employer/dashboard/overview" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Dashboard</Link></li>
-                    <li className=""><Link href="/support" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Support</Link></li>
+                    <li className=""><Link href="/contact" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Contact Us</Link></li>
                 </ul>
                 {user ?
 
@@ -321,16 +321,15 @@ export default function EmployerLayout({ children }) {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Quick Links</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
                                         <FooterLink href="/">Home</FooterLink>
-                                        <FooterLink href="/about">About</FooterLink>
                                         <FooterLink href="/sign-in">Sign In</FooterLink>
                                         <FooterLink href="/sign-up">Sign Up</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Candidate</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
                                         <FooterLink href="/vacancies">Browse Jobs</FooterLink>
                                         <FooterLink href="/employers">Browse Employers</FooterLink>
                                         <FooterLink href="/sign-up">Candidate Dashboard</FooterLink>
@@ -340,7 +339,7 @@ export default function EmployerLayout({ children }) {
 
                                 <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
                                         <FooterLink href="/employer/dashboard/post-job">Post a Job</FooterLink>
                                         <FooterLink href="/employer/dashboard/overview">Employer Dashboard</FooterLink>
                                         <FooterLink href="/employer/dashboard/settings">Employer Settings</FooterLink>
@@ -348,10 +347,9 @@ export default function EmployerLayout({ children }) {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-semibold text-xl">Support</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
-                                        <FooterLink href="" className="">Faqs</FooterLink>
-                                        <FooterLink href="" className="">Terms & Conditions</FooterLink>
-                                        <FooterLink href="" className="">Contact</FooterLink>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
+                                        <FooterLink href="/terms-and-conditions" className="">Terms & Conditions</FooterLink>
+                                        <FooterLink href="/contact" className="">Contact Us</FooterLink>
                                     </ul>
                                 </div>
                             </div>

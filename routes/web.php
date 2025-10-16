@@ -48,6 +48,7 @@ Route::get('/employers/{id}', [EmployerController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact/send', [ContactController::class, 'send']);
+Route::inertia('/terms-and-conditions', 'General/TermsAndConditions');
 
 
 // --------------------CANDIDATE

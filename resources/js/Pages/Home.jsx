@@ -27,8 +27,8 @@ function Home(props) {
 
                 <div className="flex flex-col lg:flex-row  sm:gap-10 justify-between items-center">
                         <div className=" max-w-[652px]">
-                            <h1 className="font-medium  text-4xl md:text-[56px] text-customGray-900  ">Find a job that suits your interest and skills.</h1>
-                            <p className="text-base/5 md:text-lg/5 text-customGray-600  mt-6">Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo.</p>
+                            <h1 className="font-medium  text-4xl md:text-[56px] text-customGray-900  ">Find your perfect job</h1>
+                            <p className="text-base/5 md:text-lg/5 text-customGray-600  mt-6">Explore jobs that match your skills and passions, or post opportunities to attract the best candidates for your team.</p>
                         </div>
 
 
