@@ -17,10 +17,10 @@ function ContactUs() {
         <div className="flex flex-col xl:flex-row py-12 sm:py-24 px-4 sm:px-12 gap-12 xl:gap-32 justify-center sm:items-center">
             <div className="max-w-[380px]">
                 <h1 className="font-medium text-2xl sm:text-5xl text-customGray-900">We care about our users</h1>
-                <p className="text-customGray-700 text-lg mt-4 sm:mt-8">
+                <p className="text-customGray-700 leading-relaxed text-lg mt-4 sm:mt-8">
                     If you’ve got questions, inquiries, or feedback about jobs, hiring, or anything else, we’d love to hear from you!
                 </p>
-                <p className="text-customGray-700 text-lg ">
+                <p className="text-customGray-700 text-lg leading-relaxed">
                     Reach out to our team for any support or to share your thoughts — we’re here to help.
                 </p>
             </div>
@@ -63,6 +63,7 @@ function ContactUs() {
                     Send Message
                     <SendIcon />
                 </button>
+                <p className="text-success-500 mt-4 min-h-4">{usePage().props.flash.contactEmailSuccess}</p>
 
             </form>
 
