@@ -27,6 +27,6 @@ class ContactController extends Controller
 
         Mail::to('account@jobseek.com')->send((new ContactMail($validated)));
 
-        return back()->with('contactEmailSuccess', 'Message sent successfully!');
+        return back()->with('contactEmailSuccess', 'Message sent successfully! We\'ll get back to you soon.');
     }
 }

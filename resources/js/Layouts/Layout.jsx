@@ -256,7 +256,7 @@ export default function Layout({ children }) {
                     <li className=""><Link href="/vacancies" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Find Job</Link></li>
                     <li className=""><Link href="/employers" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Find Employers</Link></li>
                     <li className=""><Link href="/candidate/dashboard/overview" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Dashboard</Link></li>
-                    <li className=""><Link href="/support" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Support</Link></li>
+                    <li className=""><Link href="/contact" className="w-full py-4 block h-full border-b border-b-customGray-100 hover:text-primary-500 duration-75">Contact Us</Link></li>
                 </ul>
                 {user ?
 
@@ -326,16 +326,15 @@ export default function Layout({ children }) {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Quick Links</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                    <ul className="flex flex-col gap-3 text-customGray-600  text-sm">
                                         <FooterLink href="/">Home</FooterLink>
-                                        <FooterLink href="/about">About</FooterLink>
                                         <FooterLink href="/sign-in">Sign In</FooterLink>
                                         <FooterLink href="/sign-up">Sign Up</FooterLink>
                                     </ul>
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-medium text-xl">Candidate</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
+                                    <ul className="flex flex-col gap-3 text-customGray-600  text-sm">
                                         <FooterLink href="/vacancies">Browse Jobs</FooterLink>
                                         <FooterLink href="/employers">Browse Employers</FooterLink>
                                         <FooterLink href="/candidate/dashboard/overview">Candidate Dashboard</FooterLink>
@@ -345,7 +344,7 @@ export default function Layout({ children }) {
 
                                 <div className="flex flex-col gap-4 min-w-48">
                                     <h3 className="text-white font-medium text-xl">Employers</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 max-w-34">
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
                                         <FooterLink href="sign-up?user_type=employer">Post a Job</FooterLink>
                                         <FooterLink href="sign-up?user_type=employer">Employer Dashboard</FooterLink>
                                         <FooterLink href="sign-up?user_type=employer">Employer Settings</FooterLink>
@@ -353,10 +352,9 @@ export default function Layout({ children }) {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <h3 className="text-white font-semibold text-xl">Support</h3>
-                                    <ul className="flex flex-col gap-3 text-customGray-600 ">
-                                        <FooterLink href="" className="">Faqs</FooterLink>
-                                        <FooterLink href="" className="">Terms & Conditions</FooterLink>
-                                        <FooterLink href="" className="">Contact</FooterLink>
+                                    <ul className="flex flex-col gap-3 text-customGray-600 text-sm">
+                                        <FooterLink href="/terms-and-conditions" className="">Terms & Conditions</FooterLink>
+                                        <FooterLink href="/contact" className="">Contact Us</FooterLink>
                                     </ul>
                                 </div>
                             </div>

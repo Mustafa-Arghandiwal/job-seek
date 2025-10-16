@@ -118,6 +118,7 @@ class HandleInertiaRequests extends Middleware
                 'editJobSuccess' => session('editJobSuccess'),
                 'jobExpireSuccess' => session('jobExpireSuccess'),
                 'applySuccess' => session('applySuccess'),
+                'contactEmailSuccess' => session('contactEmailSuccess'),
 
             ],
         ]);
