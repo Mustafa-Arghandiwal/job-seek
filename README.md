@@ -1,1 +1,1 @@
-Single page job portal website
+Job finding and application management web application
