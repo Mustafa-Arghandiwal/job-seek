@@ -11,6 +11,7 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
         agree_terms: false,
         user_type: userType
     })
+    console.log(errors)
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropDownBtn = useRef(null)
     const caret = useRef(null)
@@ -116,6 +117,7 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                             Create Account
                             <RightArrowIcon className="w-6 h-6" />
                         </button>
+                        {errors.error && <p className="text-sm min-h-5 text-danger-600">{errors.error}</p>}
                     </form>
                 </div>
 

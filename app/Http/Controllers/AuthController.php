@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -33,9 +34,9 @@ class AuthController extends Controller
         ]);
     }
 
+
     public function signUp(Request $req)
     {
-
         $fields = $req->validate([
             'full_name' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'email', 'unique:users'],
@@ -44,35 +45,32 @@ class AuthController extends Controller
             'agree_terms' => ['accepted']
         ]);
 
-        $user = new User();
-        $user->user_type = strtolower($fields['user_type']);
+        DB::transaction(function () use ($fields) {
+            $user = new User();
+            $user->user_type = strtolower($fields['user_type']);
 
-        if ($user->user_type === 'candidate') {
-            $user->full_name = ucwords(trim($fields['full_name']));
-        }
-        if ($user->user_type === 'employer') {
-            $user->full_name = trim($fields['full_name']);
-        }
-        $user->email = $fields['email'];
-        $user->password = bcrypt($fields['password']); // bcrypt needed here??
-        $user->save();
+            if ($user->user_type === 'candidate') {
+                $user->full_name = ucwords(trim($fields['full_name']));
+            }
+            if ($user->user_type === 'employer') {
+                $user->full_name = trim($fields['full_name']);
+            }
 
-        if ($user->user_type === 'candidate') {
-            $user->candidate()->create(['user_id' => $user->id]);
-        }
-        if ($user->user_type === 'employer') {
-            $user->employer()->create(['user_id' => $user->id]);
-        }
+            $user->email = $fields['email'];
+            $user->password = bcrypt($fields['password']); // yes, bcrypt is needed
+            $user->save();
 
+            if ($user->user_type === 'candidate') {
+                $user->candidate()->create(['user_id' => $user->id]);
+            }
+            if ($user->user_type === 'employer') {
+                $user->employer()->create(['user_id' => $user->id]);
+            }
 
-        Auth::login($user);
-        event(new Registered($user));
-
-        if ($user->user_type === 'candidate') {
-            return redirect()->route('home');
-        }
-
-        return redirect()->route('home');
+            Auth::login($user);
+            event(new Registered($user));
+        });
+        return redirect('/');
     }
 
     public function showVerifyNotice()
@@ -168,16 +166,15 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
-        if(!$user) {
+        if (!$user) {
             abort(403);
         }
         $validated = $request->validate(['password' => 'required']);
         $enteredPassword =  $validated['password'];
-        if(!Hash::check($enteredPassword, $user->password)) {
+        if (!Hash::check($enteredPassword, $user->password)) {
             return back()->withErrors([
                 'password' => 'Password is incorrect'
             ]);
-
         }
 
         Auth::logout();
