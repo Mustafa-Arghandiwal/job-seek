@@ -996,3 +996,24 @@ export const NotFoundIllustration = ({ className = "" }) => (
         <path fill="#66A3FF" d="M658.55 347.849c4.86 0 8.8-4.119 8.8-9.2 0-5.081-3.94-9.2-8.8-9.2-4.86 0-8.8 4.119-8.8 9.2 0 5.081 3.94 9.2 8.8 9.2ZM635.4 355.549c2.982 0 5.4-2.932 5.4-6.55 0-3.617-2.418-6.55-5.4-6.55s-5.4 2.933-5.4 6.55c0 3.618 2.418 6.55 5.4 6.55Z" />
     </svg>
 )
+
+
+
+
+export const ChessBackground = ({ className = "" }) => (
+  <svg className={className} width="1000" height="1080"  fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="chessPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+        <rect width="40" height="40" fill="#041A3C" />
+        <rect width="20" height="20" fill="#0A2E68" />
+        <rect x="20" y="20" width="20" height="20" fill="#0A2E68" />
+      </pattern>
+      <linearGradient id="chessGradient" x1="500" y1="0" x2="500" y2="1080" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#041A3C" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#041A3C" />
+      </linearGradient>
+    </defs>
+    <path d="M51.5 0H999.5V1080H0L51.5 0Z" fill="url(#chessPattern)" />
+    <path d="M51.5 0H999.5V1080H0L51.5 0Z" fill="url(#chessGradient)" fillOpacity="0.9" />
+  </svg>
+);

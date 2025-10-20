@@ -1,6 +1,6 @@
 import { useForm, Link, usePage } from "@inertiajs/react"
 import { useEffect, useState } from "react"
-import { UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon } from "../../utils/svgs"
+import { UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon, ChessBackground } from "../../utils/svgs"
 
 
 export default function ForgotPassword({ liveJobsCount, companiesCount, candidatesCount }) {
@@ -21,10 +21,10 @@ export default function ForgotPassword({ liveJobsCount, companiesCount, candidat
 
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
 
-                <div className="absolute top-2 left-8 flex items-center gap-1">
+                <Link href="/" className="absolute top-2 left-8 flex items-center gap-1">
                     <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
                     <span className="font-semibold text-customGray-900 text-2xl">JobSeek</span>
-                </div>
+                </Link>
 
                 <div className="flex flex-col  gap-7 px-4 py-2 max-w-[536px] w-full">
 
@@ -68,10 +68,11 @@ export default function ForgotPassword({ liveJobsCount, companiesCount, candidat
 
             </div>
 
-            <div className="relative bg-[url('bg2.jpg')]  w-[50vw] bg-cover bg-center hidden lg:block md:w-[50vw]">
-                <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
+            <div className="relative hidden lg:block md:w-[50vw]">
+                <ChessBackground className="absolute w-full h-full inset-0" />
+                <div className="flex flex-col gap-10 max-w-[600px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
-                        Over 300 companies waiting for good employees
+                        Join thousands of professionals finding better jobs and talents
                     </h2>
                     <div className="flex justify-between gap-5 w-3/4">
                         <div>

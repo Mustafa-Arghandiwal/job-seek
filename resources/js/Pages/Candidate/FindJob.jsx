@@ -56,12 +56,12 @@ function FindJob({filterCategory: filterCategoryFromBackend, filterDate: filterD
             </div>
 
             {vacancyEls.length !== 0 ?
-                <div className="min-h-[40dvh] mt-6 flex gap-6 flex-wrap justify-center">
+                <div className="min-h-[50dvh] mt-6 flex gap-6 flex-wrap justify-center">
                     {vacancyEls}
                 </div>
                 :
 
-                <div className="grid min-h-[40dvh] px-4 place-items-center h-[30dvh] text-customGray-500 text-lg text-center sm:text-xl">
+                <div className="grid min-h-[50dvh] px-4 place-items-center text-customGray-500 text-lg text-center sm:text-xl">
                     No Results
                 </div>
 

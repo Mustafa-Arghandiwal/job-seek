@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { useForm, Link, usePage } from "@inertiajs/react"
-import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon, CaretIcon } from "../../utils/svgs"
+import { EyeIcon, EyeClosedIcon, UsersIcon, BriefCaseIcon, BuildingIcon, SimpleBriefCaseIcon, RightArrowIcon, CaretIcon, ChessBackground } from "../../utils/svgs"
 
 export default function SignUp({ userType, liveJobsCount, companiesCount, candidatesCount }) {
     const { data, setData, post, errors, processing } = useForm({
@@ -38,10 +38,10 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
         <div className="font-inter min-h-screen grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-1 pt-10 sm:pt-0">
 
             <div className="flex flex-col justify-center items-center w-full px-4 py-2">
-                <div className="absolute top-2 left-8 flex items-center gap-1">
+                <Link href="/" className="absolute top-2 left-8 flex items-center gap-1">
                     <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
                     <span className="font-semibold text-2xl text-customGray-900">JobSeek</span>
-                </div>
+                </Link>
 
                 <div className="flex flex-col items-center  max-w-[536px] w-full">
                     <div className="flex flex-row justify-between items-center flex-wrap gap-2 px-4 py-2 w-full max-w-[520px] ">
@@ -121,10 +121,11 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
 
             </div>
 
-            <div className="relative bg-[url('/bg2.jpg')] bg-cover bg-center hidden md:w-[50vw] lg:block">
-                <div className="flex flex-col gap-10 max-w-[500px]  absolute bottom-10 left-22">
+            <div className="relative hidden md:w-[50vw] lg:block">
+                <ChessBackground className="absolute w-full h-full inset-0" />
+                <div className="flex flex-col gap-10 max-w-[600px]  absolute bottom-10 left-22">
                     <h2 className="text-[40px] font-medium text-white">
-                        Over 300 companies waiting for good employees
+                        Join thousands of professionals finding better jobs and talents
                     </h2>
                     <div className="flex justify-between gap-5 w-3/4">
                         <div>

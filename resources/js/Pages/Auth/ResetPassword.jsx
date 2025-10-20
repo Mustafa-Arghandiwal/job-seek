@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react"
 import { useState } from "react"
 import { EyeIcon, EyeClosedIcon, SimpleBriefCaseIcon, RightArrowIcon } from "../../utils/svgs"
+import { Link } from "@inertiajs/react"
 
 
 export default function ResetPassword() {
@@ -27,10 +28,10 @@ export default function ResetPassword() {
     return (
         <div className="h-[100svh] border relative grid place-items-center px-5 ">
 
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
+            <Link href="/" className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
                 <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
                 <span className="font-semibold text-customGray-900 text-2xl">JobSeek</span>
-            </div>
+            </Link>
 
 
             <div className="max-w-[536px] min-w-[176px] w-full flex flex-col gap-6">
