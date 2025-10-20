@@ -69,7 +69,7 @@ class AuthController extends Controller
         event(new Registered($user));
 
         if ($user->user_type === 'candidate') {
-            return redirect()->route('candidate.dashboard');
+            return redirect()->route('home');
         }
 
         return redirect()->route('home');

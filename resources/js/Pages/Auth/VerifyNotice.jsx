@@ -31,7 +31,7 @@ export default function VerifyNotice() {
     return (
         <div className="h-[100svh] border relative grid place-items-center px-5 ">
 
-            <Link className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
+            <Link href="/" className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center select-none ">
                 <SimpleBriefCaseIcon className="w-10 h-10 text-primary-500" />
                 <span className="text-customGray-900 font-semibold text-2xl">JobSeek</span>
             </Link>

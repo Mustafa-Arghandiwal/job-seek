@@ -63,7 +63,7 @@ function ContactUs() {
                     Send Message
                     <SendIcon />
                 </button>
-                <p className="text-success-500 mt-4 min-h-4">{usePage().props.flash.contactEmailSuccess}</p>
+                <p className="text-success-500 mt-4 min-h-6">{usePage().props.flash.contactEmailSuccess}</p>
 
             </form>
 

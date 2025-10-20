@@ -19,7 +19,7 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Middleware\EnsureCandidate;
 use App\Http\Middleware\EnsureEmployer;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sign-up', [AuthController::class, 'signUpForm']);
 Route::post('/sign-up', [AuthController::class, 'signUp']);
 Route::get('/sign-in', [AuthController::class, 'signInForm'])->name('login');
@@ -52,7 +52,8 @@ Route::inertia('/terms-and-conditions', 'General/TermsAndConditions');
 
 
 // --------------------CANDIDATE
-Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function () {
+// temporarily disabling email verification middleware 'verified'
+Route::middleware(['auth', EnsureCandidate::class])->group(function () {
 
     Route::get('/candidates/{id}', [CandidateController::class, 'show']);
 
@@ -77,7 +78,8 @@ Route::middleware(['auth', 'verified', EnsureCandidate::class])->group(function 
 
 
 // --------------------EMPLOYER
-Route::middleware(['auth', 'verified', EnsureEmployer::class])->group(function () {
+// temporarily disabling email verification
+Route::middleware(['auth', EnsureEmployer::class])->group(function () {
 
     Route::get('/employer/dashboard/overview', [EmployerController::class, 'dashboardOverview']);
     Route::inertia('/employer/dashboard/post-job', 'Employer/Dashboard/PostJob');

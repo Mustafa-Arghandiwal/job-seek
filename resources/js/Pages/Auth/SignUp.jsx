@@ -107,7 +107,7 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
                                 <input type="checkbox" checked={data.agree_terms} onChange={(e) => setData('agree_terms', e.target.checked)} className={`w-5 h-5 cursor-pointer transition-all ${errors.agree_terms && !data.agree_terms ? "ring-2 ring-offset-2 ring-danger-600" : ""}`} />
                                 <div className="flex flex-wrap gap-0.5">
                                     <p>I've read and agree with your</p>
-                                    <Link href="#" className="text-primary-500"> Terms of Service</Link>
+                                    <a href="/terms-and-conditions" target="blank" className="text-primary-500"> Terms & Conditions</a>
                                 </div>
                             </label>
                         </div>
