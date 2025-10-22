@@ -47,7 +47,7 @@ Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/contact/send', [ContactController::class, 'send']);
+Route::post('/contact/send', [ContactController::class, 'send'])->middleware('throttle:10,5');
 Route::inertia('/terms-and-conditions', 'General/TermsAndConditions');
 
 

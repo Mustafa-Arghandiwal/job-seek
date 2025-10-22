@@ -6,12 +6,21 @@ import { SendIcon } from "lucide-react"
 
 function ContactUs() {
 
-    const { data, setData, post, errors, processing } = useForm({
+    const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
         email: '',
         subject: '',
         message: '',
     })
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        post('/contact/send', {
+            onSuccess: () => {
+                reset()
+            }
+        })
+    }
 
     return (
         <div className="flex flex-col xl:flex-row py-12 sm:py-24 px-4 sm:px-12 gap-12 xl:gap-32 justify-center sm:items-center">
@@ -27,19 +36,19 @@ function ContactUs() {
 
 
             {/* <div className=" border bg-white rounded-xl border-customGray-100 shadow-xl p-4 sm:p-8 xl:p-12"> */}
-            <form onSubmit={(e) => { e.preventDefault(); post('/contact/send') }} className="animated-gradient-card sm:border bg-white rounded-sm border-customGray-100   sm:p-8 xl:p-12">
+            <form onSubmit={handleSubmit} className="animated-gradient-card sm:border bg-white rounded-sm border-customGray-100   sm:p-8 xl:p-12">
                 <h3 className="font-medium text-xl sm:text-2xl text-customGray-900">Get in Touch</h3>
 
                 <div className="flex flex-col sm:flex-row sm:gap-4 mt-4 sm:mt-8 ">
-                    <div>
+                    <div className="flex-1">
                         <input type="text" placeholder="Name" value={data.name} onChange={(e) => setData('name', e.target.value)} className="w-full mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
                         <div className="text-sm text-danger-600 min-h-5" >
                             {errors.name}
                         </div>
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <input type="text" placeholder="Email" value={data.email} onChange={(e) => setData('email', e.target.value)} className="w-full mt-2 rounded-md border border-customGray-100 placeholder:text-customGray-400 text-customGray-900 outline-none focus:ring-1 focus:ring-primary-500 py-3 px-[18px]" />
-                        <div className="text-sm  text-danger-600 min-h-5" >
+                        <div className="text-sm  text-danger-600 min-h-5  " >
                             {errors.email}
                         </div>
                     </div>
@@ -59,7 +68,7 @@ function ContactUs() {
                     </div>
                 </div>
 
-                <button className="w-full mt-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-sm flex gap-3 justify-center items-center py-4 cursor-pointer duration-100">
+                <button disabled={processing} className="disabled:bg-primary-100 w-full mt-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-sm flex gap-3 justify-center items-center py-4 cursor-pointer duration-100">
                     Send Message
                     <SendIcon />
                 </button>
