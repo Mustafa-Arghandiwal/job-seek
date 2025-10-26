@@ -17,6 +17,7 @@ function ContactUs() {
         e.preventDefault()
         post('/contact/send', {
             onSuccess: () => {
+                // setTimeout(() => reset(), 2000)
                 reset()
             }
         })

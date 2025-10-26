@@ -57,7 +57,9 @@ class AuthController extends Controller
             }
 
             $user->email = $fields['email'];
-            $user->password = bcrypt($fields['password']); // yes, bcrypt is needed
+            $user->password = bcrypt($fields['password']);
+            // Added to compensate for skipping email verification
+            $user->email_verified_at = now();
             $user->save();
 
             if ($user->user_type === 'candidate') {
@@ -68,7 +70,8 @@ class AuthController extends Controller
             }
 
             Auth::login($user);
-            event(new Registered($user));
+            // commented to skip email verification
+            // event(new Registered($user));
         });
         return redirect('/');
     }
