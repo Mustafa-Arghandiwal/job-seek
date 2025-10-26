@@ -154,7 +154,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                     <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between ">
 
                         <div className="lg:max-w-[600px]  w-full ">
-                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
+                            <div className="mt-4 min-h-[200px] ">
                                 <h2 className="text-customGray-900 text-xl font-medium">Cover Letter</h2>
                                 {coverLetter
                                     ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
@@ -162,13 +162,13 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
                                 [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline"
                                         dangerouslySetInnerHTML={{ __html: coverLetter }} />
-                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+                                    : <p className="text-customGray-400 min-h-[200px]  mt-4">Not Provided</p>}
 
                             </div>
 
                             <hr className="mt-8 text-customGray-200"></hr>
 
-                            <div className="mt-4 min-h-[200px] sm:min-h-[365px]">
+                            <div className="mt-4 min-h-[200px] ">
                                 <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
                                 {biography
                                     ? <div className="mt-4 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
@@ -176,7 +176,7 @@ export default function CandidateProfileModal({ showModal, setShowModal, candida
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
                                 [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
                                         dangerouslySetInnerHTML={{ __html: biography }} />
-                                    : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+                                    : <p className="text-customGray-400 min-h-[200px] mt-4">Not Provided</p>}
 
                             </div>
 

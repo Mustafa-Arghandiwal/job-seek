@@ -311,10 +311,10 @@ export default function EmployerLayout({ children }) {
                                     </Link>
                                     <div className="flex flex-col gap-3">
                                         <p className="text-customGray-600 text-lg">
-                                            Call now: <span className="text-white text-lg">+93-777-777-777</span>
+                                            Call now: <span className="text-white text-lg">+93-730-473-711</span>
                                         </p>
                                         <p className="text-customGray-600 text-sm">
-                                            Shar-e-Naw, Kabul, Afghanistan
+                                            Kabul, Afghanistan
                                         </p>
                                     </div>
 
@@ -355,7 +355,7 @@ export default function EmployerLayout({ children }) {
                             </div>
                             <div className="border-t border-customGray-900 ">
                                 <div className="flex items-center flex-col lg:flex-row gap-2 lg:justify-between max-w-[1320px] px-4 py-4 lg:px-12 mx-auto">
-                                    <p className="text-customGray-600 text-sm order-2 lg:order-1">&copy; 2024 JobSeek - All rights reserved.</p>
+                                    <p className="text-customGray-600 text-sm order-2 lg:order-1">&copy; 2025 JobSeek - All rights reserved.</p>
                                     <div className=" flex gap-1 order-1 lg:order-2">
                                         <a href="#" ><LinkedInIcon className="text-transparent hover:text-white duration-150" /></a>
                                         <a href="#"><FacebookIcon className="text-transparent hover:text-white duration-150" /></a>

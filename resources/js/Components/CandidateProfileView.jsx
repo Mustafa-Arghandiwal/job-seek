@@ -102,9 +102,9 @@ export default function CandidateProfileView({ candidateData, showModal, setShow
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 max-w-72 text-center items-center">
+                        <div className="flex flex-col gap-2 max-w-76 text-center items-center">
                             <p className="text-sm text-customGray-600">
-                                This is how employers will see your profile when you apply for a job.
+                                This is how employers will see your profile, along with your CV, when you apply for a job.
                             </p>
                             <Link onClick={() => setShowModal(false)} href="/candidate/dashboard/settings"
                                 className="flex items-center gap-1 text-white rounded-sm text-sm bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-2 duration-150 text-nowrap">Edit Profile<RightArrowIcon /></Link>
@@ -117,15 +117,28 @@ export default function CandidateProfileView({ candidateData, showModal, setShow
                     {/* middle section */}
                     <div className="flex flex-col lg:flex-row gap-10 mt-12  lg:justify-between ">
 
-                        <div className="lg:max-w-[600px]  w-full ">
-                            <h2 className="text-customGray-900 text-xl font-medium">Biography</h2>
-                            {biography
-                                ? <div className="mt-4 min-h-[200px] sm:min-h-[365px] space-y-4 min-h- [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
+
+
+
+                        <div className="lg:max-w-[600px] w-full ">
+
+                            <h2 className="text-customGray-900 text-xl font-medium">Cover Letter</h2>
+                            <div className="mt-4 min-h-[200px] grid place-items-center">
+                                <p className="text-customGray-400 text-center">Your cover letter will appear here.</p>
+                            </div>
+
+                            <hr className="mt-8 text-customGray-200"></hr>
+
+                            <h2 className="text-customGray-900 text-xl font-medium mt-4">Biography</h2>
+                            <div className={`min-h-[200px]  ${!biography && "grid place-items-center"}`}>
+                                {biography
+                                    ? <div className="mt-4 space-y-4 min-h- [&_h1]:text-3xl [&_h2]:text-2xl [&_h3]:text-lg [&_h1,_h2,_h3]:text-customGray-900
                                 [&_h1]:font-bold [&_h2,_h3]:font-semibold  [&_p]:text-customGray-600 [&_hr]:text-customGray-200
                                 [&_ul]:list-disc [&_li]:ml-6  [&_ul_li::marker]:text-customGray-700
                                 [&_ol]:list-decimal [&_ol_li]:ml-6 [&_ol_li::marker]:text-customGray-900 [&_a]:text-primary-500 [&_a]:underline "
-                                    dangerouslySetInnerHTML={{ __html: biography }} />
-                                : <p className="text-customGray-400 min-h-[200px] sm:min-h-[365px] mt-4">Not Provided</p>}
+                                        dangerouslySetInnerHTML={{ __html: biography }} />
+                                    : <p className="text-customGray-400">Not Provided</p>}
+                            </div>
 
                             <hr className="mt-8 text-customGray-200"></hr>
 

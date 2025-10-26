@@ -11,7 +11,6 @@ export default function SignUp({ userType, liveJobsCount, companiesCount, candid
         agree_terms: false,
         user_type: userType
     })
-    console.log(errors)
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const dropDownBtn = useRef(null)
     const caret = useRef(null)
