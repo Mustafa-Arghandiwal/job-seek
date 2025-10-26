@@ -12,6 +12,7 @@ function ErrorPage({ status }) {
         500: '500: Server Error',
         404: 'Oops! Page not found',
         403: 'Sorry! Access denied',
+        429: '429: Too many requests!'
     }[status]
 
     const description = {
@@ -19,6 +20,7 @@ function ErrorPage({ status }) {
         500: 'Whoops, something went wrong on our servers.',
         404: "The page you're looking for doesn't exist or may have been removed.",
         403: 'Sorry, you are forbidden from accessing this page.',
+        429: 'You’ve sent too many requests in a short time. Please wait a bit before trying again.',
     }[status]
 
     return (
@@ -39,7 +41,7 @@ function ErrorPage({ status }) {
                 {status === 404 ?
                     <NotFoundIllustration className="w-full max-w-[800px] h-full max-h-[600px]" />
                     :
-                    <DangerIcon className="w-3xs sm:w-xs h-full"/>
+                    <DangerIcon className="w-3xs sm:w-xs h-full" />
                 }
             </div>
         </div>

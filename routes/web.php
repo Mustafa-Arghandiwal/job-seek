@@ -25,9 +25,9 @@ Route::post('/sign-up', [AuthController::class, 'signUp']);
 Route::get('/sign-in', [AuthController::class, 'signInForm'])->name('login');
 Route::post('/sign-in', [AuthController::class, 'signIn']);
 Route::post('/sign-out', [AuthController::class, 'signOut']);
-Route::get('/email/verify', [AuthController::class, 'showVerifyNotice'])->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
-Route::post('/email/verification-notification', [AuthController::class, 'resendVerification'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+// Route::get('/email/verify', [AuthController::class, 'showVerifyNotice'])->middleware('auth')->name('verification.notice');
+// Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['auth', 'signed'])->name('verification.verify');
+// Route::post('/email/verification-notification', [AuthController::class, 'resendVerification'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 Route::get('/forgot-password', [AuthController::class, 'forgotPassForm'])->middleware('guest')->name('password.request');
 Route::post('forgot-password', [PasswordResetController::class, 'sendPassResetLink']);
 Route::get('/reset-password', function () {
@@ -47,7 +47,7 @@ Route::get('/employers', [EmployerController::class, 'index']);
 Route::get('/employers/{id}', [EmployerController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/contact', [ContactController::class, 'index']);
-Route::post('/contact/send', [ContactController::class, 'send']);
+Route::post('/contact/send', [ContactController::class, 'send'])->middleware('throttle:10,5');
 Route::inertia('/terms-and-conditions', 'General/TermsAndConditions');
 
 
